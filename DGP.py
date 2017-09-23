@@ -19,7 +19,7 @@ import pandas as pd
 #Import SciKit-learn modules
 import sklearn as sk
 from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.gaussian_process.kernels import ExpSineSquared
+from sklearn.gaussian_process.kernels import RBF
 from sklearn.cross_validation import train_test_split
 from sklearn.datasets import load_boston
 
@@ -39,7 +39,7 @@ if len(sys.argv) >= 2:
     #Set fraction of data to be used as training data
     trainsize = sys.argv[1]
 else:
-    trainsize = 0.1
+    trainsize = 0.5
 
 if len(sys.argv) >= 3:
     #OBS! Fix this and read data from file! Pandas!!!!!!!!!!!!!!!!!!!!!! 
@@ -76,7 +76,7 @@ X_train, X_test, y_train, y_test = train_test_split(data, targets, random_state=
 n_subsets = 8
 
 #Choose kernel
-kernel = ExpSineSquared(length_scale=10.0, periodicity=1.0, length_scale_bounds=(1e-02, 1000.0), periodicity_bounds=(1e-02, 1000.0))
+kernel = RBF(length_scale=10.0, length_scale_bounds=(1e-02, 1000.0))
 
 
 ############################################################
@@ -91,6 +91,9 @@ print "Finished fitting!"
 #Print mean and std
 print "Initial kernel: ", kernel
 print "Kernel after fit: ", gp.kernel_
+
+# Find prior kernel
+prior_kernel =  kernel(X_test)
 
 #Predict for test data
 y_predict, cov_y = gp.predict(X_test, return_cov=True)
@@ -117,24 +120,48 @@ subsets_y = np.array_split(y_train, n_subsets)
 
 kernel_params = []
 means = np.zeros((n_subsets, len(X_test)))
-variances = np.zeros((n_subsets, len(X_test)))
+variances = []
+
+sigma_rbcm_neg = np.zeros(len(X_test))
+mu_rbcm = np.zeros(len(X_test))
 
 for i in range(n_subsets):
     #print "This is expert number %i" % int(i+1)
     #print "Fitting kernel to data..."
-    gp = GaussianProcessRegressor(kernel=kernel, alpha=1).fit(subsets_X[i], subsets_y[i])
+    gp_temp = GaussianProcessRegressor(kernel=kernel, alpha=1).fit(subsets_X[i], subsets_y[i])
     #print "Finished fitting!"
-    kernel_params.append(gp.kernel_)
+    kernel_params.append(gp_temp.kernel_)
     #print "Kernel parameters: ", gp.kernel_
 
     #Predict y-values using the test set, and save mean and variance
-    y_predict_mean, y_predict_std = gp.predict(X_test, return_std=True)
+    y_predict_mean, y_predict_cov = gp.predict(X_test, return_cov=True)
     
-    means[i] = y_predict_mean
-    variances[i] = y_predict_std
+    #means[i] = y_predict_mean
+    #variances.append(y_predict_cov)
+    
+    # Do BCM stuff
+    for k in range(len(X_test)):
+        my_X = X_test[k].reshape(1,-1)
+        mu_star, sigma_star_mean = gp_temp.predict(my_X, return_cov=True)
+        prior_cov = kernel(X_test[k])
+        
+        beta = 0.5*(np.log(prior_cov)-np.log(sigma_star_mean))
+        sigma_rbcm_neg[k] += beta*sigma_star_mean**(-1)+(1./n_subsets-beta)*prior_cov**(-1)
 
+    for k in range(len(X_test)):
+        my_X = X_test[k].reshape(1,-1)
+        mu_star, sigma_star_mean = gp_temp.predict(my_X, return_cov=True)
+        prior_cov = kernel(X_test[k])
+
+        print prior_cov
+
+        beta = 0.5*(np.log(prior_cov)-np.log(sigma_star_mean))
     
-#print "My kernels are: ", kernel_params
+        mu_rbcm[k] +=  sigma_rbcm_neg[k]**(-1)*(beta*sigma_star_mean**(-1)*mu_star)
+
+rel_err = (y_test - mu_rbcm)/y_test
+#plt.hist(rel_err, bins=100)
+#plt.show()
 
 
 
