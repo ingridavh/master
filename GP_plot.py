@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
 import matplotlib.pylab as ply
+from scipy.stats import norm
 
 import seaborn as sns
 
@@ -34,56 +35,54 @@ for i in range(N):
     errors[i] = numbers[5*i+4]
 
 
-
-#Find non-relative, and non-log error
-errors_nonrel = errors*np.power(10,target_test)
-errors_nonlog = (target_test-target_predict)/target_test
-
+lims = 0.25
+n_bins = 2*lims*25
+    
 #Find the number of points outside desired interval
 counter = 0
-for err in errors:
-        if abs(err) >= 2:
+index_list = []
+for i in range(len(errors)):
+        if abs(errors[i]) >= lims:
                 counter += 1
+                index_list.append(i)
+errors_new = np.delete(errors, index_list)
+
 per = counter/float(N)
+
+#Print to screen the number of points outside desired interval
 print "The fraction of points outside (-2,2) is %.4f" % per
+print "The indices of these objects are", index_list
 
-"""
-#Find mean (mu) and standard deviation (sigma)
-(mu, sigma) = norm.fit(errors)
 
-#Plot results
+################################################################
+# Plot results with Gaussian fit                               #
+################################################################
 
 #Plot histogram
-
-plt.hist(errors, bins = np.linspace(-2,2, 100), norm=True)
+#plt.hist(errors, bins = np.linspace(-2,2, 100), norm=True)
 
 #Plot with Gaussian
 #Find mean (mu) and standard deviation (sigma)
-(mu, sigma) = norm.fit(errors)
+(mu, sigma) = norm.fit(errors_new)
+
+print "Errors follow a Gaussian distribution with mean mu=%.5f, and std sigma=%.5f" % (mu, sigma)
 
 plt.figure(1)
-n, bins, patches = plt.hist(errors, 100, normed=1, facecolor='blue', align='mid')
-y = mlab.normpdf(bins,mu,sigma)
-plt.plot(bins, y, 'r--', linewidth=2)
 
 
+#Plot with Gaussian fit
+ply.hist(errors_new, normed=True, bins=int(n_bins))
+xt = ply.xticks()[0]
+xmin, xmax = min(xt), max(xt)
+lnspc = np.linspace(xmin, xmax, len(errors_new))
+pdf_g = stats.norm.pdf(lnspc, mu, sigma)
+ply.plot(lnspc, pdf_g, label="Norm")
+
+
+#Make plot pretty
 plt.title('Relative difference between predicted and test target values', size='xx-large')
 plt.xlabel('rel diff', size='x-large')
 plt.ylabel('n', size='x-large')
-plt.savefig('error_True_8000p_fittedparams_Abel_gf.pdf')
-plt.show()
-"""
-
-#Method 2
-"""
-ply.hist(errors, normed=True)
-xt = ply.xticks()[0]
-xmin, xmax = min(xt), max(xt)
-lnspc = np.linspace(xmin, xmax, len(errors))
-#lnspc = np.linspace(-2,2,100)
-m, s = stats.norm.fit(errors)
-pdf_g = stats.norm.pdf(lnspc, m, s)
-ply.plot(lnspc, pdf_g, label="Norm")
-
+#plt.savefig('error_True_8000p_fittedparams_Abel_gf1.pdf')
 ply.show()
-"""
+

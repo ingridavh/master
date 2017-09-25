@@ -93,45 +93,6 @@ sigmas = np.asarray(sigmas)
 #        print " %-4i to %-10i  %-10.4f %10.4f" % ((i-num_splits+max_pow-1), (i-num_splits+max_pow), mus[i], sigmas[i])
 
 
-#######################################################################
-# Plot histogram of errors                                            #
-#######################################################################
-
-lims = 1.5
-n_bins = 2*lims*25
-    
-#Find the number of points outside desired interval
-counter = 0
-index_list = []
-for i in range(len(errors)):
-        if abs(errors[i]) >= lims:
-                counter += 1
-                index_list.append(i)
-errors_new = np.delete(errors, index_list)
-
-per = counter/float(N)
-
-#Print to screen the number of points outside desired interval
-print "The fraction of points outside (- %.2f, %.2f ) is %.4f" % (lims, lims, per)
-
-# Gaussian approximation
-(m, s) = norm.fit(errors_new)
-
-plt.hist(errors_new, bins=int(n_bins), normed=True, color='salmon')
-plt.title("Relative difference between predicted and test target", size='xx-large')
-plt.xlabel('n', size='x-large')
-plt.ylabel('rel diff', size='x-large')
-
-xt = plt.xticks()[0]
-xmin, xmax = min(xt), max(xt)
-lnspc = np.linspace(xmin, xmax, len(errors_new))
-pdf_g = norm.pdf(lnspc, m, s)
-plt.plot(lnspc, pdf_g, label="Norm")
-plt.legend(["mu = %.3f, sigma = %.3f" % (m,s)], fontsize= 'large', loc='best')
-#plt.savefig('Plots/meanerror_gaussian_fit_cut.pdf')
-plt.show()
-
-
 ########################################################################
 # Plot histograms of all values                                        #
 ########################################################################
@@ -199,7 +160,6 @@ plt.show()
 # Plot mus with errorbars                                             #
 #######################################################################
 
-"""
 x = np.linspace(min_pow,max_pow+1,num_splits+2)
 print x
 
@@ -211,10 +171,10 @@ plt.plot(x[cut_int:], mus[cut_int:], 'o', color='salmon')
 plt.title('Mean error with std', size='xx-large')
 plt.ylabel('Mean error', size='large')
 plt.xlabel('log(NLO)', size='large')
-plt.ylim([-0.8,0.6])
-#plt.savefig('Abel_10000p_meanerror.pdf')
+plt.ylim([-0.5,0.5])
+#plt.savefig('Plots/Abel_8000p_meanerror.pdf')
 plt.show()
-"""
+
 
 #######################################################################
 # Plot histograms of interesting values                               #
