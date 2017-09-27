@@ -28,7 +28,7 @@ def f_x(x):
     return  4*x[:,0]*x[:,1] 
 
 np.random.seed(42)
-x_values = abs(np.random.randn(10000,2))*10
+x_values = abs(np.random.randn(2000,2))*10
 y_values = f_x(x_values)
 
 # Inputs from command line

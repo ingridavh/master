@@ -1,4 +1,17 @@
 """
+Class for Distributed Gaussian Processes. 
+Input is: 
+
+- Input file
+- Output file name
+- Number of experts
+- Size of training data (fraction e.g. 0.1)
+- Kernel
+
+@author: Ingrid A V Holm
+"""
+
+"""
 Implement and test the Distributed Gaussian Processes using
 SciKitLearn.
 
@@ -23,84 +36,30 @@ from sklearn.gaussian_process.kernels import RBF, WhiteKernel
 from sklearn.cross_validation import train_test_split
 from sklearn.datasets import load_boston
 
-#Define a simple function for benchmarking
-def f_x(x):
-    return  4*x[:,0]*x[:,1] 
-
-np.random.seed(42)
-x_values = abs(np.random.randn(10000,2))*10
-y_values = f_x(x_values)
-
-# Inputs from command line
-
-if len(sys.argv) >= 2:
-    #Set fraction of data to be used as training data
-    trainsize = float(sys.argv[1])
-else:
-    trainsize = 0.1
-
-if len(sys.argv) >= 4:
-    #OBS! Fix this and read data from file! Pandas!!!!!!!!!!!!!!!!!!!!!! 
-    infile = sys.argv[3]
-else:
-    #Load toy data set
-    #If return_X_y=True this returns (data, target) tuple
-    infile = load_boston(return_X_y = True)
-    print "No input file was given, so I'll use the toy data set 'boston'!"
-
-if len(sys.argv) >= 3:
-    #Read name of outfile from command line
-    outfile_name = sys.argv[2]
-else:
-    outfile_name = "results.txt"
-
-print "I will dump the results in file: ", outfile_name
-
-#Make data ready for Gaussian Process
-
-data = x_values
-targets = y_values
-
-print "Input data dimensions: ", data.shape
-print "Target shape: ", targets.shape
-
-#Split into training and test data
-X_train, X_test, y_train, y_test = train_test_split(data, targets, random_state=42, train_size=trainsize)
-
-# Change to log
-y_train = np.log10(y_train)
-y_test = np.log10(y_test)
-
-#Choose the number of data subsets
-n_subsets = 4
-
-#Choose kernel
-kernel = RBF(length_scale=1, length_scale_bounds=(1e-02, 1e05)) + WhiteKernel(noise_level=0.1, noise_level_bounds=(1e-03, 1000.0))
+####################################################
+# class DGP                                        #
+####################################################
 
 
-############################################################
-# Regular GP                                               #
-############################################################
+class dgp:
 
-#Fit GP to training data
-print "Fitting kernel to data..."
-gp = GaussianProcessRegressor(kernel=kernel, alpha=0.001, normalize_y=False).fit(X_train, y_train)
-print "Finished fitting!"
+    # To decide
+    n_subsets =
 
-#Print mean and std
-print "Initial kernel: ", kernel
-print "Kernel after fit: ", gp.kernel_
+    trainsize = 
+    data = x_values
+    targets = y_values
 
-# Find prior kernel
-prior_kernel =  kernel(X_test)
 
-#Predict for test data
-y_predict, cov_y = gp.predict(X_test, return_cov=True)
-y_predict, std_y = gp.predict(X_test, return_std=True)
 
-#Compute relative errors
-err_rel = (y_predict - y_test)/y_test
+    X_train, X_test, y_train, y_test = train_test_split(data, targets, random_state=42, train_size=trainsize)
 
+    # Change to log
+    y_train = np.log10(y_train)
+    y_test = np.log10(y_test)
+
+    #Choose kernel
+    kernel = RBF(length_scale=1, length_scale_bounds=(1e-02, 1e05)) + WhiteKernel(noise_level=0.1, noise_level_bounds=(1e-03, 1000.0))
 
 ############################################################
 # DGP                                                      #
@@ -113,8 +72,6 @@ subsets_X = np.array_split(X_train, n_subsets)
 subsets_y = np.array_split(y_train, n_subsets)
 
 kernel_params = []
-means = np.zeros((n_subsets, len(X_test)))
-variances = []
 
 sigma_rbcm_neg = np.zeros(len(X_test))
 mu_rbcm = np.zeros(len(X_test))
@@ -132,9 +89,6 @@ for i in range(n_subsets):
     kernel_params.append(gp_temp.kernel_)
     print "Kernel parameters: ", gp_temp.kernel_
 
-    #Predict y-values using the test set, and save mean and variance
-    #y_predict_mean, y_predict_cov = gp_temp.predict(X_test, return_cov=True)
-    
     # Do BCM stuff
     for k in range(len(X_test)):
         my_X = X_test[k].reshape(1,-1)
@@ -147,7 +101,7 @@ for i in range(n_subsets):
         
 
 for i in range(n_subsets):
-    # Do BCM stuff
+    # Calculate sigma_rbcm
     for k in range(len(X_test)):
         mu_star = mus_experts[i][k]
         sigma_star_mean = sigmas_experts[i][k]
@@ -158,7 +112,7 @@ for i in range(n_subsets):
 
 
 for i in range(n_subsets):
-    # Find mus
+    # Calculate mu_rbcm
     for k in range(len(X_test)):
         mu_star = mus_experts[i][k]
         sigma_star_mean = sigmas_experts[i][k]
@@ -188,3 +142,4 @@ for i in range(len(X_test)):
 outfile.close()
 
 print "Results are found in file", outfile_name
+
