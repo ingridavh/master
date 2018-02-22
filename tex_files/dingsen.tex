@@ -6,8 +6,14 @@
 \usepackage{float}
 \usepackage{scrextend}
 \usepackage{amsfonts}
-\usepackage{amsmath}
+\usepackage{amsmath,amsfonts,amssymb}
 \addtokomafont{labelinglabel}{\sffamily}
+
+\usepackage[boxed]{algorithm2e}
+\addtokomafont{labelinglabel}{\sffamily}
+
+% To show code
+\usepackage{listings}
 
 \setlength{\heavyrulewidth}{1.5pt}
 \setlength{\abovetopsep}{4pt}
@@ -37,9 +43,624 @@ This is an abstract text.
 
 \tableofcontents
 
-\chapter{•}
+
+\chapter{Introduction}
+
+\section{The Standard Model}
+
+\subsection{$U(1) \times SU(2) \times SU(3)$}
+
+\subsection{Spontaneous Symmetry Breaking}
+
+\subsection{The Higgs Mechanism}
+
+\section{Supersymmetry}
+
+\subsection{Why Supersymmetry?}
+
+\subsubsection{The Hierarchy Problem}
+
+\subsubsection{Gauge Coupling Unification}
+
+\subsubsection{Dark Matter}
+
+\subsection{Superfields}
+
+\subsubsection{Covariant Derivatives}
+
+\subsection{Supersymmetric Lagrangian}
+
+\subsection{Superpartners}
+
+\subsection{R-Parity}
+
+\subsection{The Minimal Supersymmetric Standard Model (MSSM)}
+
+\subsubsection{Lagrangian}
+
+\subsubsection{MSSM Field Content}
+
+\subsection{Phenomenology}
+
+\subsection{Current Supersymmetric Limits}
 
 
+
+\chapter{Supersymmetry at the LHC}
+
+\section{Hadronic Cross Sections}
+
+\subsection{Partonic cross sections}
+
+\subsection{Color Factors}
+
+\subsection{Parton Distribution Functions}
+
+\section{Squark-Squark Cross Section}
+
+\subsection{Feynman Diagrams}
+
+\subsection{Calculation to LO}
+
+\subsection{NLO Corrections}
+
+\subsubsection{Loop diagrams}
+
+\subsubsection{Renormalization of Divergences}
+
+\subsubsection{K-factor}
+
+
+
+\chapter{Gaussian Processes}
+
+\section{Introduction to Bayesian Statistics}
+
+In statistics we distinguish between Bayesian and frequentist statistics, in this thesis we will focus on the former. Bayesian statistics may be called the science of qualified guesses. It's basic principles can be derived from the familiar rules of probability
+\begin{align}\label{Eq:: Sum rule}
+P(X | I) + P(\bar{X} | I) = 1,
+\end{align}
+\begin{align}\label{Eq:: Product rule}
+P(X, Y | I) = P(X | Y, I) \times P(Y | I),
+\end{align} 
+commonly known as the \textit{sum rule} and \textit{product rule}, respectively. From these simple expressions we can derive the most central theorem's of Bayesian statistics: namely \textit{Bayes theorem} and \textit{marginalization}, given by
+\begin{align}\label{Eq:: Bayes theorem}
+P(X | Y, I) = \frac{P(Y | X, I) \times P(X | I)}{P(Y | I)},
+\end{align}
+\begin{align}
+P(X | I) = \int_{- \infty}^{\infty} P(X, Y | I) d Y.
+\end{align}
+
+This may seem like an obvious statement: theorem \ref{Eq:: Bayes theorem} is just a way of rephrasing that the probability of $X$ and $Y$ must be the same as the probability of $Y$ and $X$. However, if we choose $X$ and $Y$ more carefully, magic happens. Assume that $X$ is some prediction we have about a , and $Y$ is data 
+
+\subsection{Priors and Likelihood}
+
+Likelihood: probability of the observations given the parameters.
+
+\begin{align}
+\text{posterior} = \frac{\text{prior} \times \text{likelihood}}{\text{marginal likelihood}}.
+\end{align}
+
+Prior: prior belief or assumption about data. Is modified through likelihood function. Example of coin toss from Sivia.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{priors_sivia.png}
+\caption{From \cite{sivia2006data}.}
+\end{figure}
+
+Posterior: probability of value of a parameter given data and relevant background information.
+
+Likelihood: Probability of parameter given observation.
+
+\subsection{Best Estimate and Reliability}
+
+Best estimate $X_0$ is at maximum of posterior
+\begin{align}
+&\frac{dP}{dX}\Big|_{X_0} = 0, &\frac{d^2P}{dX^2}\Big|_{X_0} < 0.
+\end{align}
+How reliable is this best estimate? Find width using Taylor, and take log
+\begin{align}
+&L = L(X_0) + \frac{1}{2} \frac{d^2}{dx^2} L\Big|_{X_0} (X-X_0)^2 +... ,&L = \log_e \Big[\text{prob}(x | \{data\}, I) \Big]
+\end{align}
+Proximate posterior with \textbf{Gaussian distribution}
+\begin{align}
+&\text{prob}(x| \mu, \sigma), &\sigma = \Big( - \frac{d^2L}{dx^2} \Big)^{-1/2}
+\end{align}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.2]{gaussian_posterior_sivia.png}
+\caption{From \cite{sivia2006data}.}
+\end{figure}
+
+\subsection{Covariance}
+
+Is the reliability for several parameters $\{ X_i \}$. 
+\begin{align}
+\frac{dP}{dX_i} \Big|_{X_{0j}} =0,
+\end{align}
+In 2 dim
+\begin{align}
+L =& L(X_0, Y_0) + \frac{1}{2} \Big[ \frac{d^2L}{dX^2}  \Big|_{X_0, Y_0}(X-X_0)^2\\
+& + \frac{d^2L}{dY^2}  \Big|_{X_0, Y_0}(Y-Y_0)^2 + 2 \frac{d^2L}{dXdY}  \Big|_{X_0, Y_0}(X-X_0)(Y-Y_0) \Big] +...
+\end{align}
+\begin{align}
+Q = 
+\begin{pmatrix}
+X-X_0 & Y -Y_0
+\end{pmatrix}
+\begin{pmatrix}
+A & C\\
+C & B
+\end{pmatrix}
+\begin{pmatrix}
+X -X_0\\
+Y-Y_0
+\end{pmatrix}
+\end{align}
+$Q$ is the \textbf{covariance matrix}.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.3]{covariances_sivia.png}
+\caption{From \cite{sivia2006data}}
+\end{figure}
+
+
+\section{Gaussian Process Regression}
+
+Define mean and covariance function as
+\begin{align}
+m(\textbf{x}) = \mathbb{E}[f(\textbf{x})]
+\end{align}
+\begin{align}
+k(\textbf{x}, \textbf{x}') = \mathbb{E} [(f(\textbf{x}) - m(\textbf{x}))(f(\textbf{x}') - m(\textbf{x}'))].
+\end{align}
+Write this as 
+\begin{align}
+f(\textbf{x}) \sim \mathcal{GP}(m(\textbf{x}), k(\textbf{x}, \textbf{x}'))
+\end{align}
+Joint distribution for NOISE FREE, train $\textbf{f}$, test $\textbf{f}_*$
+\begin{align}
+\begin{bmatrix}
+\textbf{f}\\
+\textbf{f}_*
+\end{bmatrix}
+\sim 
+\mathcal{N} \Bigg(
+\boldsymbol{0},
+\begin{bmatrix}
+K(X, X) & K(X, X_*)\\
+K(X, X_*) & K(X_*, X_*)
+\end{bmatrix}
+ \Bigg)
+\end{align}
+Then \textbf{condition} distribution on observations
+\begin{align}
+\textbf{f}_* \big| X_*, X, \textbf{f} \sim \mathcal{N}(K(X_*, X)K(X, X)^{-1} \textbf{f}, K(X_*, X_*) - K(X_*, X)K(X, X)^{-1}K(X, X_*))
+\end{align}
+Can draw samples from this ditribution.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{/home/ingrid/Documents/Master/Programs/Draw_Samples/draw_samples_benchmark.pdf}
+\caption{From scikitlearn}
+\end{figure}
+
+
+\subsection{Gaussian Noise Model}
+
+Assume
+\begin{align}
+&y = f(\textbf{x}) + \varepsilon, &\varepsilon \sim \mathcal{N}(0, \sigma_n^2)
+\end{align}
+\begin{align}
+&\text{cov}(y_p, y_q) = k(\textbf{x}_p, \textbf{x}_q) + \sigma_n^2 \delta_{pq} &\text{cov}(\textbf{y}) = K(X, X) + \sigma_n^2 \mathbb{I}
+\end{align}
+Distribution now becomes
+\begin{align}
+\begin{bmatrix}
+\textbf{y}\\
+\textbf{f}_*
+\end{bmatrix}
+\sim 
+\mathcal{N} \Bigg(
+\boldsymbol{0},
+\begin{bmatrix}
+K(X, X) + \sigma_n^2 \mathbb{I} & K(X, X_*)\\
+K(X, X_*) & K(X_*, X_*)
+\end{bmatrix}
+ \Bigg)
+\end{align}
+Conditioned
+\begin{align}
+\textbf{f}_* \big| X_*, X, \textbf{f} &\sim \mathcal{N}(\bar{\textbf{f}}_*, \text{cov}(\textbf{f}_*)),\\
+\bar{\textbf{f}}_* &= K(X_*, X) [K(X, X) + \sigma_n^2 \mathbb{I}]^{-1} \textbf{y},\\
+\text{cov} (\textbf{f}_*) &= K(X_*, X_*) - K(X_*, X)[K(X, X) + \sigma_n^2 \mathbb{I}]^{-1} K(X, X_*)
+\end{align}
+
+GP prediction
+\begin{align}
+\bar{f}_* &= \textbf{k}_*^T(K + \sigma_n^2\mathbb{I})^{-1} \textbf{y},\label{1}\\
+\mathbb{V}[f_*] &= k(\textbf{x}_*, \textbf{x}_*) - \textbf{k}_*^T(K + \sigma_n^2 \mathbb{I})^{-1} \textbf{k}_*.
+\end{align}
+
+\section{Algorithm}
+
+\begin{algorithm}
+\KwData{$X$ (inputs), \textbf{y} (targets), $k$ (covariance function/kernel), $\sigma_n^2$ (noise level), $\textbf{x}_*$ (test input).}
+L = Cholesky decomposition ($K + \sigma_n^2 I$) \;
+$\boldsymbol{\alpha} = (L^T)^{-1}(L^{-1} \textbf{y})$ \;
+$\bar{f}_* = \textbf{k}_*^T \boldsymbol{\alpha}$ \;
+$\textbf{v} = L^{-1} \textbf{k}_*$ \;
+$\mathbb{V}[f_*] = k(\textbf{x}_*, \textbf{x}_*) - \textbf{v}^T \textbf{v}$ \;
+$\log p(\textbf{y}|X) = - \frac{1}{2} \textbf{y}^T \boldsymbol{\alpha} - \sum_i \log L_{ii} - \frac{n}{2} \log 2 \pi$ \;
+\KwResult{$f_*$ (mean), $\mathbb{V}[f_*]$ (variance), $\log p(\textbf{y}|X)$ (log marginal likelihood).}
+\caption{Algorithm 2.1 from \cite{rasmussen2006gaussian}.}
+\label{Alg:: GP}
+\end{algorithm}
+
+\section{Covariance Functions}
+A function that only depends on the difference between two points, $\textbf{x} - \textbf{x}'$, is called \textit{stationary}. This implies that the function is invariant to translations in input space. If, in addition, it only depends on the length $r=|\textbf{x}-\textbf{x}'|$, the function is \textit{isotropic} (invariant to rigid rotations in input space).  Isotropic functions are commonly referred to as \textit{radial basis functions} (RBFs). The covariance function can also depend on the dot product, $\textbf{x} \cdot \textbf{x}'$, and is then called a \textit{dot product} covariance function.
+
+A function which maps two arguments $\textbf{x} \in \mathcal{X}$, $\textbf{x}' \in \mathcal{X}$ into $\mathbb{R}$ is generally called a \textit{kernel} $k$. Covariance functions are symmetric kernels, meaning that $k(\textbf{x}, \textbf{x}') = k(\textbf{x}', \textbf{x})$. The matrix containing all the covariance elements is called the \textit{covariance matrix}, or the Gram matrix $K$, whose elements are given by
+\begin{align}\label{Eq:: covariance matrix}
+K_{ij} = k(\textbf{x}_i, \textbf{x}_j).
+\end{align}
+
+There are some restrictions on the covariance matrix, namely that is has to be \textit{positive semidefinite} (PSD). This means that the $n \times n $ matrix $K$ satisfies $Q(\textbf{v}) = \textbf{v}^T K \textbf{v} \geq 0 $ for all $\textbf{v} \in \mathbb{R}^n$. A kernel $k$ is PSD if
+\begin{align}\label{Eq:: PSD kernel}
+\int k(\textbf{x}, \textbf{x}') f(\textbf{x}) f(\textbf{x}') d \mu (\textbf{x}) d \mu (\textbf{x}') \geq 0,
+\end{align}
+for all $f \in L_2(\mathcal{X}, \mu)$.
+
+\subsection{Mean Square Continuity and Differentiability}
+
+Let $\textbf{x}_1, \textbf{x}_2,...$ be a series of points, and $\textbf{x}^*$ be a point in $\mathbb{R}^D$ such that $|\textbf{x}_k - \textbf{x}^*| \rightarrow 0$ as $k \rightarrow \infty$. The condition for a process $f(\textbf{x})$ to be mean square continuous at $\textbf{x}^*$ is then
+\begin{align}
+\mathbb{E}[|f(\textbf{x}_k)-f(\textbf{x}^*)|^2] \rightarrow 0 \text{ as } k \rightarrow \infty.
+\end{align} 
+A random field is continuous in mean square if and only if its covariance function $k(\textbf{x}, \textbf{x}')$ is continuous at the point $\textbf{x} = \textbf{x}' = \textbf{x}^*$. This reduces to $k(\boldsymbol{0})$ for stationary covariance functions.
+
+The mean square derivative of $f(\textbf{x})$ in the $i$th direction is given by
+\begin{align}
+\frac{\partial f (\textbf{x})}{\partial x_i} = \text{l.i.m.}_{h \rightarrow 0} \frac{f(\textbf{x} + h \textbf{e}_i) - f(\textbf{x})}{h},
+\end{align}
+where l.i.m. denotes the limit in mean square and $\textbf{e}_i$ is the unit vector in the $i$th direction.
+
+\subsubsection{The Radial Basis Function (RBF)}
+
+The \textit{squared exponential covariance function} (SE) has the form 
+\begin{align}
+k_{SE} (r) = \exp \Big( - \frac{r^2}{2 \ell^2} \Big),
+\end{align} 
+where $\ell$ is the \textit{characteristic length scale}. The SE is infinitely differentiable, and so is very smooth. 
+
+Called 
+\begin{lstlisting}
+from sklearn.gaussian_process.kernels import RBF
+rbf = RBF(length_scale=10, length_scale_bounds=(1e-2, 1e2))
+\end{lstlisting}
+
+
+
+\subsubsection{The Mat\'{e}rn Kernel}
+
+The \textit{Mat\'{e}rn class of covariance functions} is given by
+\begin{align}
+k_{Mat\acute{e}rn} (r) = \frac{2^{1- \nu}}{\Gamma (\nu)} \Big( \frac{\sqrt{2 \nu} r	}{\ell} \Big)^{\nu} K_{\nu} \Big( \frac{\sqrt{2 \nu}r}{\ell} \Big),
+\end{align}
+where $\nu, \ell > 0$, and $K_{\nu}$ is a modified Bessel function. For $\nu \rightarrow \infty$ this becomes the SE. In the case of $\nu$ being half integer, $\nu = p + \frac{1}{2}$, the covariance function is simply the product of an exponential and a polynomial
+\begin{align}
+k_{\nu=p+\frac{1}{2}} = \exp \Big(- \frac{\sqrt{2 \nu} r	}{\ell} \Big) \frac{\Gamma(p+1)}{\Gamma(2p + 1)} \sum^p_{i=0} \frac{(p+i)!}{i!(p-i)!} \Big( \frac{\sqrt{8 \nu} r	}{\ell} \Big)^{p-i}.
+\end{align}
+In machine learning the two most common cases are for $\nu = 3/2$ and $\nu = 5/2$
+\begin{align}
+k_{\nu = 3/2}(r) &=  \Big(1 + \frac{\sqrt{3}r}{\ell} \Big) \exp \Big( -\frac{\sqrt{3}r}{\ell} \Big),\\
+k_{\nu = 5/2}(r) &=  \Big(1 + \frac{\sqrt{5}r}{\ell}  + \frac{5r^2}{3 \ell^2}\Big) \exp \Big( -\frac{\sqrt{5}r}{\ell} \Big).
+\end{align}
+
+\begin{lstlisting}
+from sklearn.gaussian_process.kernels import Matern
+matern = Matern(length_scale=10, length_scale_bounds=(1e-2, 1e2), nu=1.5)
+\end{lstlisting}
+
+\subsubsection{Other Kernels}
+
+There are other kernels, but they are not used here. Can me multiplied and summed. For more info check chapter 4 in \cite{rasmussen2006gaussian}.
+
+
+
+
+\chapter{Method}
+
+\section{Distributed Gaussian Processes}
+
+\subsection{Limitations of Gaussian Processes}
+
+Problem because of $(K + \sigma_n^2 \mathbb{I})^{-1}$, means inverting an $n \times n$-matrix. Training and predicting limits of $\mathcal{O}(N^3)$ and $\mathcal{O}(N^2)$. Limit = $\mathcal{O}(10^4)$. Some solutions exist, but \textbf{no prediction of variance is given with p-o-e.}
+
+\subsection{Product-of-Experts}
+
+Divide data between experts. "The assumption of independent GP experts leads to a
+block-diagonal approximation of the kernel matrix, which
+(i) allows for efficient training and predicting (ii) can be
+computed efficiently (time and memory) by parallelisation" \cite{deisenroth2015distributed}.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.3]{product_of_experts.png}
+\caption{From \cite{deisenroth2015distributed}.}
+\end{figure}
+
+Independence assumption
+\begin{align}
+p(\textbf{y} | \textbf{X}, \boldsymbol{\theta}) \approx \prod_{k=1}^M p_k(\textbf{y}^{(k)} | \textbf{X}^{(k)}, \boldsymbol{\theta}) 
+\end{align}
+\begin{align}
+\log p(\textbf{y}^{(k)}|\textbf{X}^{(k)}, \boldsymbol{\theta}) = - \frac{1}{2} \textbf{y}^{(k)} (\textbf{K}_{\psi}^{(k)} + \sigma_{\varepsilon}^2 \textbf{I})^{-1}\textbf{y}^{(k)} - \frac{1}{2} \log
+ |\textbf{K}_{\psi}^{(k)} + \sigma_{\varepsilon}^2 \textbf{I} |
+\end{align}
+
+
+\subsection{Algorithm}
+
+\begin{align}
+\mu_*^{rbcm} &= (\sigma_*^{rbcm})^2 \sum_k \beta_k \sigma_k^{-2} (\textbf{x}_*) \mu_k (\textbf{x}_*),\\
+(\sigma_*^{rbcm})^{-2} &= \sum_{k=1}^M \beta_k \sigma_k^{-2} (\textbf{x}_*) + \big(1 - \sum_{k=1}^M \beta_k \big) \sigma_{**}^{-2}.
+\end{align}
+The posterior distribution for the test point $\textbf{x}_*$ is given by a Gaussian with mean and variance
+\begin{align}
+\mu (\textbf{x}_*) &= \textbf{k}_*^T (\textbf{K} + \sigma_{\epsilon}^2 \mathbb{I})^{-1} \textbf{y},\\
+\sigma^2(\textbf{x}_*) &= k_{**} - \textbf{k}_*^T(\textbf{K} + \sigma_{\epsilon}^2 \mathbb{I})^{-1} \textbf{k}_*.
+\end{align}
+
+
+
+
+Plot of time from the article 
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{DGP_times.png}
+\caption{From \cite{deisenroth2015distributed}.}
+\end{figure}
+
+\subsection{Implementing the Algorithm}
+
+\begin{algorithm}
+ \KwData{$N_{experts}$ (number of experts), $X$ (inputs), \textbf{y} (targets), $k$ (covariance function/kernel), $\sigma_n^2$ (noise level), $\textbf{x}^*$ (test input), $\textbf{y}^*$ (test target)}
+$X_{train}$, $X_{test}$, $y_{train}$, $y_{test}$ = train-test-split $(X, y)$ (scikit-learn) \;
+$y = \log_{10} (y)$ \;
+$n = \frac{\text{Number of data points}}{N_{experts}}$ \;
+$subsets = array\_split (X_{train}, n)$ \;
+$\mu_{rbcm} = []$, $\sigma_{rbcm} = []$  (empty lists to be filled later)\; 
+\For {each expert}
+{
+$gp_{temporary} = GaussianProcessRegressor.fit(X_{expert}, y_{expert})$ \;
+ \For {each $y^*$ in $\textbf{y}^*$}
+ {
+ $\mu_*,\sigma_*^2 = gp_{temporary}.predict(x^*)$ \;
+ $\sigma_{**}^2 = k (x^*, x^*)$ \;
+ (fill inn the values) \;
+ $\boldsymbol{\mu}[\text{expert}][x^*] = \mu_*^2$ (mean value from this expert)\;
+ $\boldsymbol{\sigma}^2[\text{expert}][x^*] = \sigma_*^2$ (variance from this expert)\;
+ $\boldsymbol{\sigma}_{**}^2[\text{expert}][x^*] = \sigma_{**}^2$ (variance from initial kernel)
+ }
+}
+ 
+\For {each expert}
+{ 
+\For {each $y_*$ in $\textbf{y}_*$}
+{ $\mu_* = \boldsymbol{\mu}[\text{expert}][x_*]$ (retrieve relevant values)\;
+$\sigma_*^2 = \boldsymbol{\sigma}^2[\text{expert}][x^*]$ \;
+$\sigma_{**}^2 = \boldsymbol{\sigma}_{**}^2[\text{expert}][x^*]$ \; 
+$\beta = \frac{1}{2} (\log (\sigma_{**}^2) - \log (\sigma_*^2))$ \;
+$(\sigma_*^{rbcm})^{-2}[y_*] += \beta \sigma^{-2} + \big(\frac{1}{n_{experts}} - \beta \big) \sigma_{**}^{-2} $ }
+ }  
+\For {each expert}
+{
+\For {each $y_*$ in $\textbf{y}_*$}
+ {
+$\mu_* = \boldsymbol{\mu}[\text{expert}][x_*]$ (retrieve relevant values)\;
+$\sigma_*^2 = \boldsymbol{\sigma}^2[\text{expert}][x^*]$ \;
+$\sigma_{**}^2 = \boldsymbol{\sigma}_{**}^2[\text{expert}][x^*]$ \; 
+$\beta = \frac{1}{2} (\log (\sigma_{**}^2) - \log (\sigma_*^2))$ \;
+$\mu_*^{rbcm}[y_*] += (\sigma_*^{rbcm})^2 \beta \sigma^{-2}_* \mu_*$
+ }
+} 
+$\epsilon = \frac{10^{\mu_{rbcm}} - 10^{y_{test}}}{10^{y_{test}}}$ (relative error)\;
+\KwResult{Approximative distribution of $f_* = f(\textbf{x}_*)$ with mean $\mu^{rbcm}_*$ and variance $(\sigma^{rbcm}_*)^2$.}
+ \caption{Algorithm for using rBCM on a single test point $\textbf{x}_*$. The $GaussianProcessRegressor.fit()$-function is a function in scikit-learn, that uses Algorithm (\ref{Alg:: GP}). }
+\label{Alg:: DGP}
+\end{algorithm}
+
+\subsubsection{Parallelizing the Algorithm}
+
+
+
+
+
+
+\section{Model Selection}
+
+\subsection{Hyperparameters}
+
+Each kernel has a vector of hyperparameters, e.g. $\boldsymbol{\theta} = (\{M\}, \sigma^2_f, \sigma_n^2)$ for the radial basis function (RBF)
+\begin{align}
+k(\textbf{x}_p, \textbf{x}_q) = \sigma_f^2 \exp (- \frac{1}{2} (\textbf{x}_p - \textbf{x}_q))^T M (\textbf{x}_p - \textbf{x}_q) + \sigma_n^2 \delta_{pq}.
+\end{align}
+The matrix $M$ can have several forms, for example
+\begin{align}
+M_1 = \ell^{-2} \mathbb{I} , M_2 = \text{diag}(\vec{\ell})^{-2}.
+\end{align}
+
+\subsection{Bayesian Model Selection}
+
+Feature selection at several levels: posterior over \textit{parameters}, posterior over \textit{hyperparameters} and posterior for the \textit{model},
+\begin{align}
+p(\textbf{w}| \textbf{y}, X, \boldsymbol{\theta}, \mathcal{H}_i) = \frac{p(\textbf{y} | X, \textbf{w}, \mathcal{H}_i) p(\textbf{w}|\boldsymbol{\theta}, \mathcal{H}_i)}{p(\textbf{y}|X, \boldsymbol{\theta}, \mathcal{H}_i)}
+\end{align}
+\begin{align}
+&p(\textbf{y}|X, \boldsymbol{\theta}, \mathcal{H}_i) = \int p(\textbf{y} | X, \textbf{w}, \mathcal{H}_i)p(\textbf{w}| \boldsymbol{\theta}, \mathcal{H}_i) d \textbf{w} & \text{(marginal likelihood)}
+\end{align}
+\begin{align}
+p( \boldsymbol{\theta}| \textbf{y}, X, \mathcal{H}_i) = \frac{p(\textbf{y} | X, \boldsymbol{\theta}, \mathcal{H}_i) p(\boldsymbol{\theta}| \mathcal{H}_i)}{p(\textbf{y}|X,  \mathcal{H}_i)}
+\end{align}
+\begin{align}
+p(\mathcal{H}_i| \textbf{y}, X) = \frac{p(\textbf{y} | X, \mathcal{H}_i) p( \mathcal{H}_i)}{p(\textbf{y}|X)}
+\end{align}
+
+\subsection{Cross Validation}
+
+Divide into $k$-subsets and use validation and test set. Requires a loss function, e.g. $R^2$.
+
+\subsection{Log Marginal Likelihood}
+
+For Gaussian Processes with Gaussian we can find the exact expression for the marginal likelihood,
+\begin{align}
+\log p(\textbf{y}|X, \boldsymbol{\theta}) = - \frac{1}{2} \textbf{y}^T K_y^{-1} \textbf{y} - \frac{1}{2} \log |K_y| - \frac{n}{2} \log 2 \pi.
+\end{align}
+The optimal parameters are found by maximizing the marginal likelihood
+\begin{align}
+\frac{\partial}{\partial \theta_j}
+ \log p(\textbf{y}|X, \boldsymbol{\theta}) = \frac{1}{2} \textbf{y}^T K^{-1} \frac{\partial K}{\partial \theta_j} K^{-1} \textbf{y} - \frac{1}{2} \text{tr} (K^{-1} \frac{\partial K}{\partial \theta_j}).
+\end{align}
+This is what SciKitLearn uses, but can have \textbf{multiple local maxima}. Plug in Fig. 
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{/home/ingrid/Documents/Master/Programs/LML/plots/LML_two_local_maxima.pdf}
+\caption{Used SciKitLearn. Several local maxima.}
+\end{figure}
+
+\subsection{Loss functions}
+
+\subsubsection{Mean Relative Deviance}
+
+\subsubsection{R-Factor}
+
+
+
+\section{Datasets}
+
+\subsection{Data Generation}
+
+\subsubsection{Prospino}
+
+- Possible issues
+
+\subsubsection{NLL-Fast}
+
+\subsubsection{SOFTSUSY}
+
+\section{Feature Distributions}
+
+\subsection{$m_{\tilde{g}} -m_{\tilde{q}}$ Visualizations}
+
+\section{Removing Outliers}
+
+\subsection{Prospino Sets Cross Sections to 0 for $\bar{m}_{\tilde{q}}$}
+
+- When all squark masses are large, and larger than $m_{\tilde{c}_L}$, the $K$-factor is zero and $LO \neq 0$ but $NLO = 0$.
+
+The new running of 4 experts with 11 000 points each did not give a very good result. Looking at the plots of $\sigma_{m_{g}}$ versus $m_{\tilde{q}}$ and $m_{\tilde{g}}$ made us notice a few outliers which where all of the order $\log_{10} \sigma = -32$. This we attributed to the program running the Gaussian processes setting all zero-cross sections to equal $10^{-32}$. Looking further into the slha-files we noticed that for these points, all squark masses were very high, but the relevant squark mass $m_{c_L}$ was a little lower than the others. This probably caused the K-factor to be zero, and therefore all NLO cross sections in this file were zero, while all LO cross section were not. We removed these points and saw a large improvement in the prediction for $\sigma_{m_{\tilde{g}}}$, making it much more stable in the low cross sections. The varying quality of the previous runs was attributed to the large dependence of number of outliers of the prediction.
+
+We noticed the outliers when plotting the cross section as a function og the squark-mass, as seen in Fig. (\ref{Fig:: sigma mq true with outliers}). The distributed Gaussian processes are unable to predict these outliers, which come from setting zero-cross sections to $10^{-32}$, as can be seen from Fig. (\ref{Fig:: sigma mq predicted mat44m2_new}). The points seem to make the prediction for small cross sections worse, as this aerea appears to have a lot of noise. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.65]{/home/ingrid/Documents/Master/ML/Final_remarks/edited_sigmamq_true_lin_mat44m2.pdf}
+\caption{True values for the logarithm of NLO cross section as a function of $m_{\tilde{c}_L}$, for 20 000 points from the lin set. Outliers are circled in purple.}
+\label{Fig:: sigma mq true with outliers}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.65]{/home/ingrid/Documents/Master/ML/Final_remarks/Matern44_new/sigmamq_predicted_lin_mat44m2.pdf}
+\caption{Values predicted by Distributed Gaussian processes on the lin set, using 4 experts with 11 000 points each, and the Mat\'{e}rn kernel. There are 20 000 test points, and the outliers from Fig. (\ref{Fig:: sigma mq true with outliers}) are missing.}
+\label{Fig:: sigma mq predicted mat44m2_new}
+\end{figure}
+
+The problematic points were therefore removed in a new run with 4 experts with 11 000 points each, still using the Mat\'{e}rn kernel. The resulting mean relative deviations can be seen in Fig. (\ref{Fig:: ms mat44m2 zeros nozeros}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.75]{/home/ingrid/Documents/Master/ML/Final_remarks/ms_compare_mat44m2_zero_nozero.pdf}
+\caption{Mean standard deviation $\varepsilon = \frac{y_{true} - y_{dgp}}{y_{true}}$ for 4 experts with 11 000 points each from the lin set, with 20 000 test points. The Mat\'{e}rn kernel with $\nu = 1$ was used. The green lines are for before the outliers were removed, and the blue lines are from after.}
+\label{Fig:: ms mat44m2 zeros nozeros}
+\end{figure}
+
+
+
+\subsection{Lower Cuts on Cross sections ($\propto 10^{-16}$)}
+
+
+\chapter{Results}
+
+\section{Removing Outliers}
+
+\section{When the Error is Known}
+
+\subsection{$\alpha$ in Gaussian Processes}
+
+\subsection{Benchmark}
+
+\section{Feature choice}
+
+\subsection{Largangian Masses}
+
+\subsection{Physical Masses}
+
+\subsection{Cross Section Parameters $\beta-{\tilde{q}}, m_-^2$}
+
+\subsubsection{Changing to Vectorized $\vec{\ell}$}
+
+\subsubsection{Mean Squark Mass}
+
+How Prospino calculates NLO terms.
+
+\section{Target choice}
+
+\subsection{$\sigma / m_{\tilde{g}}$}
+
+\subsection{Cut at $\sigma \propto 10^{-16}$}
+
+\chapter{Conclusions}
+
+- Distributed Gaussian Processes work: more experts give better results
+
+- Adding the mean was very important
+
+- The method is sensitive to outliers
+
+- Works well with relatively few data points ($4 \times 8000$ points )
+
+
+\chapter{Appendix A: The Gaussian Distribution}
+
+
+
+
+\pagebreak
+
+Gaussian Processes
+The Linear Model 
+Kernel draw plot 
+Covariance
+Kernel 
+Matern 
+RBF
+Vectorized length scale 
+Mean 
+Gaussian Noise
+Prior
+Posterior
+Distribution over functions
+Predicted using weigths and training points 
+Hyperparameters
+Log Marginal Likelihood
 
 
 
@@ -48,7 +669,7 @@ This is an abstract text.
 
 
 \bibliographystyle{plain}
-\bibliography{master_thesis}
+\bibliography{dingsen}
 
 
 \end{document}
