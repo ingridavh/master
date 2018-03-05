@@ -1,0 +1,390 @@
+\documentclass[twoside,english]{uiofysmaster}
+%\bibliography{references}
+
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{scrextend}
+\usepackage{amsfonts}
+\usepackage{amsmath,amsfonts,amssymb}
+\addtokomafont{labelinglabel}{\sffamily}
+
+\usepackage[boxed]{algorithm2e}
+\addtokomafont{labelinglabel}{\sffamily}
+
+% Feynman slash
+\usepackage{slashed}
+
+% To show code
+\usepackage{listings}
+
+\setlength{\heavyrulewidth}{1.5pt}
+\setlength{\abovetopsep}{4pt}
+
+\begin{document}
+\chapter{Supersymmetry}
+
+\section{Graded Lie Algebras}
+
+Supersymmetry is expressed in terms of generators $t_a$ that form a \textit{graded Lie algebra}, with commutation and anticommutation relations given by
+\begin{align}
+t_at_b - (-1)^{\eta_a \eta_b} t_b t_a = i \sum_c C^c_{ab}t_c.
+\end{align}
+The \textit{grading} of the generator $t_a$, $\eta_a$, is either $+1$ (fermionic) or $0$ (bosonic). Continuous symmetry transformations now depend on continuous \textit{graded} parameters, which can be thought of as `numbers' (ordinary and Grassman numbers). These numbers satisfy
+\begin{align}
+\alpha^a \beta^b = (-1)^{\eta_a \eta_b} \beta^b \alpha^a.
+\end{align}
+These parameters commute if either is bosonic, and anticommute if both are fermionic.
+
+\section{Supersymmetry Algebras}
+
+Consider a general graded Lie algebra of symmetry generators that commute with the S-matrix. Let $Q$ be any of the fermionic symmetry generators, then $U^{-1}(\Lambda)QU(\Lambda)$ is also one. $U^{-1}(\Lambda)QU(\Lambda)$ is a linear combination of the complete set of fermionic symmetry generators, and hence this set must furnish a representation fo the homogenous Lorentz group. The representation of the homogenous Lorentz group can be specified by their commutation relations with
+\begin{align}
+&\textbf{A} \equiv \frac{1}{2} (\textbf{J} + i \textbf{K}), &\textbf{B} \equiv \frac{1}{2} (\textbf{J} - i \textbf{K}),
+\end{align}
+where \textbf{J} and \textbf{K} are the generators of rotations and boosts. Thus representations of the homogenous Lorentz group are labelled, like states with two independent spins, by a pair of integers or half-integers $A$ and $B$, with elements of the representation labelled by a pair of indices $a$ and $b$, which run in unit steps from $-A$ to  $+A$, and from $-B$ to $B$, respectively. So a set of $(2A+1)(2B+1)$ operators $Q^{AB}_{ab}$ that form an $(A, B)$ representation of the homogenous Lorentz group satisfies the commutation relations
+\begin{align}
+& [\textbf{A}, Q_{ab}^{AB}] = - \sum_{a'} \textbf{J}_{aa'}^{(A)} Q_{a'b}^{AB}, &[\textbf{B}, Q_{ab}^{AB}] = - \sum_{b'}\textbf{J}_{bb'}^{(A)} Q_{ab'}^{AB}.
+\end{align}
+The Hermitian adjoint $Q_{ab}^{AB*}$ of operators that transform according to the $(A,B)$ representation of the HLG (homogenous Lorentz group) are related by a similarity transformation to operators $\bar{Q}_{ba}^{BA}$ that transform according to the $(B, A)$ representation
+\begin{align}
+Q_{ab}^{AB*} = (-1)^{A-a} (-1)^{B-b} \bar{Q}_{-b,-a}^{BA}. 
+\end{align}
+
+The complete set of fermionic symmetry operators can then be divided into $(0, 1/2)$ generators $Q_{ar}$ (with the superscript $0 \frac{1}{2}$ omitted), and their $(1/2,0)$ Hermitian adjoints $Q_{ar}^*$. Here, $r$ a is a spinor index running over $\pm \frac{1}{2}$, and $r$ is used to distinguish different two-component generators with the same Lorentz transformation properties. Fermionic generators may be defined so as to satisfy
+\begin{align}\label{Eq:: supersymmetry algebra}
+\{ Q_{ar}, Q_{bs}^* \} &= 2 \delta_{rs} \sigma_{ab}^{\mu} P_{\mu},\\
+\{ Q_{ar}, Q_{bs} \} &= e_{ab} Z_{rs},
+\end{align}
+where $P_{\mu}$ is the four-momentum operator, $Z_{rs} = - Z_{sr}$ are bosonic symmetry generators, and $\sigma_{\mu}$ and $e$ are $2 \times 2$ matrices. Fermionic generators commute with momentum and energy.
+
+Lorentz invariance dictates that
+\begin{align}
+\{ Q_{ar}, Q_{bs}^* \} = 2 N_{rs} \sigma_{ab}^{\mu} P_{\mu},
+\end{align} 
+where $N_{rs}$ is a Hermitian positive-definite matrix. Now define new fermionic generators
+\begin{align}
+&Q_{ar}' \equiv \sum_s N_{rs}^{-1/2} Q_{as}, &\{ Q_{ar}', Q_{bs}'^* \} = 2 \delta_{rs} \sigma_{ab}^{\mu} P_{\mu}.
+\end{align}
+
+In this absence of central charges, the supersummetry algebra (Eq. \ref{Eq:: supersymmetry algebra}) is invariant under a group $U(N)$ of internal symmetries 
+\begin{align}
+Q_{ar} \rightarrow \sum_s V_{rs} Q_{as},
+\end{align}
+where $V_{rs}$ is an $N \times N$ unitary matrix. This is known as \textit{R symmetry}.
+
+We want to combine $(0, 1/2)$ and $(1/2, 0)$ generators, so we make four-component Majorana spinor generators $Q_{\alpha r}$
+\begin{align}
+Q_r \equiv \begin{pmatrix}
+e Q_r^*\\
+Q_r
+\end{pmatrix}.
+\end{align}
+
+\section{Massless Particle Supermultiplets}
+
+Supersymmetry requires that particles be accompanied in irreducible representations of the supersymmetry algebra by `sparticles'. Since these have not been observed, supersymmetry must be broken. It is very likely that at energy scales large enough so we can neglect supersymmetry breaking and these mass splittings, we can treat the known particles and their superpartners as \textit{massless}.
+
+\textbf{Casimir operator: } The Casimir operators of a Lie algebra are the operators that commute with all elements of the algebra.
+
+\textbf{Schur's lemma:} In any irreducible representation of a Lie group, the Casimir operators are proportional to the identity.
+
+The Casimir operators of the Poincar\'{e} algebra are $P^2$ and $W^2$, meaning that any element that transforms under this group is specified by two quatnum numbers: mass and spin.
+
+\section{Superalgebra}
+
+The superalgebra has two Casimir operators, $P^2$ and $C^2$, where
+\begin{align}
+C_{\mu \nu} &= B_{\mu} P_{\nu} - B_{\nu} P_{\mu},\\
+B_{\mu} &= W_{\mu}  + \frac{1}{4} X_{\mu},\\
+X_{\mu} &= \frac{1}{2} \bar{Q} \gamma_{\mu} \gamma^5 Q.
+\end{align}
+
+\section{Superspace}
+
+When talking about a supersymmetric transformation, we usually mean 
+\begin{align}
+\delta_S = \alpha^A Q_A + \bar{\alpha}_{\dot{A}} \bar{Q}^{\dot{A}}.
+\end{align}
+The transformation of superspace coordinates $(x^{\mu}, \theta^A, \bar{\theta}_{\dot{A}})$ is as follows
+\begin{align}
+(x^{\mu}, \theta^A, \bar{\theta}_{\dot{A}}) \rightarrow f(a^{\mu}, \alpha^A, \bar{\alpha}_{\dot{A}}) = (x^{\mu} + a^{\mu} - i \alpha^A \sigma^{\mu}_{A \dot{A}} \theta^{\dot{A}} + \theta^A \sigma^{\mu}_{A \dot{A}} \bar{\alpha}^{\dot{A}}, \theta^A + \alpha^A, \bar{\theta}_{\dot{A}} + \bar{\alpha}_{\dot{A}} ).
+\end{align}
+From this function we can find the differential operator, which again leads us to the covariant derivatives
+\begin{align}
+D_A &= \partial_A  + i(\sigma^{\mu} \bar{\theta})_A \partial_{\mu},\\
+D_{\dot{A}} &= -\partial_{\dot{A}} - i(\theta \sigma^{\mu})_{\dot{A}} \partial_{\mu}   
+\end{align}
+
+\section{Superfields}
+
+A \textit{superfield} is a function defined on superspace
+\begin{align}
+\Phi = \Phi (x, \theta, \bar{\theta}).
+\end{align}
+This function can be expanded in $\theta$ and $\bar{\theta}$ (Grassman numbers)
+\begin{align}
+\Phi(x, \theta, \bar{\theta}) =& f(x) + \theta^A \varphi_A (x) + \bar{\theta}_{\dot{A}} \bar{\chi}^{\dot{A}} (x) + \theta \theta m(x) + \bar{\theta} \bar{\theta} n(x)\\
+&+ \theta \sigma^{\mu} \bar{\theta} V_{\mu} (x) + \theta \theta \bar{\theta}_{\dot{A}} \bar{\lambda}^{\dot{A}} (x) + \bar{\theta} \bar{\theta} \theta^A \psi_A (x) + \theta \theta \bar{\theta} \bar{\theta} d(x).
+\end{align}
+Since $\Phi$ must be a Lorentz scalar or a pseudoscalar, we get some rescrictions on the component fields. Two of these are that $\varphi_A (x), \psi_A(x)$ must be left-handed Weyl spinors, and $\bar{X}^{\dot{A}}(x), \bar{\lambda}^{\dot{A}}(x)$ must be right-handed Weyl spinors. These fields are highly reducible representations of super-the Poincar\'{e} algebra, but some restrictions can give us the irreducible ones
+\begin{align}
+&\bar{D}_{\dot{A}} \Phi (x, \theta, \bar{\theta}) = 0 &(\text{left-handed scalar superfield})\\
+&\bar{D}_{A} \Phi^{\dagger} (x, \theta, \bar{\theta}) = 0 &(\text{right-handed scalar superfield})\\
+& \Phi^{\dagger} (x, \theta, \bar{\theta}) = \Phi (x, \theta, \bar{\theta}) & (\text{vector superfield}).
+\end{align}
+
+\subsection*{The Scalar Superfields}
+
+Use Are's trick and get expressions for the left-handed and right-handed scalar fields, respectively,
+\begin{align}
+\Phi (x, \theta, \bar{\theta}) = A(x) + i (\theta \sigma^{\mu} \bar{\theta}) \partial_{\mu} A(x) - \frac{1}{4} \theta \theta \bar{\theta} \bar{\theta} \Box A(x) + \sqrt{2} \theta \psi (x) - \frac{i}{\sqrt{2}} \theta \theta \partial_{\mu} \psi (x) \sigma^{\mu} \bar{\theta} + \theta \theta F(x),\\
+\Phi^{\dagger} (x, \theta, \bar{\theta}) = A^*(x) - i (\theta \sigma^{\mu} \bar{\theta}) \partial_{\mu} A^*(x) - \frac{1}{4} \theta \theta \bar{\theta} \bar{\theta} \Box A^*(x) + \sqrt{2} \bar{\theta} \bar{\Psi} (x) - \frac{i}{\sqrt{2}} \bar{\theta} \bar{\theta} \theta \sigma^{\mu} \partial_{\mu} \bar{\Psi} (x)  + \bar{\theta} \bar{\theta} F^*(x).
+\end{align}
+
+The structure of a general vector field
+\begin{align}
+\Psi (x, \theta, \bar{\theta}) =& f(x) + \theta \varphi (x) + \bar{\theta} \bar{\varphi} (x) + \theta \theta m(x) + \bar{\theta} \bar{\theta} m^* (x)\\
+&+ \theta \sigma^{\mu} \bar{\theta} V_{\mu} (x) + \theta \theta \bar{\theta} \bar{\lambda} (x) + \bar{\theta} \bar{\theta} \theta \lambda (x) + \theta \theta \bar{\theta} \bar{\theta} d(x). 
+\end{align}
+We gauge this using the \textit{Wess-Zumino (WZ)} gauge.
+
+\section{Low-energy supersymmetric Lagrangian}
+
+The \textit{action}
+\begin{align}
+S \equiv \int_R d^4x \mathcal{L},
+\end{align}
+is invariant under supersymmtric transformations if they transform the Lagrangian by a total derivative term $\mathcal{L} \rightarrow \mathcal{L}' = \mathcal{L} + \partial^{\mu}f(x)$, where $f(x) \rightarrow 0 $ on $S(R)$. The generic form for a supersymmetric Lagrangian is
+\begin{align}
+\mathcal{L} = \mathcal{L}_{\theta \theta \bar{\theta} \bar{\theta}} + \theta \theta \mathcal{L}_{\bar{\theta} \bar{\theta}} + \bar{\theta} \bar{\theta} \mathcal{L}_{\theta \theta},
+\end{align}
+which can be written (almost) the most generally
+\begin{align}
+\mathcal{L} = \Phi_i^{\dagger} \Phi_i + \bar{\theta} \bar{\theta} W[\Phi] + \theta \theta W[\Phi^{\dagger}],
+\end{align}
+where the first term is the \textit{kinetic term}, and $W$ is the \textit{superpotential}, given by
+\begin{align}
+W[\Phi] = g_i \Phi_i + m_{ij} \Phi_i \Phi_j + \lambda_{ijk} \Phi_i \Phi_j \Phi_k. 
+\end{align}
+The Lagrangian for a supersymmetric theory with non-abelian gauge groups is
+\begin{align}
+\mathcal{L} = \Phi^{\dagger}e^V \Phi + \delta^2(\theta)W[\Phi^{\dagger}] + \frac{1}{2T(R)} \delta^2(\bar{\theta}) \text{Tr}[W^AW_A],
+\end{align}
+where
+\begin{align}
+W_A & \equiv - \frac{1}{4} \bar{D} \bar{D} e^{-V} D_A e^V,\\
+\bar{W}_{\dot{A}} & \equiv - \frac{1}{4} DDe^{-V}\bar{D}_{\dot{A}} e^V.
+\end{align}
+
+\section{Spontaneous Symmetry Breaking}
+
+Since we haven't observed the sparticles we should if supersymmetry were not broken (they should have the same mass as their SM partners), we must assume that the symmetry is broken. We assume spontaneous symmetry breaking in the scalar potential. Since the Lagrangian does not contain any kinetic terms for the $F(x)$ scalar fields, these are auxilliary and can be removed using the Euler-Lagrange equation
+\begin{align}
+\frac{\partial \mathcal{L}}{\partial F_i^*(x)} = F_i(x) + W_i^* = 0,
+\end{align}
+where
+\begin{align}
+W_i \equiv \frac{\partial W[A_1,...,A_n]}{\partial A_i}.
+\end{align}
+We find that the scalar potential of the Lagrangian is 
+\begin{align}
+V(A_i, A_i^*) = \sum_{i=1}^n \Bigg| \frac{\partial W [A_1,...,A_n]}{\partial A_i \partial A_j} \Bigg|^2.
+\end{align}
+Finding a non-zero minimum of this function gives $F$-term breaking. Unfortunately, this does not work with all particles at low energy. This is because at tree-level the supertrace becomes zero
+\begin{align}
+\text{STr} \mathcal{M}^2 \equiv \sum_s (-1)^{2s} (2s+1) \text{Tr} M_s^2,
+\end{align}
+where $\mathcal{M}$ is the mass matrix of the Lagrangian, $s$ is the spin of the particles, and $M_s$ is the mass amtrix of all spin-$s$ particles.
+
+\section{Soft Breaking}
+
+The way to fix things is to explicitly add supersymmetry breaking terms to the Lagrangian. These terms are called \textit{soft terms}, and they have mass dimension one or higher (because of loop contributions to scalar particles). The allowed terms are then 
+\begin{align*}
+\mathcal{L}_{soft} =& - \frac{1}{4 T(R)} M \theta \theta \bar{\theta} \bar{\theta} \text{Tr} \{ W^AW_A \} - \frac{1}{6} a_{ijk} \theta \theta \bar{\theta} \bar{\theta} \Phi_i \Phi_j \Phi_k - \frac{1}{2} b_{ij} \theta \theta \bar{\theta} \bar{\theta} \Phi_i \Phi_j \\
+&- t_i \theta \theta \bar{\theta} \bar{\theta} \Phi_i + h.c. - m_{ij}^2 \theta \theta \bar{\theta} \bar{\theta} \Phi_i^{\dagger} \Phi_j.
+\end{align*} 
+These terms are \textit{not} supersymmetric. Gauge symmetries will restrict these terms further, and it turns out that soft breaking is responsible for most of the SUSY parameters. Written in terms of component fields this becomes
+\begin{align}
+\mathcal{L}_{soft} = - \frac{1}{2}M \lambda^A \lambda_A - (\frac{1}{6} a_{ijk} A_i A_j A_k + \frac{1}{2} b_{ij} A_i A_j + t_i A_i + \frac{1}{2} c_{ijk} A_i^* A_j A_k + c.c) - m^2_{ij} A_i^* A_j. 
+\end{align}
+
+Adding the loop corrections to the calculations of masses, like the Higgs mass, leads to infinities. We get rid of this infinities by using regularisation and renormalisation, which means we introduce a cut-off scale $\Lambda_{UV}$ at which we assume our model no longer applies. A normal choice for this scale is the Planck scale, since gravity can no longer be neglected at this scale, and gravity is not described in the SM. The leading order terms for the Higgs mass are then
+\begin{align}
+\Delta m_H^2 = - \frac{|\lambda_f|^2}{8\pi^2} \Lambda_{UV}^2 + \frac{\lambda_s}{16\pi^2} \Lambda_{UV}^2 +...,
+\end{align}
+where $\lambda_f$ and $\lambda_s$ are the couplings of a fermion ($f$) and scalar ($s$) to the Higgs. The Planck scale is of the order $\Lambda \sim 10^{18}$ GeV, while the Higgs mass has been measured to be $m_H \sim 125$ GeV. Obviously, something's missing. This discrepancy is known as the \textit{hierarchy problem}.
+
+With an unbroken supersymmetry we have $|\lambda_f|^2=\lambda_s$ and twice as many scalars, which provides a cancellation of the divergence. Unfortunately, SUSY is broken. A way to keep some of the cancellation is to use soft breaking, which ensures that the divergences are at most
+\begin{align}
+\Delta m_h^2 = - \frac{\lambda_s}{16 \pi^2} m_s^2 \ln \frac{\Lambda_{UV}}{m_s^2} +...,
+\end{align}
+at leading order in $\Lambda_{UV}$, where $m_s$ is the mass scale of the soft term. The \textit{little hierarchy problem} is that in order for these terms not become too large, we should restrict $m_s \sim \mathcal{O}(1 \text{TeV})$.
+
+Supersymmetry also gives a better prediction for the vacuum energy. For unbroken SUSY we have $\Lambda = 0$, and the measured dark energy density, which we interpret as vacuum energy is $\Lambda_{DE} \sim 10^{-3}$ eV. Correspondingly, the value in the SM is $\Lambda \sim M_P \sim 10^{18}$ GeV. This is called the \textit{hierarchy problem for vacuum energy}.Supergravity and fine tuning find an even better match with the measured value, but we will not discuss this here.
+
+\section{The Minimal Supersymmetric Standard Model (MSSM)} 
+
+This model is called minimal because it has the smallest field and gauge content consistent with the known SM fields.
+
+A left-handed scalar superfield $S$ has a left-handed Weyl spinor $\psi_A$ and a complex scalar $\tilde{s}$ since they are a $j=0$ representation of the superalgebra. These fields get two fermionic and two bosonic degrees of freedom. To get a Dirac fermion, we also need a right-handed Weyl spinor $\bar{\varphi}_{\dot{A}}$, which we get from a different scalar superfield $\bar{T}$. This gives four fermionic d.o.f, which in turn gives us two Dirac fermions: a particle and an antiparticle.
+
+For leptons we use $l_i$ and $\bar{E}_i$, and $\nu_i$ for neutrinos, giving us the $SU(2)$ doublets $L_i = (\nu_i, l_i)$. For quarks we get $u_i$, $\bar{U}_i$ (up-type) and $d_i$, $\bar{D}_i$, which form the $SU(2)$ doublets $Q_i = (u_i, d_i)$.
+
+We also need vector superfields, which come from the vector field $V = t_aV^a$. Since we need as many vector fields as generators, these are the usual $SU(3) \times SU(2) \times U(1)$ vector bosons. These fields are called $C^a$, $W^a$ and $B^0$. The fermions (superpartners) constructed from their respective Weyl spinors are called $\tilde{g}$, $\tilde{W}^0$ and $\tilde{B}^0$.
+
+Because of trouble with $SU(2)$ doublets and mixing left- and right-handed particles, we need at least two Higgs $SU(2)_L$ doublets. These are called $H_u$ and $H_d$, where the index tells us which quark they give mass to. These must have weak hypercharge $y = \pm 1$, so we get the doublets
+\begin{align}
+&H_u = \begin{pmatrix}
+H_u^+\\
+H_u^0
+\end{pmatrix},
+&H_d = \begin{pmatrix}
+H_d^0\\
+H_d^-
+\end{pmatrix}.
+\end{align}  
+The kinetic terms of the MSSM Lagrangian give the matter-gauge interaction terms
+\begin{align}\label{Eq:: MSSM kinetic Lagrangian}
+\mathcal{L}_{kin} =& L_i^{\dagger}e^{\frac{1}{2}g \sigma W - \frac{1}{2}g'B } L_i + Q_i^{\dagger} e^{\frac{1}{2}g_s\lambda C + \frac{1}{2} g \sigma W + \frac{1}{3} \cdot \frac{1}{2} g' B} Q_i + \bar{U}_i^{\dagger} e^{\frac{1}{2}g_s \lambda C - \frac{4}{3} \cdot \frac{1}{2} g'B} \bar{U}_i\\
+&+ \bar{D}_i^{\dagger} e^{\frac{1}{2}g_s \lambda C + \frac{2}{3} \cdot \frac{1}{2} g' B} \bar{D}_i + \bar{E}_i^{\dagger} e^{2 \frac{1}{2}g'B} \bar{E}_i + H_u^{\dagger} e^{\frac{1}{2} g \sigma W + \frac{1}{2} g' B}H_u + H_d^{\dagger} e^{\frac{1}{2} g \sigma W - \frac{1}{2} g' B} H_d.
+\end{align}
+Pure gauge fields with dupersymmetric field strengths
+\begin{align}
+\mathcal{L}_V = \frac{1}{2} \text{Tr} \{ W^AW_A \} \bar{\theta} \bar{\theta} + \frac{1}{2} \text{Tr} \{ C^AC_A \} \bar{\theta} \bar{\theta} + \frac{1}{4} B^AB_A \bar{\theta} \bar{\theta} + h.c.
+\end{align}
+
+\subsection*{R-parity}
+Since all the terms in the superpotential violate lepton number, and some violate baryon number, we can get processes like the proton decay $p \rightarrow e^+ \pi^0$. Measured lower limit on proton decay indicates that we need very strict limits on the combination of two couplings
+\begin{align*}
+|\lambda'_{112} \lambda_{112}''| < 3.6 \cdot 10^{-26} \Big( \frac{m_{\tilde{s}}}{1 \text{TeV}} \Big)^2.
+\end{align*}
+To avoid this we introduce \textit{R-parity}, defined by
+\begin{align}
+R = (-1)^{2s+3B+L},
+\end{align}
+where $s$ is spin, $L$ is lepton number and $B$ is baryon number. This number is $+1$ for SM particles, and $-1$ for sparticles. For this to be conserved, sparticles must always appear in paris. This means that there must be a lightest, stable sparticle, to which all other supersymmetric particles eventually decay. This particle is called the lightest supersymmetric particle (LSP), and is a strong candidate for dark matter.
+
+WHen we've chosen our basis wisely in order to remove the freedom we can, we have 105 new parameters. 104 come from soft breaking, and $\mu$ is the only new parameter in the superpotential.
+
+For the scalar Higgs component fields, the MSSM potential is
+\begin{align*}
+V(H_u, H_d) =& |\mu|^2 (|H_u^0|^2 + |H_u^+|^2 + |H_d^0|^2 + |H_d^-|^2)\\
+&+ \frac{1}{8} (g^2 + g'^{2})(|H_u^0|^2 + |H_u^+|^2 - |H_d^0|^2 - |H_d^-|^2)^2\\
+&+ \frac{1}{2} g^2 |H_u^+H_d^{0*} + H_u^0H_d^{-*}|^2\\
+&+ m_{H_u}^2 (|H_u^0|^2 + |H_u^+|^2) + m_{H_d}^2 (|H_d^0|^2 + |H_d^-|^2)\\
+&+ [b(H_u^+H_d^- - H_u^0H_d^0) + c.c.].
+\end{align*}
+In order to give mass to the gauge bosons and SM fermions we need to break $SU(2)_L \times U(1)_Y$ to $U(1)_{em}$. Gauge freedom allows us to set $H_d^- = H_u^+=0$, which leaves us with the potential
+\begin{align}
+V(H_u, H_d) =& (|\mu|^2 + m_{H_u}^2) |H_u^0|^2 + (|\mu|^2 + m_{H_d}^2) |H_d^0|^2 \\
+&+ \frac{1}{8} (g^2 + g^{'2})(|H_u^0|^2  - |H_d^0|^2 )^2- [b(H_u^0H_d^0) + c.c.].
+\end{align}
+The vacuum expectation values (vevs) $v_u = \braket{H_u^0}$ and $v_d = \braket{H_d^0}$ are real and have the same sign, but opposite phases. To get the familiar vector boson masses we must satisfy
+\begin{align*}
+v_u^2 + v_d^2 \equiv v = \frac{2m_Z^2}{g^2 + g'^2} \approx (174 \text{GeV})^2,
+\end{align*}
+so the Higgs vevs provide only one free parameter, which can be written as 
+\begin{align*}
+\tan \beta \equiv \frac{v_u}{v_d}.
+\end{align*}
+
+If we assume the coupling constants unify at the GUT scale to the coupling $g_u$, and that the gauginos then have a common mass scale $m_{1/2} = M_1(m_{GUT}) = M_2(m_{GUT}) = M_3(m_{GUT})$, we get the following relation
+\begin{align*}
+M_3 = \frac{\alpha_s}{\alpha} \sin^2 \theta_W M_2 = \frac{3}{5} \cos^2 \theta_W M_1.
+\end{align*} 
+
+\section{Phenomenology}
+We call interactions with very small or no interactions with the MSSM fields the \textit{hidden sector} scalar superfields $X$. These are usually supressed by some mass scale so $\mathcal{L} \sim M^{-1}$. They have an effective interaction (non-renormalizable) with the scalar superfields of the form
+\begin{align}
+\mathcal{L}_{HS} &= - \frac{1}{M} (\bar{\theta} \bar{\theta}) X \Phi_i \Phi_j \Phi_k.
+\end{align}
+If these sectors develope a vev $\braket{X} = \theta \theta\braket{F_X}$, they can break supersymmetry. One way of creating this hidden sector is by blaming some gravity mechanism for mediating the breaking of SUSY from the hidden sector. The breaking scale is then the Plank scale, $M = M_P = 2.4 \cdot 10^{18}$ GeV. We restrict $\sqrt{\braket{F}} \sim 10^{10} - 10^{11}$ GeV in order not to reintroduce the hierarchy problem.  The complete soft terms can be shown to be
+\begin{align*}
+\mathcal{L}_{soft} =& - \frac{\braket{F_X}}{M_P} \Big( \frac{1}{2} f_a \lambda^a \lambda^a + \frac{1}{6} y_{ijk}'A_i A_j A_k + \frac{1}{2} \mu_{ij}' A_i A_j + \frac{\braket{F_X}^*}{M_P^2}  x_{ijk} A_i^* A_j A_k + c.c.\Big)\\
+&- \frac{|\braket{F_X}|^2}{M_P} k_{ij}A_i A_j^*.
+\end{align*}
+If we simplify as much as possible, all soft terms are fixed by just four parameters. This model is called minimal supergravity, MSUGRA or the CMSSM. The CMSSM parameters are
+\begin{align}
+&m_{1/2} = f \frac{\braket{F_X}}{M_P}, & m_0^2 = k \frac{|\braket{F_X}|}{M_P^2}, 
+& A_0 = \alpha \frac{\braket{F_X}}{M_P}, &B_0 = \beta \frac{\braket{F_X}}{M_P},
+\end{align}
+or $m_{1/2}$, $m_0$, $A_0$, $\tan \beta$ and $\text{sgn} \mu$.
+
+An alternative HS is gauge mediated SUSY breaking. Here, the soft terms come from loop diagrams with \textit{messenger superfields} that get their own mass from coupling to the HS SUSY breaking vev, and have SM interactions. This model is parameterized by $\Lambda = \frac{\braket{F}}{M_{messenger}}$, $M_{messenger}$, $N_5$ and $\tan \beta$.
+
+\subsection{SUSY at Hadron Colliders}
+
+Some points about hadron colliders
+\begin{itemize}
+\item Hadron colliders collide quarks and gluons, so only QCD processes with relatively small masses have large cross sections.
+\item Sparticles will be produced in pairs and decay to the LSP because of R-parity. 
+\item The sparticles can decay in complicated cascades, and so will be difficult to detect and distinguish from background.
+\item The SM processes have much larger cross sections than SUSY.
+\item The LSP decay weakly, and so cannot be detected. They leave missing transverse energy (transverse because the partons have an unknown momentum at the moment of collision).
+\end{itemize}
+If we assume R-parity not to be violated, supersymmetric particles at hadron colliders should all decay into the LSP, and SM QCD-charged particles. The LSP is weakly interacting, and so its trace will be missing transverse energy, denoted $\slashed{E}_T$. We define the \textit{effective mass}
+\begin{align}
+M_{eff} &= \sum p_T^{jet} + \slashed{E}_T,
+\end{align} 
+and search for deviations from the SM expectations. If all final state particles have low energy $p_T$, we call these soft particles. SHould we detect some signal, we want as much information about the particles as possible. For sequential two-body decays of the form
+\begin{align*}
+D \rightarrow cD \rightarrow cbB \rightarrow cbaA,
+\end{align*}
+we can use the invariant mass distribution for $m_{ab}$ has a triangular shape with a sharp maximum at 
+\begin{align}
+(m_{ab}^{max})^2 = \frac{(m_C^2 - m_B^2)(m_B^2 - m_A^2)}{m_B^2},
+\end{align}
+where $a$ and $b$ are massless. 
+
+Another possibility is if we allow R-parity violation. Then the LSP can decay, and sparticles can be produced one at a time. We can then have \textit{massive metastable charged particles} (MMCPs). This is typical for scenarios with a gravitino LSP. 
+
+\subsection{Current Bounds on Sparticles}
+
+Searches and limits are constantly being updated, but here are a few results form the LHC Run I at 8 TeV, with up to $20 \text{ fb}^{-1}$ luminosity. The bounds from the missing energy channel at 8 TeV for mSUGRA from ATLAS are $m_{\tilde{q}} > 1600$ GeV and $m_{\tilde{g}} > 1100$ GeV.
+
+\subsection{Precision Observables}
+
+We can also measure SUSY by considering its impact on very precisey measured SM processes, such as electroweak precision observables, the $(g-2)_{\mu}$ value, the flavour changing neutral current (FCNC) process $b \rightarrow s \gamma$ and the (rare) FCNC process $B_s \rightarrow \mu \mu$.
+
+The electroweak precision observables include $M_W$, $M_Z$, $\Gamma_W$, $\Gamma_Z$, $m_t$ and $\sin \theta_W$, the higgs mass $m_h$ and its properties. Since the Higgs has been measured, we can now do very precise measurements of these quantities, and find that they are very consistent with SM predictions.
+
+The anomalous magnetic moment of the muon, $(g - 2)_{\mu}$, has been measured to extraordinary precision at BNL to be
+\begin{align*}
+g_{\mu} = 2.00116592089(63),
+\end{align*}
+where the digits in parenthesis indicate the uncertainty on the last digits. At tree level we have $\mu \rightarrow \mu \gamma$. Loop corrections to this diagram give $a_{\mu} = (g -2)_{\mu}$. The difference between the SM deviation and the experimentally measured deviation is
+\begin{align*}
+\delta_{a_{\mu}} \equiv a_{\mu}^{exp} - a_{\mu}^{SM}= (25.9 \pm 8.1) \cdot 10^{-10},
+\end{align*}
+which is $3.2 \sigma$ away from zero. This is one of the clearest discrepancies that exist between measurement and the SM.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
