@@ -1,0 +1,321 @@
+\documentclass[twoside,english]{uiofysmaster}
+%\bibliography{references}
+
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{scrextend}
+\usepackage{amsfonts}
+\usepackage{amsmath,amsfonts,amssymb}
+\addtokomafont{labelinglabel}{\sffamily}
+
+\usepackage[boxed]{algorithm2e}
+\addtokomafont{labelinglabel}{\sffamily}
+
+% Feynman slash
+\usepackage{slashed}
+
+% To show code
+\usepackage{listings}
+
+% For subplots
+\usepackage{subcaption}
+
+\setlength{\heavyrulewidth}{1.5pt}
+\setlength{\abovetopsep}{4pt}
+
+\begin{document}
+
+
+
+\tableofcontents
+
+
+
+
+
+
+
+
+
+
+\chapter{Evaluating Cross Sections with Gaussian Processes}
+
+\section{Data Generation}
+
+How was the data generated?
+
+- NLL-FAST
+
+- SOFTSUSY
+
+\subsubsection{Feature Distributions}
+
+Lin and log distributions. 
+
+\subsubsection{Data Quality}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.4]{/home/ingrid/Documents/Master/ML/Final_remarks/Matern44_new/feature_dist_lin_mat44m2.pdf}
+\end{figure}
+
+\section{Dataset Transformations}
+
+As previously mentioned, the partonic cross sections can be written in terms of scaling functions $f$
+\begin{align*}
+\hat{\sigma}_{ij} = \frac{\alpha^2_s (Q^2)}{m^2} \Bigg\{ f^B_{ij}(\eta, r) + 4 \pi \alpha_s (Q^2) \Bigg[ f^{V+S}_{ij}(\eta, r, r_t) + f^H_{ij}(\eta, r) + \bar{f}_{ij} (\eta, r) \log \Big( \frac{Q^2}{m^2} \Big) \Bigg] \Bigg\},
+\end{align*}
+where 
+\begin{align*}
+&\eta = \frac{s}{m^2} - 1, &r = \frac{m_{\tilde{g}}^2}{m_{\tilde{q}}^2}, &&r_t = \frac{m_t^2}{m^2}.
+\end{align*}
+The scaling functions are the different contributions, as explained in Chapter 2, and $m = (\sqrt{p_1^2} + \sqrt{p_2^2} )/2$ is the average mass of the particles produced.
+
+The energy near the threshold is the base for an important part of the contributions to the cross section \cite{beenakker1997squark}. In this region the scaling functions can be expanded in $\beta$, the low velocity of produced particles, leading to the following expressions \cite{beenakker1997squark}
+\begin{align}
+&f_{qq}^B = \frac{8 \pi \beta m_{\tilde{q}}^2 m_{\tilde{g}}^2}{27(m_{\tilde{q}}^2 + m_{\tilde{g}}^2)^2}, &&f_{q'q}^B = \frac{8 \pi \beta m_{\tilde{q}}^2 m_{\tilde{g}}^2}{9(m_{\tilde{q}}^2 + m_{\tilde{g}}^2)^2} \nonumber \\
+& f_{qq}^{V+S} = f_{qq}^B \frac{1}{24 \beta} && f_{q'q}^{V+S} = f_{q'q}^B \frac{1}{24 \beta} \nonumber \\
+&f_{qq}^H = f_{qq}^B \Big[\frac{2}{3 \pi^2} \log^2(8 \beta^2) - \frac{7}{2 \pi^2} \log (8 \beta^2) \Big] &&f_{q'q}^H = f_{q'q}^B \Big[\frac{2}{3 \pi^2} \log^2(8 \beta^2) - \frac{19}{6 \pi^2} \log (8 \beta^2) \Big] \nonumber \\
+& \bar{f}_{qq} = - f_{qq}^B \frac{2}{3 \pi^2} \log (8 \beta^2) &&\bar{f}_{q'q} = - f_{q'q}^B \frac{2}{3 \pi^2} \log (8 \beta^2).\label{Eq:: evaluating cross : Scaling func threshold}
+\end{align}
+Seeing as the main part of the contributions originate from this energy region, it may be possible to remove some of the complexity of the function using the expressions in Eq. \ref{Eq:: evaluating cross : Scaling func threshold}. Possible transformations are
+\begin{align}
+&\sigma \rightarrow \sigma_{m_{\tilde{g}}} = \frac{\sigma}{m_{\tilde{g}}^2},\\
+&\sigma \rightarrow \sigma_{m_{\tilde{q}}^2} = \frac{\sigma}{m_{\tilde{q}}^2}.
+\end{align}
+Plots of $\sigma_{m_{\tilde{g}}}$ and $\sigma_{m_{\tilde{q}}}$ for the production of $\tilde{d}_L \tilde{d}_L$ as a function of $m_{\tilde{g}}$ and $m_{\tilde{q}}$ are found in Fig. (\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}).
+
+\begin{figure}
+\centering
+%\includegraphics[scale=0.5]{figures_evaluating_cross_sections/cross_sections_comparison.pdf}
+\caption{The cross sections $\sigma$, $\sigma_{m_{\tilde{g}}}$ and $\sigma_{\tilde{q}}$ as a function of the gluino mass $m_{\tilde{q}}$ and squark mass $m_{\tilde{q}}$ for the production of $\tilde{d}_L \tilde{d}_L$. Here, $m_{\tilde{q}} = m_{\tilde{d}_L}$. The cross sections have less spread when some of the mass dependency is removed, which may make learning easier.}
+\label{Fig:: evaluating cross : Comparison sigma and sigma/m}
+\end{figure}
+
+\section{The Benchmark}
+
+GP with 
+\begin{itemize}
+\item 2000 training points + 20 000 test points
+\item Kernel: RBF
+\item Process: $\tilde{d}_L \tilde{d}_L$ and $\tilde{d}_L \tilde{u}_L$.
+\item Features: Physical masses $m_{\tilde{d}_L}$ and $m_{\tilde{g}}$ (and $m_{\tilde{u}_L}$).
+\item Known error.
+\item Outliers removed (mask for sigma==0).
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLdL_2000t_nomean_rbf_alpha.pdf}
+\caption{The relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$. 2000 training points and 20 000 test points were used on a regular GP, with the RBF kernel for $\vec{\ell} = [1000, 1000]$ and $\alpha= 7.544 \cdot 10^{-7}$. Features are the physical masses $m_{\tilde{d}_L}$ and $m_{\tilde{g}}$.}
+\end{figure}
+
+\section{Outliers}
+
+Include and remove the outliers set to zero by prospino.
+
+\begin{figure}[H]
+\centering
+%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLdL_compare_bm_outliers.pdf}
+\caption{The relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$, with and without outlier points with $\sigma_{\tilde{d}_L \tilde{d}_L} = 0$. Otherwise, the settings are the BM settings. The prediction becomes very chaotic when outliers are included, also in the region of large cross sections.}
+\end{figure}
+
+\begin{figure}[H]
+\caption{True values for the logarithm of $\sigma_{\tilde{d}_L \tilde{d}_L}$ as a function of $m_{\tilde{d}_L}$, with the BM settings and outliers included. Outliers are circled in purple, they are initially $0$, but set to $\epsilon = 10^{-32}$ to avoid NaN in the calculation.}
+\label{Fig:: evaluating cross : sigma mq true with outliers}
+\end{figure}
+
+\begin{figure}[H]
+\caption{GP predicted values for the logarithm of $\sigma_{\tilde{d}_L \tilde{d}_L}$ as a function of $m_{\tilde{d}_L}$, with the BM settings and outliers included. The outliers have not been predicted, but the rest of the function values are smeared out around that area.}
+\label{Fig:: evaluating cross : sigma mq predicted with outliers}
+\end{figure}
+
+
+
+\begin{figure}[H]
+\caption{GP predicted values for the logarithm of $\sigma_{\tilde{d}_L \tilde{d}_L}$ as a function of $m_{\tilde{d}_L}$, with the BM settings and outliers \textit{not} included. The function values are less smeared out at all orders of magnitude.}
+\label{Fig:: ms mat44m2 zeros nozeros}
+\end{figure}
+
+
+
+\section{Cuts on Cross Sections}
+
+Including lower powers of the cross section give worse predicitons.
+
+\begin{figure}[H]
+\centering
+%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLdL_compare_bm_lim16.pdf}
+\caption{The relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$, with and without $\sigma_{\tilde{d}_L \tilde{d}_L} < 10^{-16}$. Otherwise the settings are the BM settings. The prediction becomes better at high cross sections when $\sigma < 10^{-16}$ are removed, and this area is well under the 1 event limit.}
+\end{figure}
+
+
+\section{Noise Term}
+
+\subsubsection{Proof for Relative Errors}
+
+The error in the observations comes from the numerical error (?) in the Prospino calculation. The relative error has a standard deviation of $\varepsilon = 0.002$ multiplied by the cross section. The question is \textit{whether we can use this information} when doing the GP fit. Denote the cross section provided by Prospino as $Y_i$ and the real cross section as $y_i^{true}$, we then have
+\begin{align}\label{Eq:: cross section w/ error}
+Y_i = y^{true}_i + \epsilon_i = y_i^{true}(1 + \varepsilon_i).
+\end{align}
+
+
+However, we do not calculate the prediction of the cross section, but the \textit{logarithm} of the cross section. The distributions are then
+\begin{align}
+Y_i = \mathcal{N}(y_i^{true}, \varepsilon y_i^{true}),
+\end{align}
+where the only random variable is $\varepsilon$. Changing variables to $\log_{10}$ gives
+\begin{align}
+X_i &= \log_{10} Y_i \rightarrow Y_i = 10^{X_i}\\
+P_{X_i} (X_i) &= P_{Y_i} (Y_i) \Big|\frac{\partial Y_i}{\partial X_i}\Big|\\
+&= P_{Y_i} (y_i) 10^{X^i} \log 10\\
+&= \mathcal{N} (10^{x_i^{true}}, \varepsilon 10^{x_i^{true}}) \cdot 10^{X_i} \cdot \log 10.
+\end{align}
+This means that the relevant distribution is in fact
+\begin{align*}
+X_i = \log_{10} Y_i = \log_{10} y_i^{true} + \log_{10} (1 + \mathcal{N}(0, \varepsilon)),
+\end{align*}
+where we can make the expansion
+\begin{align}
+\log_{10} (1 + \mathcal{N}(0, \varepsilon)) \simeq \frac{\mathcal{N} (0, \varepsilon)}{\log 10} - \frac{\mathcal{N} (0, \varepsilon)^2}{\log 100} +...
+\end{align}
+
+Since the leading order term is clearly the dominant term, the logarithm of the cross section may be written as
+\begin{align}\label{Eq:: cross section log gaussian noise}
+X_i \simeq \log_{10} y_i^{true} + \frac{1}{\log 10} \mathcal{N} (0, \varepsilon)
+\end{align}
+
+Since the distribution has a standard deviation $\varepsilon = 2 \cdot 10^{-3}$, the Gaussian noise covariance should be
+\begin{align*}
+\Big( \frac{\varepsilon}{\log 10} \Big)^2 = \frac{(2 \cdot 10^{-3})^2}{(\log 10)^2} = \frac{4 \cdot 10^{-6}}{5.301} \simeq 7.544 \cdot 10^{-7}.
+\end{align*}
+
+Compare WhiteKernel, setting $\alpha$ by hand, and not including noise.
+
+\begin{figure}[H]
+%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLdL_compare_bm_alpha.pdf}
+\caption{The relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$, with error terms $\alpha = 1 \cdot 10^{-3}, 7.544 \cdot 10^{-7}, 1 \cdot 10^{-9}$. Otherwise the settings are the BM settings. The smaller and larger errors, $10^{-9}$ and $10^{-3}$, somewhat improve the prediction in the high and low cross sections, respectively, but $7.544 \cdot 10^{-7}$ gives the best overall prediction.}
+\end{figure}
+
+\section{Features}
+
+\subsection{Lagrangian Masses}
+
+Compare with physical masses, show that we either need way too many parameters, or the fit is bad.
+
+
+\subsection{Mean Mass}
+
+Because of how Prospino calculates NLO terms.
+
+Compare with and without the mean mass.
+
+\begin{figure}[H]
+\centering
+%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLdL_compare_bm_mean_rbf.pdf}
+\caption{The relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$, with features $(m_{\tilde{d}_L}, m_{\tilde{g}})$ and $(m_{\tilde{d}_L}, m_{\tilde{g}}, \bar{m})$. Otherwise the settings are the BM settings. The fit is worse when another feature is added, except for the highest cross sections, where it is significantly better.}
+\end{figure}
+
+Since the BDT has shown to be very dependent on $\bar{m}$, and the prediction is better at higher cross sections, we wish to continue trying, this time with another kernel.
+
+\section{Kernel}
+
+Compare Matern and RBF
+
+\begin{figure}[H]
+\centering
+%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLdL_compare_bm_mean_kernels.pdf}
+\caption{The relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$, with kernels RBF for the features $(m_{\tilde{d}_L}, m_{\tilde{g}})$ and Mat\'{e}rn for the features $(m_{\tilde{d}_L}, m_{\tilde{g}}, \bar{m})$. Otherwise the settings are the BM settings. For the three features $m_{\tilde{d}_L}$, $m_{\tilde{g}}, \bar{m}$, the Matern kernel gives a better fit.}
+\end{figure}
+
+\subsection{Hyperparameters}
+
+Plot of different $\nu$-values?
+
+
+%\subsection{Posterior}
+
+%\subsubsection{Drawing Samples}
+
+
+\subsection{Target Transformation}
+
+For the Mat\'{e}rn kernel with features $(m_{\tilde{d}_L}, m_{\tilde{g}}, \bar{m})$ the altered cross section $\sigma_{m_{\tilde{g}}}$ is tested. Could be because the scaling functions depend on the quantity $r = m_{\tilde{g}}^2/m_{\tilde{q}}^2$.
+
+The functions as a function of $m_{\tilde{g}}$ and $m_{\tilde{d}_L}$ become more similar at high cross sections, so the kernel is more accurate. The band is wider but with less spread for the cross section as a function of the squark mass. 
+
+
+\begin{figure}[H]
+\centering
+%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLdL_compare_mean_matern_m2.pdf}
+\caption{The relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$, with kernel Mat\'{e}rn for the features $(m_{\tilde{d}_L}, m_{\tilde{g}}, \bar{m})$. One model is trained on $\sigma_{\tilde{d}_L \tilde{d}_L}$ and the other on $\hat{\sigma}_{\tilde{d}_L \tilde{d}_L} = \sigma_{\tilde{d}_L \tilde{d}_L}/m_{\tilde{g}}$. Otherwise the settings are the BM settings.}
+\end{figure}
+
+
+For 2000 training points, BM: 
+\begin{itemize}
+\item C RBF + WK
+\item $\alpha = 10^{-10}$
+\item $(m_{\tilde{g}}, m_{\tilde{q}})$
+\item No limits
+\item Removed outliers
+\end{itemize}
+
+Kernels dLdL $\sigma_{m_{\tilde{g}}}$ are: 
+\begin{itemize}
+\item BM : \verb|54.6**2 * RBF(length_scale=[5.47e+03, 2.19e+03]) + WhiteKernel(noise_level=0.47)|
+\item Outliers : \verb|98.5**2 * RBF(length_scale=[5.74e+03, 215]) + WhiteKernel(noise_level=0.00372)|
+\item Cut at $10^{-16}$ : \verb|22.7**2 * RBF(length_scale=[1.17e+03, 998]) + WhiteKernel(noise_level=0.00336)|
+\item mean : \verb|33.1**2 * RBF(length_scale=[1.19e+03, 200, 846]) + WhiteKernel(noise_level=1.12e-05)|
+\item matern : \verb|21.8**2 * Matern(length_scale=[2.02e+03, 3.29e+03], nu=1) + WhiteKernel(noise_level=0.0253)|
+\end{itemize}
+
+Kernels dLuL $\sigma_{m_{\tilde{g}}}$ are: 
+\begin{itemize}
+\item BM : \verb|49.9**2 * RBF(length_scale=[5.87e+03, 4e+03, 2.22e+03]) + WK(noise_level=0.593)|
+\item Outliers : \verb|80.2**2 * RBF(length_scale=[4.42e+03, 3.1e+03, 240]) + WK(noise_level=0.00348)|
+\item Cut at $10^{-16}$ : \verb|100**2 * RBF(length_scale=[1.54e+03, 2.9e+03, 2.15e+03]) + WK(noise_level=0.0031)|
+\item mean : \verb|61.7**2 * RBF(length_scale=[1.34e+03, 3.59e+04, 251, 748]) + WhiteKernel(noise_level=1.19e-05)|
+\item matern : \verb|20.6**2 * Matern(length_scale=[1.93e+03, 1.93e+03, 9.22e+03], nu=1) + WhiteKernel(noise_level=0.000386)|
+\end{itemize}
+
+\section{Distributed Gaussian Processes}
+
+Time plots.
+
+Matrix with number of experts and training points per expert, with mean relative deviance.
+
+\subsection{Adding Experts}
+
+\begin{figure}[H]
+\caption{The $R^2$-factor defined in Eq. () for an increasing number of experts, where each expert has 1000 (blue) and 5000 (red) training points. Cross section for $\tilde{d}_L \tilde{d}_L$. A value of 1 is a perfect prediction, and 0 is a bad prediction.}
+\end{figure}
+
+\begin{table}
+\centering
+\begin{tabular}{r|c|c}
+Training points & 2000 p/ expert & GP\\
+\hline
+2000 & 00:03:32 & 00:03:32\\
+4000 & 00:04:39 & 00:16:33\\
+6000 & 00:04:10\\
+8000 & 00:05:29\\
+10 000 & 00:05:46\\
+12 000 & 00:06:31\\
+14 000 & 00:05:46\\
+\end{tabular}
+\end{table}
+
+\subsection{Cross validation for DGP}
+
+There is no \verb|scikit-learn| function for DGP, so we've implemented a method for calculating the learning curve of a DGP when experts are added. The program uses $k$-fold cross validation with loss function $R^2$.
+
+
+\bibliographystyle{plain}
+\bibliography{dingsen_evaluating_cross_sections}
+
+
+
+
+\end{document}
