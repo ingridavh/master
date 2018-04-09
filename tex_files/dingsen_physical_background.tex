@@ -33,9 +33,11 @@
 
 \chapter{Physics Background}
 
+In this chapter some of the physics background for this thesis is introduced. Familiarity with quentum field theory, the Standard Model of particle physics and some group theory is assumed. The Higgs mechanism and the hierarchy problem are reviewed, before some concepts in supersymmetry are outlined. Finally, the minimal supersymmetric standard model is introduced, with its corresponding field content.
+
 \section{The Standard Model}
 
-It is assumed in this thesis that the reader is familiar with the Standard Model of particle physics. Even so, a short introduction is in order. The Standard Model is the best-working framework we have for calculating the behaviour of very small particles at very high energies. At such scales an important distinction to be made is that between \textit{fermions} and \textit{bosons}: particles with half-integer and integer spin values, respectively. Fermions interact via the exchange of bosons, and the Standard Model bosons are the \textit{photon} (electromagnetic interaction), the \textit{gluon} (strong interaction that holds atoms together), the $W$ and $Z$ bosons (the weak interaction) and the famously elusive \textit{Higgs boson}. The equations of motion and allowed interactions can all be derived from the \textit{Lagrangian} of the Standard Model. The Lagrangian is a measure that is invariant to transformations under the Lorentz group -- or a change of reference frame as it is called in special relativity. 
+The Standard Model of particle physics has successfully explained almost all experimental results and predicted several phenomena. One of the most important distictions made in the Standard Model is that between \textit{fermions} and \textit{bosons}: particles with half-integer and integer spin values, respectively. Fermions interact via the exchange of bosons, and the Standard Model bosons are the \textit{photon} (electromagnetic interaction), the \textit{gluon} (strong interaction that holds atoms together), the $W$ and $Z$ bosons (the weak interaction) and the famously elusive \textit{Higgs boson}. The equations of motion and allowed interactions can all be derived from the \textit{Lagrangian} of the Standard Model. The Lagrangian, of which the time integral is the action $S$, is invariant to transformations under the Lorentz group --- or a change of reference frame in the language of special relativity. 
 
 %The Lagrangian of the SM is given by
 %\begin{align}
@@ -45,81 +47,91 @@ It is assumed in this thesis that the reader is familiar with the Standard Model
 
 \subsection{The Higgs Mechanism}
 
-The Standard Model is a gauge theory based on the symmetry group $SU(3)_c \times SU(2)_Y \times U(1)$. In order for the particles to obtain masses however, this symmetry group must be spontaneously broken down to $SU(3)_c \times U(1)_{em}$. The breaking of the symmetry is brought forth by the Higgs obtaining a non-zero \textit{vacuum expectation value} (vev)-- essentially stating that it still has some energy or mass when the governing potential is at its minimum. Consider the Lagrangian for the scalar Higgs field $\phi$
+The Standard Model is a gauge theory based on the symmetry group $SU(3)_C \times SU(2)_L \times U(1)_Y$. The $SU(3)$ group is the symmetry group for strong interactions, or quantum chromodynamics, and $SU(2) \times U(1)$ is the electroweak symmetry group. In order for the particles to obtain masses the electroweak symmetry must be spontaneously broken. The symmetry is broken when the Higgs field obtains a non-zero \textit{vacuum expectation value} (vev) --- essentially stating that it has some field value when the governing potential is at its minimum. The Higgs field $\Phi$ is a self-interacting complex $SU(2)$ doublet whose Lagrangian is
 \begin{align}
-\mathcal{L}_{\phi} = \partial_{\mu} \phi^{\dagger} \partial^{\mu} \phi + V(\phi),
+\mathcal{L}_{\Phi} = \partial_{\mu} \Phi^{\dagger} \partial^{\mu} \Phi + V(\Phi),
 \end{align}
-where the first term is the kinetic term, and the potential describing the Higgs $V(\phi)$ is the famous mexican hat potential
+where the first term is the kinetic term, and the scalar potential describing the Higgs $V(\Phi)$ is the famous Mexican hat potential
 \begin{align}
-V(\phi) = \mu^2 \phi^{\dagger} \phi + h (\phi^{\dagger} \phi)^2.
+V(\Phi) = \mu^2 \Phi^{\dagger} \Phi + \lambda (\Phi^{\dagger} \Phi)^2.
 \end{align}
-For $\mu^2 < 0$ this potential aquires a non-trivial minimum given by
+For $\mu^2 < 0$ and $\lambda > 0$ this potential aquires a non-trivial minimum given by
 \begin{align}
-|\phi_0| = \sqrt{\frac{-\mu^2}{2h}} \equiv \frac{v}{\sqrt{2}},
+|\Phi_0| = \sqrt{\frac{-\mu^2}{2\lambda}} \equiv \frac{v}{\sqrt{2}},
 \end{align}
-where $v$ is the vev. A special parameterization of the Higgs $SU(2)$ doublet, $\Phi(x) = \frac{1}{\sqrt{2}} (0, v + h(x))$, leads to the Lagrangian developing mass terms for fermions and some gauge bosons. The mass terms are proportional to $v$, e.g.
+where $v$ is the vacuum expectation value. A special parameterization of the Higgs $SU(2)$ doublet, $\Phi^T(x) = \frac{1}{\sqrt{2}} (0, v + h(x))$, leads to the Lagrangian developing mass terms for fermions and the gauge bosons $Z$ and $W^{\pm}$. The mass terms are proportional to $v$, \textit{e.g.}
 \begin{align*}
 M_W = \frac{1}{2} v g,
 \end{align*}
-where $M_W$ is the mass of the $W$ and $g$ is the $SU(2)_L$-coupling. Incidentally, the Higgs own mass provides one of the strongest arguments for introducing supersymmetry, namely the \textit{hierarchy problem}.
+where $M_W$ is the mass of the $W$ and $g$ is the $SU(2)_L$-coupling. The Higgs' own mass provides one of the strongest arguments for introducing supersymmetry, namely the \textit{hierarchy problem}, which is discussed below.
 
 \section{The Hierarchy Problem}
 
-The Higgs boson was discovered at the LHC in 2012, and its mass  measured at $m_H \sim 125$ GeV. At tree level this measurement coincides with the SM prediction, but when loop corrections are included there is a large discrepancy between theory and experiment. The Higgs mass can recieve fermionic or scalar contributions to its mass such as those shown in Fig. (\ref{Fig:: Phys. bac.: Higgs mass contributions}). We can thus write the expression for the mass in terms of the bare parameter $m_{H0}$ and the corrections $\Delta m_H$
+The Higgs boson was discovered at the LHC in 2012, and its mass  measured at $m_H \sim 125$ GeV \cite{20121}. The expression for the Higgs mass in the Standard Model includes loop corrections which provides a large discrepancy between theory and experiment. The Higgs mass receives fermionic or scalar loop-contributions to its mass such as those shown in Fig. (\ref{Fig:: Phys. bac.: Higgs mass contributions}). The expression for the mass can thus be written in terms of the bare parameter $m_{H0}$ and the corrections $\Delta m_H$
 \begin{align*}
 m_H^2 = m_{H0}^2 + \Delta m_H^2.
 \end{align*}
-Loop diagrams contain divergences, because of integrals over all possible momenta for the virtual particles in the loops. A way to get rid of these infinities is to regularize the expressions. Regularization is a neat trick that introduces a \textit{cut-off scale}, at which a limit is set for the integrals. A natural choice for the cut-off scale $\Lambda$ is the Planck scale, as this is the scale where we would need to introduce a new physics in the form of a quantum theory for gravity. The Planck scale is of the order of $\Lambda_{UV} \sim 10^{18}$ GeV. After regularization, the correction terms are
+Loop diagrams contain divergences, because of integrals over all possible momenta for the virtual particles in the loops. A way to get rid of these infinities is to regularize the expressions. Regularization is a neat trick that introduces a \textit{cut-off scale}, which sets an upper limit on the momentum that is integrated over. A possible choice for the cut-off scale $\Lambda$ is the Planck scale, as this is the scale where new physics is needed because gravity is not explained in the Standard Model. The Planck scale is of the order of $\Lambda_{UV} \sim 10^{18}$ GeV. After regularization, the mass correction terms are
 \begin{align}
-\Delta m_H^2 = - \frac{|\lambda_f|^2}{8\pi^2} \Lambda_{UV}^2 + \frac{\lambda_s}{8\pi^2} \Lambda_{UV}^2 +...,
+\Delta m_H^2 = - \frac{|\lambda_f|^2}{8\pi^2} \Lambda_{UV}^2 + \frac{\lambda_s}{16\pi^2} \Lambda_{UV}^2 +...,
 \end{align}
-where $\lambda_s$ is the coupling of the Higgs to scalars, and $\lambda_f$ is the Higgs coupling to fermions. The problem now becomes apparent: the correction to the mass is proportional to the Planck scale, placing it at the order of $10^{18}$ Gev, yet the mass has been experimentally measured at $125$ GeV. There must be some colossal cancellation of terms, unless we use tremendous tuning of the SM parameters. Tuning of parameters is something we want to avoid -- the model should be as natural as possible. 
+where $\lambda_s$ is the coupling of the Higgs to the scalar, and $\lambda_f$ is the Higgs coupling to the fermion. The problem now becomes apparent: the correction to the mass is proportional to the Planck scale, placing it at the order of $10^{18}$ Gev, yet the mass has been experimentally measured around $125$ GeV. There must be some colossal cancellation of terms with a tremendous tuning of the SM parameters in $\lambda_s$ and $\lambda_f$. Tuning of parameters is undesirable --- the model should be as natural as possible. 
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.3]{hierarchy_problem.png}
-\caption{Fermion and scalar loop corrections to the Higgs mass. Figure from \cite{batzing2017lecture}.}
+\caption{Fermion and scalar one-loop corrections to the Higgs mass. Figure from \cite{batzing2017lecture}.}
 \label{Fig:: Phys. bac.: Higgs mass contributions}
 \end{figure}
 
-This is where supersymmetry comes in. In simple terms, supersymmetry introduces a fermionic superpartner for each boson, and vice versa. These particles have identical mass, and their couplings to the Higgs are the same $\lambda_s = |\lambda_f|^2$. In addition, there are twice as many scalars as fermions, which gives a perfect cancellation of these enormous corrections. Thus, unbroken supersymmetry solves the hierarchy problem. We will later return to the case of broken supersymmetry.
+This is where supersymmetry comes in. In simple terms, supersymmetry introduces a fermionic superpartner for each boson, and vice versa. In unbroken supersymmetry these particles have identical mass, and their couplings to the Higgs are the same $\lambda_s = |\lambda_f|^2$. In addition, there are twice as many scalars as fermions, which gives a perfect cancellation of these enormous corrections. Thus, unbroken supersymmetry solves the hierarchy problem. The case of broken supersymmetry is revisited in a later section.
 
 
 \section{Supersymmetry}
 
-Supersymmetry is -- as the name implies -- an extension of symmetries. Relativistic field theories are invariant under rotations and translations in spacetime, or more preciscely under transformations of the Poincar\'{e} algebra,
+Supersymmetry is an extension of symmetries. Relativistic field theories are invariant under boosts, rotations and translations in spacetime. These are called Poincar\'{e} transformations, and are given by
 \begin{align}
-x^{\mu} \rightarrow x'^{\mu} = \Lambda_{\nu}^{\mu} x^{\nu} + a^{\mu}, 
+x^{\mu} \rightarrow x'^{\mu} = \Lambda^{\mu}_{\ \nu} x^{\nu} + a^{\mu}, 
 \end{align}
-where $\Lambda_{\nu}^{\mu}$ is a Lorentz transformation and $a^{\mu}$ is a translation. The assumption of supersymmetry is that there exists a non-trivial extension of this algebra, namely the \textit{superalgebra}. 
+where $\Lambda^{\mu}_{\ \nu}$ is a Lorentz transformation and $a^{\mu}$ is a translation. The assumption of supersymmetry is that Nature obeys a non-trivial extension of the related Poincar\'{e} algebra, namely the \textit{superalgebra}. 
 
-The elements of this algebra and their representations can be described using \textit{superspace}. In this new space, coordinates are given by $z^{\pi} = (x^{\mu}, \theta^A, \bar{\theta}_{\dot{A}})$, where $x^{\mu}$ are the well known Minkowski coordinates, and $\theta^A, \bar{\theta}_{\dot{A}}$ are four Grassmann numbers. Grassmann numbers are commonly known as `numbers that commute'. 
+The elements of the superalgebra and their representations can be described using \textit{superspace}. In this space coordinates are given by $z^{\pi} = (x^{\mu}, \theta^A, \bar{\theta}_{\dot{A}})$, where $x^{\mu}$ are the well-known Minkowski coordinates, and $\theta^A, \bar{\theta}_{\dot{A}}$ are four Grassmann numbers. Grassmann numbers are numbers that anti-commute. Any Super-Poincar\'{e} transformation can be written in the following way
+\begin{align}
+L(a, \alpha) = \exp [-i a^{\mu} P_{\mu} + i \alpha^A Q_A + i \bar{\alpha}^{\dot{A}} \bar{Q}_{\dot{A}} ].
+\end{align}
+In addition, since $P_{\mu}$ commutes with the generators $Q$ one can always boost between reference frames, so in general a supersymmetry transformation is taken to mean
+\begin{align}
+\delta_S = \alpha^A Q_A + \bar{\alpha}_{\dot{A}} \bar{Q}^{\bar{A}}.
+\end{align}
+
 
 The super-Poincar\'{e} algebra is given by the following commutation and anticommutation relations \cite{kvellestad2015chasing}
 \begin{align}
-\{Q_a, Q_b \} &= \{ Q_a^{\dagger}, Q_b^{\dagger}\} = 0,\\
-\{Q_a, Q_{\dot{a}}^{\dagger} \} &= 2 (\sigma^{\mu})_{a \dot{a}} P_{\mu},\\
-[Q_a, P^{\mu}] &= [Q_a^{\dagger}, P^{\mu}] = 0,\label{Eq:: [Q,P]}\\
-[Q_a, M^{\mu \nu}] &= \frac{1}{2} (\sigma^{\mu \nu})_a^b Q_b,\\
-[Q_{\dot{a}}^{\dagger}, M^{\mu \nu}] &= \frac{1}{2} (\bar{\sigma}^{\mu \nu})_{\dot{a}}^{\dot{b}} Q_{\dot{b}}^{\dagger},  
+\{Q_A, Q_B \} &= \{ \bar{Q}_A, \bar{Q}_B\} = 0,\\
+\{Q_A, \bar{Q}_{\dot{A}} \} &= 2 (\sigma^{\mu})_{A \dot{A}} P_{\mu},\\
+[Q_A, P^{\mu}] &= [\bar{Q}_A, P^{\mu}] = 0,\label{Eq:: [Q,P]}\\
+[Q_A, M^{\mu \nu}] &= \frac{1}{2} (\sigma^{\mu \nu})_A^B Q_B,\\
+[\bar{Q}_{\dot{A}}, M^{\mu \nu}] &= \frac{1}{2} (\bar{\sigma}^{\mu \nu})_{\dot{a}}^{\dot{b}} Q_{\dot{b}}^{\dagger},  
 \end{align}
-where $Q_a$ are the superalgebra generators, $P^{\mu}$ are the generators of translation, and $M^{\mu \nu}$ are the generators of the Lorentz group. The supersymmetry generators turn fermions into bosons and vice versa. More specifically, these operators have the following commutation relations with the rotation generator
+where $Q_A, A=1,2,3,4$ are the superalgebra generators, $P^{\mu}$ are the generators of translation, and $M^{\mu \nu}$ are the generators of the Lorentz group. 
+
+The supersymmetry generators turn fermions into bosons and vice versa. More specifically, these operators have the following commutation relations with the rotation generator $J^3$
 \begin{align}
-[ Q_a, J^3] &= \frac{1}{2} (\sigma^3)_a^bQ_b, 
+[ Q_A, J^3] &= \frac{1}{2} (\sigma^3)_A^BQ_B, 
 \end{align}
 which for the $Q_1$ generator becomes
 \begin{align}
 [Q_1, J^3] = \frac{1}{2} Q_1.
 \end{align}
-Now using these operators on a state with spin $j_3$, we find that
+Using this operator on a state in an irreducible representation of the Poincar\'{e} algebra with mass $m$ and spin $j_3$ gives
 \begin{align}
 J^3 Q_1 \ket{m, j_3} = (j_3 - \frac{1}{2}) Q_1 \ket{m, j_3},
 \end{align}
-thus changing the spin of the state by $1/2$. They do not, however, change the mass. This we can see from Eq. (\ref{Eq:: [Q,P]})
+thus lowering the spin of the state by $1/2$. Similarly, $Q_2$ would increase the spin. They do not, however, change the mass. This can be seen from Eq.\ (\ref{Eq:: [Q,P]})
 \begin{align}
-P^{\mu} P_{\mu} Q_a \ket{m, j_3} = Q_a P^{\mu} P_{\mu} \ket{m, j_3} = m^2 Q_a \ket{m, j_3}.
+P^{\mu} P_{\mu} Q_A \ket{m, j_3} = Q_A P^{\mu} P_{\mu} \ket{m, j_3} = m^2 Q_A \ket{m, j_3}.
 \end{align}
-Sates that transform into eachother via $Q_a$ and $Q_{\dot{a}}^{\dagger}$ are called \textit{superpartners}. In unbroken supersymmetry, therefore, the partnering fermions and bosons have the same mass. If this were the case we would have already discovered supersymmetric particles, so there is reason to believe that supersymmetry must be broken.
+States that transform into eachother via $Q_A$ and $\bar{Q}_{\dot{A}}$ are called \textit{superpartners}. In unbroken supersymmetry, therefore, the partnering fermions and bosons have the same mass. If this were the case supersymmetric particles would already have been discovered, so supersymmetry must be a broken symmetry.
 % These generators can be written as 
 %\begin{align}
 %P_{\mu} &= i \partial_{\mu},\\
@@ -128,59 +140,131 @@ Sates that transform into eachother via $Q_a$ and $Q_{\dot{a}}^{\dagger}$ are ca
 %\end{align}
 \subsection{Superfields}
 
-On our way to describing a supersymmetric Lagrangian we need a derivative that is invariant under supersymmetry transformations. The general covariant derivatives are defined as
+A supersymmetric Lagrangian will need a derivative that is invariant under supersymmetry transformations. The general covariant derivatives are defined as
 \begin{align}
 D_A & \equiv \partial_A + i (\sigma^{\mu} \bar{\theta})_A \partial_{\mu},\\
 \bar{D}^{\dot{A}} & \equiv -\partial^{\dot{A}} - i (\sigma^{\mu} \theta)^{\dot{A}} \partial_{\mu}.
 \end{align}
-The next step is to find something for these derivatives to work \textit{on}. For this we define the \textit{superfields} $\Phi(x, \theta, \bar{\theta})$. These are affected by the covariant derivatives in the following way
+
+The covariant derivatives work on the \textit{superfields} $\Phi$, which are functions on superspace $\Phi(x, \theta, \bar{\theta})$. These are affected by the covariant derivatives in the following way
 \begin{align}
 \bar{D}_{\dot{A}} \Phi (x, \theta, \bar{\theta}) &= 0 &\text{(left-handed scalar superfield)},\\
 D^A \Phi^{\dagger} (x, \theta, \bar{\theta}) &= 0 &\text{(right-handed scalar superfield)}\\
 \Phi (x, \theta, \bar{\theta}) &= \Phi^{\dagger} (x, \theta, \bar{\theta}) &\text{(vector superfield)}.\label{Eq:: vector field}
 \end{align}
-Using these relations, it can be shown that the left- and right-handed scalar fields can be written in terms of their component fields as  \cite{batzing2017lecture}
+The fields $\Phi$ are required to be Lorentz scalars or pseudoscalars, which restricts the properties of their component fields. It can be shown that the left- and right-handed scalar fields can be written in terms of their component fields as  \cite{batzing2017lecture}
 \begin{align}
-\Phi (x, \theta, \bar{\theta}) =& A(x) + i (\theta \sigma^{\mu} \bar{\theta}) \partial_{\mu} A(x) - \frac{1}{4} \theta \theta \bar{\theta} \bar{\theta} \Box A(x) + \sqrt{2} \theta \psi (x)\\
+\Phi (x, \theta, \bar{\theta}) =& A(x) + i (\theta \sigma^{\mu} \bar{\theta}) \partial_{\mu} A(x) - \frac{1}{4} \theta \theta \bar{\theta} \bar{\theta} \Box A(x) + \sqrt{2} \theta \psi (x)\nonumber \\ 
 & - \frac{i}{\sqrt{2}} \theta \theta \partial_{\mu} \psi (x) \sigma^{\mu} \bar{\theta} + \theta \theta F(x),\\
-\Phi^{\dagger} (x, \theta, \bar{\theta}) =& A^*(x) - i (\theta \sigma^{\mu} \bar{\theta}) \partial_{\mu} A^*(x) - \frac{1}{4} \theta \theta \bar{\theta} \bar{\theta} \Box A^*(x) + \sqrt{2} \bar{\theta} \bar{\Psi} (x)\\
-& - \frac{i}{\sqrt{2}} \bar{\theta} \bar{\theta} \theta \sigma^{\mu} \partial_{\mu} \bar{\Psi} (x)  + \bar{\theta} \bar{\theta} F^*(x),
+\Phi^{\dagger} (x, \theta, \bar{\theta}) =& A^*(x) - i (\theta \sigma^{\mu} \bar{\theta}) \partial_{\mu} A^*(x) - \frac{1}{4} \theta \theta \bar{\theta} \bar{\theta} \Box A^*(x) + \sqrt{2} \bar{\theta} \bar{\psi} (x)\nonumber \\
+& - \frac{i}{\sqrt{2}} \bar{\theta} \bar{\theta} \theta \sigma^{\mu} \partial_{\mu} \bar{\psi} (x)  + \bar{\theta} \bar{\theta} F^*(x),
 \end{align}
-where $A(x)$ and $F(x)$ are complex scalars and $\psi(x)$ and $\bar{\Psi} (x)$ are left-handed and right-handed Weyl spinors, respectively. From Eq. (\ref{Eq:: vector field}) we see that the structure of a general vector field should be  \cite{batzing2017lecture}
+where $A(x)$ and $F(x)$ are complex scalars and $\psi_A(x)$ and $\bar{\psi}^{\dot{A}} (x)$ are left-handed and right-handed Weyl spinors, respectively. From Eq.\ (\ref{Eq:: vector field}) the structure of a general vector field should be  \cite{batzing2017lecture}
 \begin{align}
-\Psi (x, \theta, \bar{\theta}) =& f(x) + \theta \varphi (x) + \bar{\theta} \bar{\varphi} (x) + \theta \theta m(x) + \bar{\theta} \bar{\theta} m^* (x)\\
+\Phi (x, \theta, \bar{\theta}) =& f(x) + \theta \varphi (x) + \bar{\theta} \bar{\varphi} (x) + \theta \theta m(x) + \bar{\theta} \bar{\theta} m^* (x) \nonumber \\
 &+ \theta \sigma^{\mu} \bar{\theta} V_{\mu} (x) + \theta \theta \bar{\theta} \bar{\lambda} (x) + \bar{\theta} \bar{\theta} \theta \lambda (x) + \theta \theta \bar{\theta} \bar{\theta} d(x),
 \end{align}
-where $f(x)$, $d(x)$ are real scalar fields, $\varphi (x)$, $\lambda (x)$ are Weyl spinors, $m(x)$ is a complex scalar field and $V_{\mu} (x)$ is a real Lorentz four-vector.
+where $f(x)$, $d(x)$ are real scalar fields, $\varphi_A (x)$, $\lambda_A (x)$ are Weyl spinors, $m(x)$ is a complex scalar field and $V_{\mu} (x)$ is a real Lorentz four-vector. An example of a vector field is the product $V = \Phi^{\dagger} \Phi$. In the $j = \frac{1}{2}$ representation of the superalgebra, this field does not correspond to the promised number of degrees of freedom. This problem is fixed by the super-gauge. 
+
+
 
 \subsection{Supersymmetric Lagrangian}
 
-Because of various restrictions on the supersymmetric Lagrangian (such as renormalizability), the most general Lagrangian we may write as a function of the scalar superfields is
+Symmetry transformations of the Lagrangian should leave the action
+\begin{align}
+S \equiv \int d^4x \mathcal{L},
+\end{align}
+ invariant. This is automatically fulfilled if the Lagrangian only changes by a total derivative. It can be shown that the highest order component fields in $\theta$ and $\bar{\theta}$ of the scalar and vector superfields have this property. To ensure that the action is invariant under supersymmetry transformations, the Lagrangian is redefined such that
+\begin{align}
+S = \int d^4x \int d^4 \theta \mathcal{L},
+\end{align}
+where the integral over Grassmann four numbers is defined as $d^4 \theta = d^2 \theta d^2 \bar{\theta}$, and $\int d^4 \theta (\theta \theta ) (\bar{\theta} \bar{\theta})=1$.
+
+Restrictions on the supersymmetric Lagrangian, such as invariance under supersymmetric transformations and renormalizability, mean that the most general Lagrangian as a function of the scalar superfields $\Phi_i$ is
 \begin{align}
 \mathcal{L} = \Phi_i^{\dagger} \Phi_i + \bar{\theta} \bar{\theta} W[\Phi] + \theta \theta W[\Phi^{\dagger}],
 \end{align}
 where $\Phi_i^{\dagger} \Phi_i$ is the kinetic term, and $W[\Phi]$ is the \textit{superpotential}
 \begin{align}\label{Eq:: superpotential}
-W[\Phi] = g_i \Phi_i + m_{ij} \Phi_i \Phi_j + \lambda_{ijk} \Phi_i \Phi_j \Phi_k.
+W[\Phi] = g_i \Phi_i + m_{ij} \Phi_i \Phi_j + \lambda_{ijk} \Phi_i \Phi_j \Phi_k,
 \end{align}
-A natural further step is to require that the Lagrangian be gauge invariant. For this we introduce a gauge compensating vector field $V^a$ in order for the kinetic term to be gauge invariant. This field transforms according to the following
+where $m_{ij}$ and $\lambda_{ijk}$ are symmetric. So to specify a supersymmetric Lagrangian all that is needed is to specify the superpotential. 
+
+\subsubsection{Abelian Supergauge}
+
+A natural further step is to require that the Lagrangian be gauge invariant. An Abelian, or $U(1)$, supergauge transformation (global or local) on left-handed scalar superfields $\Phi_i$ is defined as \cite{batzing2017lecture} 
 \begin{align}
-V^a_{\mu} \rightarrow V'^a_{\mu} = V_{\mu}^a + i \partial_{\mu} (A^a - A^{a*}) - q f_{bc}^a V_{\mu}^b (A^c - A^{c*}),
+\Phi_i \rightarrow \Phi_i' = e^{-i \Lambda q_i} \Phi_i,
+\end{align} 
+where $q_i$ is the $U(1)$ charge of the superfield $\Phi_i$ and $\Lambda$ is the parameter of the transformation. For a left-handed superfield $\Phi_i$ the parameter $\Lambda$ must also be a left-handed superfield, and correspondingly a right-handed superfield $\Phi^{\dagger}_i$ must have a right-handed superfield $\Lambda^{\dagger}$. 
+
+For the Lagrangian to be gauge invariant, $W$ must also be. From the requirement that $W[\Phi] = W[\Phi']$, the following restrictions on the superpotential follow
+\begin{align}
+g_i  = 0&\text{ if } q_i \neq 0\\
+m_{ij} = 0 & \text{ if } q_i + q_j \neq 0\\
+\lambda_{ijk} = 0 & \text{ if } q_i + q_j + q_k \neq 0. 
 \end{align}
-where $A$ are the component fields. Now we can write the field strength terms as well
+
+The kinetic term must also be invariant under gauge transformations
+\begin{align}
+\Phi_i^{\dagger} \Phi_i \rightarrow \Phi_i^{ \dagger}e^{i \Lambda^{\dagger} q_i} e^{-i \Lambda q_i}\Phi_i' = e^{i(\Lambda^{\dagger} - \Lambda)q_i} \Phi_i^{\dagger} \Phi_i.
+\end{align}
+For this term to be invariant, a gauge compensating vector superfield $V$ with the appropriate gauge transformation is introduced. The kinetic term can then be written as $\Phi_i^{\dagger} e^{q_iV} \Phi_i$, and the kinetic term transforms as
+\begin{align}
+\Phi_i^{\dagger} e^{q_iV} \Phi_i \rightarrow \Phi^{\dagger}_i e^{i \Lambda^{\dagger}q_i} e^{q_i(V_i + i \Lambda - i \Lambda^{\dagger})} e^{-i \Lambda q_i} \Phi_i = \Phi_i^{\dagger} e^{q_iV} \Phi_i,
+\end{align}
+and so the kinetic term is invariant to Abelian supergauge transformations.
+
+\subsubsection{Non-Abelian Supergauge}
+
+The above discussion can be extended to non-Abelian gauge theories. Consider a group $G$ with the Lie algebra of group generators $t^a$ that fullfil
+\begin{align}
+[t_a, t_b] = i f_{ab}^c t_c,
+\end{align}
+where $f_{ab}$ are the structure constants. Using the exponential map, a unitary representation of an element $g$ in the group $G$, can be written as $U(g)= e^{i \lambda^a t_a}$. Superfields then transform as
+\begin{align}
+\Phi \rightarrow \Phi' = e^{-i q \Lambda_a t^a} \Phi,
+\end{align}
+where $q$ is the charge of $\Phi$ under $G$. 
+
+The superpotential is invariant under non-Abelian gauge transformations if
+\begin{align}
+g_i = 0 &\text{ if } g_i U_{ir} \neq g_r,\\
+m_{ij} = 0 &\text{ if } m_{ij} U_{ir} U_{js} \neq m_{rs},\\
+\lambda_{ijk} = 0 &\text{ if } \lambda_{ijk}U_{ir}U_{js}U_{kt} \neq \lambda_{rst},
+\end{align} 
+where the indices on $U$ are matrix indices. 
+
+A similar kinetic term for non-abelian gauge theories as abelian gauge theories is then $\Phi^{\dagger} e^{qV^aT_a} \Phi$, where a specific representation $T_a$ of the generators $t_a$ has been chosen. Under a non-Abelian gauge transformation this term transforms as
+\begin{align}
+\Phi^{\dagger} e^{qV^aT_a} \Phi \rightarrow {\Phi'}^{\dagger} e^{q{V'}^aT_a} \Phi' = \Phi^{\dagger} e^{iq\Lambda^{a \dagger} T_a} e^{q{V'}^aT_a} e^{-iq \Lambda^a T_a} \Phi,
+\end{align}
+meaning that the vector superfield $V^a$ is required to transform as
+\begin{align}
+e^{q{V'}^a T_a} = e^{-iq \Lambda^{a \dagger} T_a} e^{qV^aT_a} e^{iq\Lambda^a T_a}.
+\end{align}
+A more efficient way of writing the supergauge transformations of vector superfields is independent of the representation
+\begin{align}
+e^{V'} = e^{-i \Lambda^{\dagger}}e^{V} e^{i \Lambda},
+\end{align} 
+where $\Lambda \equiv q \Lambda^aT_a $ and $V \equiv qV^a T_a$, such that $e^{V}e^{-V}= e^{V'}e^{-V'}=1$.
+
+\subsubsection{Supersymmetric Field Strength}
+
+The supersymmetric field strengths are defined by the spinor scalar superfields
 \begin{align}
 W_A & \equiv - \frac{1}{4} \bar{D} \bar{D} e^{-V} D_A e^V,\\
 \bar{W}_{\dot{A}} & \equiv - \frac{1}{4} DDe^{-V}\bar{D}_{\dot{A}} e^V,
 \end{align}
-where $V = V^a T_a$. The Lagrangian for a supersymmetric theory with non-Abelian gauge groups is then
+where $V = V^a T_a$. $W_A$ is a left-handed superfield, and $\text{Tr}[W_AW^A]$ is supergauge invariant \cite{batzing2017lecture}. The Lagrangian for a supersymmetric theory with (possibly) non-Abelian gauge groups is then
 \begin{align}
 \mathcal{L} = \Phi^{\dagger} e^{V} \Phi + \delta^2 (\bar{\theta}) W[\Phi] + \delta^2 (\theta) W[\Phi^{\dagger}] + \frac{1}{2T(R)} \delta^2 (\bar{\theta}) \text{Tr}[W_AW^A],
 \end{align}
-where $T(R)$ is the Dynkin index for normalization.
+where $T(R)$ is the Dynkin index for normalization, $\delta^2(\bar{\theta}) = \bar{\theta} \bar{\theta}$ and $\delta^2(\theta) = \theta \theta$. The Dynkin index of the representation $R$ in terms of matrices $T_a$ is given by $\text{Tr}[T_a, T_b] = T(R) \delta_{ab}$.
 
 \subsection{Soft Supersymmetry Breaking}
 
-As previously mentioned, an unbroken supersymmetry would mean that the particle-sparticle pairs should have the same mass. Since these particles have not been observed, supersymmetry is assumed to be broken.
+As previously mentioned, an unbroken supersymmetry would mean that the particle-sparticle pairs should have the same mass. Since these particles have not been observed, supersymmetry must be a broken symmetry. In this section soft supersymmetry breaking is considered as a way of giving mass to particles, without comprimising the solution to the hierarchy problem.
 
 As it turns out, the best way of breaking SUSY is through \textit{soft breaking}. This entails adding terms to the Lagrangian which cause spontaneous symmetry breaking, while preserving the cancellations of divergences that fixes the hierarchy problem.
 
@@ -216,7 +300,7 @@ H_d^0\\
 H_d^-
 \end{pmatrix}.
 \end{align}  
-The entire field content of the MSSM can be found in Tab. (\ref{Tab:: Phys. back. : MSSM multiplets}). %The kinetic terms of the MSSM Lagrangian give the matter-gauge interaction terms
+The entire field content of the MSSM can be found in Table (\ref{Tab:: Phys. back. : MSSM multiplets}). %The kinetic terms of the MSSM Lagrangian give the matter-gauge interaction terms
 %\begin{align}\label{Eq:: MSSM kinetic Lagrangian}
 %\mathcal{L}_{kin} =& L_i^{\dagger}e^{\frac{1}{2}g \sigma W - \frac{1}{2}g'B } L_i + Q_i^{\dagger} e^{\frac{1}{2}g_s\lambda C + \frac{1}{2} g \sigma W + \frac{1}{3} \cdot \frac{1}{2} g' B} Q_i + \bar{U}_i^{\dagger} e^{\frac{1}{2}g_s \lambda C - \frac{4}{3} \cdot \frac{1}{2} g'B} \bar{U}_i\\
 %&+ \bar{D}_i^{\dagger} e^{\frac{1}{2}g_s \lambda C + \frac{2}{3} \cdot \frac{1}{2} g' B} \bar{D}_i + \bar{E}_i^{\dagger} e^{2 \frac{1}{2}g'B} \bar{E}_i + H_u^{\dagger} e^{\frac{1}{2} g \sigma W + \frac{1}{2} g' B}H_u + H_d^{\dagger} e^{\frac{1}{2} g \sigma W - \frac{1}{2} g' B} H_d.

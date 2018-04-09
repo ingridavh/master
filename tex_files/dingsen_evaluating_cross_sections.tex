@@ -26,20 +26,13 @@
 
 \begin{document}
 
-
-
 \tableofcontents
 
 
 
-
-
-
-
-
-
-
 \chapter{Evaluating Cross Sections with Gaussian Processes}
+
+This chapter is dedicated to evaluating cross sections for squark pair production with Gaussian processes. The learning of a benchmark process is considered, and compared to Gaussian processes with changes in the data set, the kernel and different features. One change to the benchmark settings is considered at a time. Then the effect of adding more data in the form of experts is investigated, and finally learning curves for the optimal parameters are calculated to decide whether the method benefits from adding more data.
 
 \section{Data Generation}
 
@@ -47,7 +40,7 @@ In this section the generation of MSSM-24 training and test data is discussed, f
 
 \subsubsection{Sampling of Data}
 
-An MPI parallelized script generates a sample point in parameter space, by drawing random values from the distributions in Tab. (\ref{Tab:: evalualting cross : Feature distributions }). The table contains log and flat priors which are combined to cover more of the parameter space. When a parameter point has been sampled, it is run through the program \verb|softpoint.x| which calculates the SUSY spectrum of this point, using the \verb|Softsusy 3.6.2|-package \cite{ALLANACH2002305}. The spectrum is then written to a \verb|slha|-file and given as input to \verb|Prospino 2.1|, which calculates the LO and NLO cross sections according to the calculations outlined in Section 3.4.1. The relevant features and NLO cross sections are harvested to \verb|.dat|-files, which are used by the GP. 
+An MPI parallelized script generates a sample point in parameter space by drawing random values from the distributions in Tab. (\ref{Tab:: evalualting cross : Feature distributions }). The table contains log and flat priors, and a combination of these is used to cover more of the parameter space. When a parameter point has been sampled, it is run through the program \verb|softpoint.x| which calculates its SUSY spectrum using the \verb|Softsusy 3.6.2|-package \cite{ALLANACH2002305}. The spectrum is then written to a \verb|slha|-file and given as input to \verb|Prospino 2.1|, which calculates the LO and NLO cross sections according to the method outlined in Section 3.4.1. The relevant features and NLO cross sections are harvested to \verb|.dat|-files, which are used by the Gaussian processes. 
 
 \begin{table}
 \centering
@@ -86,32 +79,32 @@ $m_{d_3}$ & [0, 100, 4000] & [0, 4000]\\
 
 \subsubsection{Priors}
 
-To get a reasonable distribution in parameter space, an objective prior distribution of parameters should be used. This means that priors are assigned according to a set of principles of how information should be encoded in a probability distribution. More details on objective priors can be found in \cite{kvellestad2015chasing}.
+To get a reasonable distribution in parameter space it is necessary to use an objective prior distribution of parameters. This means that priors are assigned according to a set of principles of how information should be encoded in a probability distribution. More details on objective priors can be found in \cite{kvellestad2015chasing}.
 
 The first of these principles is the \textit{transformation group invariance}, which states that the probability distribution should be invariant under any transformation that is considered irrelevant to the problem. In other words, the $pdf$ should satisfy
 \begin{align}
-\pi (x|I) dx = \pi (x+a|I)d(x+a) \Rightarrow \pi (x|I) = \pi (x+a|I) ,
+&\pi (x|I) dx = \pi (x+a|I)d(x+a) &&\Rightarrow &&\pi (x|I) = \pi (x+a|I) ,
 \end{align}
-where $a$ is some translation. This is often referred to as a \textit{flat prior}. Invariance under scale transformations, which are transformations that introduce a scale to the problem $m \rightarrow m' = cm$, requires
+where $a$ is some translation. This is often referred to as a uniform or \textit{flat prior}. Invariance under scale transformations, which are transformations that introduce a scale to the problem $m \rightarrow m' = cm$, requires
 \begin{align}
 \pi (m | I) dm = \pi (cm|I) c dm,
 \end{align}
 which is satisfied if $\pi (m |I) \propto 1/m$. Since this corresponds to $\pi (\log m | I)$ being flat, it is called the \textit{log prior}. 
 
-The flat prior covers the edges of parameter space well, while a log prior covers the inner points \footnote{The points close to 0.}. A combination of the log and flat priors is therefore used in order to properly cover parameter space. To avoid divergence of the log prior close to zero, a cut is used. The limits on the priors are \verb|[start, flat_start, flat_end, end]| for priors that include negative values, and \verb|[flat_start, start, end]| for priors with positive values. An illustration of a prior with positive values is shown in Fig.\ (\ref{Fig:: evaluating cross : prior illustration}), where a flat distribution is used close to $x=0$ to avoid divergences.
+The flat prior covers the edges of parameter space well, while a log prior covers the innermost points \footnote{The points close to 0.}. Therefore, a combination of the log and flat priors is used in order to properly cover parameter space. To avoid divergence of the log prior close to zero this region is covered by a flat prior. The limits on the priors are \verb|[start, flat_start, flat_end, end]| for priors that include negative values, and \verb|[flat_start, start, end]| for priors with only positive values. An illustration of a prior with positive values is shown in Fig.\ (\ref{Fig:: evaluating cross : prior illustration}), where a flat distribution is used close to $x=0$ to avoid divergences.
 
-\begin{figure}[H]
+\begin{figure}
 \centering
-\includegraphics[scale=0.12]{figures_evaluating_cross_sections/prior_illustration.jpg}
+\includegraphics[scale=1.5]{figures_evaluating_cross_sections/log_prior_xd.pdf}
 \caption{Illustration of the log prior distribution $\pi(x)$. Around $x=0$ the prior would blow up, so at a limit $x_{cut}$ a flat prior is used.}
 \label{Fig:: evaluating cross : prior illustration}
 \end{figure}
 
 The weak scale MSSM model used in this project, MSSM-24, requires a soft breaking scale $Q$. This scale is set to $Q=1$ TeV. It is also worth noting that the parameter space for the cross sections is significantly reduced from that of the MSSM-24. The cross sections depend on the values $m_{\tilde{g}}$, $m_{\tilde{q}}$, $\tilde{g}_s$, $\hat{g}_s$ and $s$. Since only first and second generation squarks are considered, this contributes with 8 masses \footnote{4 quarks with a pair of lefthanded and righthanded squarks each.} which combined with the 4 other parameters reduces the parameter space to 12 dimensions. The parameter space is thus better sampled than it would appear from the 24 parameters in MSSM-24.
 
-\subsection{Data Quality}
+\subsubsection{Data Quality}
 
-To ensure the data is properly distributed in parameter space data quality plots are generated. In Fig.\ (\ref{Fig:: evaluating cross : Data quality}) distributions for $m_{\tilde{g}}$, $m_{\tilde{d}_L}$ and $m_{\tilde{u}_L}$ are shown, as these are the most relevant for this thesis. The scatter plots use 2000 points, which is the number of training points used in the benchmark settings in the next section. All parts of the parameter space seem to be covered, although the density of points is higher for small masses. This could affect predictions with few training points.
+To ensure the data is properly distributed in parameter space data quality plots are generated. In Fig.\ (\ref{Fig:: evaluating cross : Data quality}) distributions for $m_{\tilde{g}}$, $m_{\tilde{d}_L}$ and $m_{\tilde{u}_L}$ are shown, as these are the most relevant for this thesis. The scatter plots use 2000 points, which is the number of training points used in the benchmark settings in the following sections. All parts of the parameter space seem to be covered, although the density of points is higher for small masses. This could affect predictions with few training points.
 
 \begin{figure}
     \centering
@@ -130,11 +123,11 @@ To ensure the data is properly distributed in parameter space data quality plots
 
 \subsubsection{Noise}
 
-The observations contain some noise that originates in the \verb|Prospino 2.1| calculation. In a parameter point chosen at random the relative error has a standard deviation of $\varepsilon = 0.002$ multiplied by the cross section. This error fluctuates little between parameter points, so it should be a good approximation for the order of magnitude of errors in all points. This information can be used for the learning of GPs. Cross sections provided by Prospino are denoted as $Y_i$ and real cross sections as $y_i^{true}$. The relation between them is then
+The observations contain some noise that originates in the \verb|Prospino 2.1| calculation. In a parameter point chosen at random the relative error has a standard deviation of $\varepsilon = 0.002$. This error fluctuates little between parameter points, so it is considered a good approximation for the order of magnitude of errors in all points. The goal is now to incorporate this information in the Gaussian process. For that purpose the following relation is considered,
 \begin{align}\label{Eq:: cross section w/ error}
 Y_i = y^{true}_i + \epsilon_i = y_i^{true}(1 + \varepsilon_i),
 \end{align}
-where $\varepsilon_i \sim \mathcal{N}(0, \varepsilon)$. The distribution of $Y_i$ can thus be written as 
+where cross sections provided by Prospino are denoted as $Y_i$, real cross sections as $y_i^{true}$ and $\varepsilon_i \sim \mathcal{N}(0, \varepsilon)$. The distribution of $Y_i$ can thus be written as 
 \begin{align}
 Y_i = \mathcal{N}(y_i^{true}, \varepsilon y_i^{true}),
 \end{align}
@@ -145,7 +138,7 @@ P_{X_i} (X_i) &= P_{Y_i} (Y_i) \Big|\frac{\partial Y_i}{\partial X_i}\Big|\\
 &= P_{Y_i} (y_i) 10^{X^i} \log 10\\
 &= \mathcal{N} (10^{x_i^{true}}, \varepsilon 10^{x_i^{true}}) \cdot 10^{X_i} \cdot \log 10.
 \end{align}
-This means that the relevant distribution is in fact
+So the relevant distribution is in fact
 \begin{align*}
 X_i = \log_{10} Y_i = \log_{10} y_i^{true} + \log_{10} (1 + \mathcal{N}(0, \varepsilon)),
 \end{align*}
@@ -154,12 +147,12 @@ where the following expansion can be made
 \log_{10} (1 + \mathcal{N}(0, \varepsilon)) \simeq \frac{\mathcal{N} (0, \varepsilon)}{\log 10} - \frac{\mathcal{N} (0, \varepsilon)^2}{\log 100} +...
 \end{align}
 
-Since the leading order term is clearly the dominant term, the logarithm of the cross section may be written as
+Since the leading order term is dominant for small $\varepsilon$ the logarithm of the cross section may be approximated as
 \begin{align}\label{Eq:: cross section log gaussian noise}
 X_i \simeq \log_{10} y_i^{true} + \frac{1}{\log 10} \mathcal{N} (0, \varepsilon)
 \end{align}
 
-Since the distribution has a standard deviation $\varepsilon = 2 \cdot 10^{-3}$, the Gaussian noise covariance should be
+Eq.\ (\ref{Eq:: evaluating cross : cross section log gaussian noise}) is now on the form of the Gaussian noise model. The error distribution has a standard deviation $\varepsilon = 2 \cdot 10^{-3}$, so noise variance of the Gaussian process should be
 \begin{align*}
 \Big( \frac{\varepsilon}{\log 10} \Big)^2 = \frac{(2 \cdot 10^{-3})^2}{(\log 10)^2} = \frac{4 \cdot 10^{-6}}{5.301} \simeq 7.544 \cdot 10^{-7}.
 \end{align*}
@@ -168,7 +161,7 @@ The noise term predicted by the GP should therefore be of the order of $\mathcal
 
 \section{Dataset Transformations}
 
-The plot in Fig.\ (\ref{Fig :: evaluating cross : dq b}) indicates that cross sections, especially those of the order $\mathcal{O}(1 \text{ fb})$ and lower, are very spread as a function of $m_{\tilde{g}}$. This is more evident in the upper left panel of Fig.\ (\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}), where the cross section $\sigma$ is plotted as a function of the gluino mass. The upper left panel shows $\sigma$ as a function of the squark mass $m_{\tilde{q}}$, which is more defined but still has some spread. This section will be devoted to reducing the spread caused by the gluino mass dependency of the cross section.
+The plot in Fig.\ (\ref{Fig :: evaluating cross : dq b}) indicates that cross sections, especially those of the order $\mathcal{O}(1 \text{ fb})$ and lower, are very spread as a function of $m_{\tilde{g}}$. This is more evident in the upper left panel of Fig.\ (\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}), where the cross section $\sigma$ is plotted as a function of the gluino mass. The upper left panel shows $\sigma$ as a function of the squark mass $m_{\tilde{q}}$, which is more defined but still has some spread. This section will be devoted to reducing the spread caused by the gluino mass.
 
 \subsubsection{Scaling Functions}
 
@@ -180,7 +173,7 @@ where
 \begin{align*}
 &\eta = \frac{s}{m^2} - 1, &r = \frac{m_{\tilde{g}}^2}{m_{\tilde{q}}^2}, &&r_t = \frac{m_t^2}{m^2},
 \end{align*}
-where $m = (\sqrt{p_1^2} + \sqrt{p_2^2} )/2$ is the average mass of the particles produced. The scaling functions are the different contributions to the cross section, as explained in Chapter 2. As the total cross section only differs from the partonic cross section in that an integral over parton distribution functions is performed, the mass dependencies in Eq. (\ref{Eq:: evaluating cross : partonic cross}) are unchanged.
+where $m = (\sqrt{p_1^2} + \sqrt{p_2^2} )/2$ is the average mass of the particles produced. The scaling functions are the different contributions to the cross section, as explained in Chapter 2. As the total cross section only differs from the partonic cross section by an integral over parton distribution functions, the mass dependencies in Eq. (\ref{Eq:: evaluating cross : partonic cross}) are relevant for the total cross sections as well.
 
 The energy near the threshold is the base for an important part of the contributions to the cross section \cite{beenakker1997squark}. In this region the scaling functions can be expanded in the low velocity of produced particles $\beta$, leading to the following expressions \cite{beenakker1997squark}
 \begin{align}
@@ -189,11 +182,11 @@ The energy near the threshold is the base for an important part of the contribut
 &f_{qq}^H = f_{qq}^B \Big[\frac{2}{3 \pi^2} \log^2(8 \beta^2) - \frac{7}{2 \pi^2} \log (8 \beta^2) \Big] &&f_{q'q}^H = f_{q'q}^B \Big[\frac{2}{3 \pi^2} \log^2(8 \beta^2) - \frac{19}{6 \pi^2} \log (8 \beta^2) \Big] \nonumber \\
 & \bar{f}_{qq} = - f_{qq}^B \frac{2}{3 \pi^2} \log (8 \beta^2) &&\bar{f}_{q'q} = - f_{q'q}^B \frac{2}{3 \pi^2} \log (8 \beta^2).\label{Eq:: evaluating cross : Scaling func threshold}
 \end{align}
-Seeing as the main part of the contributions originate from this energy region, it may be possible to remove some of the complexity of the function using the expressions in Eq. \ref{Eq:: evaluating cross : Scaling func threshold}. Note that all terms are proportional to $f_{qq}^B$ ($f_{q'q}^B$), which is again proportional to $m_{\tilde{q}}^2 m_{\tilde{g}}^2$. Since the partonic cross section is proportional to $\sigma \propto 1/m^2$, and $m^2 = m_{\tilde{q}}^2$ in the case of squark production, the proportional $m_{\tilde{q}}^2$-dependency is automatically cancelled. However, the following transformation can be made
+As the main contributions come from this energy region, it may be possible to remove some of the complexity of the function using the expressions in Eq. \ref{Eq:: evaluating cross : Scaling func threshold}. Note that all terms are proportional to $f_{qq}^B$ ($f_{q'q}^B$), which is again proportional to $m_{\tilde{q}}^2 m_{\tilde{g}}^2$. Since the partonic cross section is proportional to $\sigma \propto 1/m^2$, and $m^2 = m_{\tilde{q}}^2$ in the case of squark production this $m_{\tilde{q}}^2$-dependency is automatically cancelled. However, the following transformation can be made
 \begin{align}
 \sigma \rightarrow \sigma_{m_{\tilde{g}}} = \frac{\sigma}{m_{\tilde{g}}^2},
 \end{align}
-reducing the gluino mass dependency. The lower panels in Fig.\ (\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}) show $\sigma_{m_{\tilde{g}}}$ as a function of $m_{\tilde{g}}$ and $m_{\tilde{q}}$. The spread as a function of the squark mass is much smaller, and for high cross sections the shape of $\sigma_{m_{\tilde{g}}}$ as a function of squark and gluino mass are very similar, which may make it easier to find a kernel that fits well in both dimensions. Therefore, the target value in this thesis will be $\sigma_{m_{\tilde{g}}}$. In the threshold region, the partonic version of this expression is
+reducing the gluino mass dependency. The lower panels in Fig.\ (\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}) show $\sigma_{m_{\tilde{g}}}$ as a function of $m_{\tilde{g}}$ and $m_{\tilde{q}}$. The spread as a function of the squark mass is much smaller, and for high cross sections the shape of $\sigma_{m_{\tilde{g}}}$ as a function of squark and gluino mass are very similar, which may make it easier to find a kernel that fits well in both dimensions. Therefore, the target value in this thesis will be the logarithm of $\sigma_{m_{\tilde{g}}}$. The logarithm is used because of the large span in function values. In the threshold region, the partonic version of this expression is
 \begin{align}
 \hat{\sigma}_{ij, m_{\tilde{g}}} =  \frac{8 \pi \beta \alpha^2_s (Q^2)}{27(m_{\tilde{q}}^2 + m_{\tilde{g}}^2)^2} \Bigg\{&1 
  + 4 \pi \alpha_s (Q^2) \Bigg[ \frac{1}{24 \beta} 
@@ -213,35 +206,35 @@ This transformation provides an even smoother function, but has been left as fur
 \label{Fig:: evaluating cross : Comparison sigma and sigma/m}
 \end{figure}
 
-\section{Learning a GP}
+\section{Learning the Gaussian Process}
 
-In this section a single GP is learned with benchmark settings, and then a selected set of improvements are introduced. The results are quantified using plots of the relative deviance defined in Chapter 4 (REFERER TIL LIKNINGEN).
+In this section a single Gaussian process is learned with benchmark settings, and then a selected set of improvements are introduced. The results are quantified using plots of the relative deviance defined in Chapter 4 (REFERER TIL LIKNINGEN).
 
 \subsection{The Benchmark}
 
-In this thesis the benchmark processes will be the production of $\tilde{d}_L \tilde{d}_L$ and $\tilde{d}_L \tilde{u}_L$. The benchmark settings are a single GP with 2000 training points and 20 000 test points that uses $m_{\tilde{g}}$ and $m_{\tilde{d}_L}$ as features (as well as $m_{\tilde{u}_L}$ for $\tilde{d}_L \tilde{u}_L$ production). The exponential squared kernel (RBF \footnote{The exponential squared kernel is often called the radial basis function, hence the abbreviation.}) with a white noise term. The kernel is implemented in \verb|scikit-learn| as 
+In this thesis the benchmark processes will be the production of $\tilde{d}_L \tilde{d}_L$ and $\tilde{d}_L \tilde{u}_L$. The benchmark settings are a single GP with 2000 training points and 20 000 test points that uses $m_{\tilde{g}}$ and $m_{\tilde{d}_L}$ as features (as well as $m_{\tilde{u}_L}$ for $\tilde{d}_L \tilde{u}_L$ production). The exponential squared kernel (RBF \footnote{The exponential squared kernel is often called the radial basis function, hence the abbreviation.}) with a white noise term is used. The kernel is implemented in \verb|scikit-learn| in the following way 
 \begin{lstlisting}
 kernel_BM =  C(constant_value=10, constant_value_bounds=(1e-3, 1e4)) * RBF(length_scale = np.array([1000, 1000]), length_scale_bounds=(1, 1e6)) + WhiteKernel(noise_level=1, noise_level_bounds=(2e-10,1e2))
 \end{lstlisting} 
-where the features are \verb|(m_gluino, m_dL)| for $\tilde{d}_L \tilde{d}_L$ and \verb|(m_gluino, m_dL, m_uL)| $\tilde{d}_L \tilde{u}_L$. Note that the length scale of the RBF is given a a vector of the same dimension as the feature vector $\textbf{x},\vec{\ell} \in \mathbb{R}^D$ \footnote{This example is for $\tilde{d}_L \tilde{d}_L$ production, for $\tilde{d}_L \tilde{u}_L$ production $D=3$, as $m_{\tilde{u}_L}$ is inluded as well.}. This is in case the different masses have different covariances, as it appears they do from the lower panels in Fig.\ (\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}). 
+where the features are \verb|(m_gluino, m_dL)| for $\tilde{d}_L \tilde{d}_L$ and \verb|(m_gluino, m_dL, m_uL)| for $\tilde{d}_L \tilde{u}_L$. Note that the length scale of the RBF is given a a vector of the same dimension as the feature vector $\textbf{x},\vec{\ell} \in \mathbb{R}^D$ \footnote{This example is for $\tilde{d}_L \tilde{d}_L$ production, for $\tilde{d}_L \tilde{u}_L$ production $D=3$, as $m_{\tilde{u}_L}$ is inluded as well.}. This is in case the different masses have different covariances, as they appear to do from the lower panels in Fig.\ (\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}). 
 
 Because of the large span of $\sigma_{m_{\tilde{g}}}$-values (ranging from $10^{-32}$ to $10^6$), values are divided into decades. This means that for each interval $10^i-10^{i+1}$ an error is calculated. The error is the mean and variance of the distribution of relative deviations in each decade
 \begin{align}
 & \mu = \text{m} \Bigg(\frac{y - \hat{y}}{y} \Bigg),
 & \sigma^2 = \text{var} \Bigg(\frac{y - \hat{y}}{y} \Bigg).
 \end{align}
-The means and variances are plotted for the BM settings in Fig.\ (\ref{Fig:: evaluating cross : errors BM dLdL}) for $\tilde{d}_L \tilde{d}_L$, labelled $BM$. The optimal kernel parameters are found in Tab.\ (\ref{Tab:: evaluating cross : optimal kernels dLdL})-(\ref{Tab:: evaluating cross : optimal kernels dLuL}). The computation times on a laptop are found in Tab. (\ref{Tab:: evaluating cross : computation times BM}).
+The means and variances of the logarithms are plotted for the BM settings in Fig.\ (\ref{Fig:: evaluating cross : BM dLdL error plot}) for $\tilde{d}_L \tilde{d}_L$. The plot for $\tilde{d}_L \tilde{u}_L$ is very similar, and is therefore not shown here. The optimal kernel parameters  found by the GP are found in Tab.\ (\ref{Tab:: evaluating cross : optimal kernels dLdL})-(\ref{Tab:: evaluating cross : optimal kernels dLuL}), while computation times on a laptop are found in Tab.\ (\ref{Tab:: evaluating cross : computation times BM}). The predicted noise levels $\alpha$ are very high for both processes, at $\alpha=0.47$ for $\tilde{d}_L \tilde{d}_L$ and $\alpha=0.593$ for $\tilde{d}_L \tilde{u}_L$, which is far from the expected value of $\sim 7.544 \cdot 10^{-7}$. In addition, the prediction is very unstable, with a over prediction for low cross sections.
 
 \begin{table}
 \centering
 \begin{tabular}{c|c|r|r|r|l}
  & $C$ & $\ell_{m_{\tilde{g}}}$ & $\ell_{m_{\tilde{d}_L}}$ & $\ell_{\bar{m}}$ & $\alpha$\\
  \hline
-BM & $54.6^2$ & $5470 $& $ 2190$ & & $0.47$\\
-No outliers & $98.5^2 $ & $5740$ & $215$ & & $0.00372$\\
-$\sigma > 10^{-16}$~fb & $22.7^2$ & $1170$&  $998$ && $0.0036$\\
-$\bar{m}$ & $33.1^2$ & $1190$ & $200$ & $846$ & $0.0000119$\\
-Matern & $21.8^2$ & $2020$ & $3290$ && $0.0253$\\
+BM & $2981$ & $5470 $& $ 2190$ & & $0.47$\\
+No outliers & $9702 $ & $5740$ & $215$ & & $0.00372$\\
+$\sigma > 10^{-16}$~fb & $515$ & $1170$&  $998$ && $0.0036$\\
+$\bar{m}$ & $1095$ & $1190$ & $200$ & $846$ & $0.0000119$\\
+Matern & $1000$ & $30200$ & $8600$ && $0.462$\\
 \end{tabular}
 \caption{Optimal kernel parameters for different settings for $\tilde{d}_L \tilde{d}_L$.}
 \label{Tab:: evaluating cross : optimal kernels dLdL}
@@ -252,15 +245,16 @@ Matern & $21.8^2$ & $2020$ & $3290$ && $0.0253$\\
 \begin{tabular}{c|c|r|r|r|r|l}
  & $C$ & $\ell_{m_{\tilde{g}}}$ & $\ell_{m_{\tilde{d}_L}}$ & $\ell_{m_{\tilde{u}_L}}$ & $\ell_{\bar{m}}$ &$\alpha$\\
  \hline
-BM & $49.9^2$ & $5870$&$ 4000$&$ 2220$ && $0.593$ \\
-No outliers & $80^2$ & $4420$ & $3100$ & $240$ && $0.00348$\\ 
-$\sigma > 10^{-16}$~fb & $100^2$ & $1540$ & $2900$ & $2150$ && $0.0031$\\
-$\bar{m}$ &  $61.7^2$ & $1340$ & $3590$ & $251$ & $748$ & $0.0000119$\\
-Matern & $20.6^2$ & $1930$ & $1930$ & $9220$ && $0.000386$\\
+BM & $2490$ & $5870$&$ 4000$&$ 2220$ && $0.593$ \\
+No outliers & $6400$ & $4420$ & $3100$ & $240$ && $0.00348$\\ 
+$\sigma > 10^{-16}$~fb & $10000$ & $1540$ & $2900$ & $2150$ && $0.0031$\\
+$\bar{m}$ &  $3806$ & $1340$ & $3590$ & $251$ & $748$ & $0.0000119$\\
+Matern & $1000$ & $31100$ & $1000000$ & $8260$ && $0.585$\\
 \end{tabular}
 \caption{Optimal kernel parameters for different settings for $\tilde{d}_L \tilde{u}_L$.}
 \label{Tab:: evaluating cross : optimal kernels dLuL}
 \end{table}
+
  
 \begin{table}
 \centering
@@ -271,19 +265,18 @@ BM & 00:07:48 & 00:08:40\\
 Outliers & 00:08:42 & 00:11:20\\
 Cut & 00:07:24 & 00:11:07\\
 Features & 00:11:20 & 00:16:37\\
-Kernel & 00:13:33 & 00:18:19
+Kernel & 00:07:28 & 00:13:05
 \end{tabular}
 \caption{Computation times for GP with 2000 training points and 20 000 test points on a laptop with 4 cores.}
 \label{Tab:: evaluating cross : computation times BM}
 \end{table}
 
-
-%\begin{figure}
-%\centering
-%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLdL_2000t_nomean_CrbfW_noalpha_outliers.pdf}
-%\caption{The relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$ with benchmark settings. 2000 training points and 20 000 test points were used on a regular GP, with the final kernel as described in the text. Features are the physical masses $m_{\tilde{g}}$ and $m_{\tilde{d}_L}$.}
-%\label{Fig:: evaluating cross : BM dLdL error plot}
-%\end{figure}
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{figures_evaluating_cross_sections/dLdL_2000t_nomean_CrbfW_noalpha_outliers.pdf}
+\caption{The relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$ with benchmark settings. 2000 training points and 20 000 test points were used on a regular GP, with the final kernel as described in the text. Features are the physical masses $m_{\tilde{g}}$ and $m_{\tilde{d}_L}$.}
+\label{Fig:: evaluating cross : BM dLdL error plot}
+\end{figure}
 
 %\begin{figure}
 %\centering
@@ -294,172 +287,187 @@ Kernel & 00:13:33 & 00:18:19
 
 \subsection{Outliers}
 
-Calculations in \verb|Prospino 2.1| set some NLO terms to zero because $K=0$, as discussed in SETT INN HVOR DE BLE FUNNET. This leads to outliers in the dataset, as shown in Fig.\ (\ref{Fig:: evaluating cross : sigma w outliers}). Removing the ouliers makes the prediction much better for small targets, but also stabilizes the prediction for high targets, as can be seen in Fig.\ (\ref{Fig:: evaluating cross : errors BM dLdL} a). The predicted noise levels are significantly reduced for both processes, from $\alpha = 0.47$ to $\alpha = 0.00372$ for $\tilde{d}_L \tilde{d}_L$ and from $\alpha = 0.593$ to $\alpha= 0.00348$ for $\tilde{d}_L \tilde{u}_L$. This implies that including the outliers leads the GP to underfit, which means that much of the signal is considered noise, worsening the prediction.   
+Calculations in \verb|Prospino 2.1| set some NLO terms to zero because $K=0$ for numerical reasons, as discussed in \ref{sec:Prospino}. This leads to outliers in the dataset, as shown in Fig.\ (\ref{Fig:: evaluating cross : sigma w outliers}), where they can be seen as a cluster of points well below the other cross sections. These points have zero cross sections, which are set to $\epsilon = 10^{-32}$~fb in the calculation to avoid divergences. Removing the ouliers makes the prediction much better for small cross sections, but also stabilizes the prediction for larger values, as can be seen in Fig.\ (\ref{Fig:: evaluating cross : errors BM dLdL} a) where the prediction without outliers is compared to the BM. The predicted noise levels are significantly reduced with the removal of outliers for both processes, from $\alpha = 0.47$ to $\alpha = 0.00372$ for $\tilde{d}_L \tilde{d}_L$ and from $\alpha = 0.593$ to $\alpha= 0.00348$ for $\tilde{d}_L \tilde{u}_L$. This implies that including the outliers leads the GP to underfit, which means that much of the signal is considered noise.   
 
 
-\begin{figure}[H]
+\begin{figure}
 \centering
 \includegraphics[scale=0.5]{figures_evaluating_cross_sections/sigma_w_outliers.pdf}
 \caption{Plot of $\log( \sigma_{m_{\tilde{g}}})$ for $\tilde{d}_L \tilde{d}_L$ as a function of $m_{\tilde{d}_L}$, where outliers are included. The outliers are originally $\sigma=0$ fb, but are set to $\sigma =10^{-32}$ fb so as to avoid infinities.}
 \label{Fig:: evaluating cross : sigma w outliers}
 \end{figure}
 
-%\begin{figure}[H]
-%\centering
-%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLdL_compare_outliers.pdf}
-%\caption{The relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$, with and without outlier points with $\sigma_{\tilde{d}_L \tilde{d}_L} = 10^{-32}$ fb. Otherwise, the settings are the BM settings. The prediction becomes very chaotic when outliers are included, also in the region of large cross sections.}
-%\label{Fig:: evaluating cross : outliers dLdL error plot}
-%\end{figure}
-
-%\begin{figure}[H]
-%\centering
-%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLuL_compare_outliers.pdf}
-%\caption{The relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{u}_L$, with and without outlier points with $\sigma_{\tilde{d}_L \tilde{d}_L} = 10^{-32}$ fb. Otherwise, the settings are the BM settings. The prediction becomes very chaotic when outliers are included, also in the region of large cross sections.}
-%\label{Fig:: evaluating cross : outliers dLuL error plot}
-%\end{figure}
-
 \subsection{Cuts on Cross Sections}
 
-Smoother functions are easier to fit with GP, and as can be seen from the righthand panels in Fig.\ (\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}), the targets are very speed functions of the squark masses for small values. Small target values also comprise the space with the most spread as a function of the gluino mass. Since the limit for $0.02$ events is at $\sigma = 10^{-3}$ fb, and interesting values are larger than this, a lower cut is set at $\sigma = 10^{-16}$ fb, excluding all lower values from both training and testing. The resulting errors are shown in Fig.\ (). The optimal kernel parameters for $\tilde{d}_L \tilde{d}_L$ with a lower cut of $\sigma > 10^{-16}$ fb are
-\begin{lstlisting}
-22.7**2 * RBF(length_scale=[1.17e+03, 998]) + WhiteKernel(noise_level=0.00336)
-\end{lstlisting}
-and for $\tilde{d}_L \tilde{u}_L$
-\begin{lstlisting}
-Kernel parameters:  100**2 * RBF(length_scale=[1.54e+03, 2.9e+03, 2.15e+03]) + WhiteKernel(noise_level=0.0031)
-\end{lstlisting}
-Noise levels are further reduced from the case where outliers are removed, with the noise going from $\alpha=0.00372$ to $\alpha = 0.00336$ for $\tilde{d}_L \tilde{d}_L$ and from $\alpha=0.00348$ to $\alpha=0.0031$ for $\tilde{d}_L \tilde{u}_L$. As will be shown in a later section, there is reason to believe the noise should be rather low ($\alpha \propto 10^{-7}$), so this indicates that excluding low cross sections improves the prediction. The error in the prediction of the highest targets is also significantly improved from the case of the BM and the case with removed outliers, especially for $\tilde{d}_L \tilde{u}_L$.
- 
-
-%\begin{figure}[H]
-%\centering
-%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLdL_compare_cut16.pdf}
-%\caption{The relative deviance $\varepsilon$ as a function of the logarithm of $\sigma_{m_{\tilde{g}}}$ for $\tilde{d}_L \tilde{d}_L$, with and without $\sigma_{\tilde{d}_L \tilde{d}_L} < 10^{-16}$ fb. Otherwise the settings are the BM settings. The prediction becomes better at high cross sections when $\sigma < 10^{-16}$ are removed, and this area is well under the 1 event limit.}
-%\label{Fig:: evaluating cross : cut16 dLdL error plot}
-%\end{figure}
-
-%\begin{figure}[H]
-%\centering
-%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLuL_compare_cut16.pdf}
-%\caption{The relative deviance $\varepsilon$ as a function of the logarithm of $\sigma_{m_{\tilde{g}}}$ for $\tilde{d}_L \tilde{u}_L$, with and without $\sigma_{\tilde{d}_L \tilde{u}_L} < 10^{-16}$ fb. Otherwise the settings are the BM settings. The prediction becomes better at high cross sections when $\sigma < 10^{-16}$ are removed, and this area is well under the 1 event limit.}
-%\label{Fig:: evaluating cross : cut16 dLuL error plot}
-%\end{figure}
-
-
+Smooth functions are easier to fit with Gaussian processes, and the target values are very steep functions of large squark masses. This can be seen from the righthand panels in Fig.\ (\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}). In addition, small target values comprise the regions with the most spread as a function of the gluino mass. Since the limit for $0.02$ events is at $\sigma = 10^{-3}$~fb \footnote{Cross sections with lower values than this predict less than 0.02 events, and are thus less interesting in this thesis.}, a lower cut is set at $\sigma_{cut} = 10^{-16}$ fb. The cut excludes all cross sections lower than $\sigma_{cut}$ from both training and testing. The resulting error distributions for $\tilde{d}_L \tilde{d}_L$ are shown in Fig.\ (\ref{Fig:: evaluating cross : errors BM dLdL} b), and the optimal kernel parameters are found in Tab.\ (\ref{Tab:: evaluating cross : optimal kernels dLdL})-(\ref{Tab:: evaluating cross : optimal kernels dLuL}). Noise levels are further reduced from the case where outliers are removed, with the variance going from $\alpha=0.00372$ to $\alpha = 0.00336$ for $\tilde{d}_L \tilde{d}_L$ and from $\alpha=0.00348$ to $\alpha=0.0031$ for $\tilde{d}_L \tilde{u}_L$. The estimated noise level seems to be approaching the expected theoretical value, indicating that the exclusion of low cross sections improves the prediction. The error in the prediction of the highest targets is significantly improved from the cases of the BM and the removed outliers. Training and testing only on high values renders the prediction very stable for all (included) orders of magnitude.
 
 \subsection{Features}
 
-\verb|Prospino 2.1| calculates the NLO cross section for the mean of the squark masses, $\bar{m}$, and uses this to find the $K$-factor. The $K$-factor is then multplied with the cross sections with non-degenerate squark masses to find the individual NLO terms. There is therefore reason to believe that adding the mean squark mass as a feature will improve the prediction. The features tested in this section are then
+\verb|Prospino 2.1| calculates the NLO cross section for the mean of the squark masses, $\bar{m}$, and uses this to find the $K$-factor. The $K$-factor is then multplied with the LO cross sections for non-degenerate squark masses to find the individual NLO terms. There is therefore reason to believe that adding the mean squark mass as a feature will improve the prediction. The features used in this section are
 \begin{lstlisting}
 features_dLdL = (m_gluino, m_dL, m_mean)
 features_dLuL = (m_gluino, m_dL, m_uL, m_mean)
 \end{lstlisting}
-The optimal kernel parameters for $\tilde{d}_L \tilde{d}_L$ are
-\begin{lstlisting}
-33.1**2 * RBF(length_scale=[1.19e+03, 200, 846]) + WhiteKernel(noise_level=1.19e-05)
-\end{lstlisting}
-and for $\tilde{d}_L \tilde{u}_L$
-\begin{lstlisting}
-61.7**2 * RBF(length_scale=[1.34e+03, 3.59e+04, 251, 748]) + WhiteKernel(noise_level=1.19e-05)
-\end{lstlisting}
-Adding the mean mass as a feature significantly reduces the estimated noise level, even giving the same level for $\tilde{d}_L \tilde{d}_L$ and $\tilde{d}_L \tilde{d}_L$. This could be a good sign of the prediction, as the two targets should have the same level. The length scale for $\bar{m}$ is smaller than for $m_{\tilde{g}}$, indicating that there is a higher dependence on the mean mass than the gluino mass. This can be a good sign for the addition of the new feature.
+The optimal kernel values are found in Tab.\ (\ref{Tab:: evaluating cross : optimal kernels dLdL})-(\ref{Tab:: evaluating cross : optimal kernels dLuL}). Adding the mean mass as a feature reduces the estimated noise level considerably, and estimates the same level for $\tilde{d}_L \tilde{d}_L$ and $\tilde{d}_L \tilde{d}_L$, at $\alpha = 1.19 \cdot 10^{-5}$. Since the two processes should have approximately the same level of noise this is an indication that the prediction is improved. Further, the length scale for $\bar{m}$ is smaller than for $m_{\tilde{g}}$. This implies that there is a higher dependence on the mean mass than the gluino mass, since GPs attribute large length scales to irrelevant features. The resulting error distributions for $\tilde{d}_L \tilde{d}_L$ are shown in Fig.\ (\ref{Fig:: evaluating cross : errors BM dLdL} c) and compared to the BM. With some exceptions where the variances are very large adding the new feature gives a mean of almost zero and very small variances for cross sections over the $0.02$ event limit. 
 
-\subsubsection{Lagrangian Masses}
+%\subsubsection{Lagrangian Masses}
 
-Since the BDTs used in \cite{sparre2018fast} showed, using importance sampling, that the Lagrangian parameters are not good features for the target value in question, these will not be tested here. 
-
-
-\subsubsection{Mean Mass}
-
-
-%\begin{figure}[H]
-%\centering
-%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLdL_compare_mean.pdf}
-%\caption{The relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$, with features $(m_{\tilde{d}_L}, m_{\tilde{g}})$ and $(m_{\tilde{d}_L}, m_{\tilde{g}}, \bar{m})$. Otherwise the settings are the BM settings. The fit is worse when another feature is added, except for the highest cross sections, where it is significantly better.}
-%\label{Fig:: evaluating cross : mean dLdL error plot}
-%\end{figure}
-
-%\begin{figure}[H]
-%\centering
-%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLuL_compare_mean.pdf}
-%\caption{The relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{u}_L$, with features $(m_{\tilde{g}}, m_{\tilde{d}_L}, m_{\tilde{u}_L})$ and $(m_{\tilde{g}}, m_{\tilde{d}_L},m_{\tilde{u}_L}, \bar{m})$. Otherwise the settings are the BM settings. For low targets the fit is worse when another feature is added. For high targets, however, some of the cross sections get significantly smaller uncertainties and mean values close to zero.}
-%\label{Fig:: evaluating cross : mean dLuL error plot}
-%\end{figure}
+%Since the BDTs used in \cite{sparre2018fast} showed, using importance sampling, that the Lagrangian parameters are not good features for the target value in question, these were not be tested here. 
 
 
 \subsection{Kernel}
 
-Compare Matern and RBF
-
-%\begin{figure}[H]
-%\centering
-%\includegraphics[scale=0.5]{/home/ingrid/Documents/Master/Programs/DistributedGaussianProcesses/bm_plots/dLdL_compare_bm_mean_kernels.pdf}
-%\caption{The relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$, with kernels RBF for the features $(m_{\tilde{d}_L}, m_{\tilde{g}})$ and Mat\'{e}rn for the features $(m_{\tilde{d}_L}, m_{\tilde{g}}, \bar{m})$. Otherwise the settings are the BM settings. For low targets the fit is worse when another feature is added. For high targets, however, some of the cross sections get significantly smaller uncertainties and mean values close to zero.}
-%\end{figure}
-
-The optimal kernel parameters with the Mat\'{e}rn kernel for $\tilde{d}_L \tilde{d}_L$ are 
-\begin{lstlisting}
-21.8**2 * Matern(length_scale=[2.02e+03, 3.29e+03], nu=1) + WhiteKernel(noise_level=0.0253)
-\end{lstlisting}
-and for $\tilde{d}_L \tilde{u}_L$
-\begin{lstlisting}
-20.6**2 * Matern(length_scale=[1.93e+03, 1.93e+03, 9.22e+03], nu=1) + WhiteKernel(noise_level=0.000386)
-\end{lstlisting}
+While the exponential squared kernel is very smooth, the Mat\'{e}rn kernel has a hyperparameter $\nu$ to control its smoothness. It is sometimes argued that this makes Mat\'{e}rn a better kernel for physical processes. In this section the Mat\'{e}rn kernel with $\nu=1.5$ is compared to the BM RBF kernel, and the resulting error distributions for $\tilde{d}_L \tilde{d}_L$ are found in the lower right panel of Fig.\ (\ref{Fig:: evaluating cross : BM dLdL error plot}). The choice of hyperparameter is explained below. The predictions are somewhat more stable for high cross sections than with the RBF kernel. For low cross sections the error distributions have larger variances, but as this is currently not the region of interest the Mat\'{e}rn kernel is considered a better fit than the RBF. As can be seen from the optimal kernel values in Tab.\ (\ref{Tab:: evaluating cross : optimal kernels dLdL})-(\ref{Tab:: evaluating cross : optimal kernels dLuL}) the Mat\'{e}rn kernel predicts a slightly lower noise level than the RBF. The noise variances go from $\alpha = 0.47$ with RBF to $\alpha = 0.462$ with Mat\'{e}rn for $\tilde{d}_L \tilde{d}_L$, and from $\alpha = 0.593$ with RBF to $\alpha = 0.585$ with Mat\'{e}rn for $\tilde{d}_L \tilde{u}_L$. 
 
 \subsubsection{Hyperparameters}
 
-Plot of different $\nu$-values?
+The Mat\'{e}rn kernel has the aforementioned hyperparameter $\nu$, which controls the smoothness of the function. As $\nu \rightarrow \infty$ the function becomes very smooth, and approaches the exponential squared kernel. For half-integer values the Mat\'{e}rn kernel becomes the product of an exponential squared kernel and a polynomial -- a simple form which is faster to compute \footnote{Scikit-learn takes around 10 times longer to compute values not in the interval $\nu = [0.5, 1.5, 2.5, \infty]$, because of the evaluation of Bessel functions.}. In order to determine the best value of $\nu$ $k$-fold cross validation was performed as a function of $\nu$ for the BM settings. The validation curve uses the $R^2$-score and $k=5$ for the cross validation, and is shown in Fig.\ (\ref{Fig:: evaluating cross : validation curve nu BM}). Based on the cross validation, the best value for the hyperparameter is $\nu = 1.5$. 
 
 
 \begin{figure}
-\includegraphics[scale=0.57]{figures_evaluating_cross_sections/errors_BM_dLdL_12.pdf}
-\caption{Errors}
+\centering
+\includegraphics[scale=0.5]{figures_evaluating_cross_sections/cv_scores_nu_BM.pdf}
+\caption{Validation curve as a function of the hyperparameter $\nu$ of the Mat\'{e}rn kernel, with $k$-fold validation with $k=5$. The settings are the BM settings, except for the exchange of the RBF kernel for the Mat\'{e}rn kernel. The scoring parameter is the $R^2$-score, but here $R^2-1$ is plotted.}
+\label{Fig:: evaluating cross : validation curve nu BM}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.5]{figures_evaluating_cross_sections/errors_BM_dLdL_nu15.pdf}
+\caption{The distribution of the relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$ with a) benchmark settings (orange) and removed outliers (blue); b) benchmark settings (orange) and a lower cut on cross sections (blue); c) benchmark settings (orange) and the added feature $\bar{m}$ (blue); d) the benchmark settings (orange) and the Mat\'{e}rn kernel (blue). Benchmark settings are abbreviated BM.}
 \label{Fig:: evaluating cross : errors BM dLdL}
 \end{figure}
 
+%\begin{figure}
+%\includegraphics[scale=0.57]{figures_evaluating_cross_sections/errors_BM_dLuL_12.pdf}
+%\caption{Errors}
+%\label{Fig:: evaluating cross : errors BM dLuL}
+%\end{figure}
+
+\subsection{Optimal Settings}
+
+A combination of the improved settings found in the foregoing sections is tested in this section. The cummulative settings are; a single GP with outlier points removed; a lower cut on cross sections $\sigma > 10^{-16}$~fb; the Mat\'{e}rn kernel with $\nu=1.5$; and the gluino mass, the relevant squark mass(es) and the mean of all squark masses as features. The resulting error distributions are found in Fig.~(\ref{Fig:: evaluating cross : error distribution dLdL optimal}). With all improvements implemented the prediction is very good, as all error distribution variances are less than $5\%$. The computation with optimal settings takes 00:09:30 for $\tilde{d}_L \tilde{d}_L$ and 00:10:28 for $\tilde{d}_L \tilde{u}_L$ on a regular laptop with 4 cores. 
+
 \begin{figure}
-\includegraphics[scale=0.57]{figures_evaluating_cross_sections/errors_BM_dLuL_12.pdf}
-\caption{Errors}
-\label{Fig:: evaluating cross : errors BM dLuL}
+\centering
+\includegraphics[scale=0.6]{figures_evaluating_cross_sections/dLdL_2000t_mean_matern15_alpha_cut16.pdf}
+\caption{The distribution of the relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$ with the optimal settings; a single GP with 2000 training points that uses the Mat\'{e}rn kernel with $\nu=1.5$. Outliers are removed and a lower cut at $\sigma=10^{-16}$~fb is introduced. The features are $m_{\tilde{g}}$, $m_{\tilde{d}_L}$ and $\bar{m}$, and the target is $\sigma_{m_{\tilde{g}}}$. All error distibutions have $\sigma_{std}$ smaller than $5\%$.}
+\label{Fig:: evaluating cross : error distribution dLdL optimal}
 \end{figure}
 
+\subsubsection{Noise}
 
+Since the noise level is known to some degree, it is worth testing whether this knowledge be used in Gaussian processes. As previously shown, the variance of the Gaussian distribution of noise is around $\alpha_{fix} = 7.544 \cdot 10^{-7}$. In \verb|scikit-learn| an option to letting the \verb|WhiteKernel| estimate the level of noise is to specify the noise by passing it as \verb|alpha| to the Gaussian process regressor function
+\begin{lstlisting}
+gp = GaussianProcessRegressor(kernel=kernel, alpha=7.544e-7)
+\end{lstlisting}
+For the optimal settings the \verb|WhiteKernel| predicts values close to $\alpha_{fix}$, with $\alpha=10^{-5}$ for $\tilde{d}_L \tilde{d}_L$ and $5.63 \cdot 10^{-6}$ for $\tilde{d}_L \tilde{u}_L$. The remaining kernel parameters therefore hardly change when $\alpha$ is fixed, as can be seen in Tab.\ (\ref{Tab:: evaluating cross : optimal kernel parameters alpha}). As expected, the prediction changes very little. A marginal improvement can be seen in the variance for $\alpha_{fix}$ in Fig.\ (\ref{Fig:: evaluating cross : errors distribution alpha vs no alpha optimal}). For calculations with few training points the computation time is not affected in any great way, but for larger datasets the removal of $\alpha$ from the kernel may affect the time. 
 
+\begin{table}
+\centering
+\begin{tabular}{c|c|r|r|r|r|l}
+& $C$ & $\ell_{m_{\tilde{g}}}$ & $\ell_{m_{\tilde{d}_L}}$ &$\ell_{m_{\tilde{u}_L}}$ & $\ell_{\bar{m}}$ & $\alpha$\\
+\hline
+$\tilde{d}_L \tilde{d}_L$ & $750$ & $30500$ & $17400$ && $74800$ & $1 \cdot 10^{-5}$\\
+$\tilde{d}_L \tilde{d}_L$ & $1000$ & $28300$ & $18300$ && $69900$ & $7.544 \cdot 10^{-7}$ (fixed)\\
+$\tilde{d}_L \tilde{u}_L$ & $1000$ & $30200$ & $79600$ & $18500$ & $89000$ & $5.63 \cdot 10^{-6}$\\
+$\tilde{d}_L \tilde{u}_L$ & $1000$ & $29100$ & $66200$ & $18300$ & $76000$ & $7.544 \cdot 10^{-7}$ (fixed)\\
+\end{tabular}
+\caption{Kernel parameters for the optimal settings with the noise level estimated by the GP, and given as a constant $\alpha=7.544 \cdot 10^{-7}$.}
+\label{Tab:: evaluating cross : optimal kernel parameters alpha}
+\end{table}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{figures_evaluating_cross_sections/dLdL_compare_optimal_alphas.pdf}
+\caption{The distribution of the relative deviance $\varepsilon$ as a function of the logarithm of the normalized cross section for $\tilde{d}_L \tilde{d}_L$ with the optimal settings. In one case the noise level is estimated by the GP (orange), and in the other it is given as a parameter $\alpha$ (blue).}
+\label{Fig:: evaluating cross : errors distribution alpha vs no alpha optimal}
+\end{figure}
 
 
 
 
 \section{Distributed Gaussian Processes}
 
-Time plots.
+Adding experts improves the prediction with very little increase of the computational cost. In Fig.\ (\ref{Fig:: evaluating cross : compare 1 vs 4 expert dLdL}) a comparison of error distributions between one expert and four experts with 2000 training points each, and one expert with 8000 training points is shown. For comparison the settings are the benchmark settings. The improvement of the prediction with the addition of data is large, along with the stability of predictions. In terms of error distributions there seems to be little difference between using four experts with 2000 training points each and using a single expert with 8000 training points. The difference in computation times, however, is very large. Four experts with 2000 points take a little under six minutes to compute, while the single expert with 8000 points takes over an hour and a half. Computation times are shown in Tab. (\ref{Tab:: evaluating cross : computation times experts BM}).
 
-Matrix with number of experts and training points per expert, with mean relative deviance.
-
-\subsection{Adding Experts}
-
-\begin{figure}[H]
-\caption{Learning curves for an increasing number of experts, where each expert has 500, 1000 training points, for the process $\tilde{d}_L \tilde{d}_L$. A value of 1 is a perfect prediction, and 0 is a bad prediction.}
-\end{figure}
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{figures_evaluating_cross_sections/dLdL_compare_BM_experts.pdf}
+\caption{The error distributions of GP with the BM settings, using 1 (orange) and 4 (experts).}
+\label{Fig:: evaluating cross : compare 1 vs 4 expert dLdL}
+\end{figure}  
 
 \begin{table}
 \centering
-\begin{tabular}{r|c|c}
-Training points & 2000 p/ expert & GP\\
+\begin{tabular}{c|c|c}
+Number of experts & Points per expert & Time\\
 \hline
-2000 & 00:03:32 & 00:03:32\\
-4000 & 00:04:39 & 00:16:33\\
-6000 & 00:04:10\\
-8000 & 00:05:29\\
-10 000 & 00:05:46\\
-12 000 & 00:06:31\\
-14 000 & 00:05:46\\
+1 & 2000 & 00:03:32\\
+4 & 2000 & 00:05:46\\
+1 & 8000 & 01:35:21
 \end{tabular}
+\caption{Table of computation times for GP fit and prediction on Abel.}
+\label{Tab:: evaluating cross : computation times experts BM}
 \end{table}
+
+%\begin{table}
+%\centering
+%\begin{tabular}{r|c|c}
+%Training points & 2000 p/ expert & GP\\
+%\hline
+%2000 & 00:03:32 & 00:03:32\\
+%4000 & 00:04:39 & 00:16:33\\
+%6000 & 00:04:10\\
+%8000 & 00:05:29\\
+%10 000 & 00:05:46\\
+%12 000 & 00:06:31\\
+%14 000 & 00:05:46\\
+%\end{tabular}
+%\end{table}
 
 \subsection{Cross validation for DGP}
 
-There is no \verb|scikit-learn| function for DGP, so we've implemented a method for calculating the learning curve of a DGP when experts are added. The program uses $k$-fold cross validation with loss function $R^2$.
+There is no \verb|scikit-learn| function for distributed Gaussian processes, so an algorithm for $k$-fold cross validation as a function of experts was implemented. The algorithm uses the \verb|scikit-learn| function \verb|KFold| to find training and test indices for $k$ splits of the data, and is found in the sub-library \verb|model_selection|. For $k$ folds it is implemented in the following way
+\begin{lstlisting}
+from sklearn.model_selection import KFold
+kf = KFold(n_splits=k, random_state=42)
+\end{lstlisting}
+The loss function used in the CV is the $R^2$-score, introduced earlier, and pseudocode for the algorithm is found in Alg.\ (\ref{Alg:: evaluating cross : Cross validation DGP}). Learning curves for the optimal settings are found in Fig.\ (\ref{Fig:: evaluating cross : learning curve dLdL}) for $\tilde{d}_L \tilde{d}_L$ and Fig.\ (\ref{Fig:: evaluating cross : learning curve dLuL}) for $\tilde{d}_L \tilde{u}_L$, with $500$, $1000$ and $2000$ points per expert.
 
+\begin{algorithm}
+ \KwData{$N_{experts}$ (max number of experts), $n$ (training points per expert), $X$~(inputs), \textbf{y}~(targets), $k$ (number of folds for cross validation)}
+number of experts $\vec{n} = [1,...,N_{experts}]$ \;
+\For {each number of experts $i$}
+{
+Training size =  $n \cdot (i+1)$\;
+Total size = training size $\cdot \frac{k}{k-1}$\;
+Split training data into subsets\;
+Use KFold to create $k$-fold cross validation instance $kf$\;
+\For {training indices, test indices in $kf$}{Fit GP to $k-1$ folds of training data\;
+Use 1 fold as test data\;
+Predict values $\hat{y}_{train}$ for training data\;
+Predict values $\hat{y}_{test}$ for test data\;
+$R^2_{\text{train}} (\hat{y}, y) = 1 - \frac{\sum_{i=0}^{\text{Training size} -1} (y_i - \hat{y}_i)^2}{\sum_{i=0}^{\text{Training size} -1} (y_i - \bar{y})^2}$\;
+$R^2_{\text{test}} (\hat{y}, y) = 1 - \frac{\sum_{i=0}^{n -1} (y_i - \hat{y}_i)^2}{\sum_{i=0}^{n -1} (y_i - \bar{y})^2}$\;
+}
+Find mean $m$ and std $\sigma_{std}$ of $R^2_{\text{test}}$-values and $R^2_{\text{train}}$-values
+}
+\KwResult{$\vec{n}, \vec{m}(R^2_{\text{train}})$, $\vec{\sigma}_{std}(R^2_{\text{train}})$, $\vec{m}(R^2_{\text{test}})$, $\vec{\sigma}_{std}(R^2_{\text{test}})$.}
+ \caption{Pseudocode for $k$-fold cross validation of distributed Gaussian processes, which calculates the $R^2$-scores for training and test data as a fucntion of the number of experts, to be used for $e.g.$ learning curves. In the $R^2$-score calculation, $y_i$ are true values, $\hat{y}_i$ are GP predicted values, and $\bar{y}$ is the mean of all $y_i$.}
+\label{Alg:: evaluating cross : Cross validation DGP}
+\end{algorithm}
+
+\begin{figure}
+\includegraphics[scale=0.6]{figures_evaluating_cross_sections/learningcurves_dLdL_nu15.pdf}
+\caption{Learning curves as a function of number of experts, with 500 and 1000 training points per expert for $\tilde{d}_L\tilde{d}_L$. $k$-fold cross validation uses $R^2$-score, but here $R^2-1$ is plotted.}
+\label{Fig:: evaluating cross : learning curve dLdL}
+\end{figure}
+
+\begin{figure}
+\includegraphics[scale=0.6]{figures_evaluating_cross_sections/learningcurves_dLuL_nu15.pdf}
+\caption{Learning curves as a function of number of experts, with 500 and 1000 training points per expert for $\tilde{d}_L\tilde{u}_L$. $k$-fold cross validation uses $R^2$-score, but here $R^2-1$ is plotted.}
+\label{Fig:: evaluating cross : learning curve dLuL}
+\end{figure}
 
 \bibliographystyle{plain}
 \bibliography{dingsen_evaluating_cross_sections}
