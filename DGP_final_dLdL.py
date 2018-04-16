@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Set training size
-trainsize = 2000
+trainsize =2000
 
 # Choose number of experts
 n_experts = 1
@@ -39,8 +39,8 @@ df_lin = pd.DataFrame(data_lin)
 #df_lin = df_lin.replace(0.0, eps)
 
 # Remove outliers
-#mask = df_lin['17.dLdL_NLO'] != 0
-#df_lin = df_lin[mask]
+mask = df_lin['17.dLdL_NLO'] != 0
+df_lin = df_lin[mask]
 
 # Lower cut at 10**-16
 mask4 = df_lin['17.dLdL_NLO'] > 1e-16
@@ -73,23 +73,24 @@ print "Min target: ", min(np.log10(target))
 
 target_m2 = target/features[:,0]**2
 target_mq2 = target/features[:,1]**2
-target_mqmg = target/(features[:,0]**2*features[:,1]**2)
+target_fac = target/features[:,0]**2*(features[:,0]**2 +features[:,1]**2)**2
 
 ##############################################################
 # Distributed Gaussian Processes                             #
 ##############################################################
 
 # Define kernel to be used in GP
-kernel_matern_3 = C(10, (1e-3, 1000)) * Matern(np.array([1000, 1000, 1000]), (1e3, 1e6), nu=1.0) #+ WhiteKernel(1, (2e-10,1e2))
-kernel_matern_2 = C(10, (1e-3, 1e3)) * Matern(np.array([1000, 1000]), (1e3, 1e6), nu=1.0) + WhiteKernel(1, (2e-10,1e2))
+kernel_matern_3 = C(10, (1e-3, 10)) * Matern(np.array([1000, 1000, 1000]), (1e3, 1e6), nu=1.5) + WhiteKernel(1, (2e-10,1e2))
+kernel_matern_2 = C(10, (1e-3, 1e3)) * Matern(np.array([1000, 1000]), (1e3, 1e6), nu=1.5) + WhiteKernel(1, (2e-10,1e2))
 kernel_rbf_W = C(10, (1e-3, 1e4))*RBF(np.array([1000, 1000]), (1, 1e6)) + WhiteKernel(1, (2e-10,1e2))
 kernel_rbf_W_3 = C(10, (1e-3, 1e4))*RBF(np.array([1000, 1000, 1000]), (1, 1e6)) + WhiteKernel(1, (2e-10,1e2))
 
 ##################
 
 # Set name of outfile
-outfile = 'bm_dLdL_sigmam2/2000t_mean_matern_alpha_cut16.dat'
+#outfile = 'bm_dLdL_sigmafac/2000t_nomean_CrbfW_noalpha_.dat'
+outfile = 'bm_dLdL_sigmam2/2000t_mean_matern15_noalpha_cut16_smallC.dat'
 
 my_dgp = dgp_parallel(n_experts, outfile, kernel=kernel_matern_3, verbose=False, njobs=my_njobs)#, optimizer=None)
-my_dgp.fit_and_predict(long_features, target_m2, trainsize=trainsize, alpha=7.544e-07)
+my_dgp.fit_and_predict(long_features, target_m2, trainsize=trainsize)#, alpha=7.544e-07)
 #my_dgp.fit_and_predict(features, target_m2, trainsize=trainsize)
