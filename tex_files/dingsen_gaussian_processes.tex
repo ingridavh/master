@@ -12,6 +12,9 @@
 \usepackage[boxed]{algorithm2e}
 \addtokomafont{labelinglabel}{\sffamily}
 
+% Allow verbatim in footnotes
+\usepackage{bigfoot}
+
 % Feynman slash
 \usepackage{slashed}
 
@@ -35,49 +38,47 @@
 
 \chapter{Gaussian Processes}
 
-In this chapter Gaussian process regression is introduced. First, some concepts and expressions in Bayesian statistics are reviewed. The following section introduces the mathematical framework needed for Gaussian processes, before selected covariance functions are discussed. Concepts in Bayesian model selection are used as a basis to quantify and improve the quality of predictions. Finally, distributed Gaussian processes are introduced as a way of scaling Gaussian processes to larger datasets.
+In this chapter Gaussian process regression is introduced. First, some concepts and terminology in Bayesian statistics are reviewed. The following section introduces the mathematical framework needed for Gaussian processes, and selected covariance functions are discussed. Concepts in Bayesian model selection are used as a basis to quantify and improve the quality of predictions. Finally, distributed Gaussian processes are introduced as a way of scaling Gaussian processes to larger datasets.
 
 \section{Introduction to Bayesian Statistics}
 
-There are two general philosophies in statistics, namely \textit{frequentist} and \textit{Bayesian} statistics. To understand where they differ, consider a statement statisticians from both branches consider to be true
-
-\begin{center}
+There are two general philosophies in statistics, namely \textit{Bayesian} and \textit{frequentist} statistics. To understand where they differ, consider a statement statisticians from both branches would probably consider to be true
+\begin{quote}
 \textit{Statisticians use probability to describe uncertainty.}
-\end{center}
-
-The difference between Bayesian and frequentist statistics is at the definition of the \textit{uncertain}. Since uncertainty is described by probability this must also vary, and one distinguishes between \textit{objective} and \textit{subjective} probability. Consider an example in which a statistician throws a dice. Before throwing, he is uncertain about the outcome of the dice toss. This uncertainty related to the outcome is \textit{objective}: no one can know if he will throw a 1 or a 4. On the other hand, he might also be uncertain about the underlying probability distribution of the dice toss. Is the dice loaded? Is one of the edges sharper than the others? This uncertainty is \textit{subjective}, as it may vary depending on how much information is available about the system. One of the main critiques of subjective probability posed by frequentists is that the final probability depends on who you ask.
+\end{quote}
+The difference between Bayesian and frequentist statistics is at the definition of the \textit{uncertain}. Since uncertainty is described by probability this understanding must also vary, and one distinguishes between \textit{objective} and \textit{subjective} probability. Consider an example in which a statistician throws a die. Before throwing, he is uncertain about the outcome of the toss. This uncertainty related to the outcome is \textit{objective}: no one can know if he will throw a 1 or a 4. On the other hand, he might also be uncertain about the underlying probability distribution of the toss. Is the die loaded? Is one of the edges sharper than the others? This uncertainty is \textit{subjective}, as it may vary depending on how much information is available about the system, and how that information is used. One of the main critisisms of subjective probability posed by frequentists is that the final probability depends on who you ask.
 
 \subsection{Bayes' Theorem}
 
-To further illustrate the difference between frequentist and Bayesian statistics \textit{Bayes' theorem} is introduced. Bayes' theorem can be derived from the familiar rules of probability
+To further illustrate the difference between frequentist and Bayesian statistics \textit{Bayes' theorem} \cite{mr1763essay} is introduced. Bayes' theorem can be derived from the familiar rules of probability
 \begin{align}\label{Eq:: Sum rule}
 P(X | I) + P(\bar{X} | I) = 1,
 \end{align}
 \begin{align}\label{Eq:: Product rule}
 P(X, Y | I) = P(X | Y, I) \times P(Y | I),
 \end{align} 
-commonly known as the \textit{sum rule} and \textit{product rule}, respectively. $P(X|I)$ is the probability of outcome $X$ given the information $I$, and $P(X|Y,I)$ is the probability of outcome $X$ given the information $I$ \textit{and} outcome $Y$. The bar over $\bar{X}$ means that the outcome $X$ does \textit{not} happen. The sum rule states that the total probability of the outcomes $X$ and $\bar{X}$ is equal to 1. This is rather untuitive, considering an event either takes place not. The second rule, the product rule, states that the probability of both outcomes $X$ and $Y$ is equal to the probability of $Y$ times the probability of $X$ given that $Y$ has ocurred. These expressions combine to give Bayes' theorem, first formulated by reverend Thomas Bayes in 1763,
+commonly known as the \textit{sum rule} and \textit{product rule}, respectively. $P(X|I)$ is the probability of outcome $X$ given the information $I$, and $P(X|Y,I)$ is the probability of outcome $X$ given the information $I$ \textit{and} outcome $Y$. The bar over $\bar{X}$ means that the outcome $X$ does \textit{not} happen. The sum rule states that the total probability of the outcomes $X$ and $\bar{X}$ is equal to 1. This is rather intuitive, considering that an event either takes place or not. The second rule, the product rule, states that the probability of both outcomes $X$ and $Y$ is equal to the probability of $Y$ times the probability of $X$ given that $Y$ has ocurred. These expressions combine to give Bayes' theorem, first formulated by the reverend Thomas Bayes in 1763,
 \begin{align}\label{Eq:: gaussian process : Bayes theorem}
 P(X | Y, I) = \frac{P(Y | X, I) \times P(X | I)}{P(Y | I)}.
 \end{align}
-This theorem states that the probability of $X$ given $Y$ equals the probability of $Y$ given $X$ times the probability of $X$, divided by the probability of $Y$. Surprisingly, there is nothing Bayesian about Bayes' theorem. It merely reformulates the rules of logical consistent reasoning stated by Richard Cox in 1946 \cite{sivia2006data}. Laplace was the one to make Bayes' theorem Bayesian, when he used the theorem to perform inference about distribution parameters. These are, for example, the mean and variance of a Gaussian distribution. The resulting expression is
+This theorem states that the probability of $X$ given $Y$ equals the probability of $Y$ given $X$ times the probability of $X$, divided by the probability of $Y$. Surprisingly, there is nothing Bayesian about Bayes' theorem. It is merely a reformulation of the rules of logical consistent reasoning by Richard Cox in 1946 \cite{sivia2006data}. Laplace was the one to make Bayes' theorem Bayesian in the modern statistical sense, when he used the theorem to perform inference about probability distributions \cite{laplace1820theorie}. The resulting expression is the \textit{posterior probability distribution}
 \begin{align}
-P(\Theta = \theta | X=x) = \frac{P(X=x|\Theta = \theta) P(\Theta = \theta)}{P(X=x)},\label{Eq:: gaussian process : Bayesian inference}
+P(\Theta | X , I) = \frac{P(X|\Theta, I) P(\Theta| I)}{P(X | I)},\label{Eq:: gaussian process : Bayesian inference}
 \end{align}
-where $\Theta$ are the possible probability distribution parameters, $X$ are the possible outcomes, $P(X=x)$ is a normalization constant called the \textit{marginal likelihood}, and $P(X=x|\Theta = \theta)$  and $P(\Theta = \theta)$ are the \textit{likelihood} and \textit{prior}, respectively. In other words, Eq.\ (\ref{Eq:: gaussian process : Bayesian inference}) states the probability of the parameters $\theta$ given the knowledge of outcomes $x$.
+where $\Theta$ are the probability distribution parameters, $X$ are the possible outcomes, $P(X|I)$ is a normalization constant called the \textit{marginal likelihood} or evidence, and $P(X|\Theta, I)$  and $P(\Theta |I)$ are the \textit{likelihood} and \textit{prior}, respectively. In other words, Eq.\ (\ref{Eq:: gaussian process : Bayesian inference}) states the probability of the parameters $\Theta$ given the knowledge of outcomes $X$.
 
-A crucial parting of Bayesian statistics from frequentist statistics is at the introduction of the \textit{prior}, which expresses a probability distribution on the \textit{parameters} of the probability distribution.
+A crucial parting of Bayesian statistics from frequentist statistics is at the introduction of the \textit{prior}, which expresses a probability distribution on the \textit{parameters} of the probability distribution before data. The prior and likelihood are discussed in the next section, while the marginal likelihood is revisited in Sec.~1.4.
 
-\subsection{Priors and Likelihood}
+\subsection{Priors and Likelihood}\label{Sec:: gaussian process : Priors and Likelihood}
 
-The likelihood $P(X = x |\Theta = \theta)$ is simply the probability of the observations $x$ given the parameters of the probability distribution $\theta$. Conversely, the prior expresses a prior belief or assumption of the data, and has to be determined beforehand. The measure $P(\Theta = \theta | X = x)$ from Eq. (\ref{Eq:: gaussian process : Bayesian inference}) is called the \textit{posterior distribution}. This can be thought of as the prior belief, modified by how well this belief fits the data,
+The likelihood $P(X |\Theta, I)$ is simply the probability of the observations $X$ given the parameters of the probability distribution $\Theta$. Conversely, the prior expresses a prior belief or assumption of the parameters, and has to be determined beforehand. As mentioned previously, the measure $P(\Theta | X , I)$ from Eq.~(\ref{Eq:: gaussian process : Bayesian inference}) is called the posterior distribution. This can be thought of as the prior belief, modified by how well this belief fits the data,
 \begin{align*}
 \text{posterior} = \frac{\text{prior} \times \text{likelihood}}{\text{marginal likelihood}}.
 \end{align*}
-Consider an example. The statistician from before now sets about tossing a coin. Before tossing he assumes the probability of all outcomes is equal, and so adopts a flat prior probability distribution. After one throw he gets heads, and the posterior changes to a function with high probability for heads, and low for tails. After 4 throws where two were heads and two were tails the posterior shows an equal probabilty for heads and tails, with a wide distribution centered at 0.5. After several throws the distribution converges to a narrow peak around $0.25$, illustrated in Fig.\ (\ref{Fig:: gaussian process : Dice throw }). This indicates an unfair coin that is biased towards tails.
+Consider an example. The statistician from before now sets about tossing a coin. Before tossing he assumes the probability of heads is uniformly distributed, and so adopts a flat, or uniform, prior probability distribution. The uniform distribution is illustrated in the first panel in Fig.~\ref{Fig:: gaussian process : Dice throw }. After one toss he gets heads, and the posterior changes to a function with high probability for heads, and low for tails, illustrated in the second panel. After four tosses, of which two gave heads and two gave tails, the posterior in the third panel shows an equal probabilty for heads and tails, with a wide distribution centered at 0.5. After several tosses the distribution converges to a narrow peak around $0.25$, illustrated in the fourth panel. This indicates an unfair coin that is biased towards tails.
 
 \begin{figure}
-\includegraphics[scale=0.85]{figures_gaussian_processes/coin_toss_xd.pdf}
+\includegraphics[scale=0.76]{figures_gaussian_processes/coin_toss_xd.pdf}
 \caption{The posterior probability distribution of the bias-weighting of a coin for the uniform prior, $P(H|I)$. The first panel from the left is before the coin is tossed, the second panel is after 1 toss, the third is after 4 tosses, and the fourth is after 1024 tosses. The posterior converges towards a narrow peak at $0.25$, so the coin is biased.}
 \label{Fig:: gaussian process : Dice throw }
 \end{figure}
@@ -85,39 +86,79 @@ Consider an example. The statistician from before now sets about tossing a coin.
 
 \subsection{Best Estimate and Reliability}
 
-Given a posterior distribution it is important to decide how well it fits the data. For that purpose the \textit{best estimate} and \textit{reliability} are defined. The best estimate $X_0$  is the outcome with the highest probability. In other words, it is the maximum of the posterior
-\begin{align}
-&\frac{dP}{dX}\Big|_{X_0} = 0, &\frac{d^2P}{dX^2}\Big|_{X_0} < 0.
+Given a posterior distribution $P(X| \mathcal{D}, I)$ over some random variable $X$ where the prior, $P(X|I)$, has been modified by some data $\mathcal{D}$, it is important to decide how well the posterior fits the data. As will be shown, the posterior can be approximated by a Gaussian distribution, defined by the \textit{best estimate} and \textit{reliability} of the posterior. The best estimate $X_0$  is the outcome with the highest probability. In other words, it is the maximum of the posterior distribution
+\begin{align}\label{Eq:: gaussian process : max of posterior}
+&\frac{dP}{dX}\Big|_{X_0} = 0, &\frac{d^2P}{dX^2}\Big|_{X_0} < 0,
 \end{align}
-The second derivative must be negative to insure that $X_0$ is, in fact, a maximum. Equally important to finding a best estimate is knowing how reliable the estimate is. Reliability is connected the width of the distribution, or how much the data is smeared out. A narrow distribution has low uncertainty, while a wide distribution has large uncertainty. The width is found by Taylor expanding the posterior, and taking the logarithm \footnote{$L$ is a monotonic function of $P$, so the maximum of $L$ is at the maximum of $P$.}
+where $P$ is the posterior $P(X| \mathcal{D}, I)$. The second derivative must be negative to ensure that $X_0$ is, in fact, a maximum. 
+
+Once a best estimate is found, it is important to know how reliable it is. Reliability, or uncertainty, is connected to the width of the distribution. The width of the distribution tells how much the random variables $X$ are smeared out around the mean value $X_0$. A narrow distribution has low uncertainty, while a wide distribution has large uncertainty. As an example, the third panel in Fig.~\ref{Fig:: gaussian process : Dice throw } shows a distribution with a mean value of $0.5$ with large uncertainty, while the fourth panel shows a distribution with mean $0.25$ with small uncertainty. 
+
+The width is found by taking the logarithm \footnote{$L$ is a monotonic function of $P$, so the maximum of $L$ is at the maximum of $P$.} and Taylor expanding the posterior distribution $P(X| \mathcal{D}, I)$
 \begin{align}
-&L = L(X_0) + \frac{1}{2} \frac{d^2}{dx^2} L\Big|_{X_0} (X-X_0)^2 +... ,&L = \log_e \Big[\text{prob}(x | \{data\}, I) \Big]\label{Eq:: gaussian process : Taylor expansion L}
+&L = L(X_0) + \frac{1}{2} \frac{d^2L}{dX^2}\Big|_{X_0} (X-X_0)^2 +... ,&L = \log_e \Big[P(X | \mathcal{D}, I ) \Big]\label{Eq:: gaussian process : Taylor expansion L}
 \end{align}
-This gives an approximate posterior in the shape of a \textit{Gaussian distribution}, with mean and variance given by
+The first term, $L(X_0)$, is just a constant. From Eq.~(\ref{Eq:: gaussian process : max of posterior}) the condition of the best estimate is that $dL/dX|_{X_0} =0$. The dominant term in determining the width is therefore the quadratic term in Eq.~(\ref{Eq:: gaussian process : Taylor expansion L}).
+
+\subsubsection{The Gaussian Distribution}\label{Sec:: gaussian process : The Gaussian Distribution}
+
+Taking the exponential of Eq.~(\ref{Eq:: gaussian process : Taylor expansion L}) and ignoring higher order terms, the posterior can then be approximated as
+\begin{align}\label{Eq:: gaussian process : approximate Gaussian}
+P(X | \mathcal{D}, I) \approx A \exp \Bigg[ \frac{1}{2} \frac{d^2L}{dX^2}\Big|_{X_0} (X-X_0)^2 \Bigg], 
+\end{align} 
+where $A = \exp \big[L(X_0) \big]$ is a constant. 
+
+Equation~(\ref{Eq:: gaussian process : approximate Gaussian}) is now in the shape of a \textit{Gaussian distribution}, given by
 \begin{align}
-&\mathcal{N}( \mu, \sigma) \text{ where } \mu = X_0\text{, } \sigma = \Big( - \frac{d^2L}{dx^2} \Big)^{-1/2}.
+P(X| \mu, \sigma^2) = \frac{1}{\sigma \sqrt{2 \pi}} \exp \Bigg[ - \frac{(X- \mu)^2}{2 \sigma^2} \Bigg],
 \end{align}
-The Gaussian distribution is symmetric with respect to the maximum at $x = \mu$, and has a full width at half maximum (FWHM) at around $2.35 \sigma$, as shown in Fig. (\ref{Fig:: gaussian process : Gaussian distribution}).
+where $\mu$ and $\sigma^2$ are the two parameters of the Gaussian distribution mentioned above. $\mu$ is the \textit{mean} value of $X$, which will be written as $ m(X)$, and $\sigma^2$ is shorthand for the \textit{variance} of the distribution around the mean $m(X)$, which will be written as $\mathbb{V}(X)$. The variance is discussed further below. The mean and variance for the approximated Gaussian distribution of $P(X|\mathcal{D}, I)$ are then given by
+\begin{align}
+m(X) = X_0\text{, } \mathbb{V}(X) = \Big( - \frac{d^2L}{dX^2} \Big)^{-1/2}.
+\end{align}
+
+The Gaussian distribution is also referred to as the \textit{normal distribution}, and a Gaussian distribution with mean $m(X)= \mu$ and variance $\mathbb{V}(X)=\sigma^2$ is therefore written as $\mathcal{N}(\mu, \sigma^2)$. A random variable $X$ drawn from this distribution is denoted by a tilde, $X \sim \mathcal{N}(\mu, \sigma^2)$. The Gaussian distribution is symmetric with respect to the maximum at the mean $\mu$, and has a full width at half maximum (FWHM) at around $2.35 \sigma$, where $\sigma = \sqrt{\sigma^2}$ is the standard deviation. In Fig.~\ref{Fig:: gaussian process : Gaussian distribution} an example of a Gaussian distribution $\mathcal{N}(\mu, \sigma^2)$ is shown. 
+
+In Gaussian process regression of a function $f(X)$ the Gaussian distribution is central, as the basic idea is to predict a Gaussian distribution over function values $f(X)$ for each $X$. Gaussian processes are discussed in Sec.~\ref{Sec: gaussian process : Gaussian Process Regression}, so for now it will suffice to sum up that the quality of a posterior distribution, $P(X| \mathcal{D}, I)$, can be summed up in two measures: the best estimate and the reliability. These can be seen as the mean and variance of a Gaussian distribution $\mathcal{N}(m(X), \mathbb{V}(X))$,
+\begin{align}
+m(X)~&:~ \text{Mean of }X,\\
+\mathbb{V}(X)~&:~ \text{Variance of }X.
+\end{align}
+
+
+\subsubsection{Variance}
+
+Now that some basics of Gaussian processes have been covered, a more formal definition of the variance is in order. The variance $\mathbb{V} (X)$ is defined as the expectation value of the square of deviations from the mean. The expectation value of a random variable $X$ with a probability distribution $P(X | I)$ is here written as $\mathbb{E}[X]$, and defined as
+\begin{align}
+\mathbb{E}[X] = \int X P(X | I) dX ~:~ \text{Expectation value of }X.
+\end{align}
+ For the posterior probability distribution $P(X| \mathcal{D}, I)$ the variance of the random variable $X$ is then given by \cite{sivia2006data}
+\begin{align}\label{Eq:: gaussian process : variance X 1dim}
+\mathbb{V}(X) = \mathbb{E} \big[ (X - X_0)^2 \big] = \int \int (X - X_0)^2 P (X| \mathcal{D}, I) dX.
+\end{align}
+The variance in $X$ is often denoted $\sigma_X^2 = \mathbb{V}(X)$, and its square root is the \textit{standard deviation} $\sqrt{\sigma^2_X} = \sigma_X$. 
+
+
 
 \begin{figure}
 \centering
-\includegraphics[scale=1.5]{figures_gaussian_processes/gaussian_distribution_xd.pdf}
+\includegraphics[scale=1.0]{figures_gaussian_processes/gaussian_distribution_xd.pdf}
 \caption{A Gaussian probability distribution. The maximum is at the mean value $\mu$, with a full width at half maximum (FWHM) at around $2.35 \sigma$. Figure from \cite{sivia2006data}.}
 \label{Fig:: gaussian process : Gaussian distribution}
 \end{figure}
 
-\subsection{Covariance}
+\subsection{Covariance}\label{Sec:: gaussian process : Covariance}
 
-Before embarking on Gaussian processes the concept of \textit{covariance} is needed. A more detailed description is found in \cite{sivia2006data}. In many cases the equations are not as simple to solve as in Eq.\ (\ref{Eq:: gaussian process : Taylor expansion L}), as the probability distribution might have several quantities of interest $\{ X_i \}$. In that case, a set of \textit{simultaneous equations} must be solved to get the best estimate
+In distributions over several random variables, $P(X_i| \mathcal{D}, I)$, varying one variable can affect the variance of another variable. This is called \textit{covariance}. For these distributions the equations are not as simple to solve as in Eq.\ (\ref{Eq:: gaussian process : Taylor expansion L}). In the case of several random variables $X_i$, a set of \textit{simultaneous equations} must be solved to get the best estimate
 \begin{align}\label{Eq:: gaussian process : Best estimate X_i}
-\frac{dP}{dX_i} \Big|_{X_{0j}} =0.
+&\frac{dP}{dX_i} \Big|_{X_{0j}} =0, &&\frac{d^2P}{dX_i^2} \Big|_{X_{0j}} < 0
 \end{align}
-To simplify expressions consider the problem in two dimensions, so that $\{ X_i \} = (X, Y)$. The Taylor expansion of $L$ is then
+To simplify expressions consider the problem in two dimensions, so that $\{ X_i \} = (X, Y)$. Analogously to Eq.~(\ref{Eq:: gaussian process : Taylor expansion L}), the Taylor expansion of $L = \log_e \Big[ P(X, Y |I) \Big]$ is found
 \begin{align}\label{Eq:: gaussian process : Taylor expansion L_i}
 L =& L(X_0, Y_0) + \frac{1}{2} \Big[ \frac{d^2L}{dX^2}  \Big|_{X_0, Y_0}(X-X_0)^2 \nonumber \\
 & + \frac{d^2L}{dY^2}  \Big|_{X_0, Y_0}(Y-Y_0)^2 + 2 \frac{d^2L}{dXdY}  \Big|_{X_0, Y_0}(X-X_0)(Y-Y_0) \Big] +...
 \end{align}
-There are now four partial derivatives, reduced to three using the rules for mixed partial derivatives $\frac{\partial^2}{\partial X \partial Y} = \frac{\partial^2}{\partial Y \partial X}$. Writing the quadratic term of Eq.~\ref{Eq:: gaussian process : Taylor expansion L_i} in matrix form gives
+There are now four partial derivatives, reduced to three using the rules for mixed partial derivatives $\frac{\partial^2}{\partial X \partial Y} = \frac{\partial^2}{\partial Y \partial X}$. Writing the quadratic terms of Eq.~(\ref{Eq:: gaussian process : Taylor expansion L_i}) in matrix form gives
 \begin{align}
 Q = 
 \begin{pmatrix}
@@ -136,17 +177,24 @@ where the matrix elements are
 \begin{align}
 &A = \frac{\partial^2 L}{\partial X^2} \Big|_{X_0, Y_0}, &B = \frac{\partial^2 L}{\partial Y^2} \Big|_{X_0, Y_0}, &&C = \frac{\partial^2 L}{\partial X \partial Y} \Big|_{X_0, Y_0}.
 \end{align}
-The \textit{variance} is defined as the expectation value of the square of deviations from the mean. In the two-dimensional case this becomes \cite{sivia2006data}
+
+The expression for the variance of $X$ for the distribution $P(X,Y| I)$ is very similar to Eq.~(\ref{Eq:: gaussian process : variance X 1dim}), except for an additional integral over the random variable $Y$
 \begin{align}
-\text{Var}(X) = \sigma_x^2 = \braket{(X - X_0)^2} = \int \int (X - X_0)^2 P (X, Y | \{\text{data}\}, I) dXdY.
+\mathbb{V}(X) = \sigma^2_X = \mathbb{E} \big[ (X-X_0)^2 \big] = \int \int (X-X_0)^2 P(X,Y | \mathcal{D}, I) dXdY.
 \end{align}
-This is the variance $\sigma_X^2$ for $X$, and its square root is the standard deviation $\sigma_X$. A similar expression can be found for $Y$, by switching $X$ and $Y$. It is also possible to find the simultaneous deviations of the parameters $X$ and $Y$, or the correlation between the inferred parameters. This is called the \textit{covariance} $\sigma_{XY}^2$, and is in two dimensions given by
+A similar expression, $\sigma_Y^2$, can be found for $Y$ by substituting $X$ and $Y$. 
+
+The simultaneous deviations of the random variables $X$ and $Y$ is the aforementioned covariance, often written as $\sigma_{XY}^2$. In two dimensions the covariance is given by
 \begin{align}
-\sigma_{XY}^2 = \braket{(X - X_0) (Y - Y_0)} =\int \int (X - X_0) (Y - Y_0) P (X, Y | \{\text{data}\}, I) dXdY.
+\sigma_{XY}^2 = \mathbb{E} \big[(X - X_0) (Y - Y_0) \big] =\int \int (X - X_0) (Y - Y_0) P (X, Y | \mathcal{D}, I) dXdY.
 \end{align}
-The covariance indicates how an over- or underestimation of one parameter affects another parameter. If, for example, an overestimation of $X$ leads to an overestimation of $Y$, the covariance is positive. If the overestimation of $X$ has little or no effect on the estimation of $Y$, the covariance is negligible or zero $|\sigma_{XY}| \ll \sqrt{\sigma_X^2 \sigma_Y^2}$. These effects are illustrated in Fig.\ (\ref{Fig:: gaussian process : Covariance illustrated}). It can be shown that \cite{sivia2006data}
+The covariance indicates how an over- or underestimation of one random variable affects another. If, for example, an overestimation of $X$ leads to an overestimation of $Y$, the covariance is positive. An example of positive covariance is shown in the third panel of Fig.~\ref{Fig:: gaussian process : Covariance illustrated}. If the overestimation of $X$ has little or no effect on the estimation of $Y$, the covariance is negligible or zero $|\sigma_{XY}| \ll \sqrt{\sigma_X^2 \sigma_Y^2}$, as seen in the first panel of Fig.~\ref{Fig:: gaussian process : Covariance illustrated}. The second panel shows negaitve covariance.
+
+\subsubsection{Covariance Matrix}
+
+The variances and covariances are the elements of the \textit{covariance matrix}. For $N$ random variables $X_1, ...,X_N$ the covariance matrix is an $N \times N$-matrix. The covariance matrix for $X$ and $Y$ is here denoted $\text{cov}(X,Y)$, and it can be shown that \cite{sivia2006data}
 \begin{align}
-\text{cov} = 
+\text{cov}(X,Y) = 
 \begin{pmatrix}
 \sigma_X^2 & \sigma_{XY}^2\\
 \sigma_{XY}^2 & \sigma_Y^2
@@ -156,23 +204,118 @@ A & C\\
 C & B
 \end{pmatrix}^{-1}.
 \end{align}
-This is called the \textit{covariance matrix}.
+
+To sum up, the posterior probability distribution over a random variable $X$ is denoted $P(X | \mathcal{D}, I)$, and its best estimate and the associated reliability can be approximated as a Gaussian distribution $\mathcal{N}(m(X), \mathbb{V}(X))$. The Gaussian distribution is defined by the mean value $m(X)$ and the variance $\mathbb{V}(X)$. For distributions over several random variables $X_i$ one can also find the covariance $\sigma_{X_i X_j}^2$, and all variances and covariances are contained in the covariance matrix $\text{cov}(X_i)$. In the next section \textit{covariance functions} are introduced, which are used to calculate the elements of the covariance matrix.
 
 \begin{figure}
 \centering
 \includegraphics[scale=1.0]{figures_gaussian_processes/covariance_xd.pdf}
-\caption{A schematic illustration of covariance and correlation. (a) The contours of a posterior pdf with zero covariance, where the inferred values of $X$ and $Y$ are uncorrelated. (b) The corresponding plot when the covariance is large and negative; $Y + mX =$ constant along the dotted line (where $m > 0$), emphasizing that only this sum of the two parameters can be inferred reliably. (c) The case of positive correlation, where we learn most about the difference $Y − mX$; this is constant along the dotted line.}
+\caption{A schematic illustration of covariance and correlation. (a) The contours of a posterior pdf with zero covariance, where the inferred values of $X$ and $Y$ are uncorrelated. (b) The corresponding plot when the covariance is large and negative; (c) The case of positive correlation.}
 \label{Fig:: gaussian process : Covariance illustrated}
 \end{figure}
 
 
-\section{Gaussian Process Regression}
+\section{Covariance Functions}\label{Sec:: gaussian processes : Covariance functions}
 
-Gaussian processes (GP) is a supervised machine learning method, designed to solve regression and probabilistic classification problems. In this thesis only regression will be used. 
 
-%As experience dictates that Gaussian processes can be hard to grasp, it will serve both the reader and the author well to begin on a conceptual level: \textit{what do Gaussian processes do?}
+As mentioned in Sec.~\ref{Sec:: gaussian process : Covariance}, the elements of a covariance matrix can be determined by \textit{covariance functions}, or \textit{kernels}. A function that maps two arguments $\textbf{x} \in \mathcal{X}$, $\textbf{x}' \in \mathcal{X}$ into $\mathbb{R}$ is generally called a kernel $k$. Covariance functions are symmetric kernels, meaning that $k(\textbf{x}, \textbf{x}') = k(\textbf{x}', \textbf{x})$. In this project both kernel and covariance function are taken to mean covariance function. As will be discussed, in Gaussian processes the covariance between two function values $f(\textbf{x})$ and $f(\textbf{x}')$, where $\textbf{x}$ and $\textbf{x}'$ are input vectors, is decided by the covariance of the input vectors, given by a kernel $\text{cov}(f(\textbf{x}), f(\textbf{x}')) = k(\textbf{x}, \textbf{x}')$. As previously mentioned, the matrix containing all the covariance elements is called the \textit{covariance matrix}, or the Gram matrix $K$, whose elements are given by
+\begin{align}\label{Eq:: covariance matrix}
+K_{ij} = k(\textbf{x}_i, \textbf{x}_j).
+\end{align}
+Note that a covariance matrix calculated using a covariance function $k$ is here denoted by a capital $K$.
 
-Consider a set of points $\mathcal{D} = \{\textbf{x}_i, y_i\}$, where $y$ is some (possibly noisy) function of $\textbf{x}$, $y = f(\textbf{x}) + \varepsilon$. This is illustrated by the black dots in in Fig. (\ref{Fig:: gaussian process : GP illustration}). In machine learning $\mathcal{D}$ is the \textit{training data}, as it is used to train the model. It consists of \textit{features}, which are the input vectors $\textbf{x}_i$, and \textit{targets}, which are the function values $y_i$. The set of points is discrete, so there is some $\textbf{x}^*$ for which the target $y^*$ is unknown. Gaussian Processes (GP) predict a Gaussian distribution \textit{over function values} at this point $\textbf{x}^*$, with a corresponding mean $m(\textbf{x}^*)$ and variance $\sigma^2$. The GP prediction for the target value $y^*$ is the mean $m(\textbf{x}^*)$, with uncertainty $\sigma^2$. The predicted target $y^*$ can be viewed as a linear combination of the known targets $y_i$, where the weights are controlled by the covariances between $\textbf{x}_i$ and the test point $\textbf{x}^*$.  
+A kernel function that only depends on the difference between two points, $\textbf{x}-\textbf{x}'$, is called \textit{stationary}. This implies that the function is invariant to translations in input space. If, in addition, it only depends on the length $r=|\textbf{x}-\textbf{x}'|$, the function is \textit{isotropic} \footnote{Invariant to rigid rotations in input space.}.  Isotropic functions are commonly referred to as \textit{radial basis functions} (RBFs). The covariance function can also depend on the dot product, $\textbf{x} \cdot \textbf{x}'$, and is then called a \textit{dot product} covariance function. The most important covariance functions for this project are the squared exponential covariance function and the Mat\'{e}rn class of covariance functions.
+
+
+
+
+\subsection{The Squared Exponential Covariance Function}
+
+The \textit{squared exponential covariance function} (SE) has the form 
+\begin{align}
+k_{SE} (r) = \exp \Big( - \frac{r^2}{2 \ell^2} \Big),
+\end{align} 
+where $\ell$ is the \textit{characteristic length scale}. The length scale determines the smoothness of the function. For a large length scale one should expect a very slowly varying function, while a shorter length scale means a more rapidly varying function, see the illustration in Fig.~\ref{Fig:: gaussian process : ell variation example}. The SE is infinitely differentiable and therefore very smooth. 
+
+\begin{figure}
+\centering
+\includegraphics[scale=1.5]{figures_gaussian_processes/length_scales_xd.pdf}
+\caption{The effect of varying the length scale $\ell$. A long length scale (blue) gives a smooth, slowly varying function, while a short length scale (red) gives a more staccato, quickly varying function.}
+\label{Fig:: gaussian process : ell variation example}
+\end{figure}
+
+The SE is implemented in \verb|scikit-learn| under the name radial basis function (RBF), and may be called in the following way for length scale $10$, with bounds on the length scale $[0.01, 100]$
+\begin{lstlisting}
+from sklearn.gaussian_process.kernels import RBF
+rbf = RBF(length_scale=10, length_scale_bounds=(1e-2, 1e2))
+\end{lstlisting}
+
+
+
+\subsection{The Mat\'{e}rn Class }
+
+The \textit{Mat\'{e}rn class of covariance functions} is given by
+\begin{align}
+k_{Mat\acute{e}rn} (r) = \frac{2^{1- \nu}}{\Gamma (\nu)} \Big( \frac{\sqrt{2 \nu} r	}{\ell} \Big)^{\nu} K_{\nu} \Big( \frac{\sqrt{2 \nu}r}{\ell} \Big),
+\end{align}
+where $\nu, \ell > 0$, and $K_{\nu}$ is a modified Bessel function. The hyperparameter $\nu$ controls the smoothness of the function, as opposed to the SE kernel which is by definition very smooth. For $\nu \rightarrow \infty$ this becomes the SE kernel, and for $\nu = 1/2$ is becomes the very rough absolute exponential kernel $k(r) = \exp (-r/\ell)$. In the case of half integer $\nu$, $\nu = p + \frac{1}{2}$, the covariance function is simply the product of an exponential and a polynomial
+\begin{align}
+k_{\nu=p+\frac{1}{2}} = \exp \Big(- \frac{\sqrt{2 \nu} r	}{\ell} \Big) \frac{\Gamma(p+1)}{\Gamma(2p + 1)} \sum^p_{i=0} \frac{(p+i)!}{i!(p-i)!} \Big( \frac{\sqrt{8 \nu} r	}{\ell} \Big)^{p-i}.
+\end{align}
+In machine learning the two most common cases are for $\nu = 3/2$ and $\nu = 5/2$
+\begin{align}
+k_{\nu = 3/2}(r) &=  \Big(1 + \frac{\sqrt{3}r}{\ell} \Big) \exp \Big( -\frac{\sqrt{3}r}{\ell} \Big),\\
+k_{\nu = 5/2}(r) &=  \Big(1 + \frac{\sqrt{5}r}{\ell}  + \frac{5r^2}{3 \ell^2}\Big) \exp \Big( -\frac{\sqrt{5}r}{\ell} \Big).
+\end{align}
+
+In \verb|scikit-learn| the hyperparameter $\nu$ is fixed, and so not optimized during training. The Mat\'{e}rn kernel is considered more appropriate for physical processes \cite{rasmussen2006gaussian}, and may be called in \verb|scikit-learn| in the following way for length scale 10, length scale bounds $[0.01, 100]$ and $\nu = 3/2$
+\begin{lstlisting}
+from sklearn.gaussian_process.kernels import Matern
+matern = Matern(length_scale=10, length_scale_bounds=(1e-2, 1e2), nu=1.5)
+\end{lstlisting}
+For values not in $\nu = [0.5, 1.5, 2.5, \infty]$ \verb|scikit-learn| evaluates Bessel functions explicitly, which increases the computational cost by a factor as high as 10.
+
+\subsubsection{Noise}
+
+
+The covariance function can also contain information about noise in the data, represented by a constant term added to the diagonal of the covariance matrix
+\begin{align}
+k(\textbf{x}_i, \textbf{x}_j)_{noise} = C \delta_{ij},
+\end{align}
+where $C \in \mathbb{R}$ is a real, constant number, and $\delta_{ij}$ is the Dirac delta function. The noise is assumed to follow a Gaussian distribution with mean $0$ and variance $\alpha$, $\mathcal{N}(0, \alpha)$. In \verb|scikit-learn| this can be implemented either by giving a fixed noise level \verb|alpha| to the regressor function, or by using the \verb|WhiteKernel|, which estimates the noise level from the data. This kernel is implemented in \verb|scikit-learn| in the following way for noise level $0.001$ with bounds $[10^{-10}, 1]$
+\begin{lstlisting}
+from sklearn.gaussian_processes.kernels import WhiteKernel
+whitenoise = WhiteKernel(noise_level=0.001, noise_level_bounds=(1e-10,1))
+\end{lstlisting}
+
+\subsubsection{Hyperparameters}
+
+Each kernel has a vector of hyperparameters, \textit{e.g.} $\boldsymbol{\theta} = (\{M\}, \sigma^2_f, \sigma_n^2)$ for the squared exponential kernel with noise
+\begin{align}
+k(\textbf{x}_i, \textbf{x}_j) = \sigma_f^2 \exp (- \frac{1}{2} (\textbf{x}_i - \textbf{x}_j))^T M (\textbf{x}_i - \textbf{x}_j) + \sigma_n^2 \delta_{ij},
+\end{align}
+where $\sigma_f$ is a scaling factor, $M$ contains the characteristic length scales $\ell$ and $\sigma_n^2$ is the Gaussian noise parameter. The matrix $M$ can have several forms, amongst them
+\begin{align}
+&M_1 = \ell^{-2} \mathbb{I} , &M_2 = \text{diag}(\vec{\ell})^{-2}.
+\end{align}
+Choosing $\vec{\ell}$ to be a vector in stead of a scalar is in many cases useful, especially if the input vector $\textbf{x}$ contains values of different scales, \textit{e.g.} $\textbf{x} = (x_1, x_2)$ where $x_1 \in [0, 1]$ and $x_2 \in [200, 3000]$. The length scale can be set to a vector in \verb|scikit-learn| by giving the \verb|length_scale| parameter as a \verb|numpy| array of the same dimension as the input vector $\textbf{x}$.
+
+\subsubsection{Other Covariance Functions}
+
+There are several covariance functions that are not discussed here. Kernels can be multiplied and summed to form new kernels, making the space of possible kernels infinite. For further details see chapter 4 in \cite{rasmussen2006gaussian}.
+
+
+
+
+\section{Gaussian Process Regression}\label{Sec: gaussian process : Gaussian Process Regression}
+
+Gaussian processes (GP) is a supervised machine learning method, designed to solve regression and probabilistic classification problems. Only regression is considered here. This section begins by introducing Gaussian processes and important notation, first in a general sense, and then in the function space view. Then distributions over functions are considered, followed by a short discussion on how functions can be drawn from these distributions. Finally, a quick overview of the noise-free model and the Gaussian noise nodel, and their covariance matrices, are given.
+
+\subsubsection{Gaussian Processes}
+
+Consider a set of points $\mathcal{D} = \{\textbf{x}_i, y_i\}$, where $y$ is some (possibly noisy) function of $\textbf{x}$, $y(\textbf{x}) = f(\textbf{x}) + \varepsilon$. Here, $\varepsilon$ is the noise and $f(\textbf{x})$ is the true value of the function. These points are illustrated by the black dots in Fig.~\ref{Fig:: gaussian process : GP illustration}. In machine learning $\mathcal{D}$ is the \textit{training data}, as it is used to train the model. It consists of \textit{features}, which are the components of the input vectors $\textbf{x}_i$, and \textit{targets}, which are the function values $y_i$. The set of points is discrete, so there is some $\textbf{x}^*$ for which the target $y^*$ is unknown. The test point $\textbf{x}^*$ is marked on the $x$-axis in Fig.~\ref{Fig:: gaussian process : GP illustration}.
+
+Gaussian processes (GP) predict a Gaussian distribution \textit{over function values} at this point $\textbf{x}^*$. The distribution for a single test point $\textbf{x}^*$ has a corresponding mean $m(\textbf{x}^*)$ and variance $\mathbb{V}(\textbf{x}^*)$. Note that the mean $m(\textbf{x}^*)$ \textit{is not the mean of the input vector} $\textbf{x}^*$, but rather \textit{the mean of function values} $f(\textbf{x})$ \textit{evaluated at} $\textbf{x}^*$. The GP prediction for the target value $y^*=f(\textbf{x}^*)$ is the mean $m(\textbf{x}^*)$. Similarly, the variance, $\mathbb{V}(\textbf{x}^*)$, is in fact the variance in function values $f(\textbf{x}^*)$, or the width of the Gaussian distribution (red line) in the $y$-direction in Fig.~\ref{Fig:: gaussian process : GP illustration}. The mean value $y^*$ is drawn as a blue cross in Fig.~\ref{Fig:: gaussian process : GP illustration}. As will be shown, the predicted target $y^*$ is a linear combination of the known targets $y_i$, where the weights are controlled by the covariances between training points $\textbf{x}_i$ and the test point $\textbf{x}^*$.  
 
 
 \begin{figure}
@@ -182,37 +325,67 @@ Consider a set of points $\mathcal{D} = \{\textbf{x}_i, y_i\}$, where $y$ is som
 \label{Fig:: gaussian process : GP illustration}
 \end{figure}
 
+\subsubsection{Some Notation}
+
+Before delving into the details of Gaussian process regression, it is wise to introduce some notation, as Gaussian process regression is notoriously confusing. 
+
+As discussed in Sec.~\ref{Sec: gaussian process : Gaussian Process Regression}, the Gaussian distribution is denoted $\mathcal{N}(\mu, \sigma^2)$, for a mean value $\mu$ and variance $\sigma^2$. The Gaussian distribution can be over a single random variable, \textit{e.g.} $f$, or a finite set of random variables, $f_i$. A Gaussian distribution over several random variables is called a \textit{multivariate Gaussian distribution}. For a multivariate distribution over $f_i, ~i=1,...,n$, the random variables form an $n$-dimensional vector $\textbf{f}$. The mean values, $\mu_i$, are then contained in the vector $\bar{\textbf{f}}$, characterized by a bar. The variance, $\sigma^2$, is replaced by an $n \times n$-dimensional covariance matrix, $\text{cov}(\textbf{f}, \textbf{f})$. The multivariate Gaussian distribution over $\textbf{f}$ is written as
+\begin{align}
+\textbf{f} \sim \mathcal{N} \Big(\bar{\textbf{f}}, ~\text{cov}(\textbf{f},\textbf{f})  \Big).
+\end{align}  
+
+Most times there will be a set of features $\{\textbf{x}_i\}$, and corresponding targets $\{y_i\}$. For $n$ training points $\textbf{x}_i$, where $\textbf{x}_i$ is an $m$-dimensional vector, the features comprise the $n \times m$-matrix $X$. The targets comprise the corresponding $n$-dimensional vector $\textbf{y}$. A central assumption in Gaussian processes is that the covariance between targets $y_i$ and $y_j$ is given by the covariance function $k$ used on their features
+\begin{align}
+\text{cov}(y_i, y_j) = k(\textbf{x}_i, \textbf{x}_j).
+\end{align}
+The distribution over target values $\textbf{f}$ will therefore be written
+\begin{align}\label{Eq:: gaussian process : Normal distribution GP}
+\textbf{f} \sim \mathcal{N} \Big(~\bar{ \textbf{f} }, K(X, X) ~\Big),
+\end{align}
+where $K(X,X)$ is the covariance matrix containing the covariances of the features contained in $X$, decided by the covariance function $k(\textbf{x}, \textbf{x}')$.
+
+Finally, a Gaussian process will be denoted $\mathcal{GP}$. It may be difficult to distinguish between a Gaussian \textit{distribution}, $\mathcal{N}$, and a Gaussian \textit{process}, $\mathcal{GP}$. The difference can be thought of as the difference between a finite set of function values $f(\textbf{x}_i)$, and a continuous function, $f(\textbf{x})$. The former can be viewed as a vector $\textbf{f}$, and can be drawn from a distribution such as the one in Eq.~(\ref{Eq:: gaussian process : Normal distribution GP}), $\textbf{f} \sim \mathcal{N}(\bar{ \textbf{f} }, K(X, X))$. The latter is a \textit{function}, drawn from a distribution \textit{over functions}, where the mean $m(\textbf{x})$ and covariances $k(\textbf{x}, \textbf{x}')$ are functions as well. A function drawn from a Gaussian process is written as 
+\begin{align}
+f(\textbf{x}) \sim \mathcal{GP} (m(\textbf{x}), k(\textbf{x}, \textbf{x}')).
+\end{align}
+
 \subsubsection{Function Space View}
 
-Since Gaussian processes provide distributions over functions, it is useful to consider the problem in the function space view introduced in \cite{rasmussen2006gaussian}. For a real process $f(\textbf{x})$ the mean  $m(\textbf{x})$ and covariance function $k(\textbf{x}, \textbf{x}')$ are defined as
+Gaussian processes provide distributions over functions. It is therefore useful to consider the problem in the function space view introduced in \cite{rasmussen2006gaussian}. For a function $f(\textbf{x})$ the mean  $m(\textbf{x})$ and covariance function $k(\textbf{x}, \textbf{x}')$ are defined as
 \begin{align}
 m(\textbf{x}) &= \mathbb{E}[f(\textbf{x})],\\
 k(\textbf{x}, \textbf{x}') &= \mathbb{E} [(f(\textbf{x}) - m(\textbf{x}))(f(\textbf{x}') - m(\textbf{x}'))],
 \end{align}
-where $\mathbb{E}[a]$ is the expectation value of some quantity $a$. Given the mean and covariance, the Gaussian distribution for $f(\textbf{x})$ is completely specified
+where $\mathbb{E}[a]$ is the expectation value of some quantity $a$. The mean $m(\textbf{x})$ and covariance given by the covariance function $k(\textbf{x}, \textbf{x}')$ are now functions of the input vector $\textbf{x}$. This notation means that for every input vector $\textbf{x}$, there is a Gaussian distribution over function values with a mean $m(\textbf{x})$ and covariance given by $k(\textbf{x}, \textbf{x}')$. This is a generalization of the single test point in Fig.~\ref{Fig:: gaussian process : GP illustration}, where every point $\textbf{x}^*_i$ gets a similar distribution.
+
+Given the mean and covariance, the Gaussian distribution for $f(\textbf{x})$ is completely specified. The collection of Gaussian distributions that are now a function of the input vector $\textbf{x}$, are the Gaussian processes, denoted $\mathcal{GP}$. In the same way that you can draw a random variable $A$ from a distribution over $A$, $P(A|I)$, you can draw random functions from the distribution over functions $\mathcal{GP}$,
 \begin{align}
 f(\textbf{x}) \sim \mathcal{GP}(m(\textbf{x}), k(\textbf{x}, \textbf{x}')).
 \end{align}
-The covariance between two points $k(\textbf{x}_i, \textbf{x}_j)$ is decided by the \textit{kernel function}. In this text the running example will be the squared exponential (SE) kernel, given by
+
+The covariance between two points $k(\textbf{x}_i, \textbf{x}_j)$ is decided by the covariance function, as mentioned in Sec.~\ref{Sec:: gaussian processes : Covariance functions}. In this text the running example will be the squared exponential (SE) kernel with characteristic length scale $\ell$, given by
 \begin{align}
-k(f(\textbf{x}_i), f(\textbf{x}_j)) = k(\textbf{x}_i, \textbf{x}_j) = \exp \Big( - \frac{1}{2} |\textbf{x}_i - \textbf{x}_j|^2 \Big).
+k(\textbf{x}_i, \textbf{x}_j) = \exp \Big( - \frac{1}{2} |\textbf{x}_i - \textbf{x}_j|^2 \Big).
 \end{align}
-Note that the covariance of the function values $f(\textbf{x}_i)$, $f(\textbf{x}_j)$ only depends on the input parameters $\textbf{x}_i$, $\textbf{x}_j$. 
+Note that the distribution $\mathcal{GP}$ is over function values, and so the covariance function calculates the covariance between the \textit{function values}, $f(\textbf{x}_i)$ and $f(\textbf{x}_j)$, and \textit{not} the input vectors, $\textbf{x}_i$ and $\textbf{x}_j$. Rather, the covariance, or correlation, between two function values is a function of the input vectors. Consider again the illustration in Fig.~\ref{Fig:: gaussian process : ell variation example}. The variation in two function values $f(\textbf{x}_i)$ and $f(\textbf{x}_j)$ depends on the distance between the points $\textbf{x}_i$ and $\textbf{x}_j$, and the characteristic length scale of the process. If the length scale is large, the two input vectors $\textbf{x}_i$ and $\textbf{x}_j$ can be far away, and still have similar function values $f(\textbf{x}_i)$ and $f(\textbf{x}_j)$. For short length scales, however, nearby points can have very different function values, because the function varies rapidly.
 
-Specifying the covariance function specifies a distribution over functions \cite{rasmussen2006gaussian}. This is because allowed functions must obey the correlation decided by $k(\textbf{x}_i, \textbf{x}_j)$. Using the kernel on a set of input vectors contained in the matrix $X^*$, gives the \textit{covariance matrix}. Combined with an initial mean of zero \footnote{The mean does not have to be zero, it could for example be the mean of the training data.} one obtains the \textit{prior} distribution
+\subsubsection{Distributions over Functions}
+
+Specifying a mean $m(\textbf{x})$ and a covariance function $k(\textbf{x}, \textbf{x}')$ specifies a distribution over functions, $\mathcal{GP}$ \cite{rasmussen2006gaussian}. As metioned above, functions can be drawn from this distribution. All functions $f(\textbf{x})$ that are drawn from this distribution must have a covariance decided by the covariance function $k(\textbf{x}_i, \textbf{x}_j)$. The mean of the distribution, $m(\textbf{x})$, is \textit{not} the mean value of each function $f(\textbf{x})$ drawn from $\mathcal{GP}$, but rather the mean function value you would get in $\textbf{x}$ if you drew enough functions from $\mathcal{GP}$. Drawing functions from a distribution in this way will sometimes be referred to as \textit{drawing samples}.
+
+Consider a set of $n^*$ test points  $\textbf{x}^*_i$, where each point is $m$-dimensional. These can be combined into a $n^* \times m$-matrix $X^*$, where each row is a test point $\textbf{x}^*_i$. Using the kernel on the matrix $X^*$, gives the covariance matrix, as discussed in Sec.~\ref{Sec:: gaussian processes : Covariance functions}. The covariance matrix $K(X^*, X^*)$ now contains the covariance of all test points $\textbf{x}^*_i$, found using the kernel $k(\textbf{x}_i^*, \textbf{x}_j^*)$. Combined with an initial mean of zero \footnote{The mean does not have to be zero, it could for example be the mean of the training data.} one obtains the \textit{prior} distribution
 \begin{align}
-f(x) \sim \mathcal{N} (0, K(X^*, X^*)).
+f(\textbf{x}) \sim \mathcal{N} (0, K(X^*, X^*)).
 \end{align} 
-This distribution encodes the prior knowledge about the function values $f(x)$, and so the choice of kernel is one of the most important steps in learning with GPs. The prior is modified by the training data to provide a posterior distribution. In Fig.\ (\ref{Fig:: gaussian process : prior posterior drawn samples}) samples are drawn from both the prior and posterior distribution. Samples are here taken to mean functions that obey the covariance function. In the case of the prior, the samples are drawn from a distribution of functions with mean zero and constant variance, meaning that if you drew enough functions the mean value of all functions at every $x$ would be zero. For the posterior, the mean values and uncertainties have been modified by the training data. In a point where there is training data the uncertainty is zero \footnote{Assuming there is no noise in the data.}, and so all samples drawn from this distribution must pass through this point. Far away from training points the uncertainty is large.
+This distribution contains the prior assumptions about the function values $f(x)$, in that the smoothness of the function and the correlation between function values are encoded in the covariance matrix. This is the prior probability distribution discussed in Sec.~\ref{Sec:: gaussian process : Priors and Likelihood}, that will be modified by the data to provide the posterior probability distribution. So the choice of kernel is one of the most important steps in learning with GPs. In Fig.~\ref{Fig:: gaussian process : prior posterior drawn samples} samples are drawn from both the prior and posterior distribution.
 
-\begin{figure}
-\centering
-\includegraphics[scale=0.55]{figures_gaussian_processes/draw_samples_benchmark.pdf}
-\caption{Drawing functions from the prior (top) and posterior (bottom) distributions. The thick, black line represents the mean of the distribution, while the shaded, blue area is the uncertainty. The multiple colored lines are functions drawn randomly from the prior and posterior distributions, whose correlation are dictated by the covariance function. The prior has mean 0 and covariance given by the squared exponential function. The posterior has been modified by training points (red dots), giving rise to zero uncertainty at the points where training data exists, and an altered mean value for the distribution. Figure generated using scikit-learn.}
-\label{Fig:: gaussian process : prior posterior drawn samples}
-\end{figure}
 
-Consider a simple example of a noise-free set of training points $\{\textbf{x}_i, y_i\}$, so that $y = f(\textbf{x})$. The joint distribution of training outputs $\textbf{f}$ and test outputs $\textbf{f}^*$ according to the prior is then
+
+\subsubsection{Noise-Free Model}
+
+Consider a simple example of a noise-free set of $n$ training points $\{\textbf{x}_i, y_i\}$, so that $y = f(\textbf{x})$. The input vectors $\textbf{x}_i$ are $m$-dimensional and form a $n \times m$-matrix $X$, where the rows are the input vectors. The training targets $y_i$ form a corresponding $n$-dimensional vector $\textbf{f}$. For a set of $n^*$ test points $\{\textbf{x}_i \}$ the $n^* \times m$-matrix $X^*$ is constructed, as discussed above. The Gaussian processes will predict an $n^*$-dimensional vector $\textbf{f}^*$ containing the predictions of the function values at the points $\textbf{x}^*_i$. 
+
+The joint distribution of training outputs, $\textbf{f}$, and test outputs, $\textbf{f}^*$, according to the prior is then
 \begin{align}
 \begin{bmatrix}
 \textbf{f}\\
@@ -225,12 +398,26 @@ Consider a simple example of a noise-free set of training points $\{\textbf{x}_i
 K(X, X) & K(X, X^*)\\
 K(X, X^*) & K(X^*, X^*)
 \end{bmatrix}
- \Bigg)
+ \Bigg),
 \end{align}
-For $n$ training points and $n^*$ test points, $K(X,X)$ is the $n \times n$ matrix containing the covariance of training points, $K(X, X^*)$ is the $n \times n^*$ matrix of covariance between the test and training points, and $K(X^*, X^*)$ is the $n^* \times n^*$ matrix containing the covariance of test points. By conditioning the distribution of $\textbf{f}^*$ on the observations,  the posterior distribution over $\textbf{f}^*$ is obtained\footnote{For more details, see Appendix A.2 in \cite{rasmussen2006gaussian}.}  \cite{rasmussen2006gaussian} 
+where, as before, $K(X_i, X_j)$ is the covariance matrix between the sets of points $\{ \textbf{x}_i \}$ and $\{\textbf{x}_j \}$ calculated using the covariance function $k(\textbf{x}_i, \textbf{x}_j)$. By conditioning the distribution of $\textbf{f}^*$ on the observations,  the posterior distribution over $\textbf{f}^*$ is obtained\footnote{For more details, see Appendix A.2 in \cite{rasmussen2006gaussian}.}  \cite{rasmussen2006gaussian} 
 \begin{align}
 \textbf{f}_* \big| X_*, X, \textbf{f} \sim \mathcal{N}&(K(X_*, X)K(X, X)^{-1} \textbf{f},\\ &K(X_*, X_*) - K(X_*, X)K(X, X)^{-1}K(X, X_*)).
 \end{align}
+
+
+\subsubsection{Drawing Samples}
+
+To generate samples $\textbf{f} \sim \mathcal{N}(\textbf{m}, K)$ with an arbitrary mean $\textbf{m}$ and covariance matrix $K$ using a scalar Gaussian generator\footnote{A scalar Gaussian generator generates random numbers from a Gaussian distributions, and can be found in most programming enviroments, such as the \verb|random| environment in \verb|Python|.}, one proceeds as follows: first the Cholesky decomposition, or matrix square root, $L$ of $K$ is found $K = LL^T$, where $L$ is a lower triangular matrix. The a vector $\textbf{u}$ is generated by multiple calls to the scalar Gaussian generator $\textbf{u} \sim \mathcal{N}(0, I)$. Then $\textbf{f} = \textbf{m} + L \textbf{u}$ has the desired distribution with mean $\textbf{m}$ and covariance $L \mathbb{E} [\textbf{u} \textbf{u}^T]L^T = LL^T = K$ \cite{rasmussen2006gaussian}.
+
+ In the case of the prior, the samples are drawn from a distribution of functions with mean zero and constant variance, meaning that if you drew enough functions the mean over all function values at every $\textbf{x}$ would be zero. For the posterior, the mean values and uncertainties have been modified by the training data. In a point where there is training data the uncertainty is zero \footnote{Assuming there is no noise in the data.}, and so all samples drawn from this distribution must pass through this point. Far away from training points the variance is large.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.55]{figures_gaussian_processes/draw_samples_benchmark.pdf}
+\caption{Drawing functions from the prior (top) and posterior (bottom) distributions. The thick, black line represents the mean of the distribution, while the shaded, blue area is the variance. The multiple colored lines are functions drawn randomly from the prior and posterior distributions, whose correlation are dictated by the covariance function. The prior has mean 0 and covariance given by the squared exponential function. The posterior has been modified by training points (red dots), giving rise to zero uncertainty at the points where training data exists, and an altered mean value for the distribution. The kernel of the prior distribution has hyperparameters $\sigma_f = 1$ and $\ell = 1$, while for the posterior they are $\sigma_f = 0.594$ and $\ell = 0.279$. Figure generated using scikit-learn.}
+\label{Fig:: gaussian process : prior posterior drawn samples}
+\end{figure}
 
 \subsubsection{Gaussian Noise Model}
 
@@ -255,14 +442,17 @@ K(X, X^*) & K(X^*, X^*)
 \end{align}
 The conditioned distribution is then 
 \begin{align}
-\textbf{f}^* \big| X^*, X, \textbf{f} & \sim \mathcal{N}(\bar{\textbf{f}}^*, \text{cov}(\textbf{f}^*)), \text{ where} \\
-\bar{\textbf{f}}^* &= K(X^*, X) [K(X, X) + \sigma_n^2 \mathbb{I}]^{-1} \textbf{y},\\
+\textbf{f}^* \big| X^*, X, \textbf{f} & \sim \mathcal{N}(\bar{\textbf{f}}^*, \text{cov}(\textbf{f}^*))
+\end{align}
+where
+\begin{align}
+m(\textbf{f}^*) &= K(X^*, X) [K(X, X) + \sigma_n^2 \mathbb{I}]^{-1} \textbf{y}, \nonumber \\
 \text{cov} (\textbf{f}^*) &= K(X^*, X^*) - K(X^*, X)[K(X, X) + \sigma_n^2 \mathbb{I}]^{-1} K(X, X^*) 
 \end{align}
 
 For the sake of tidying up the expression define the matrix $K \equiv K(X, X)$ and the matrix $K^* \equiv K(X, X^*)$. In the case of a single test point $\textbf{x}^*$ the matrix $K^*$ is written as a vector $\textbf{k}(\textbf{x}^*) = \textbf{k}^*$. Using this compact notation the GP prediction for a single test point $\textbf{x}^*$ is
 \begin{align}
-\bar{f}^* &= \textbf{k}^{*T}(K + \sigma_n^2\mathbb{I})^{-1} \textbf{y},\label{Eq:: gaussian process : GP prediction mean}\\
+m(f^*) &= \textbf{k}^{*T}(K + \sigma_n^2\mathbb{I})^{-1} \textbf{y},\label{Eq:: gaussian process : GP prediction mean}\\
 \mathbb{V}[f^*] &= k(\textbf{x}^*, \textbf{x}^*) - \textbf{k}^{*T}(K + \sigma_n^2 \mathbb{I})^{-1} \textbf{k}^*\label{Eq:: gaussian process : GP prediction variance}.
 \end{align}
 Note that the predicted mean value $\bar{f}^*$ can be viewed as a linear combination of $y_i$ of the form $\alpha \textbf{y}$, where $\alpha = \textbf{k}^{*T}(K + \sigma_n^2\mathbb{I})^{-1}$. $\alpha$ then only contains the covariance between features.
@@ -282,89 +472,6 @@ $\log p(\textbf{y}|X) = - \frac{1}{2} \textbf{y}^T \boldsymbol{\alpha} - \sum_i 
 \label{Alg:: gaussian process : GP}
 \end{algorithm}
 
-\section{Covariance Functions}
-Covariance functions and kernels have been touched upon, but will be investigated further as they are central to Gaussian processes. A function that only depends on the difference between two points, $\textbf{x} - \textbf{x}'$, is called \textit{stationary}. This implies that the function is invariant to translations in input space. If, in addition, it only depends on the length $r=|\textbf{x}-\textbf{x}'|$, the function is \textit{isotropic} \footnote{Invariant to rigid rotations in input space.}.  Isotropic functions are commonly referred to as \textit{radial basis functions} (RBFs). The covariance function can also depend on the dot product, $\textbf{x} \cdot \textbf{x}'$, and is then called a \textit{dot product} covariance function.
-
-A function which maps two arguments $\textbf{x} \in \mathcal{X}$, $\textbf{x}' \in \mathcal{X}$ into $\mathbb{R}$ is generally called a \textit{kernel} $k$. Covariance functions are symmetric kernels, meaning that $k(\textbf{x}, \textbf{x}') = k(\textbf{x}', \textbf{x})$. As previously mentioned, the matrix containing all the covariance elements is called the \textit{covariance matrix}, or the Gram matrix $K$, whose elements are given by
-\begin{align}\label{Eq:: covariance matrix}
-K_{ij} = k(\textbf{x}_i, \textbf{x}_j).
-\end{align}
-
-The kernel should contain information about the noise in the data, represented by a constant term added to the diagonal
-\begin{align}
-k(\textbf{x}_i, \textbf{x}_j)_{noise} = C \delta_{ij},
-\end{align}
-where $C \in \mathbb{R}$ is a real, constant number, and $\delta_{ij}$ is the Dirac delta function. In \verb|scikit-learn| this can be implemented either by giving a fixed noise level $\alpha$ to the regressor function, or by using the \verb|WhiteKernel|, which estimates the noise level from the data. This kernel is implemented in \verb|scikit-learn| in the following way for noise level $0.001$ with bounds $[10^{-10}, 1]$
-\begin{lstlisting}
-from sklearn.gaussian_processes.kernels import WhiteKernel
-whitenoise = WhiteKernel(noise_level=0.001, noise_level_bounds=(1e-10,1))
-\end{lstlisting}
-
-\subsection{The Squared Exponential Covariance Function}
-
-The \textit{squared exponential covariance function} (SE) has the form 
-\begin{align}
-k_{SE} (r) = \exp \Big( - \frac{r^2}{2 \ell^2} \Big),
-\end{align} 
-where $\ell$ is the \textit{characteristic length scale}. The length scale determines the smoothness of the function. For a large length scale one should expect a very slowly varying function, while a shorter length scale means a more rapidly varying function, see the illustration in Fig.\ (\ref{Fig:: gaussian process : ell variation example}). The SE  is infinitely differentiable and therefore very smooth. 
-
-\begin{figure}
-\centering
-\includegraphics[scale=1.5]{figures_gaussian_processes/length_scales_xd.pdf}
-\caption{The effect of varying the length scale $\ell$. A long length scale (blue) gives a smooth, slowly varying function, while a short length scale (red) gives a more staccato, quickly varying function.}
-\label{Fig:: gaussian process : ell variation example}
-\end{figure}
-
-The SE is implemented in \verb|scikit-learn| under the name radial basis function, and may be called in the following way for length scale $10$, with bounds on the length scale $[0.01, 100]$
-\begin{lstlisting}
-from sklearn.gaussian_process.kernels import RBF
-rbf = RBF(length_scale=10, length_scale_bounds=(1e-2, 1e2))
-\end{lstlisting}
-
-
-
-\subsection{The Mat\'{e}rn Class }
-
-The \textit{Mat\'{e}rn class of covariance functions} is given by
-\begin{align}
-k_{Mat\acute{e}rn} (r) = \frac{2^{1- \nu}}{\Gamma (\nu)} \Big( \frac{\sqrt{2 \nu} r	}{\ell} \Big)^{\nu} K_{\nu} \Big( \frac{\sqrt{2 \nu}r}{\ell} \Big),
-\end{align}
-where $\nu, \ell > 0$, and $K_{\nu}$ is a modified Bessel function. The hyperparameter $\nu$ controls the smoothness of the function, as opposed to the SE kernel which is by definition very smooth. For $\nu \rightarrow \infty$ this becomes the SE kernel. In the case of $\nu$ being half integer, $\nu = p + \frac{1}{2}$, the covariance function is simply the product of an exponential and a polynomial
-\begin{align}
-k_{\nu=p+\frac{1}{2}} = \exp \Big(- \frac{\sqrt{2 \nu} r	}{\ell} \Big) \frac{\Gamma(p+1)}{\Gamma(2p + 1)} \sum^p_{i=0} \frac{(p+i)!}{i!(p-i)!} \Big( \frac{\sqrt{8 \nu} r	}{\ell} \Big)^{p-i}.
-\end{align}
-In machine learning the two most common cases are for $\nu = 3/2$ and $\nu = 5/2$
-\begin{align}
-k_{\nu = 3/2}(r) &=  \Big(1 + \frac{\sqrt{3}r}{\ell} \Big) \exp \Big( -\frac{\sqrt{3}r}{\ell} \Big),\\
-k_{\nu = 5/2}(r) &=  \Big(1 + \frac{\sqrt{5}r}{\ell}  + \frac{5r^2}{3 \ell^2}\Big) \exp \Big( -\frac{\sqrt{5}r}{\ell} \Big).
-\end{align}
-
-In \verb|scikit-learn| the hyperparameter $\nu$ is fixed, and so not optimized during training. The Mat\'{e}rn kernel is considered more appropriate for physical processes \cite{rasmussen2006gaussian}, and may be called in \verb|scikit-learn| in the following way for length scale 10, length scale bounds $[0.01, 100]$ and $\nu = 3/2$
-\begin{lstlisting}
-from sklearn.gaussian_process.kernels import Matern
-matern = Matern(length_scale=10, length_scale_bounds=(1e-2, 1e2), nu=1.5)
-\end{lstlisting}
-For values not in $\nu = [0.5, 1.5, 2.5, \infty]$ \verb|scikit-learn| evaluates Bessel functions explicitly, which increases the computational cost by a factor as high as 10.
-
-\subsubsection{Other Kernels}
-
-There are several kernels which are not discussed here. Kernels can be multiplied and summed to form new kernels, making the space of possible kernels infinite. For further details see chapter 4 in \cite{rasmussen2006gaussian}.
-
-
-
-
-
-\subsubsection{Hyperparameters}
-
-Each kernel has a vector of hyperparameters, \textit{e.g.} $\boldsymbol{\theta} = (\{M\}, \sigma^2_f, \sigma_n^2)$ for the radial basis function (RBF)
-\begin{align}
-k(\textbf{x}_i, \textbf{x}_j) = \sigma_f^2 \exp (- \frac{1}{2} (\textbf{x}_i - \textbf{x}_j))^T M (\textbf{x}_i - \textbf{x}_j) + \sigma_n^2 \delta_{ij}.
-\end{align}
-The matrix $M$ can have several forms, amongst them
-\begin{align}
-&M_1 = \ell^{-2} \mathbb{I} , &M_2 = \text{diag}(\vec{\ell})^{-2}.
-\end{align}
-Choosing $\vec{\ell}$ to be a vector in stead of a scalar is in many cases useful, especially if the vector of features contain values of different scales, \textit{e.g.} $\textbf{x} = (x_1, x_2)$ where $x_1 \in [0, 1]$ and $x_2 \in [200, 3000]$. The length scale can be set to a vector in \verb|scikit-learn| by giving the \verb|length_scale| parameter as a \verb|numpy| array of the same dimension as the feature vector $\textbf{x}$.
 
 
 
