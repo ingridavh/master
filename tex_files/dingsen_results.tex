@@ -1,0 +1,225 @@
+\documentclass[twoside,english]{uiofysmaster}
+%\bibliography{references}
+
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{scrextend}
+\usepackage{amsfonts}
+\usepackage{amsmath,amsfonts,amssymb}
+\addtokomafont{labelinglabel}{\sffamily}
+
+\usepackage[boxed]{algorithm2e}
+\addtokomafont{labelinglabel}{\sffamily}
+
+% Feynman diagrams
+\usepackage[compat=1.1.0]{tikz-feynman}
+\usepackage{tikz}
+
+% Feynman slash
+\usepackage{slashed}
+
+% To show code
+\usepackage{listings}
+
+\setlength{\heavyrulewidth}{1.5pt}
+\setlength{\abovetopsep}{4pt}
+
+\usepackage[boxed]{algorithm2e}
+\addtokomafont{labelinglabel}{\sffamily}
+
+% Multicolumns for calculation
+\usepackage{multicol}
+
+% Subfigures
+\usepackage{subcaption}
+\usepackage{sidecap}
+
+% For quotes
+\usepackage[autostyle]{csquotes} 
+
+
+
+\begin{document}
+
+\tableofcontents
+
+\chapter{Results}
+
+\section{The Optimal Model}
+
+\subsection{Times and Kernels}
+
+\begin{table}
+\centering
+\begin{tabular}{c|c|c|c|c|c|c|c}
+$\tilde{q}_1 \tilde{q}_2$ & Time & $C$ & $\ell_{\tilde{g}}$ & $\ell_{\tilde{q}_1}$ & $\ell_{\tilde{q}_2}$ & $\ell_{\bar{m}}$ & $\alpha$\\
+\hline
+$\tilde{u}_L \tilde{u}_L$ & 
+$\tilde{u}_L \tilde{d}_L$ & 
+\end{tabular}
+\caption{Times and kernels for all processes.}
+\end{table}
+
+\subsection{Model Size}
+\subsubsection{Training data}
+
+The saved models are very large. A single Gaussian process model trained with 2000 training points is 31 MB large. Since one model is needed per process, this means that a relatively small model with a single expert with 2000 training points will require $36 \times 31~ \text{MB} \approx 1.09~\text{GB}$ (endre dette tallet!). As seen from Table~\ref{Tab:: results : model size vs training points}, the model size scales approximately as $n^2$, so the model size puts limits on the number of training points an optimal model should have.
+
+\begin{table}
+\centering
+\begin{tabular}{r|l}
+Training data size & Model size [MB]\\
+\hline
+2000 & 31\\
+3000 & 69\\
+5000 & 191\\
+\end{tabular}
+\caption{Size of saved GP models with 3 or 4 features and the Mat\'{e}rn kernel.}
+\label{Tab:: results : model size vs training points}
+\end{table}
+
+\subsubsection{Number of Features}
+There is little to no difference between models with 3 and 4 features.
+\subsubsection{Kernel}
+Using the Mat\'{e}rn kernel requires $29~\text{bytes}$ more than the RBF kernel, a number that does not change with the addition of training data.
+
+How large is the optimal model?
+
+
+Lagrede modeller:
+
+dLdL, dLuL
+
+\section{Comparison with Prospino and NLL-fast}
+
+\subsection{Mean Relative Deviance}
+
+\begin{figure}
+\caption{Mean relative deviance distributions for the processes $\tilde{u}_L \tilde{d}_L$, $\tilde{d}_L \tilde{d}_L$, $\tilde{s}_L \tilde{s}_L$ and $\tilde{c}_L \tilde{c}_L$ ($\tilde{u}_R \tilde{d}_R$, $\tilde{d}_R \tilde{d}_R$, $\tilde{s}_R \tilde{s}_R$ and $\tilde{c}_R \tilde{c}_R$).}
+\end{figure}
+
+\begin{figure}
+\caption{Mean relative deviance distribution for the processes $\tilde{u}_L\tilde{d}_L$, $\tilde{u}_R\tilde{d}_R$, $\tilde{u}_L\tilde{d}_R$ and $\tilde{u}_R\tilde{d}_L$.}
+\end{figure}
+
+\begin{figure}
+\caption{Mean relative deviance distribution for the processes $\tilde{u}_L\tilde{s}_L$, $\tilde{u}_R\tilde{s}_R$, $\tilde{u}_L\tilde{s}_R$ and $\tilde{u}_R\tilde{s}_L$.}
+\end{figure}
+
+\begin{figure}
+\caption{Mean relative deviance distribution for the processes $\tilde{u}_L\tilde{c}_L$, $\tilde{u}_R\tilde{c}_R$, $\tilde{u}_L\tilde{c}_R$ and $\tilde{u}_R\tilde{c}_L$.}
+\end{figure}
+
+\begin{figure}
+\caption{Mean relative deviance distribution for the processes $\tilde{d}_L\tilde{s}_L$, $\tilde{d}_R\tilde{s}_R$, $\tilde{d}_L\tilde{s}_R$ and $\tilde{d}_R\tilde{s}_L$.}
+\end{figure}
+
+\begin{figure}
+\caption{Mean relative deviance distribution for the processes $d_Lc_L$, $d_Rc_R$, $d_Lc_R$ and $d_Rc_L$.}
+\end{figure}
+
+\begin{figure}
+\caption{Mean relative deviance distribution for the processes $s_Lc_L$, $s_Rc_R$, $s_Lc_R$ and $s_Rc_L$.}
+\end{figure}
+
+\subsubsection{Best Model for all Cross Sections}
+\subsubsection{Compare Total with NLL-Fast}
+
+\subsection{Cross Sections with Errors}
+
+- Plot masser mot hverandre, og plot sigma som funksjon av masser. Kanskje det holder med én masse? Evt med gjennomsnittsmassen?
+
+PROBLEM: Det er aldri så stort sprik mellom dL og uL massen - kanskje funksjonen klikker pga det? mSUGRA kontra MSSM-24.
+
+
+- DGP
+- Skalering av str med treningsdata (linear? n**2?)
+- Skalering av str med antall variable
+- Skalering av str med kernel
+
+- Oevre grense fra hva man kan gi til andre (ikke stoerre enn 10GB)
+- Hvor stor er det den kan være?
+- Når er modellen saa stor at den er upraktisk?
+
+Test: Kan man zippe en pickla GP? Hvor stor blir den da? sklearn?
+
+- Mean relative deviance: Alle prosesser
+- Sammenlign med NLL-fast: Alle prosesser
+- Plot med NLL og Prospino
+
+i tverrsnittdelen:
+dLdL og dRdR er like
+- Beregningene inneholder ingen EW-ledd, så den ser ikke forskjell paa R og L
+- Dette gjelder IKKE dersom EW NLO korreksjoner legges til
+- Ikke inkludert i prospino: qq -> X sq sq (ser forskjell paa R og L)
+
+sjekk med dLuL og dRuR
+
+--- Hvor mange uavhengige prosesser finnes egentlig?
+
+
+Aa gjoere:
+
+- Plotte sigmaer
+
+- Hvor mange det reduseres til (tverrsnitt)
+
+- Velg prosesser og sjekk skaleringer
+
+- Lagre DGP-er
+
+- Hvor stor er den ultimate modellen?
+
+- Sjekk om man kan zippe en pickla GP, eller andre settinger
+
+- Mean relative deviance for alle
+
+- Sammenligne mrd med NLL-fast
+
+- Plot mot NLL-fast og Prospino
+
+\subsection{Comparison with Prospino}
+
+A comparison with linspace-data from Prospino was attempted. Cross sections for the processes $\tilde{d}_L \tilde{d}_L$ and $\tilde{d}_L \tilde{u}_L$ were generated as a function of the mass $m_{\tilde{d}_L}=[200, 2400]$ GeV. All other masses, including $m_{\tilde{u}_L}$, were held at $1000$ GeV. As can be seen in Fig.\ (\ref{Fig:: results : dLuL prospino GP-L}), the prediction for $\tilde{d}_L \tilde{d}_L$ is very good, and with good precision. The prediction for $\tilde{d}_L \tilde{u}_L$, however, is not good. The uncertainty is very big everywhere except at $m_{\tilde{d}_L} = 1000$ GeV. However, if the model trained on the process $\tilde{d}_R \tilde{u}_R$ is used, the prediction is very good and with little uncertainty, as seen in Fig.\ (\ref{Fig:: results : dLuL prospino GP-R}). This probably comes from the mass splittings of the MSSM. Left-handed squarks are part of the same $SU(2)_L$-doublet, and get their mass from the same parameter $Q_1$, with small mass splitting between same-generation squarks. The right-handed squarks, however, get their masses from different parameters $m_{\tilde{d}_1}^2$ and $m_{\tilde{u}_1}^2$, and so are not so bound. In the data set used here, the difference in $m_{\tilde{u}_L}$ and $m_{\tilde{d}_L}$ is very small, as seen in Fig.\ (\ref{Fig:: results : mass scattering uLdL}). For right-handed squarks, there is no apparent correlation, as they depend on different free parameters, as seen in Fig.\ (\ref{Fig:: results : mass scattering uRdR}). 
+
+This is why the $\tilde{d}_L \tilde{u}_L$-model predict so poorly for the points where $|m_{\tilde{d}_L} - m_{\tilde{u}_L}|$
+is large, and the prediction is so good where $m_{\tilde{d}_L} = m_{\tilde{u}_L}$. As discussed in Sec. (SETT INN SEKSJON HVOR JEG DISKUTERER CROSS SECTIONS FOR R OG L), the form of the cross section is equal for equal-chirality final-squarks, so the model trained on $\tilde{d}_R \tilde{u}_R$ is able to do a good prediction for $\tilde{d}_L \tilde{u}_L$, and since the right-handed masses depend on different parameters it allows for large mass differences. The same applies for the second generation squarks.
+
+
+\begin{figure}
+\caption{Cross sections for $\tilde{d}_L \tilde{d}_L$ and $\tilde{u}_L \tilde{d}_L$, using $m_{\tilde{d}_L}=[200, 2400]$,GeV and all other masses set to $m_i = 1000$ GeV generated by prospino (crosses) and predicted by the GP (lines with errors). The GP models used are for $\tilde{d}_L \tilde{d}_L$ and $\tilde{d}_L \tilde{u}_L$.}
+\label{Fig:: results : dLuL prospino GP-L}
+\end{figure}
+
+\begin{figure}
+\caption{Cross sections for $\tilde{d}_L \tilde{d}_L$ and $\tilde{u}_L \tilde{d}_L$, using $m_{\tilde{d}_L}=[200, 2400]$,GeV and all other masses set to $m_i = 1000$ GeV generated by prospino (crosses) and predicted by the GP (lines with errors). The GP models used are for $\tilde{d}_L \tilde{d}_L$ and $\tilde{d}_R \tilde{u}_R$.}
+\label{Fig:: results : dLuL prospino GP-R}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{figures_results/masses_muL_mdL.pdf}
+\caption{Scatter plot of the left-handed squark masses $m_{\tilde{u}_L}$ and $m_{\tilde{d}_L}$. They are very strongly correlated.}
+\label{Fig:: results : mass scattering uLdL}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{figures_results/masses_muR_mdR.pdf}
+\caption{Scatter plot of the left-handed squark masses $m_{\tilde{u}_R}$ and $m_{\tilde{d}_R}$. They are not correlated.}
+\label{Fig:: results : mass scattering uRdR}
+\end{figure}
+
+For the comparison with \verb|Prospino 2.1| 10 experts with 5000 training points were used, and $m_{\tilde{d}_L}=m_{\tilde{u}_L}$. This is an approximation, since, as previously mentioned, the mass splitting is in reality given by
+\begin{align}
+m_{\tilde{d}_L}^2 - m_{\tilde{u}_L}^2 = - \cos (2 \beta) m_W^2.
+\end{align}
+As $\cos 2\beta$ is relatively small in the given data set, $\tan \beta \approx 11.697$, the masses are set to be equal.
+
+\bibliographystyle{plain}
+\bibliography{dingsen}
+
+
+
+\end{document}
