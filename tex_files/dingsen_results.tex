@@ -46,178 +46,213 @@
 
 \chapter{Results}
 
-\section{The Optimal Model}
+In this chapter the results of training Gaussian processes on the MSSM-24 dataset are shown. The settings are the cummulative settings found in the previous chapter, and distributed Gaussian processes are used to scale the problem to large datasets. Learning curves as a function of number of experts are plotted for the cummulative settings. Plots of the relative deviances from the \verb|Prospino| data are shown, and the resulting predictions are compared to data from \verb|Prospino| and \verb|NLL-fast|. Finally, the optimal model with respect to predictive capabilities, model size and computation times is discussed.
 
-\subsection{Times and Kernels}
+\section{Learning Curves}
+
+Learning curves for the cummulative settings from Sec.~\ref{Sec:: evaluating cross : Optimal Settings} are shown in Fig.~\ref{Fig:: results : Learning curves} for $\tilde{d}_L \tilde{u}_L$ and $\tilde{d}_L \tilde{d}_L$. The experts are trained with $500$, $1000$ and $2000$ points per expert, and learning curves are calculated according to the method described in Sec.~\ref{Sec:: gaussian process : Cross Validation}.
+
+The training scores for the estimators of $\tilde{d}_L \tilde{d}_L$ and $\tilde{d}_L \tilde{u}_L$ are 1, indicating that neither model is underfitting. The validation curves for both processes converge towards $1$, albeit faster and for less training points per expert for $\tilde{d}_L \tilde{d}_L$ than for $\tilde{d}_L \tilde{u}_L$. In both cases the training and validation scores are very high, even for few experts. Adding more data, both in the form of more experts and more points per expert, give higher validation scores. Predictions in this chapter are therefore done with the largest reasonable\footnote{Taking into account computation times, matrix sizes and model sizes} models, of 10 experts with 5000 and 8000 training points each, depending on whether or not the models need to be stored.
+
+
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.7\textwidth}
+        \includegraphics[width=\textwidth]{figures_results/cv_scores_dLdL_optimal.pdf}
+        \caption{The process $\tilde{d}_L \tilde{d}_L$}
+        \label{Fig:: results : Learning curves dLdL}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.7\textwidth}
+        \includegraphics[width=\textwidth]{figures_results/cv_scores_dLuL_optimal.pdf}
+        \caption{The process $\tilde{d}_L \tilde{u}_L$}
+        \label{Fig :: results : Learning curves dLuL}
+    \end{subfigure}
+    \caption{Learning curves as a function of number of experts, with 500, 1000 and 2000 training points per expert for the processes \textbf{(a)} $\tilde{d}_L \tilde{d}_L$ and \textbf{(b)} $\tilde{d}_L\tilde{u}_L$. For $\tilde{d}_L \tilde{u}_L$ the validation score for 500 training points is not shown, as the uncertainty is very large. The $k$-fold cross validation uses $R^2$-score as desribed in Sec.~\ref{Sec:: gaussian process : Cross Validation}, and here $R^2-1$ is plotted.}
+\label{Fig:: results : Learning curves}
+\end{figure}
+
+
+\section{Comparison with Prospino and NLL-fast}
+
+In this section plots of the relative deviance distributions as defined in Sec.~\ref{Sec:: gaussian process : Relative Deviance} are shown for the squark pair-production cross sections from the MSSM-24 and CMSSM datasets. Cross sections predicted by the DGP are compared to cross sections calculated using \verb|Prospino|, and \verb|NLL-fast| where this is possible.
+
+The settings used in this chapter are
+\begin{itemize}
+\item 10 GP experts with 8000 or 5000 training points from the MSSM-24 dataset each
+\item 20 000 test points
+\item Features $m_{\tilde{g}}, m_{\tilde{q}_i}, \bar{m}$ ($m_{\tilde{g}}, m_{\tilde{q}_i}, m_{\tilde{q}_j}, \bar{m}$) for the process $\tilde{q}_i \tilde{q}_j$ where $i=j$ ($i \neq j$)\footnote{Same flavour quarks with different chiralities, \textit{e.g.} $\tilde{d}_L \tilde{d}_R$, are regarded as different $i \neq j$, because $m_{\tilde{d}_{R}} \neq m_{\tilde{d}_L}$.}
+\item The Mat\'{e}rn kernel with $\nu=1.5$ and a white noise term
+\begin{align}
+k (\textbf{x}_i, \textbf{x}_j) =& \sigma_f^2 \exp \Big( 1 + \sqrt{3} \big[ (\textbf{x}_i - \textbf{x}_j)^T M (\textbf{x}_i - \textbf{x}_j) \big]^{1/2} \Big)\\ & \times  \exp \Big( \sqrt{3} \big[ (\textbf{x}_i - \textbf{x}_j)^T M (\textbf{x}_i - \textbf{x}_j) \big]^{1/2} \Big) + \sigma_n^2 \delta_{ij},
+\end{align}
+where $M = \text{diag}(\vec{\ell})^{-2}$.
+\item A cut on the cross sections $\sigma > \sigma_{cut} = 10^{-16}$ fb
+\end{itemize}
+
+All first- and second generation squarks are considered; $m_{\tilde{u}_L}$, $m_{\tilde{d}_L}$, $m_{\tilde{s}_L}$, $m_{\tilde{c}_L}$, $m_{\tilde{u}_R}$, $m_{\tilde{d}_R}$, $m_{\tilde{s}_R}$ and $m_{\tilde{c}_R}$. These make up 36 different processes for squark pair production. Gaussian processes were used on all processes.
+
+\subsection{Relative Deviance}\label{Sec:: results : Relative Deviance}
+
+\subsubsection{MSSM-24}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.9\textwidth}
+        \includegraphics[width=\textwidth]{figures_results/compare_uLuL_8000_cropped.pdf}
+        \caption{The processes $\tilde{u}_L \tilde{u}_L$, $\tilde{d}_L \tilde{d}_L$, $\tilde{s}_L \tilde{s}_L$ and $\tilde{c}_L \tilde{c}_L$.}
+        \label{Fig:: results : RD MSSM-24 uLuL}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.9\textwidth}
+        \includegraphics[width=\textwidth]{figures_results/compare_uLdL_8000_cropped.pdf}
+        \caption{The processes $\tilde{u}_L\tilde{d}_L$, $\tilde{u}_R\tilde{d}_R$, $\tilde{u}_L\tilde{d}_R$ and $\tilde{u}_R\tilde{d}_L$.}
+        \label{Fig :: results : RD MSSM-24 uLdL}
+    \end{subfigure}
+    \caption{Relative deviance distributions as a function of the logarithm of the normalized cross sections $\log_{10} \sigma / \sigma_0$. Ten experts with 8000 training points from the MSSM-24 dataset each were combined on 20 000 test points from the MSSM-24 dataset for processes \textbf{(a)}  $\tilde{u}_L \tilde{u}_L$, $\tilde{d}_L \tilde{d}_L$, $\tilde{s}_L \tilde{s}_L$ and $\tilde{c}_L \tilde{c}_L$; and \textbf{(b)} $\tilde{u}_L\tilde{d}_L$, $\tilde{u}_R\tilde{d}_R$, $\tilde{u}_L\tilde{d}_R$ and $\tilde{u}_R\tilde{d}_L$. }
+\label{Fig:: results : RD MSSM-24}
+\end{figure}
+
+A selection of the relative deviance plots are shown in Fig.~\ref{Fig:: results : RD CMSSM}. In Fig.~\ref{Fig:: results : Learning curves dLdL} the relative deviance distributions are shown for all processes with equal-flavour left-handed squarks. These processes only have 3 features, as opposed to 4, which appear to make them easier to learn for the GP. The GP estimators for the corresponding right-handed processes are almost identical as functions of $m_{\tilde{q}_R}$. This is because \verb|Prospino| calculates cross sections for strong interactions, and the NLO terms only contain QCD corrections, as discussed in Sec.~\ref{Sec:: susy hadron : Next-to-leading Order Corrections}. Since there is no electroweak correction, there is no distinction between left- and righthanded squarks in the calculation. They also share the same underlying pdf from the quark, \textit{e.g.} the pdf's used for calculating $\tilde{d}_R \tilde{d}_R$ and $\tilde{d}_L \tilde{d}_L$ is the one for the $d$-flavour squark.
+
+
+
+
+
+The prediction for equal squarks in Fig.~\ref{Fig:: results : RD MSSM-24 uLuL} is very stable and very good. All relative deviance distributions have a mean of approximately zero, and a standard deviation well within the desired value of $10 \%$. The highest cross sections have been excluded from the plots, as there are few training and test points there, and so the prediction has a very large uncertainty.
+
+In Fig.~\ref{Fig :: results : RD MSSM-24 uLdL} the relative deviance distributions are shown for the process $\tilde{u} \tilde{d}$ for different chirality combinations. The expression for the cross section depends on the chirality combinations, as discussed in Sec.~\ref{Sec:: susy hadron : Matrix Elements}. The prediction for $\tilde{d}_L \tilde{u}_L$ is quite superior to the other chirality combinations, possibly because of the previous argument of the masses $m_{\tilde{d}_L}$ and $m_{\tilde{u}_L}$ being very strongly correlated, as discussed in Sec.~\ref{Sec:: results : Data Quality}. The prediction for $\tilde{d}_R \tilde{u}_R$ is also better than the processes with different chiralities, but not as good as $\tilde{u}_L\tilde{d}_L$. All processes in Fig.~\ref{Fig :: results : RD MSSM-24 uLdL} have 4 features, which seems to make the function more difficult to predict. The mean values of the relative deviance distributions are still close to zero, particularly for cross sections above the $0.02$ event limit. Standard deviations are larger than for equal squark processes, but well within $5\%$ for all cross sections larger than $> 10^{-8}$ fb.
+
+\subsubsection{CMSSM}
+
+The DGPs trained on MSSM-24 data are also tested on an CMSSM data set and compared to cross sections calculated by \verb|NLL-fast| for the same parameter points. The true values are the sums of cross sections for all 36 processes for each parameter point, calculated by \verb|Prospino|. The DGPs estimate the cross sections for each of the 36 processes as well, and these ase summed for each parameter point. 
+
+The resulting relative deviance distributions are shown in Fig.~\ref{Fig:: results : RD CMSSM}. The cross sections calculated by \verb|NLL-fast| are quite close to the true values for the CMSSM data. This is because the squark masses in CMSSM have much smaller splittings than in MSSM-24, as discussed in Sec.~\ref{Sec:: physics back : CMSSM}, and \verb|NLL-fast| assumes degenerate squark masses. For large cross sections, however, \verb|NLL-fast| predicts values that are too large, while the DGPs predict cross sections very close to the true value.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{figures_results/msugra_nll_dgp_rel_dev.pdf}
+\caption{Distribution of the relative deviance $\varepsilon$ as a function of the logarithm of the total cross section for all squark pair production processes for NLL-fast and Gaussian processes for mSUGRA data. The 'true' values are the values generated by Prospino. 10 experts with 5000 training points each were trained on MSSM-24 data for each process $\tilde{q}_i \tilde{q}_j$.}
+\label{Fig:: results : RD CMSSM}
+\end{figure}
+
+\subsection{Cross Sections}
+
+Cross sections estimated by the distributed Gaussian processes are  compared to cross sections from \verb|Prospino| and \verb|NLL-fast|. The estimators consist of 10 experts with 5000 training points each, trained on the MSSM-24 data. Note that these experts are smaller than those used in Sec.~\ref{Sec:: results : Relative Deviance}, where each expert used 8000 training points. This is due to the size of saved models, which will be discussed in Sec.~\ref{Sec:: results : The Optimal Model}. In Fig.~\ref{Fig:: results : dLuL uLuL prospino dgp} the cross sections for the processes $\tilde{d}_L \tilde{d}_L$ and $\tilde{d}_L \tilde{u}_L$ are shown as a function of $m_{\tilde{d}_L}$. The masses $m_{\tilde{d}_L}$ and $m_{\tilde{u}_L}$ are in the range $[200, 2500]$ GeV, with the approximate mass splitting of
+\begin{align}
+m_{\tilde{d}_L}^2 - m_{\tilde{u}_L}^2 \approx m_W^2,
+\end{align}
+for $m_W = 80$ GeV. All other squark masses are held at $1000$ GeV, and the gluino mass is $m_{\tilde{g}} = 500$ GeV. The DGP prediction is very close to the cross sections from \verb|Prospino|, with a sligthly lower prediction for large $m_{\tilde{d}_L}$. The DGP predicts lower cross sections than those calculated \verb|Prospino|, but the estimated values are within the uncertainty band. In addition, the uncertainty in the DGP prediction is very small, with the plots in Fig.~\ref{Fig:: results : dLuL uLuL prospino dgp} showing $50 \sigma$ uncertainty bands.
+
+The uncertainty in the \verb|Prospino| calculation comes from the renormalization scale dependence. Cross sections are calculated for twice the renormalization scale, and half the renormalization scale, to see how scale dependent the cross sections are. As discussed in Sec.~\ref{Sec:: susy hadron : Prospino}, the scale dependence is reduced with the addition of higher order terms to the cross section, so this is also a way of estimating the order of magnitude of higher order terms (in this case, next-to-next-to-leading order).
+
+The cross sections calculated by \verb|NLL-fast| for the MSSM-24 are very far from the true values, and only coincide with \verb|Prospino| for $m_{\tilde{d}_L}=1000$ GeV, where the masses are in fact degenerate. In addition, the uncertainty from \verb|NLL-fast| is very large. The uncertainty from \verb|NLL-fast| includes the uncertainty from scale dependence, from the pdf's and from $\alpha_s$.
+
+Cross sections are also calculated as a function of the gluino mass, $m_{\tilde{g}}$, and shown in Fig.~\ref{Fig:: results : Total cross sections varymg dgp prospino nll}. All squark masses are here held at $1000$ GeV, and the gluino mass is in the range $[200, 2400]$ GeV. In this case the DGP prediction and cross sections from \verb|Prospino| and \verb|NLL-fast| all coincide, but DGP gives an uncertainty that is considerably lower than \verb|Prospino| and \verb|NLL-fast|. 
+
+In Tab.~\ref{Tab :: results : Computation times} the computation times for all 36 process cross sections for a single parameter points are shown for \verb|Prospino| and distributed Gaussian processes. For \verb|Prospino| 3 cross sections are calculated for each process, with scales $0.5$, $1.0$ and $2.0$, to include the scale uncertainty. The time for \verb|NLL-fast| is also shown for one parameter point. Note that the distributed Gaussian prediction was not performed in parallel, meaning that the computation time could optimally be reduced to $28.03~ \mathrm{s}~/~ 36 = 0.78 ~\mathrm{s}$, if each of the 36 processes is performed on a separate core. \verb|NLL-fast| is considerably faster than both DGP and \verb|Prospino|, but has a very large error relative to the \verb|Prospino| computation, as seen in Fig.~\ref{Fig:: results : Total cross sections dgp prospino nll}.
 
 \begin{table}
 \centering
-\begin{tabular}{c|c|c|c|c|c|c|c}
-$\tilde{q}_1 \tilde{q}_2$ & Time & $C$ & $\ell_{\tilde{g}}$ & $\ell_{\tilde{q}_1}$ & $\ell_{\tilde{q}_2}$ & $\ell_{\bar{m}}$ & $\alpha$\\
-\hline
-$\tilde{u}_L \tilde{u}_L$ & 
-$\tilde{u}_L \tilde{d}_L$ & 
+\begin{tabular}{@{}ll@{}} \toprule
+Tool & Computation time $[s]$\\ \midrule
+Prospino & 1711.96 \\
+NLL-fast & 0.00739\\
+Distributed Gaussian Processes & 28.03\\
+\bottomrule
 \end{tabular}
-\caption{Times and kernels for all processes.}
+\caption{Computation times for 1 parameter point for all 36 squark pair production processes.}
+\label{Tab :: results : Computation times}
 \end{table}
 
-\subsection{Model Size}
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{figures_results/prospino_comparison_varymdmu.pdf}
+\caption{Cross sections for $\tilde{d}_L \tilde{d}_L$ and $\tilde{u}_L \tilde{d}_L$, using $m_{\tilde{d}_L}=[200, 2400]$,GeV and all other masses set to $m_i = 1000$ GeV generated by prospino (crosses) and predicted by the GP (lines with errors). The GP models used are for $\tilde{d}_L \tilde{d}_L$ and $\tilde{d}_L \tilde{u}_L$.}
+\label{Fig:: results : dLuL uLuL prospino dgp}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{figures_results/nll_dgp_prospino_100p_varymdmu.pdf}
+\caption{Total cross sections for all 36 processes as a function of the $\tilde{d}_L$-mass as calculated by Prospino and NLL-fast, and estimated by Gaussian processes. The masses $m_{\tilde{d}_L}$ and $m_{\tilde{u}_L}$ are varied from $[200, 2400]$ GeV while all other squark masses are held at $1000$ GeV, and $m_{\tilde{g}}=500$ GeV.}
+\label{Fig:: results : Total cross sections dgp prospino nll}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{figures_results/nll_dgp_prospino_10p_varymg.pdf}
+\caption{Total cross sections for all 36 processes as a function of the $\tilde{g}$-mass as calculated by Prospino and NLL-fast, and estimated by Gaussian processes. The mass $m_{g}$ is varied $[200, 2400]$ GeV while all squark masses are held at $1000$ GeV.}
+\label{Fig:: results : Total cross sections varymg dgp prospino nll}
+\end{figure}
+
+
+
+
+
+\section{The Optimal Model}\label{Sec:: results : The Optimal Model}
+
+The distributed Gaussian process predictions using 10 experts with 8000 training points each are very good. Unfortunately, the Gaussian process models take up a lot of space when stored. In addition, larger DGP models take longer to predict values. In this section the model sizes and computation times are discussed, to find the optimal model as a compromise between prediction quality, size and computation time.
+
 \subsubsection{Training data}
 
-The saved models are very large. A single Gaussian process model trained with 2000 training points is 31 MB large. Since one model is needed per process, this means that a relatively small model with a single expert with 2000 training points will require $36 \times 31~ \text{MB} \approx 1.09~\text{GB}$ (endre dette tallet!). As seen from Table~\ref{Tab:: results : model size vs training points}, the model size scales approximately as $n^2$, so the model size puts limits on the number of training points an optimal model should have.
+The saved models are very large. A single Gaussian process model trained with 2000 training points takes up 31 MB. Since one model is needed per process, this means that a relatively small model with a single expert with 2000 training points will require $36 \times 31~ \text{MB} \approx 1.09~\text{GB}$. As seen from Table~\ref{Tab:: results : model size vs training points}, the model size scales approximately as $n^2$, so the model size puts limits on the number of training points an optimal model should have. There is very little difference in model sizes for models with 3 and 4 features, and a difference of $29~$ bytes for all training sizes between using the RBF kernel and the Mat\'{e}rn kernel. Presumably this is the space needed to store $\nu$.
 
 \begin{table}
 \centering
-\begin{tabular}{r|l}
-Training data size & Model size [MB]\\
-\hline
+\begin{tabular}{@{}cl@{}} \toprule
+Training data size & Model size $[MB]$\\
+\midrule
 2000 & 31\\
 3000 & 69\\
-5000 & 191\\
+5000 & 191\\ \bottomrule
 \end{tabular}
 \caption{Size of saved GP models with 3 or 4 features and the Mat\'{e}rn kernel.}
 \label{Tab:: results : model size vs training points}
 \end{table}
 
-\subsubsection{Number of Features}
-There is little to no difference between models with 3 and 4 features.
-\subsubsection{Kernel}
-Using the Mat\'{e}rn kernel requires $29~\text{bytes}$ more than the RBF kernel, a number that does not change with the addition of training data.
+
+
+\subsection{Times and Kernels}
+
+%\begin{table}
+%\centering
+%\begin{tabular}{c|c|c|c|c|c|c|c}
+%$\tilde{q}_1 \tilde{q}_2$ & Time & $C$ & $\ell_{\tilde{g}}$ & $\ell_{\tilde{q}_1}$ & $\ell_{\tilde{q}_2}$ & $\ell_{\bar{m}}$ & $\alpha$\\
+%\hline
+%$\tilde{u}_L \tilde{u}_L$ & 
+%$\tilde{u}_L \tilde{d}_L$ & 
+%\end{tabular}
+%\caption{Times and kernels for all processes.}
+%\end{table}
+
+\subsection{Model Size}
+
+
+Hvor stor er den ultimate modellen?
+
+Sjekk om man kan zippe en pickla GP, eller andre settinger
+
+Oevre grense fra hva man kan gi til andre (ikke stoerre enn 10GB)
+
+Hvor stor er det den kan vre?
+
+Naar er modellen saa stor at den er upraktisk?
+
+
+
 
 How large is the optimal model?
 
+\subsubsection{Independent Models}
 
-Lagrede modeller:
-
-dLdL, dLuL
-
-\section{Comparison with Prospino and NLL-fast}
-
-\subsection{Mean Relative Deviance}
-
-\begin{figure}
-\caption{Mean relative deviance distributions for the processes $\tilde{u}_L \tilde{d}_L$, $\tilde{d}_L \tilde{d}_L$, $\tilde{s}_L \tilde{s}_L$ and $\tilde{c}_L \tilde{c}_L$ ($\tilde{u}_R \tilde{d}_R$, $\tilde{d}_R \tilde{d}_R$, $\tilde{s}_R \tilde{s}_R$ and $\tilde{c}_R \tilde{c}_R$).}
-\end{figure}
-
-\begin{figure}
-\caption{Mean relative deviance distribution for the processes $\tilde{u}_L\tilde{d}_L$, $\tilde{u}_R\tilde{d}_R$, $\tilde{u}_L\tilde{d}_R$ and $\tilde{u}_R\tilde{d}_L$.}
-\end{figure}
-
-\begin{figure}
-\caption{Mean relative deviance distribution for the processes $\tilde{u}_L\tilde{s}_L$, $\tilde{u}_R\tilde{s}_R$, $\tilde{u}_L\tilde{s}_R$ and $\tilde{u}_R\tilde{s}_L$.}
-\end{figure}
-
-\begin{figure}
-\caption{Mean relative deviance distribution for the processes $\tilde{u}_L\tilde{c}_L$, $\tilde{u}_R\tilde{c}_R$, $\tilde{u}_L\tilde{c}_R$ and $\tilde{u}_R\tilde{c}_L$.}
-\end{figure}
-
-\begin{figure}
-\caption{Mean relative deviance distribution for the processes $\tilde{d}_L\tilde{s}_L$, $\tilde{d}_R\tilde{s}_R$, $\tilde{d}_L\tilde{s}_R$ and $\tilde{d}_R\tilde{s}_L$.}
-\end{figure}
-
-\begin{figure}
-\caption{Mean relative deviance distribution for the processes $d_Lc_L$, $d_Rc_R$, $d_Lc_R$ and $d_Rc_L$.}
-\end{figure}
-
-\begin{figure}
-\caption{Mean relative deviance distribution for the processes $s_Lc_L$, $s_Rc_R$, $s_Lc_R$ and $s_Rc_L$.}
-\end{figure}
-
-\subsubsection{Best Model for all Cross Sections}
-\subsubsection{Compare Total with NLL-Fast}
-
-\subsection{Cross Sections with Errors}
-
-- Plot masser mot hverandre, og plot sigma som funksjon av masser. Kanskje det holder med én masse? Evt med gjennomsnittsmassen?
-
-PROBLEM: Det er aldri så stort sprik mellom dL og uL massen - kanskje funksjonen klikker pga det? mSUGRA kontra MSSM-24.
+In this project 36 Gaussian process models were trained, with 10 experts each. The effective number of models may be reduced, however, as same-flavour same-chirality processes have identical function expressions as functions of the squark mass. This reduces the 36 models to 32.
 
 
-- DGP
-- Skalering av str med treningsdata (linear? n**2?)
-- Skalering av str med antall variable
-- Skalering av str med kernel
-
-- Oevre grense fra hva man kan gi til andre (ikke stoerre enn 10GB)
-- Hvor stor er det den kan være?
-- Når er modellen saa stor at den er upraktisk?
-
-Test: Kan man zippe en pickla GP? Hvor stor blir den da? sklearn?
-
-- Mean relative deviance: Alle prosesser
-- Sammenlign med NLL-fast: Alle prosesser
-- Plot med NLL og Prospino
-
-i tverrsnittdelen:
-dLdL og dRdR er like
-- Beregningene inneholder ingen EW-ledd, så den ser ikke forskjell paa R og L
-- Dette gjelder IKKE dersom EW NLO korreksjoner legges til
-- Ikke inkludert i prospino: qq -> X sq sq (ser forskjell paa R og L)
-
-sjekk med dLuL og dRuR
-
---- Hvor mange uavhengige prosesser finnes egentlig?
 
 
-Aa gjoere:
 
-- Plotte sigmaer
-
-- Hvor mange det reduseres til (tverrsnitt)
-
-- Velg prosesser og sjekk skaleringer
-
-- Lagre DGP-er
-
-- Hvor stor er den ultimate modellen?
-
-- Sjekk om man kan zippe en pickla GP, eller andre settinger
-
-- Mean relative deviance for alle
-
-- Sammenligne mrd med NLL-fast
-
-- Plot mot NLL-fast og Prospino
-
-\subsection{Comparison with Prospino}
-
-A comparison with linspace-data from Prospino was attempted. Cross sections for the processes $\tilde{d}_L \tilde{d}_L$ and $\tilde{d}_L \tilde{u}_L$ were generated as a function of the mass $m_{\tilde{d}_L}=[200, 2400]$ GeV. All other masses, including $m_{\tilde{u}_L}$, were held at $1000$ GeV. As can be seen in Fig.\ (\ref{Fig:: results : dLuL prospino GP-L}), the prediction for $\tilde{d}_L \tilde{d}_L$ is very good, and with good precision. The prediction for $\tilde{d}_L \tilde{u}_L$, however, is not good. The uncertainty is very big everywhere except at $m_{\tilde{d}_L} = 1000$ GeV. However, if the model trained on the process $\tilde{d}_R \tilde{u}_R$ is used, the prediction is very good and with little uncertainty, as seen in Fig.\ (\ref{Fig:: results : dLuL prospino GP-R}). This probably comes from the mass splittings of the MSSM. Left-handed squarks are part of the same $SU(2)_L$-doublet, and get their mass from the same parameter $Q_1$, with small mass splitting between same-generation squarks. The right-handed squarks, however, get their masses from different parameters $m_{\tilde{d}_1}^2$ and $m_{\tilde{u}_1}^2$, and so are not so bound. In the data set used here, the difference in $m_{\tilde{u}_L}$ and $m_{\tilde{d}_L}$ is very small, as seen in Fig.\ (\ref{Fig:: results : mass scattering uLdL}). For right-handed squarks, there is no apparent correlation, as they depend on different free parameters, as seen in Fig.\ (\ref{Fig:: results : mass scattering uRdR}). 
-
-This is why the $\tilde{d}_L \tilde{u}_L$-model predict so poorly for the points where $|m_{\tilde{d}_L} - m_{\tilde{u}_L}|$
-is large, and the prediction is so good where $m_{\tilde{d}_L} = m_{\tilde{u}_L}$. As discussed in Sec. (SETT INN SEKSJON HVOR JEG DISKUTERER CROSS SECTIONS FOR R OG L), the form of the cross section is equal for equal-chirality final-squarks, so the model trained on $\tilde{d}_R \tilde{u}_R$ is able to do a good prediction for $\tilde{d}_L \tilde{u}_L$, and since the right-handed masses depend on different parameters it allows for large mass differences. The same applies for the second generation squarks.
-
-
-\begin{figure}
-\caption{Cross sections for $\tilde{d}_L \tilde{d}_L$ and $\tilde{u}_L \tilde{d}_L$, using $m_{\tilde{d}_L}=[200, 2400]$,GeV and all other masses set to $m_i = 1000$ GeV generated by prospino (crosses) and predicted by the GP (lines with errors). The GP models used are for $\tilde{d}_L \tilde{d}_L$ and $\tilde{d}_L \tilde{u}_L$.}
-\label{Fig:: results : dLuL prospino GP-L}
-\end{figure}
-
-\begin{figure}
-\caption{Cross sections for $\tilde{d}_L \tilde{d}_L$ and $\tilde{u}_L \tilde{d}_L$, using $m_{\tilde{d}_L}=[200, 2400]$,GeV and all other masses set to $m_i = 1000$ GeV generated by prospino (crosses) and predicted by the GP (lines with errors). The GP models used are for $\tilde{d}_L \tilde{d}_L$ and $\tilde{d}_R \tilde{u}_R$.}
-\label{Fig:: results : dLuL prospino GP-R}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[scale=0.5]{figures_results/masses_muL_mdL.pdf}
-\caption{Scatter plot of the left-handed squark masses $m_{\tilde{u}_L}$ and $m_{\tilde{d}_L}$. They are very strongly correlated.}
-\label{Fig:: results : mass scattering uLdL}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[scale=0.5]{figures_results/masses_muR_mdR.pdf}
-\caption{Scatter plot of the left-handed squark masses $m_{\tilde{u}_R}$ and $m_{\tilde{d}_R}$. They are not correlated.}
-\label{Fig:: results : mass scattering uRdR}
-\end{figure}
-
-For the comparison with \verb|Prospino 2.1| 10 experts with 5000 training points were used, and $m_{\tilde{d}_L}=m_{\tilde{u}_L}$. This is an approximation, since, as previously mentioned, the mass splitting is in reality given by
-\begin{align}
-m_{\tilde{d}_L}^2 - m_{\tilde{u}_L}^2 = - \cos (2 \beta) m_W^2.
-\end{align}
-As $\cos 2\beta$ is relatively small in the given data set, $\tan \beta \approx 11.697$, the masses are set to be equal.
-
-\bibliographystyle{plain}
+\bibliographystyle{JHEP}
 \bibliography{dingsen}
 
 
