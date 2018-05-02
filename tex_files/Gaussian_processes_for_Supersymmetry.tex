@@ -47,10 +47,6 @@
 % For independence symbol
 \usepackage{graphicx}
 
-\newcommand{\bigCI}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
-
-
-
 
 \usepackage{slashed}
 \begin{document}
@@ -91,11 +87,11 @@ This is an abstract text.
 
 
 
-In this chapter supersymmetry and some of the motivations for an extension of the Standard Model are introduced, assuming familiarity with quantum field theory, the Standard Model of particle physics and some group theory. The Higgs mechanism and the hierarchy problem are reviewed, before supersymmetry is outlined. Finally, the Minimal Supersymmetric Standard Model is introduced, with its corresponding field content. Finally, the versions of the Minimal Supersymmetric Standard Model used in this project are briefly outlined.
+In this chapter supersymmetry and some of the motivations for an extension of the Standard Model are introduced, assuming familiarity with quantum field theory, the Standard Model of particle physics and some group theory. The Higgs mechanism and the hierarchy problem are reviewed, before supersymmetry is outlined. The Minimal Supersymmetric Standard Model is introduced, with its corresponding field content. Finally, the versions of the Minimal Supersymmetric Standard Model used in this project are briefly outlined.
 
 \section{The Standard Model}
 
-The \textit{Standard Model of particle physics} (SM) has successfully explained almost all experimental results in particle physics and predicted several phenomena. One of the main attributes of the Standard Model is that particles with different values of the \textit{spin} quantum number behave differently. Particles with half-integer and integer spin values are called \textit{fermions} and \textit{bosons}, respectively. Fermions are particles such as quarks and leptons, which interact through the exchange of bosons, which are force carriers. The Standard Model bosons are the \textit{photon} (electromagnetic interaction), the \textit{gluon} (strong interaction that holds atoms together), the $W$ and $Z$ bosons (the weak interaction) and the famously elusive \textit{Higgs boson}, which provides masses for the SM particles. The equations of motion and allowed interactions can all be derived from the \textit{Lagrangian} of the Standard Model. The Lagrangian, of which the time integral is the action $S$, is invariant to transformations under the Lorentz group --- known as changes of the reference frame. 
+The \textit{Standard Model of particle physics} (SM) has successfully explained almost all experimental results in particle physics and predicted several phenomena. One of the main attributes of the Standard Model is that particles with different values of the \textit{spin} quantum number behave differently. Particles with half-integer and integer spin values are called \textit{fermions} and \textit{bosons}, respectively. Fermions are particles such as quarks and leptons, which interact through the exchange of force carrying bosons. The Standard Model bosons are the \textit{photon} (electromagnetic interaction), the \textit{gluon} (strong interaction that holds atoms together), the $W$ and $Z$ bosons (the weak interaction) and the famously elusive \textit{Higgs boson}, that provides masses for the Standard Model particles. The equations of motion and allowed interactions can all be derived from the \textit{Lagrangian} of the Standard Model. The Lagrangian, of which the time integral is the action $S$, is invariant to transformations under the Lorentz group --- known as a change of reference frame. 
 
 \subsubsection{The Higgs Mechanism}\label{Sec:: phys back : The Higgs Mechanism}
 
@@ -125,7 +121,7 @@ The Higgs boson was discovered at the Large Hadron Collider (LHC) in 2012, and i
 \begin{align*}
 m_H^2 = m_{H0}^2 + \Delta m_H^2.
 \end{align*}
-Loop diagrams contain divergences, because of integrals over all possible momenta for the virtual particles in the loops. Virtual particles never make it to the final state and become real particles, but are instead absorbed by the process. A way to get rid of these infinities is to regularize the expressions. Regularization is a neat trick that introduces a \textit{cut-off scale}, which sets an upper limit on the momentum that is integrated over. A common choice for the cut-off scale $\Lambda$ is the Planck scale, as this is where new physics is needed to explain gravity in the Standard Model. The Planck scale is of the order of $\Lambda_P \sim 10^{18}$ GeV. After regularization, the mass correction terms are
+Loop diagrams contain divergences, because of integrals over all possible momenta for the virtual particles in the loops. A way to get rid of these divergences is to regularize the expressions. Regularization is a neat trick that introduces a \textit{cut-off scale}, which sets an upper limit on the momentum that is integrated over. A common choice for the cut-off scale $\Lambda$ is the Planck scale, as this is where new physics is needed to explain gravity in the Standard Model. The Planck scale is of the order of $\Lambda_P \sim 10^{18}$ GeV. After regularization, the mass correction terms are
 \begin{align}
 \Delta m_H^2 = - \frac{|\lambda_f|^2}{8\pi^2} \Lambda_P^2 + \frac{\lambda_s}{16\pi^2} \Lambda_P^2 +...,
 \end{align}
@@ -138,7 +134,7 @@ where $\lambda_s$ is the coupling of the Higgs to the scalar, and $\lambda_f$ is
 \label{Fig:: Phys. bac.: Higgs mass contributions}
 \end{figure}
 
-Supersymmetry provides an elegant solution to the hierarchy problem. In simple terms, supersymmetry introduces fermionic superpartners for the bosons, and vice versa. These are called sparticles, and have a prefix -s for the partners of fermions, short for 'scalar fermions' such as \textit{squarks} and \textit{leptons}. The partners of bosons have the suffix -ino, such as the \textit{photino} and \textit{Higgsino}. In unbroken supersymmetry these particles have identical mass, and their couplings to the Higgs are the same $\lambda_s = |\lambda_f|^2$. In addition, there are twice as many scalars as fermions, which gives a perfect cancellation of these enormous corrections. Unbroken supersymmetry therefore solves the hierarchy problem. The case of broken supersymmetry is revisited in Sec.~\ref{Sec:: phys back : Soft Supersymmetry Breaking}.
+Supersymmetry provides an elegant solution to the hierarchy problem. In simple terms, supersymmetry introduces fermionic superpartners for the bosons, and vice versa. These are called sparticles, and in unbroken supersymmetry the particles and sparticles have identical mass, and their couplings to the Higgs are the same $\lambda_s = |\lambda_f|^2$. In addition, there are twice as many scalars as fermions, which gives a perfect cancellation of these enormous corrections. Unbroken supersymmetry therefore solves the hierarchy problem. As will be discussed, supersymmetry must in fact be a broken symmetry, and broken supersymmetry is revisited in Sec.~\ref{Sec:: phys back : Soft Supersymmetry Breaking}.
 
 
 \section{Supersymmetry}
@@ -159,7 +155,7 @@ The super-Poincar\'{e} algebra is given by the following commutation and anticom
 [Q_A, M^{\mu \nu}] &= \frac{1}{2} (\sigma^{\mu \nu})_A^B Q_B,\\
 [\bar{Q}_{\dot{A}}, M^{\mu \nu}] &= \frac{1}{2} (\bar{\sigma}^{\mu \nu})_{\dot{a}}^{\dot{b}} Q_{\dot{b}}^{\dagger},  
 \end{align}
-where $Q_A$ and $\bar{Q}_{\dot{A}}$ are the superalgebra generators, where $A=1,2$ and $\dot{A}=1,2$ are the indices of two Weyl spinors, $P^{\mu}$ are the generators of translation, and $M^{\mu \nu}$ are the generators of the Lorentz group. 
+where $Q_A$ and $\bar{Q}_{\dot{A}}$ are the superalgebra generators, $A=1,2$ and $\dot{A}=1,2$ are the indices of two Weyl spinors, $P^{\mu}$ are the generators of translation, and $M^{\mu \nu}$ are the generators of the Lorentz group. 
 
 The supersymmetry generators turn fermions into bosons and vice versa. More specifically, these operators have the following commutation relations with the rotation generator $J^3$
 \begin{align}
@@ -187,7 +183,7 @@ n_B = n_F.
 
 The simplest possibility for a supermultiplet that obeys Eq.~(\ref{Eq:: pysh back : nB=nF}) has a single Weyl fermion, with $n_F =2$, and two real scalars, each with $n_B=1$, assembled to a complex scalar field. This is called a \textit{chiral} multiplet. Chiral multiplets are the only supermultiplets that can contain fermions whose left-handed partners transform differently under the gauge-group than their right-handed partners \cite{martin2010supersymmetry}. Since this is the case for the SM fermions, these must be members of chiral supermultiplets. The superpartners of the quarks and leptons must therefore be spin-0 bosons. The scalar partners of the fermions are denoted by the prefix `s' for scalar, such as the \textit{squarks} and the \textit{sleptons}. The left- and right-handed pieces of the quarks and leptons are separate two-component Weyl spinors, so each has its own complex scalar partner. For example, the up-type quark $u$ has two scalar partners, $\widetilde{u}_R$ and $\widetilde{u}_L$, where superpartners are denoted by a tilde $\sim$. 
 
-The next-simplest supermultiplet has a spin-1 vector boson, with $n_B=2$, and a massless spin-$1/2$ Weyl spinor, also with $n_F=2$. The vector bosons are the gauge bosons, and their fermionic superpartners are calles \textit{gauginos}. These multiplets are called \textit{vector}, or \textit{gauge} supermultiplets. 
+The next-to-simplest supermultiplet has a spin-1 vector boson, with $n_B=2$, and a massless spin-$1/2$ Weyl spinor, also with $n_F=2$. The vector bosons are the gauge bosons, and their fermionic superpartners are calles \textit{gauginos}. These multiplets are called \textit{vector}, or \textit{gauge} supermultiplets. 
 
 
 
@@ -218,15 +214,12 @@ Any power series of functions of Grassmann numbers therefore terminates as a fun
 \end{align}
 Integrals over Grassmann numbers are 
 \begin{align}
-& \int \theta \theta~\mathrm{d}^2\theta, && \int \bar{\theta} \bar{\theta} ~ \mathrm{d}^2 \bar{\theta}, && \int (\theta \theta) (\bar{\theta} \bar{\theta})~\mathrm{d}^4 \theta,
+& \int \theta \theta~\mathrm{d}^2\theta=1, && \int \bar{\theta} \bar{\theta} ~ \mathrm{d}^2 \bar{\theta}=1, && \int (\theta \theta) (\bar{\theta} \bar{\theta})=1~\mathrm{d}^4 \theta,
 \end{align}
 where $\mathrm{d}^2\theta = - 1/4 \mathrm{d} \theta^A \mathrm{d}\theta_A$, $\mathrm{d}^2\bar{\theta} = - 1/4 \mathrm{d} \bar{\theta}^A \mathrm{d}\bar{\theta}_A$ and $\mathrm{d}^4 \theta = \mathrm{d}^2 \theta \mathrm{d}^2 \bar{\theta}$.
 
-In superspace, any superfield $\Phi$ --- which is a function on superspace $\Phi(x^{\mu}, \theta^A, \bar{\theta}_{\dot{A}})$ --- can be expanded as a power series in the anti-commuting variables, with components that are functions of the four-vector $x^{\mu}$. A superfield  can therefore be written as 
-\begin{align}\label{Eq:: phys back : Superfield general}
-\Phi(x, \theta, \bar{\theta}) =& a(x) + \theta \xi(x) + \theta^{\dagger} \chi^{\dagger}(x) + \theta \theta b(x) + \theta^{\dagger} \theta^{\dagger} c(x)\nonumber \\ &+ \theta^{\dagger} \bar{\sigma}^{\mu} \theta v_{\mu}(x) + \theta^{\dagger} \theta^{\dagger} \theta \eta(x) + \theta \theta \theta^{\dagger} \zeta(x) + \theta \theta \theta^{\dagger} \theta^{\dagger} d(x) , 
-\end{align}
-where $\bar{\sigma}^{\mu}$ is defined in Appendix~\ref{Sec:: Appendix : Notation}, and $a(x)$, $b(x)$, $c(x)$, $v_{\mu}(x)$ and $d(x)$ are bosonic fields, and $\xi(x)$, $\chi(x)$, $\eta(x)$ and $\zeta(x)$ are two-component fermionic fields.
+
+
 
 
 % These generators can be written as 
@@ -236,6 +229,11 @@ where $\bar{\sigma}^{\mu}$ is defined in Appendix~\ref{Sec:: Appendix : Notation
 %i \bar{Q}^{\dot{A}} &= -i (\bar{\sigma}^{\mu} \theta)^{\dot{A}} \partial_{\mu} + \partial^{\dot{A}}.
 %\end{align}
 \subsection{Superfields}
+In superspace, any \textit{superfield }$\Phi$ --- a function on superspace $\Phi(x^{\mu}, \theta^A, \bar{\theta}_{\dot{A}})$ --- can be expanded as a power series in the anti-commuting variables, with components that are functions of the four-vector $x^{\mu}$. A superfield  can therefore be written as 
+\begin{align}\label{Eq:: phys back : Superfield general}
+\Phi(x, \theta, \bar{\theta}) =& a(x) + \theta \xi(x) + \theta^{\dagger} \chi^{\dagger}(x) + \theta \theta b(x) + \theta^{\dagger} \theta^{\dagger} c(x)\nonumber \\ &+ \theta^{\dagger} \bar{\sigma}^{\mu} \theta v_{\mu}(x) + \theta^{\dagger} \theta^{\dagger} \theta \eta(x) + \theta \theta \theta^{\dagger} \zeta(x) + \theta \theta \theta^{\dagger} \theta^{\dagger} d(x) , 
+\end{align}
+where $\bar{\sigma}^{\mu}$ is defined in Appendix~\ref{Sec:: Appendix : Notation}, and $a(x)$, $b(x)$, $c(x)$, $v_{\mu}(x)$ and $d(x)$ are bosonic fields, and $\xi(x)$, $\chi(x)$, $\eta(x)$ and $\zeta(x)$ are two-component fermionic fields.
 
 The general covariant derivatives working on superfields, that are invariant under supersymmetry transformations, are defined as
 \begin{align}\label{Eq:: phys back : susy covariant derivative D}
@@ -243,7 +241,7 @@ D_A & \equiv \partial_A + i (\sigma^{\mu} \bar{\theta})_A \partial_{\mu},\\
 \bar{D}^{\dot{A}} & \equiv -\partial^{\dot{A}} - i (\sigma^{\mu} \theta)^{\dot{A}} \partial_{\mu}.\label{Eq:: phys back : susy covariant derivative Dbar}
 \end{align}
 
-The covariant derivatives work on the aforementioned superfields, $\Phi$. The chiral supermultiplets discussed in the previous section then obey the following constraints
+The covariant derivatives work on the aforementioned superfields, $\Phi$. A chiral superfield must obey the following constraints
 \begin{align}
 \bar{D}_{\dot{A}} \Phi (x, \theta, \bar{\theta}) &= 0 &\text{(left-handed chiral superfield)},\\
 D^A \Phi^{\dagger} (x, \theta, \bar{\theta}) &= 0 &\text{(right-handed chiral superfield)}.
@@ -266,7 +264,7 @@ From Eq.\ (\ref{Eq:: vector field}) the structure of a general vector field in t
 V (x, \theta, \bar{\theta}) =& f(x) + \theta \varphi (x) + \bar{\theta} \bar{\varphi} (x) + \theta \theta m(x) + \bar{\theta} \bar{\theta} m^* (x) \nonumber \\
 &+ \theta \sigma^{\mu} \bar{\theta} V_{\mu} (x) + \theta \theta \bar{\theta} \bar{\lambda} (x) + \bar{\theta} \bar{\theta} \theta \lambda (x) + \theta \theta \bar{\theta} \bar{\theta} d(x),
 \end{align}
-where $f(x)$, $d(x)$ are real scalar fields, $\varphi_A (x)$, $\lambda_A (x)$ are Weyl spinors, $m(x)$ is a complex scalar field and $V_{\mu} (x)$ is a real Lorentz four-vector. A superfield cannot be chiral and real at the same time, but for a chiral superfield $\Phi$, the combinations $\Phi + \Phi^{\dagger}$, $i (\Phi - \Phi^{\dagger})$ and $\Phi^{\dagger} \Phi$ are all real, vector superfields. In the $j = \frac{1}{2}$ representation of the superalgebra, the superfield $V = \Phi^{\dagger} \Phi$ does not correspond to the promised number of degrees of freedom. This problem is fixed by the super-gauge. 
+where $f(x)$, $d(x)$ are real scalar fields, $\varphi_A (x)$, $\lambda_A (x)$ are Weyl spinors, $m(x)$ is a complex scalar field and $V_{\mu} (x)$ is a real Lorentz four-vector. Given a chiral superfield $\Phi$, the combinations $\Phi + \Phi^{\dagger}$, $i (\Phi - \Phi^{\dagger})$ and $\Phi^{\dagger} \Phi$ are all real, vector superfields. In the $j = \frac{1}{2}$ representation of the superalgebra, the superfield $V = \Phi^{\dagger} \Phi$ does not correspond to the promised number of degrees of freedom. This problem is fixed by the \textit{super-gauge} introduced in Sec.~\ref{Sec:: phys back : Supergauge}. 
 
 
 
@@ -290,13 +288,13 @@ where $\Phi_i^{\dagger} \Phi_i$ is the kinetic term, and $W[\Phi]$ is the \texti
 \begin{align}\label{Eq:: superpotential}
 W[\Phi] = g_i \Phi_i + m_{ij} \Phi_i \Phi_j + \lambda_{ijk} \Phi_i \Phi_j \Phi_k,
 \end{align}
-where $m_{ij}$ and $\lambda_{ijk}$ are symmetric. So to specify a supersymmetric Lagrangian all that is needed is to specify the superpotential. 
+where $m_{ij}$ and $\lambda_{ijk}$ are symmetric. Specifying a supersymmetric Lagrangian then only requires specifying the superpotential. 
 
 \subsubsection{Supergauge}\label{Sec:: phys back : Supergauge}
 
 
 
-A natural further step is to require that the Lagrangian be gauge invariant. Consider a general, Abelian or non-Abelian, group $G$ with the Lie algebra of group generators $t_a$ that fulfill
+The Lagrangian should also be gauge invariant. Consider a general, Abelian or non-Abelian, group $G$ with the Lie algebra of group generators $t_a$ that fulfill
 \begin{align}
 [t_a, t_b] = i {f_{ab}}^ct_c,
 \end{align}
@@ -308,7 +306,7 @@ The supergauge transformation (global or local) on left-handed chiral superfield
 \begin{align}
 \Phi \rightarrow \Phi' = e^{-i \Lambda_a T^a q} \Phi,
 \end{align} 
-where $q$ is the charge of the superfield $\Phi$ under $G$, $\Lambda_a$ are the parameters of the transformation, and $T^a$ are the generators of the gauge group. For a left-handed superfield $\Phi_i$ the $\Lambda^a$ must also be left-handed superfields, and correspondingly a right-handed superfield $\Phi^{\dagger}$ must have right-handed superfields $\Lambda^{\dagger a}$. 
+where $q$ is the charge of the superfield $\Phi$ under $G$, $\Lambda_a$ are the parameters of the transformation, and $T^a$ are the generators of the gauge group in a chosen representation. For a left-handed superfield $\Phi_i$ the $\Lambda^a$ must also be left-handed superfields, and correspondingly a right-handed superfield $\Phi^{\dagger}$ must have right-handed superfields $\Lambda^{\dagger a}$. 
 
 For the Lagrangian to be gauge invariant the potential $W$ must be gauge invariant as well. From the requirement that $W[\Phi] = W[\Phi']$, some restrictions on the superpotential follow
 \begin{align}
@@ -322,7 +320,7 @@ The kinetic term must also be invariant under gauge transformations. For this te
 \begin{align}
 \Phi^{\dagger} e^{qV^aT_a} \Phi \rightarrow {\Phi'}^{\dagger} e^{q{V'}^aT_a} \Phi' = \Phi^{\dagger} e^{iq\Lambda^{a \dagger} T_a} e^{q{V'}^aT_a} e^{-iq \Lambda^a T_a} \Phi,
 \end{align}
-meaning that the vector superfield $V^a$ is required to transform as
+meaning that the vector superfield $V^a$ must transform as
 \begin{align}
 e^{q{V'}^a T_a} = e^{-iq \Lambda^{a \dagger} T_a} e^{qV^aT_a} e^{iq\Lambda^a T_a}.
 \end{align}
@@ -334,7 +332,9 @@ The supersymmetric Lagrangian also requires field strengths, analogous to the el
 W_A & \equiv - \frac{1}{4} \bar{D} \bar{D} e^{-V} D_A e^V,\\
 \bar{W}_{\dot{A}} & \equiv - \frac{1}{4} DDe^{-V}\bar{D}_{\dot{A}} e^V,
 \end{align}
-where $V = V^a T_a$. $W_A$ ($\bar{W}_{\dot{A}}$) is a left-handed (right-handed) superfield, and it can be shown that the trace $\text{Tr}[W_AW^A]$ is supergauge invariant \cite{batzing2017lecture}. The Lagrangian for a supersymmetric theory with (possibly) non-Abelian gauge groups is then
+where $V = V^a T_a$. $W_A$ ($\bar{W}_{\dot{A}}$) is a left-handed (right-handed) superfield, and it can be shown that the trace $\text{Tr}[W_AW^A]$ is supergauge invariant \cite{batzing2017lecture}. 
+
+The Lagrangian for a supersymmetric theory with (possibly) non-Abelian gauge groups is then
 \begin{align}
 \mathcal{L} = \Phi^{\dagger} e^{V} \Phi + \delta^2 (\bar{\theta}) W[\Phi] + \delta^2 (\theta) W[\Phi^{\dagger}] + \frac{1}{2T(R)} \delta^2 (\bar{\theta}) \text{Tr}[W_AW^A],
 \end{align}
@@ -342,13 +342,13 @@ where $T(R)$ is the Dynkin index for normalization, $\delta^2(\bar{\theta}) = \b
 
 \subsection{Soft Supersymmetry Breaking}\label{Sec:: phys back : Soft Supersymmetry Breaking}
 
-As previously mentioned, in unbroken supersymmetry particles and their corresponding sparticles would have the same mass. Since sparticles have not yet been observed, supersymmetry must be a broken symmetry. In this section soft supersymmetry breaking is considered as a way of providing masses to particles, without comprimising the solution to the hierarchy problem.
+As previously mentioned, particles and their corresponding sparticles have identical masses in unbroken supersymmetry. Since sparticles have not yet been observed, supersymmetry must be a broken symmetry. In this section soft supersymmetry breaking is considered as a way of providing masses to particles, without comprimising the solution to the hierarchy problem.
 
-In the Standard Model particles obtain mass through spontaneous symmetry breaking of the electroweak symmetry, as described in Section 1.1.1. In supersymmetry this mechanism does not work, because it would be required that the sum of scalar particles squared be equal to the sum of fermion masses squared. Since the consequence of this would be that not all scalar partners could be heavier than the known particles, this cannot be the case \cite{batzing2017lecture}. 
+The Standard Model particles obtain mass through spontaneous symmetry breaking of the electroweak symmetry, as described in Sec.~\ref{Sec:: phys back : The Higgs Mechanism}. Supersymmetry cannot be broken in the same way, as it would require that the sum of scalar particles squared be equal to the sum of fermion masses squared. Consequently, not all scalar partners could be heavier than the known particles, which is known not to be the case \cite{batzing2017lecture}. 
 
-In stead, supersymmetry can be spontaneously broken via \textit{soft breaking}. This entails adding terms to the Lagrangian that break supersymmetry explicitly, while preserving the cancellations of divergences that fixes the hierarchy problem. These are called \textit{soft terms}, and there are several restrictions on them. That a term is \textit{soft} means that the coupling should have mass dimension one or higher, to avoid divergences from loop contributions to scalar masses. The possible soft terms can be written in terms of their component fields
+Instead, supersymmetry can be spontaneously broken via \textit{soft breaking}. Soft breaking entails adding terms to the Lagrangian that break supersymmetry explicitly, while preserving the cancellations of divergences that fixes the hierarchy problem. These are called \textit{soft terms}, and there are several restrictions on them. That a term is \textit{soft} means that the coupling should have mass dimension one or higher, to avoid divergences from loop contributions to scalar masses. The possible soft terms can be written in terms of their component fields
 \begin{align}
-\mathcal{L}_{soft} =& - \frac{1}{2} M \lambda^A \lambda_A - \Big(\frac{1}{6} a_{ijk} A_i A_j A_k + \frac{1}{2} b_{ij} A_i A_j + t_i A_i + \frac{1}{2} c_{ijk} A^{*}_i A_jA_k + \text{ c.c.} \Big) \nonumber \\& - m_{ij}^2 A_i^*A_j,
+\mathcal{L}_{soft} =& - \frac{1}{2} M \lambda^A \lambda_A - \Big(\frac{1}{6} a_{ijk} A_i A_j A_k + \frac{1}{2} b_{ij} A_i A_j + t_i A_i  + \text{ c.c.} \Big) \nonumber \\& - m_{ij}^2 A_i^*A_j,
 \end{align}
 where $\lambda_A$ are Weyl spinor fields and $A_i$ are chiral fields. The couplings consist of gaugino masses $M$ for each gauge group, scalar squared-mass terms $m_{ij}^2$ and $b_{ij}$, scalar couplings $a_{ijk}$ and tadpole terms $t_i$. The soft breaking terms thereby give masses to both the scalar and fermionic superpartners of the SM particles.
 
@@ -358,9 +358,9 @@ Restrictions on the new parameters are necessary to avoid reintroducing the hier
 \end{align*}
 at leading order in the breaking scale $\Lambda_{UV}$, where $m_s$ is the soft breaking scale. In this scheme $m_s$ is restricted to $m_s \sim \mathcal{O}(1$ TeV).
 
-\section{The Minimal Supersymmetric Standard\\ Model}
+\section{The Minimal Supersymmetric Standard Model}
 
-The Minimal Supersymmetric Standard Model (MSSM) is `minimal' in the sense that it requires the least amount of new fields introduced in order to have all the SM fields and supersymmetry. The MSSM is based on the minimal extension of the Poincar\'{e} algebra. In this section the field content of the MSSM and the introduction of $R$-parity is discussed. Finally, the MSSM-24 and CMSSM and their parameters are introduced.  
+The \textit{Minimal Supersymmetric Standard Model} (MSSM) is minimal in the sense that it requires the least amount of new fields introduced in order to have all the SM fields and supersymmetry. The MSSM is based on the minimal extension of the Poincar\'{e} algebra. In this section the field content of the MSSM and the introduction of $R$-parity is discussed, before the MSSM-24 and CMSSM and their parameters are introduced.  
 
 
 \subsection{Field Content}
@@ -369,20 +369,20 @@ As discussed in Sec.~\ref{Sec:: phys back : Superpartners}, the SM fermions and 
 
 \subsubsection{Leptons}
 
-For leptons the left-handed chiral supermultiplets are $L_i$, and the right-handed chiral supermultiplets are $\bar{E}_i$, given by 
+For leptons the left-handed chiral superfields are contained in the $SU(2)_L$ doublets $L_i$, and the right-handed chiral superfields are in $SU(2)_L$ singlets $\bar{E}_i$, given by 
 \begin{align}
 &L_i = \begin{pmatrix}
 \nu_i\\
 l_i
 \end{pmatrix}
 ~\text{ and } ~
-\bar{E}_i.,
+\bar{E}_i,
 \end{align}
-where $i=1,2,3$ is the generation index. The supermultiplets $L_i$ are $SU(2)_L$ doublets, where $l_i$ and $\bar{E}_i$ combine to give charged leptons, and $\nu_i$ gives (left-handed) neutrinos. Note that there is no right-handed $\bar{N}_i$. This is a convention, as MSSM is older than the discovery of massive neutrinos. 
+where $i=1,2,3$ is the generation index. The superfields $l_i$ and $\bar{E}_i$ combine to give charged leptons and sleptons, and $\nu_i$ gives the (left-handed) neutrinos and sneutrinos. Note that there is no right-handed $\bar{N}_i$. This is a convention, as MSSM is older than the discovery of massive neutrinos. 
 
 \subsubsection{Quarks}
 
-Similarly, for up-type and down-type quarks the left-handed chiral supermultiplets $Q_i$,  and the right-handed chiral multiplets $\bar{U}_i$ and $\bar{D}_i$ are given by
+Similarly, for up-flavour and down-flavour quarks the left-handed chiral superfields contained in the $SU(2)_L$ doublet $Q_i$,  and the right-handed chiral superfields $\bar{U}_i$ and $\bar{D}_i$ are given by
 \begin{align}
 Q_i = \begin{pmatrix}
 u_i\\
@@ -390,19 +390,19 @@ d_i
 \end{pmatrix},
 ~ \bar{U}_i ~ \text{ and }~ \bar{D}_i.
 \end{align}
-Again, $Q_i$ are $SU(2)_L$ doublets that combined with $\bar{U}_i$ and $\bar{D}_i$ give the charged SM quarks and the squarks. Color indices are omitted for simplicity.
+The superfields $u_i$ and $\bar{U}_i$ give the up-type SM quarks and squarks, and the superfields $d_i$ and $\bar{D}_i$ give the down-type SM quarks and squarks. Color indices are omitted for simplicity.
 
 \subsubsection{Gauge Bosons}
 
-To construct the gauge bosons, vector supermultiplets are used, as discussed in Sec.~\ref{Sec:: phys back : Superpartners}. A vector supermultiplet contains two fermionic and two bosonic degrees of freedom, in the form of a massless vector boson and one Weyl spinor of each handedness. As noted in Sec.~{\ref{Sec:: phys back : Supergauge}, one supermultiplet $V^a$ is needed per generator of the algebra $T_a$ for each of the gauge groups in $SU(3)_C$, $SU(2)_L$ and $U(1)_Y$. These vector supermultiplets are
+To construct the gauge bosons, vector supermultiplets are used, as discussed in Sec.~\ref{Sec:: phys back : Superpartners}. A vector supermultiplet contains two fermionic and two bosonic degrees of freedom, in the form of a massless vector boson and one Weyl spinor of each handedness. As noted in Sec.~{\ref{Sec:: phys back : Supergauge}, one superfield $V^a$ is needed per generator of the algebra $T_a$ for each of the gauge groups in $SU(3)_C$, $SU(2)_L$ and $U(1)_Y$. These vector supermultiplets are
 \begin{align}
 C^a, ~W^a, ~\mathrm{and}~B^0.
 \end{align}
-The spin-1 bosons constructed from these superfields are the SM gauge bosons $g$, $B^0$, $W^0$, $W^+$ and $W^-$. Their spin-1/2 superpartners of the gluons $g$ are the \textit{gluinos} $\widetilde{g}$. For the $SU(2)_L \times U(1)_Y$ gauge bosons they are $\widetilde{B}^0$, $W^0$, $\widetilde{W}^+$ and $\widetilde{W}^-$, called the \textit{bino} and the \textit{winos}. After electroweak symmetry breaking, $B^0$ and $W^0$ mix to give the mass eigenstates $Z^0$ and $\gamma$, and the corresponding mixtures of $\widetilde{B}^0$ and $\widetilde{W}^0$ are called zino $\widetilde{Z}^0$ and photino $\widetilde{\gamma}$. 
+The spin-1 bosons constructed from these superfields are the SM gauge bosons $g$, $B^0$, $W^0$, $W^+$ and $W^-$. The spin-1/2 superpartners of the gluons $g$ are the \textit{gluinos} $\widetilde{g}$. For the $SU(2)_L \times U(1)_Y$ gauge bosons they are $\widetilde{B}^0$, $W^0$, $\widetilde{W}^+$ and $\widetilde{W}^-$, named the \textit{bino} and the \textit{winos}. After electroweak symmetry breaking, $B^0$ and $W^0$ mix to give the mass eigenstates $Z^0$ and $\gamma$, and the corresponding mixtures of $\widetilde{B}^0$ and $\widetilde{W}^0$ are called \textit{zino} $\widetilde{Z}^0$ and \textit{photino} $\widetilde{\gamma}$. 
 
 \subsubsection{Higgs Boson}
 
-Finally, supermultiplets are needed for the Higgs. The Higgs is a scalar particle, and so it must reside in a chiral multiplet, as discussed in Sec.~\ref{Sec:: phys back : Superpartners}. The supersymmetry version of the SM Higgs $SU(2)_L$ doublet would mix left- and right-handed superfields, and so cannot appear in the superpotential. The minimal allowed Higgs content are two $SU(2)_L$ Higgs doublets $H_u$ and $H_d$, indexed according to the quarks they give mass to. The doublets are
+Finally, supermultiplets are needed for the Higgs. The Higgs is a scalar particle, so it must reside in a chiral supermultiplet, as discussed in Sec.~\ref{Sec:: phys back : Superpartners}. The supersymmetry version of the SM Higgs $SU(2)_L$ doublet would mix left- and right-handed superfields, and therefore cannot appear in the superpotential. The minimal allowed Higgs content are two $SU(2)_L$ Higgs doublets $H_u$ and $H_d$, indexed according to the quarks they give mass to. The doublets are
 \begin{align}
 &H_u = \begin{pmatrix}
 H_u^+\\
@@ -413,7 +413,7 @@ H_d^0\\
 H_d^-
 \end{pmatrix}.
 \end{align}
-These left-handed chiral supermultiplets contain in total four Weyl spinors and eight bosonic degrees of freedom. Three degrees of freedom are used to give masses to the $W^{\pm}$ and $Z^0$ bosons through the Higgs mechanism. The remaining five are manifest through the mass eigenstates $h^0$, $H^0$, $A^0$ and $H^{\pm}$. The Weyl spinors combine into the \textit{higgsinos}. The entire field content of the MSSM can be found in Table~\ref{Tab:: Phys. back. : MSSM multiplets}.
+These left-handed chiral supermultiplets contain in total four Weyl spinors and eight bosonic degrees of freedom. Three degrees of freedom are used to give masses to the $W^{\pm}$ and $Z^0$ bosons through the Higgs mechanism. The remaining five are manifest through the mass eigenstates $h^0$, $H^0$, $A^0$ and $H^{\pm}$. The Weyl spinors combine into the \textit{higgsinos}. The entire field content of the MSSM is listed in Table~\ref{Tab:: Phys. back. : MSSM multiplets}.
 
 \begin{table}
 \centering
@@ -452,11 +452,11 @@ The kinetic terms are constructed from the supermultiplets introduced above
 &+ \bar{U}_i^{\dagger} e^{\frac{1}{2}g_s \lambda C - \frac{4}{3} \cdot \frac{1}{2} g' B} \bar{U}_i + \bar{D}_i^{\dagger} e^{\frac{1}{2}g_s \lambda C - \frac{2}{3} \cdot \frac{1}{2} g' B} \bar{D}_i \nonumber \\
 &+ \bar{E}_i^{\dagger} e^{2 \frac{1}{2}g'B} \bar{E}_i + H_u^{\dagger} e^{\frac{1}{2} g \sigma W + \frac{1}{2} g'B} H_u + H_d^{\dagger} e^{\frac{1}{2} g \sigma W - \frac{1}{2} g'B} H_d,
 \end{align}
-where $B$, $g'$ and $g$ are the couplings of the $U(1)_Y$, $SU(2)_L$ and the $SU(3)_C$. 
+where $g'$, $g$ and $g_s$ are the couplings of the $U(1)_Y$, $SU(2)_L$ and the $SU(3)_C$. 
 
 The supersymmetric field strength contributions with pure gauge terms are
 \begin{align}
-\mathcal{L}_V = \frac{1}{2} \text{Tr} \big \{ W^AW_A \big \} \bar{\theta} \bar{\theta} + \frac{1}{2} \text{Tr} \big \{ C^AC_A \big \} \bar{\theta} \bar{\theta} + \frac{1}{4} B^AB_A \bar{\theta} \bar{\theta} + \text{h.c.},
+\mathcal{L}_V = \frac{1}{2} \text{Tr} \big \{ W^AW_A \big \} \bar{\theta} \bar{\theta} + \frac{1}{2} \text{Tr} \big \{ C^AC_A \big \} \bar{\theta} \bar{\theta} + \frac{1}{4} B^AB_A \bar{\theta} \bar{\theta} + \text{c.c.},
 \end{align}
 with the field strengths $W_A$, $C_A$ and $B_A$ given by
 \begin{align}
@@ -473,13 +473,13 @@ W =& \mu H_u H_d + \mu' L_i H_u + y_{ij}^e L_i H_d E_j + y_{ij}^u Q_i H_u \bar{U
 where $H_uH_d$ is shorthand for $H_u^T i \sigma_2 H_d$ --- and similarly for the other doublet pairs --- which is a construction invariant under $SU(2)_L$. The parameter $\mu$ is the Lagrangian mass parameter and $\mu'$ is some other mass parameter in the superpotential.
  
 
-\subsection{R-parity}
+\subsection{R-parity}\label{Sec:: phys back : R-parity}
 
-The most general supersymmetric Lagrangian with the fields in Sec.~\ref{Sec:: phys back : MSSM Lagrangian} results in couplings that violate lepton and baryon numbers, such as $\mu' L_i H_u$ and $ \lambda_{ijk} \bar{U}_i \bar{D}_j \bar{D}_k $. However, these violations are under strict restrictions from experiment, such as the search for proton decay $p \rightarrow e^+ \pi^0$. This decay would violate both baryon and lepton number by 1 unit, but has not been observed. Therefore, a new, multiplicative conserved quantity is introduced, namely R-parity
+The most general supersymmetric Lagrangian with the fields in Sec.~\ref{Sec:: phys back : MSSM Lagrangian} results in couplings that violate lepton and baryon numbers, such as $\mu' L_i H_u$ and $ \lambda_{ijk} \bar{U}_i \bar{D}_j \bar{D}_k $. However, these violations are under strict restrictions from experiment, such as the search for proton decay $p \rightarrow e^+ \pi^0$. This decay would violate both baryon and lepton number by 1 unit, but has not been observed. A new, multiplicative conserved quantity is therefore introduced, namely \textit{R-parity}
 \begin{align}\label{Eq:: R-parity}
 P_R \equiv (-1)^{3(B-L) +2s},
 \end{align}
-where $s$ is spin, $B$ is baryon number and $L$ is lepton number. This quantity is $+1$ for SM particles, and $-1$ for the sparticles. If R-parity is to be conserved sparticles must therefore always be produced and annihilated in pairs. A further consequence is that there must exist a stable, \textit{lightest supersymmetric particle} (LSP), to which all other supersymmetric particles decay eventually. For this particle to have gone undetected it should have zero eletric and color charge. These properties make the LSP a good candidate for dark matter \cite{weinberg_1995}.
+where $s$ is spin, $B$ is baryon number and $L$ is lepton number. This quantity is $+1$ for SM particles, and $-1$ for sparticles. If $R$-parity is to be conserved sparticles must therefore always be produced and annihilated in pairs. A further consequence is that there must exist a stable, \textit{lightest supersymmetric particle} (LSP), to which all other supersymmetric particles eventually decay. For this particle to have gone undetected it should have zero eletric and color charge. These properties make the LSP a good candidate for dark matter \cite{weinberg_1995}.
 
 \subsection{Soft Breaking terms}
 
@@ -502,27 +502,27 @@ V(H_u, H_d) =& |\mu|^2 (|H_u^0|^2 + |H_u^+|^2 + |H_d^0|^2 + |H_d^-|^2) \nonumber
 &+ \frac{1}{8} (g^2+{g'}^2)(|H_u^0|^2 + |H_u^+|^2 - |H_d^0|^2 - |H_d^-|^2)^2 \nonumber \\
 &+ \frac{1}{2} g^2 |H_u^+H_d^{0*} + H_u^0H_d^{-*}|^2 \nonumber \\
 &+ m_{H_u}^2 (|H_u^0|^2 + |H_u^+|^2) + m_{H_d}^2 (|H_d^0|^2 + |H_d^-|^2) \nonumber \\
-&+ [b (H_u^+H_d^- - H_u^0 H_d^0) + \text{c.c.}]
+&+ [b (H_u^+H_d^- - H_u^0 H_d^0) + \text{c.c.}].
 \end{align}
 Using gauge freedom, this potential can be simplified to 
 \begin{align}
-V(H_u^0, H_d^0) =& (|\mu|^2 + m_{H_u}^2) |H_u^0|^2 + (|\mu|^2 + m_{H_d}^2)|H_d^2| \nonumber \\
+V(H_u^0, H_d^0) =& (|\mu|^2 + m_{H_u}^2) |H_u^0|^2 + (|\mu|^2 + m_{H_d}^2)|H_d^0|^2 \nonumber \\
 &+ \frac{1}{8}(g^2 + {g'}^2)(|H_u^0|^2 - |H_d^0|^2)^2 - (bH_u^0 H_d^0 + \text{c.c.})
 \end{align}
-Analogous to the SM, $SU(2)_L \times U(1)_Y$ should be broken down to $U(1)_{\mathrm{em}}$ in order to give masses to gauge bosons and SM fermions. It can be shown that this potential has a minimum for finite field values, that this minimum has a remaining $U(1)_{\mathrm{em}}$ symmetry, and that the potential is bounded from below. For the potential to have a negative mass term and be bounded from below, the following is required
+Analogous to the SM, $SU(2)_L \times U(1)_Y$ should be broken down to $U(1)_{\mathrm{em}}$ in order to give masses to gauge bosons and SM fermions. It can be shown that this potential has a minimum for finite field values, that this minimum has a remaining $U(1)_{\mathrm{em}}$ symmetry, and that the potential is bounded from below. For the potential to have a negative mass term the following is required
 \begin{align}\label{Eq:: physical background : b**2}
-b^2 > (|\mu|^2 + m_{H_u}^2)(|\mu|^2 + m_{H_d}^2)
+b^2 > (|\mu|^2 + m_{H_u}^2)(|\mu|^2 + m_{H_d}^2),
 \end{align}
-and
+and the potential is bounded from below if
 \begin{align}\label{Eq:: physical background : 2b}
 2b < 2 |\mu|^2 + m_{H_u}^2 + m^2_{H_d}.
 \end{align}
-If it is assumed that $m_{H_u} = m_{H_d}$ at some high scale,  the requirements Eq.\ (\ref{Eq:: physical background : b**2}) and Eq.\ (\ref{Eq:: physical background : b**2}) cannot be simultaneously satisfied at that scale. However, to one-loop the Renormalization Group Equation (RGE)\footnote{The RGE describes how parameters change as a function of energy scale.} for $m_{H_u}^2$ and $m_{H_d}^2$ are 
+Assumed that $m_{H_u} = m_{H_d}$ at some high scale,  the requirements Eqs.~(\ref{Eq:: physical background : b**2})~--~(\ref{Eq:: physical background : b**2}) cannot be simultaneously satisfied at that scale. However, to one-loop the Renormalization Group Equation (RGE)\footnote{The RGE describes how parameters change as a function of energy scale.} for $m_{H_u}^2$ and $m_{H_d}^2$ are 
 \begin{align}
 16 \pi^2\beta_{m_{H_u}^2} \equiv 16 \pi^2 \frac{d m_{H_u}^2}{dt} = 6 |y_t|^2(m_{H_u}^2 + m_{Q_3}^2 + m_{u3}^2) +...\\
 16 \pi^2\beta_{m_{H_d}^2} \equiv 16 \pi^2 \frac{d m_{H_d}^2}{dt} = 6 |y_b|^2(m_{H_d}^2 + m_{Q_3}^2 + m_{d3}^2) +...,
 \end{align} 
-where $y_t$ and $y_b$ are the top and bottom quark Yukawa couplings, respectively, and $m_{Q_3} = m_{33}^Q$, $m_{u3}= m_{33}^u$ and $m_{d3} = m_{33}^d$. Since $y_t \gg y_b$, $m_{H_u}^2$ runs much faster than $m_{H_d}^2$ as they approach the electroweak scale. This is called the \textit{radiative electroweak symmetry breaking}.
+where $y_t$ and $y_b$ are the top and bottom quark Yukawa couplings, respectively, and $m_{Q_3} = m_{33}^Q$, $m_{u3}= m_{33}^u$ and $m_{d3} = m_{33}^d$. Since $y_t \gg y_b$, $m_{H_u}^2$ runs much faster than $m_{H_d}^2$ as they approach the electroweak scale, and can become negative. This is called the \textit{radiative electroweak symmetry breaking}.
 
 The vector boson masses are known from experiment, and provide constraints on Higgs vevs $v_u = \braket{H_u^0}$ and $v_d = \braket{H_d^0}$
 \begin{align}
@@ -536,9 +536,11 @@ The parameters $b$ and $|\mu|$ can be eliminated as free parameters of the model
 
 \subsection{Sparticles}
 
+The most important sparticles in this project are the gluinos and the squarks. In this section the masses of the gluinos and the squarks, as well as the neutralinos, are quickly overwieved.
+
 \subsubsection{Gluinos}
 
-The gluino is the superpartner of the gluon, which is the boson responsible for the strong interaction. At tree level the gluino does not mix with anything in the MSSM and the mass is the soft term $M_3$, but with loop contributions such as those in Fig.~\ref{Fig:: physical background : Gluino loop contributions} the mass runs quickly with energy $\mu$. The gluino mass with one loop contributions in the $\bar{DR}$ scheme is
+The gluino is the superpartner of the gluon, which is the boson responsible for the strong interaction. At tree level the gluino does not mix with anything in the MSSM and the mass is the soft term $M_3$, but with loop contributions such as those in Fig.~\ref{Fig:: physical background : Gluino loop contributions} the mass runs quickly with energy $\mu$. The gluino mass with one loop contributions in the $\overline{DR}$ scheme is
 \begin{align}
 m_{\widetilde{g}} = M_3 (\mu) \Bigg[ 1 + \frac{\alpha_s}{4 \pi} \Bigg( 15 + 6 \ln \frac{\mu}{M_3} + \sum_{\text{all } \widetilde{q}} A_{\widetilde{q}} \Bigg) \Bigg],
 \end{align}
@@ -584,10 +586,10 @@ A_{\widetilde{q}} = \int_0^1 dx~ x \ln \big(x \frac{m_{\widetilde{q}}^2}{M_3^2} 
 \label{Fig:: physical background : Gluino loop contributions}
 \end{figure}
 
-\subsubsection{Squarks}
-In supersymmetry, as mentioned in Sec.~\ref{Sec:: phys back : Superpartners}, there are two squarks $\widetilde{q}_L$, $\widetilde{q}_R$ per quark $q$, and in the MSSM several terms contribute to their masses. For the first two generations, which are the ones relevant to this project, the main contributions come from the soft terms and the scalar potential. The contributions from soft terms assume that the soft masses are close to diagonal, and provide contributions $-m_Q^2 \widetilde{Q}_i^{\dagger} \widetilde{Q}_i$ and $-m_q^2 \widetilde{q}_{iR}^* \widetilde{q}_{iR}$ for an $SU(2)_L$ doublet $\widetilde{Q}_i$ and singlet $\widetilde{q}_i$ with index $i$, respectively. 
+\subsubsection{Squarks}\label{Sec:: phys back : Squarks}
+In supersymmetry there are two squarks $\widetilde{q}_L$, $\widetilde{q}_R$ per quark $q$, and in the MSSM several terms contribute to their masses. For the first two generations, which are the ones relevant to this project, the main contributions come from the soft terms and the scalar potential. The contributions from soft terms assume that the soft masses are close to diagonal, and provide contributions $-m_Q^2 \widetilde{Q}_i^{\dagger} \widetilde{Q}_i$ and $-m_q^2 \widetilde{q}_{iR}^* \widetilde{q}_{iR}$ for an $SU(2)_L$ doublet $\widetilde{Q}_i$ and singlet $\widetilde{q}_i$ with index $i$, respectively. Note that same generation left-handed squarks share the same soft mass parameter, $m_{Q_i}^2$, which makes the splitting between $m_{\widetilde{d}_L}^2$ and $m_{\widetilde{u}_L}^2$ much smaller than the splitting for $m_{\widetilde{d}_R}^2$ and $m_{\widetilde{u}_R}^2$. 
 
-The scalar potential contributes with hyperfine terms, that come from the $d$-terms $\frac{1}{2} \sum_2 g_a^2 (A^* T^a A)^2$. This becomes of the form (sfermion)$^2$(Higgs)$^2$ when one of the scalar fields $A$ is a Higgs field. These become mass terms when the Higgs develope vacuum expectation values $v$
+The scalar potential contributes with hyperfine terms $\frac{1}{2} \sum g_a^2 (A^* T^a A)^2$. This becomes of the form (sfermion)$^2$(Higgs)$^2$ when one of the scalar fields $A$ is a Higgs field. When the Higgs develope vacuum expectation values $v$, these terms become mass terms for the squarks
 \begin{align}
 \Delta_Q = (T_{3F}g^2 - Y_F{g'}^2)(v_d^2 - v_u^2) = (T_{3F} - Q_F \sin^2 \theta_W ) \cos 2 \beta ~ m_Z^2,
 \end{align} 
@@ -595,11 +597,11 @@ where the isospin $T_3$, hypercharge $Y$, and electric charge $Q$ are the charge
 
 The mass terms of the squarks are then \textit{e.g.}
 \begin{align}
-m_{\widetilde{u}_L} &= m_{Q_1}^2 + \Delta \widetilde{u}_L,\\
-m_{\widetilde{d}_L} &= m_{Q_1}^2 + \Delta \widetilde{d}_L,\\
-m_{\widetilde{u}_R} &= m_{u_1}^2 + \Delta \widetilde{u}_R,\\
+m_{\widetilde{u}_L}^2 &= m_{Q_1}^2 + \Delta \widetilde{u}_L,\\
+m_{\widetilde{d}_L}^2 &= m_{Q_1}^2 + \Delta \widetilde{d}_L,\\
+m_{\widetilde{u}_R}^2 &= m_{u_1}^2 + \Delta \widetilde{u}_R,
 \end{align}
-with the mass splittings between the same generation left-handed squarks
+with the mass splittings between the same generation left-handed squarks given by
 \begin{align}
 m_{\widetilde{d}_L}^2 - m_{\widetilde{u}_L}^2 = - \frac{1}{2} g^2(v_d - v_u) = - \cos 2 \beta ~ m_W^2.
 \end{align}
@@ -607,15 +609,15 @@ m_{\widetilde{d}_L}^2 - m_{\widetilde{u}_L}^2 = - \frac{1}{2} g^2(v_d - v_u) = -
 
 \subsubsection{Neutralinos and Charginos}
 
-Because the electroweak symmetry is broken, the gauge fields are now free to mix. The only requirement is that fields of the same $U(1)_{em}$ charge mix. This gives  fields like the photino and zino, which are supersymmetric partners to the photon and Z boson. These are mixes of the neutral $\widetilde{B}^0$ and $\widetilde{W}^0$. However, the gauge fields are also free to mix with the Higgsinos, the fermions in the Higgs superfields, giving particles known as \textit{neutralinos}. There are four neutralinos,
+Electroweak symmetry breaking allows the gauge fields to mix. The only requirement is that fields of the same $U(1)_{\mathrm{em}}$ charge mix. This gives  fields like the photino and zino, which are supersymmetric partners to the photon and $Z$-boson. The photino and zino are mixes of the neutral fields $\widetilde{B}^0$ and $\widetilde{W}^0$. However, the gauge fields are also free to mix with the Higgsinos, the fermions in the Higgs superfields, giving particles known as \textit{neutralinos}. There are four neutralinos,
 \begin{align}
 \widetilde{\chi}_i^0 &= N_{i1} \widetilde{B}^0 + N_{i2} \widetilde{W^0} + N_{i3} \widetilde{H}_d^0 + N_{i4} \widetilde{H}_u^0,
 \end{align}
-where $N_{ij}$ indicates how much of each component field is mixed in the neutralino. There are also charged particles, known as \textit{charginos}, which are similar to the neutralinos but mixes $\widetilde{W}^+$, $\widetilde{H}_u^+$, $\widetilde{W}^-$ and $\widetilde{H}_d^-$.
+for $i=1,2,3,4$, where $N_{ij}$ indicates how much of each component field is mixed in the neutralino. There are also charged particles, known as \textit{charginos}, which are similar to the neutralinos but mixes $\widetilde{W}^+$, $\widetilde{H}_u^+$, $\widetilde{W}^-$ and $\widetilde{H}_d^-$.
 
 \subsection{MSSM-24}
 
-As noted in Sec. 1.4.3, the MSSM introduces 105 new parameters, where 104 come from soft terms and one comes from the scalar superpotential. However, experimental results can put restrictions on some parameters at high energy scales. One of the models with a restricted number of parameters is MSSM-24, where the number of parameters is reduced to 24. This is the model used to generate data in this project. 
+As noted in Sec. 1.4.3, the MSSM introduces 105 new parameters, where 104 come from soft terms and one comes from the scalar superpotential. However, experimental results put restrictions on some parameters at high energy scales. One of the models with a restricted number of parameters is MSSM-24, where the number of parameters is reduced to 24. This is the model used to generate data in this project. 
 
 Off-diagonal terms in the slepton and squark mass matrices $(m_f^2)_{ij}$ could induce flavour-changing processes, such as $\mu \rightarrow e \gamma$. Since these processes have not yet been observed experimentally, the squark and lepton mass matrices are assumed to be diagonal,
 \begin{align}
@@ -625,7 +627,7 @@ Another restriction comes from CP-violation. To avoid inducing large CP-violatin
 \begin{align}
 \text{Im}(M_1) = \text{Im}(M_2) = \text{Im} (M_3) = \text{Im} (A_0^u) = \text{Im} (A_0^d) = \text{Im} (A_0^e) = 0.
 \end{align}
-Finally, as there is a one-to-one correspondence between the three-scalar terms the SM $y_{ij}^f$ and in the MSSM $a^f_{ij}$, these are taken to be related through proportionality constants
+Finally, as there is a one-to-one correspondence between the three-scalar terms in the SM $y_{ij}^f$ and in the MSSM $a^f_{ij}$, these are taken to be related through proportionality constants
 \begin{align}
 a^u_{ij} = A_0^uy_{ij}^u, ~a^d_{ij} = A_0^dy_{ij}^d, ~a^e_{ij} = A_0^ey_{ij}^e.
 \end{align}
@@ -633,7 +635,7 @@ a^u_{ij} = A_0^uy_{ij}^u, ~a^d_{ij} = A_0^dy_{ij}^d, ~a^e_{ij} = A_0^ey_{ij}^e.
 \begin{align}
 &M_1, M_2, M_3, && \text{Gaugino mass parameters,} \nonumber \\
 &A_0^u, A_0^d, A_0^e && \text{Trinilear couplings,} \nonumber\\
-&\tan \beta,m_{H_u}^2,m_{H_d}^2, \text{sgn}~ \mu && \text{Higgs parameters,} \nonumber\\
+&\tan \beta, \mu, b, && \text{Higgs parameters,} \nonumber\\
 & m_{\widetilde{Q}_1}^2, m_{\widetilde{Q}_2}^2, m_{\widetilde{Q}_3}^2 && \text{Squark mass parameters,}\nonumber\\
 & m_{\widetilde{u}_1}^2, m_{\widetilde{u}_2}^2, m_{\widetilde{u}_3}^2\nonumber\\
 &m_{\widetilde{d}_1}^2, m_{\widetilde{d}_2}^2, m_{\widetilde{d}_3}^2,\nonumber\\
@@ -643,20 +645,20 @@ a^u_{ij} = A_0^uy_{ij}^u, ~a^d_{ij} = A_0^dy_{ij}^d, ~a^e_{ij} = A_0^ey_{ij}^e.
 
 \subsection{Constrained MSSM}\label{Sec:: physics back : CMSSM}
 
-Another popular version of the MSSM is the \textit{Constrained MSSM} (CMSSM), also called \textit{minimal supergravity} (mSUGRA). In the CMSSM it is assumed that soft supersymmetry breaking happens in a \textit{hidden sector}. A hidden sector is some non-accessible high energy scale where the fields of the sector have very small or no direct couplings to the fields in the visible sector. These fields aquire a non-zero vacuum expectation value that is mediated down to the visible sector, via an interaction that is common for both sectors. 
+Another version of the MSSM is the \textit{Constrained MSSM} (CMSSM), also called \textit{minimal supergravity} (mSUGRA). The CMSSM assumes that soft supersymmetry breaking happens in a \textit{hidden sector}. A hidden sector is some non-accessible high energy scale where the fields of the sector have very small or no direct couplings to the fields in the visible sector. These fields aquire a non-zero vacuum expectation value that is mediated down to the visible sector, via an interaction that is common for both sectors. 
 
-In the CMSSM the hidden sector used is the \textit{Planck-Mediated Symmetry Breaking} (PMSB), with some gravity mechanism at the Planck scale $\Lambda_P \sim 10^{18}$ GeV, which explains the name minimal super\textit{gravity}. In this scheme it is assumed that there is are only four (and a half) parameters from the soft terms
+In the CMSSM the hidden sector used is the \textit{Planck-Mediated Symmetry Breaking} (PMSB), with some gravity mechanism at the Planck scale $\Lambda_P \sim 10^{18}$ GeV, which explains the name minimal super\textit{gravity}. In this scheme it is assumed that soft terms only provide the following four (and a half) parameters
 \begin{align}
 &m_{1/2}, &&m_0^2, &&A_0, &&B_0, &&\mathrm{sgn}~ \mu,
 \end{align}
-which give, at the renormalization scale $Q=M_P$, for the soft breaking terms
+which give, at the renormalization scale $m_s=M_P$, for the soft breaking terms
 \begin{align}
 M_3 = M_2 = M_1 = m_{1/2},\\
 (m_Q^2)_{ij} = (m_u^2)_{ij} = (m_d^2)_{ij} = (m_e^2)_{ij} = (m_L)^2_{ij} = \mathrm{diag}~ (m_0),\\
 a^u_{ij} = A_0 y_{ij}^u, ~a^d_{ij} = A_0 y_{ij}^d,~a^e_{ij} = A_0 y^e_{ij},\\
 b = B_0 \mu.
 \end{align}
-The mass parameters are then run down to the electroweak scale, where \textit{e.g.} the hyperfine mass splitting for $m_{\tilde{u}_L}$ and $m_{\tilde{d}_L}$ is included.
+The mass parameters are then run down to the electroweak scale, where \textit{e.g.} the hyperfine mass splitting for $m_{\widetilde{u}_L}$ and $m_{\widetilde{d}_L}$ is included.
 
 
 
@@ -664,7 +666,7 @@ The mass parameters are then run down to the electroweak scale, where \textit{e.
 
 \chapter{Supersymmetry at Hadron Colliders}
 
-The Large Hadron Collider (LHC) at CERN is one of the largest and most important particle physics experiments in the world. In this chapter, some of the advantages and challenges of using hadron colliders are discussed, along with some techniques for moving from theory to observable signals. A short description of supersymmetric phenomenology follows, along with current bounds on some supersymmetric particles. Finally, the cross section for squark pair production is calculated to leading order, and next-to-leading order terms are investigated.
+The Large Hadron Collider (LHC) at CERN is one of the largest and most important particle physics experiments in the world. In this chapter, some of the advantages and challenges of using hadron colliders are discussed, along with techniques for moving from theory to observable signals. A short description of supersymmetric phenomenology follows, and current bounds on the squark and gluino masses are given. Finally, the cross section for squark pair production is calculated to leading order, and next-to-leading order terms are investigated.
 
 \section{Hadron Colliders}\label{Sec:: susy hadron : Hadron Colliders}
 
@@ -674,36 +676,36 @@ P_e = \frac{2}{3} \frac{e^2c }{R^2} \Bigg( \frac{E}{mc^2} \Bigg)^4,
 \end{align}
 where $E$ is the particle energy, $m$ is the mass of the particle and $c$ is the speed of light in vacuum. For light particles, such as leptons, a lot of energy is therefore wasted in circular accelerators. Because the proton mass is much larger than the electron mass, this effect is relatively small, allowing the LHC to operate at energies currently as high as 13 TeV. In this project the data is generated at $8$ TeV. The circular form means the accelerating structures can be reused as many times as one desires, thus putting `no limits' on the energies obtained. There are, of course, limits. At around energies of around $5-7$ TeV per particle, synchrotron radiation becomes an important effect also for protons. The photons emitted from synchrotron radiation hit the walls of the vacuum chamber walls, where they can interact with electrons and cause \textit{electron clouds}. Electron clouds occur when electrons are ejected from the walls of the vacuum chamber and accelerated towards a passing beam bunch. When the electrons reach the center of the chamber, however, the beam bunch has passed, and the now-energetic electrons hit the other side of the chamber, producing more free electrons. This becomes a `cloud' of electrons that can in turn affect the particle beam. 
 
-A challenge more spesific to hadron collisions is the distribution of momentum. Hadrons are made up of valence and sea quarks, which make the kinematics of collisions very difficult to calculate. Valence quarks are the quarks used to classify a hadron, such as $uud$ for the proton and $udd$ for the neutron. In addition to these, hadrons contain a sea of virtual quarks and gluons. The quarks and gluons, called \textit{partons}, distribute the hadron momentum somewhat randomly amongst themselves. Since the distribution of energy and momentum is unknown, so is the momenta of the ingoing parton in the collision. The \textit{transverse} momentum and energy, not to mention the \textit{missing} transverse energy, are therefore central when analysing data from hadron colliders. There is, however, some experimental knowledge of the distribution of longitudinal momentum contained in \textit{parton distribution functions}.
+A challenge more specific to hadron collisions is the internal distribution of momentum in a hadron. Hadrons are made up of valence and sea quarks, which make the kinematics of collisions very difficult to calculate. Valence quarks are the quarks used to classify a hadron, such as $uud$ for the proton and $udd$ for the neutron. In addition to these, hadrons contain a sea of virtual quarks and gluons. The quarks and gluons, called \textit{partons}, distribute the hadron momentum somewhat randomly amongst themselves. Since the distribution of energy and momentum is unknown, so is the momenta of the ingoing parton in the collision. The \textit{transverse} momentum and energy, not to mention the \textit{missing} transverse energy, are therefore central when analysing data from hadron colliders. There is, however, some experimental knowledge of the distribution of longitudinal momentum contained in \textit{parton distribution functions}.
 
 \subsection{Parton Distribution Functions}
 
-Partonic cross sections are calculated for colliding partons, \textit{e.g.} two quarks $q_1 q_2$. The cross section is a function of the center-of-mass energy, $s$, which can be written as a fraction of the center of mass energy of the colliding protons
+Partonic cross sections are calculated for colliding partons in ingoing protons, such as two quarks $q_1 q_2$. The cross section is a function of the center-of-mass energy, $s$, which can be written as a fraction of the center of mass energy of the colliding protons
 \begin{align}
 s = S x_1 x_2,
 \end{align}
-where $S$ is the center-of-mass energy of the colliding protons, and $x_i$ is the momentum fraction of the quark $q_i$. The fractions of momenta are then integrated over, using \textit{parton distribution functions} $f(x_i)$, which are specified for the different partons in different hadrons. For example, the fraction $x_u$ for an up-flavour quark in a proton would be much larger than that for a top-flavour quark. Integrating over parton distribution functions yields the total cross section
+where $S$ is the center of mass energy of the colliding protons, and $x_i$ is the momentum fraction of the quark $q_i$. The fractions of momenta are then integrated over, using \textit{parton distribution functions} (PDFs) $f(x_i)$, which are specified for the different partons in different hadrons. For example, the fraction $x_u$ for an up-flavour quark in a proton would be much larger than that for a top-flavour quark. Integrating over parton distribution functions yields the \textit{total cross section}
 \begin{align}
 \sigma_{q_1q_2} = \int f(x_1) f(x_2) \hat{\sigma}_{q_1q_2}(s) dx_1 dx_2,
 \end{align}
-where $\hat{\sigma}_{q_1q_2}$ is the partonic cross section. In this project the CTEQ6 parton distribution functions from the LHAPDF Fortran library \cite{PhysRevD.78.013004} are used.
+where $\hat{\sigma}_{q_1q_2}$ is the partonic cross section. In this project the CTEQ6 parton distribution functions from the LHAPDF Fortran library \cite{PhysRevD.78.013004} are used. The total number of events can be found by multiplying the total cross section by the \textit{luminosity} of the collider.
 
 \subsection{Luminosity}
 
-Another important concept is \textit{luminosity}. The instantaneous luminosity $\mathcal{L}$ is a measure on how many collisions happen at a collider per unit time. The integrated luminosity, $\mathcal{L}_{\mathrm{int}}$, is the luminosity integrated with respect to time, and is given in inverse femto-barn $1~\mathrm{fb}^{-1} = 10^{43} \text{ m}^{-2}$. The luminosity of the data can be used to set limits on the size of cross sections, by considering the following relation for a process where a particle $A$ is produced
+The \textit{instantaneous luminosity} $\mathcal{L}$ is a measure of the number of collisions in a collider per unit time. The integrated luminosity, $\mathcal{L}_{\mathrm{int}}$, is the luminosity integrated with respect to time, and is given in inverse femto-barn $1~\mathrm{fb}^{-1} = 10^{43} \text{ m}^{-2}$. The luminosity of the data can be used to set limits on the size of cross sections, by considering the following relation for a process where a particle $A$ is produced
 \begin{align}
 n_{A} = \mathcal{L}_{\mathrm{int}} \sigma_{A} ,
 \end{align}
-where $\mathcal{L}_{\mathrm{int}}$ is the integrated luminosity, $\sigma_{A}$ is the cross section for the production of $A$, and $n_A$ is the number of produced particles. Setting $n=1$ for a single produced particle, and using the integrated luminosity $\mathcal{L} = 20.3 \text{ fb}^{-1}$ for the 8~TeV dataset considered in this project, the lower limit on cross sections is
+where $\mathcal{L}_{\mathrm{int}}$ is the integrated luminosity, $\sigma_{A}$ is the cross section for the production of $A$, and $n_A$ is the number of produced particles. Setting $n=1$ for a single produced particle, and using the integrated luminosity $\mathcal{L}_{\mathrm{int}} = 20.3 \text{ fb}^{-1}$ for the 8~TeV data set considered in this project, the lower limit on cross sections is
 \begin{align}
 \sigma  = \frac{1}{20.3 \text{ fb}^{-1}} \approx 0.05 \text{ fb}.
 \end{align}
-Cross sections below $\sigma \sim \mathcal{O}(10^{-3} \text{ fb}^{-1})$ correspond to $0.02$ produced particles and will therefore be considered less important in this project.
+Cross sections below $\sigma \sim \mathcal{O}(10^{-3} \text{ fb}^{-1})$ correspond to $0.02$ produced particles in the 8~TeV data set, and will therefore be considered less important in this project.
 
 
 \section{Phenomenology}
 
-Phenomenology is the application of theory to high energy experiments, such as the Large Hadron Collider described in Sec.~\ref{Sec:: susy hadron : Hadron Colliders}. This section deals with searches for supersymmetry at hadron colliders, using missing transverse energy and quark jets. Some current bounds on sparticles are discussed as well.
+Phenomenology is the application of theory to high energy experiments such as the Large Hadron Collider described in Sec.~\ref{Sec:: susy hadron : Hadron Colliders}. This section deals with searches for supersymmetry at hadron colliders using missing transverse energy and quark jets. Some current bounds on sparticles are discussed as well.
 
 %In order to know what to look for at the LHC it is necessary to consider the phenomenology of supersymmetry. This is done by first revisiting the soft supersymmetry breaking, in order to consider models with more constraints than the 124 parameters of the MSSM. \textit{Hidden sector} (HS) scalar superfields $X$ have very small or no interactions with the MSSM fields. Their couplings are usually supressed by some mass scale so that $\mathcal{L} \sim M^{-1}$. They have an effective (non-renormalizable) interaction  with the scalar superfields of the form
 %\begin{align}
@@ -729,11 +731,11 @@ Phenomenology is the application of theory to high energy experiments, such as t
 
 \subsection{Searches For Supersymmetry}
 
-Supersymmetry at hadron colliders will likely be in the form of QCD processes, as the colliding particles are quarks and gluons. The traces left in detectors by such processes will be closely related to the conservation of $R$-parity, in that all sparticles are produced in pairs and eventually decay to the LSP. If the LSP is indeed only weakly interacting, this makes it very difficult to detect. An indirect way of detecting it is by looking for \textit{missing transverse energy} $\slashed{E}_T$. The energy is considered solely in the transverse plane, as the longitudinal momentum is difficult to predict in the hadronic case, see the discussion of hadron colliders in Sec.~\ref{Sec:: susy hadron : Hadron Colliders}. To look for $\slashed{E}_T$ the \textit{effective mass} is defined as
+Supersymmetry at hadron colliders will likely be in the form of QCD processes, as the colliding particles are quarks and gluons. The traces left in detectors by such processes will be closely related to the conservation of $R$-parity, in that all sparticles are produced in pairs and eventually decay to the LSP, as mentioned in Sec.~\ref{Sec:: phys back : R-parity}. If the LSP is indeed only weakly interacting, this makes it very difficult to detect. An indirect manner of detection involves looking for \textit{missing transverse energy} $\slashed{E}_T$. The energy is considered solely in the transverse plane, as the longitudinal momentum is difficult to predict in the hadronic case, see the discussion of hadron colliders in Sec.~\ref{Sec:: susy hadron : Hadron Colliders}. To look for $\slashed{E}_T$ the \textit{effective mass} is defined as
 \begin{align}
 M_{eff} &= \sum p_T^{jet} + \slashed{E}_T,
 \end{align} 
-and used to search for deviations from SM expectations. The momentum $p_T^{jet}$ is the transverse momentum of \textit{jets}. Jets are collimated\footnote{A collimated beam is parallel, it will not disperse with distance.} bunches of final-state partons and hadrons that appear in hard interactions\footnote{Hard interactions have very energetic ingoing particles}. They can be thought of as energetic partons that undergo showering and the hadronization. Jets are common traces in hadron collision detectors. Because of asymptotic freedom\footnote{The strong coupling constant becomes larger as the distance between partons increases, meaning that partons are \textit{confined} in hadrons.} partons do not remain unbound for long and form the jet hadrons. In supersymmetric processes from hadron collisions the production of jets should also be common, as the LSP is flavour neutral and the color charge of gluinos and squarks must end up in SM particles with color charge. The hadronic jets produced from supersymmetric processes can be complicated. An example of squark production with the subsequent decay into jets is shown in Fig.~\ref{Fig:: susy hadron : decay at ATLAS}. The very large background from SM processes offers another difficulty in searching for supersymmetry. 
+and used to search for deviations from SM expectations. The momentum $p_T^{jet}$ is the transverse momentum of \textit{jets}. Jets are collimated\footnote{A collimated beam is parallel and does not disperse with distance.} bunches of final-state partons and hadrons that appear in hard interactions\footnote{Hard interactions have very energetic ingoing particles}. They can be thought of as energetic partons that undergo showering and then hadronization. Jets are common traces in hadron collision detectors. Because of asymptotic freedom\footnote{The strong coupling constant becomes larger as the distance between partons increases, meaning that partons are \textit{confined} in hadrons.} partons do not remain unbound for long and form the jet hadrons. In supersymmetric processes from hadron collisions the production of jets should also be common, as the LSP is assumed color neutral and the color charge of gluinos and squarks must end up in colored SM particles. An example of squark pair production with the subsequent decay into jets is shown in Fig.~\ref{Fig:: susy hadron : decay at ATLAS}. The hadronic jets produced from supersymmetric processes can be complicated and difficult to identify. The significant background from SM processes offers another difficulty in searching for supersymmetry. 
 
 \begin{figure}[H]
 \centering
@@ -774,13 +776,13 @@ and used to search for deviations from SM expectations. The momentum $p_T^{jet}$
 
 
 
-Allowing for R-parity violation opens up for more final-state possibilities. The LSP can then decay, and sparticles can be produced one at a time. The violation of $R$-parity allows for \textit{massive metastable charged particles} (MMCPs), typical for scenarios with a gravitino LSP \cite{batzing2017lecture}.
+Allowing for $R$-parity violation opens up for more final-state possibilities. The LSP can then decay, and sparticles can be produced one at a time. The violation of $R$-parity allows for \textit{massive metastable charged particles} (MMCPs), typical for scenarios with a gravitino LSP \cite{batzing2017lecture}.
 
 
 
 \subsection{Current Bounds on Sparticles}
 
-Searches and limits are available from the data recorded in 2015 by the ATLAS experiment in $\sqrt{s}=13$~TeV proton-proton collisions at the LHC, with and integrated luminosity of $2.3 \text{ fb}^{-1}$. The analysis included searches for jets and missing transverse energy. Simplified models were assumed, with $R$-parity conservation and the lighest neutralino as the lightest supersymmetric particle. At $95 \%$ confidence level, exclusion limits of the gluino and squark masses are set at $1.51$~TeV and $1.03$~TeV, respectively \cite{aaboud2016search}, assuming a \textit{massless lightest neutralino}. A plot of exclusion limits is shown in Fig.\ \ref{Fig:: susy hadron : ATLAS exclusion limits}. Note that for a massive lightest neutralino the bounds on the gluino and squark masses are significantly reduced, down to $400$ GeV for the squark mass and around $650$ GeV for the gluino mass. Values below these mean that the lightest neutralino is no longer the lightest particle $m_{\widetilde{q}} < m_{\widetilde{\chi}^0_1}$, $m_{\widetilde{g}} < m_{\widetilde{\chi}^0_1}$, and sparticles must decay to another particle. In this project squark and gluino masses in the interval $[0-4000]$ GeV are explored, as the neutralino is assumed to be massive.
+Searches and limits are available from the data recorded in 2015 by the ATLAS experiment in $\sqrt{s}=13$~TeV proton-proton collisions at the LHC, with an integrated luminosity of $2.3 \text{ fb}^{-1}$. The analysis included searches for jets and missing transverse energy. Simplified models were assumed, with $R$-parity conservation and the lighest neutralino as the lightest supersymmetric particle. At $95 \%$ confidence level, exclusion limits of the gluino and squark masses are set at $1.51$~TeV and $1.03$~TeV, respectively \cite{aaboud2016search}, assuming a \textit{massless lightest neutralino}. A plot of exclusion limits is shown in Fig.\ \ref{Fig:: susy hadron : ATLAS exclusion limits}. Note that for a massive lightest neutralino the bounds on the gluino and squark masses are significantly reduced, down to $400$ GeV for the squark mass and around $650$ GeV for the gluino mass. Values below these mean that the lightest neutralino is no longer the lightest particle $m_{\widetilde{q}} < m_{\widetilde{\chi}^0_1}$, $m_{\widetilde{g}} < m_{\widetilde{\chi}^0_1}$, and sparticles must decay to another particle. In this project squark and gluino masses in the interval $[0-4000]$ GeV are explored, as the neutralino is assumed to be massive.
 
 \begin{figure}[H]
     \centering
@@ -817,7 +819,7 @@ In this project the relevant QCD process will be the production of squark pairs 
 \begin{align}
 q_i q_j \rightarrow \widetilde{q}_i \widetilde{q}_j,
 \end{align}
-where $i,j$ are the four lightest quark flavours $u, d, s, c$. Feynman diagrams for tree-level contributions are found in Fig.\ \ref{Fig:: susy hadron : Feynman qq}. For equal flavour quarks the $t$- and $u$-channel contribute, while only the $t$-channel contributes for different flavours. 
+where $i,j$ are the first and second generation quark flavours $u, d, s, c$. Feynman diagrams for tree-level contributions are found in Fig.\ \ref{Fig:: susy hadron : Feynman qq}. For equal flavour quarks the $t$- and $u$-channel contribute, while only the $t$-channel contributes for different flavours. 
 
 \begin{figure}
 \centering
@@ -856,7 +858,7 @@ where the Mandelstam variables are related by $t + u+ s = p_1^2 + p_2^2$. The ex
 \begin{align}\label{Eq:: susy hadron : matrix element}
 i\mathcal{M} = i\mathcal{M}_t + i\mathcal{M}_u,
 \end{align}
-which gives four terms for the matrix elements squared
+which gives four terms for the matrix element squared
 \begin{align}\label{Eq:: susy hadron : matrix element squared}
 |\mathcal{M}|^2 = |\mathcal{M}_t|^2 + |\mathcal{M}_t \mathcal{M}_u| + |\mathcal{M}_u \mathcal{M}_t| + |\mathcal{M}_u|^2.
 \end{align}
@@ -870,9 +872,9 @@ i \mathcal{M}_t &= \bar{v} (k_1) \Big( -i \sqrt{2} g P (t_a)^{ij}\Big) \times \d
 \end{align*}
 where the color factor has been factored out. The matrix element squared is then
 \begin{align*}
-|\mathcal{M}_t|^2 &=  (t_a)^{ij} (t^a)^{lk} (t_b)_{ij} (t^b)_{lk} \times \frac{4 g^4}{t_g^2}
+|\mathcal{M}_t|^2 =  (t_a)^{ij} (t^a)^{lk} (t_b)_{ij} (t^b)_{lk} \times \frac{4 g^4}{t_g^2}&
 \big( \bar{v} (k_1)  P (\slashed{p} + m_{\widetilde{g}}) P' u(k_2) \big)
-\big( \bar{u} (k_2)  P (\slashed{p} + m_{\widetilde{g}}) P' v(k_1) \big).
+\\ \times &\big( \bar{u} (k_2)  P (\slashed{p} + m_{\widetilde{g}}) P' v(k_1) \big).
 \end{align*}
 To sum over colors, the following relation is used \cite{ellis2003qcd}
 \begin{align}\label{Eq:: susy hadron : color factor identity}
@@ -880,9 +882,9 @@ To sum over colors, the following relation is used \cite{ellis2003qcd}
 \end{align}
 which gives for the color factor
 \begin{align*}
-(t^a)^{ij}(t_a)^{kl}(t^b)_{ij}(t_b)_{kl} &= \frac{1}{4} 
+\sum (t^a)^{ij}(t_a)^{kl}(t^b)_{ij}(t_b)_{kl} &= \frac{1}{4} 
 \big(\delta_{ik} \delta_{lj} - \frac{1}{N} \delta_{ij} \delta_{lk} \big)
-\big(\delta^{ik} \delta^{lj} - \frac{1}{N} \delta^{ij} \delta^{lk} \big) = \frac{1}{4} (N^2 - 1) = \frac{1}{2}NC_F,
+\big(\delta^{ik} \delta^{lj} - \frac{1}{N} \delta^{ij} \delta^{lk} \big)\\& = \frac{1}{4} (N^2 - 1)\\& = \frac{1}{2}NC_F,
 \end{align*}
 where $C_F = (N^2 - 1)/(2N)$. Averaging over spin gives
 \begin{align*}
@@ -1196,12 +1198,14 @@ The $K$-factor for squark production for varying mass ratios $m_{\widetilde{q}}/
 There are two numerical tools for the calculation of NLO SUSY cross sections, namely \verb|Prospino| \cite{beenakker1996prospino} and \verb|NLL-fast| \cite{beenakker2016nlo+}.
 
 \subsubsection{Prospino}\label{Sec:: susy hadron : Prospino}
-\verb|Prospino 2.1| \cite{beenakker1996prospino} is a numerical tool that calculates supersymmetric cross sections to next-to-leading order for non-degenerate squark masses. It uses the $K$-factor to calculate NLO cross sections, by first computing LO cross sections for the 5 or 4 lightest squark flavors. The LO and NLO rates are then calculated for a mean value of the squark mass, and the corresponding $K$-factor is calculated. The LO cross sections for different squarks are then multiplied by the $K$-factor, giving an approximation to the NLO terms for non-degenerate masses. The calculations are outlined in the section above, and are described in more detail in \cite{beenakker1996prospino}. 
+\verb|Prospino 2.1| \cite{beenakker1996prospino} is a numerical tool that calculates supersymmetric cross sections to next-to-leading order for non-degenerate squark masses. It uses the $K$-factor to calculate NLO cross sections, by first computing LO cross sections for the five or four lightest squark flavors. The LO and NLO rates are then calculated for a mean value of the squark mass, and the corresponding $K$-factor is calculated. The LO cross sections for different squarks are then multiplied by the $K$-factor, giving an approximation to the NLO terms for non-degenerate masses. The calculations are outlined in the section above, and are described in more detail in \cite{beenakker1996prospino}. 
 
-Evaluating cross sections with \verb|Prospino 2.1| is highly time-consuming. Evaluating the strong process cross sections for a single CMSSM benchmark point takes about 15 minutes of CPU time on a modern processor \cite{balazs2017colliderbit}. 
+\verb|Prospino 2.1| uses a renormalization scale to calculate cross sections, which leads to uncertainties. The uncertainty from the scale dependence is estimated by calculating cross sections for twice and half the chosen renormalization scale, and seeing how the cross sections change. As demonstrated in Fig.~\ref{Fig:: hadron susy : LO vs NLO beenakker} the scale dependence of cross sections is reduced by adding higher order terms. As a consequence, the scale dependence is also a way of estimating the order of magnitude of higher order terms (in this case, next-to-next-to-leading order). 
+
 
 In addition, as was discovered during the project, \verb|Prospino 2.1| has a weakness in the heavy squark mass space. Consider the cross section for the production of $\widetilde{c}_L \widetilde{c}_L$. When all squark masses are heavy, but $m_{\widetilde{c}_L}$ is slightly lighter than the others, the $K$-factor can be set to zero if the average mass is above threshold ($m^2 > s$). This means that $LO \neq 0$ and $NLO =0$, which gives problematic outlier points that cause trouble during learning.
 
+Evaluating cross sections with \verb|Prospino 2.1| is also highly time-consuming. Evaluating the strong process cross sections for a single CMSSM benchmark point takes about 15 minutes of CPU time on a modern processor \cite{balazs2017colliderbit}. 
 
 
 \subsubsection{NLL-fast}
@@ -1780,7 +1784,7 @@ In this section the generation of MSSM-24 training and test data is discussed, f
 
 An MPI parallelized \verb|Python| script generates a sample point in the MSSM-24 parameter space by drawing random values from the distributions in Table~\ref{Tab:: evalualting cross : Feature distributions }. When a parameter point has been sampled, it is run through the program \verb|softpoint.x| which calculates its supersymmetric spectrum using the \verb|Softsusy 3.6.2|-package \cite{ALLANACH2002305}. The spectrum is then written to a SLHA-file \cite{skands2004susy} that is given as input to \verb|Prospino 2.1|, which subsequently calculates the LO and NLO cross sections according to the method outlined in Section 3.4.1, and the results are written to the SLHA-file. The relevant masses and NLO cross sections are later harvested to input files, which are used by the Gaussian processes. 
 
-The weak scale MSSM model used in this project, MSSM-24, requires a soft breaking scale $Q$ for its definition. This scale is set to $Q=1$ TeV. It is worth noting that the parameter space for the squark cross sections is significantly reduced from that of the MSSM-24. The cross sections depend on the values of the masses $m_{\widetilde{q}}$ and $m_{\widetilde{g}}$. Since only first and second generation squarks are considered, $m_{\widetilde{q}}$ contributes with eight masses\footnote{Four flavours with a pair of lefthanded and righthanded squarks each.} which is combined with $m_{\widetilde{g}}$ to reduce the parameter space to nine dimensions. The parameter space is therefore better sampled than it would appear from the 24 parameters in MSSM-24.
+The weak scale MSSM model used in this project, MSSM-24, requires a soft breaking scale $m_s$ for its definition, as discussed in Sec.~\ref{Sec:: phys back : Soft Supersymmetry Breaking}. This scale is set to $m_s=1$ TeV. It is worth noting that the parameter space for the squark cross sections is significantly reduced from that of the MSSM-24. The cross sections depend on the values of the masses $m_{\widetilde{q}}$ and $m_{\widetilde{g}}$. Since only first and second generation squarks are considered, $m_{\widetilde{q}}$ contributes with eight masses\footnote{Four flavours with a pair of lefthanded and righthanded squarks each.} which is combined with $m_{\widetilde{g}}$ to reduce the parameter space to nine dimensions. The parameter space is therefore better sampled than it would appear from the 24 parameters in MSSM-24.
 
 \begin{table}
 \centering
@@ -1847,7 +1851,9 @@ To get a reasonable distribution in parameter space a flat and a log prior distr
 
 Data quality plots are used to ensure that the sampled data is properly distributed in parameter space. In Fig.~\ref{Fig:: evaluating cross : Data quality} scatter plot examples for $m_{\widetilde{g}}$, $m_{\widetilde{d}_L}$ and $m_{\widetilde{u}_L}$ are shown. Mass distributions for the other squark masses are similar, and can be found in Appendix~\ref{App: Quality Plots}. The scatter plots use 40 000 points. All parts of the parameter space seem to be covered, although the density of points is higher for small masses, as can be expected from the log prior. However, in Fig.~\ref{Fig:: evaluating cross : Data quality mgdl decades} the number of points with high cross sections is small. The density of points is lower for small squark masses where the gluino mass is large, WHY?. 
 
-Calculations in \verb|Prospino 2.1| set some NLO terms to zero as discussed in Sec.~\ref{Sec:: susy hadron : Prospino}. These points become outliers in the dataset. The outliers can be seen as a cluster of points well below the others for large masses in Fig.~\ref{Fig:: evaluating cross : sigma w outliers}, where $\sigma_{m_{\widetilde{g}}}$ is plotted as a function of $m_{\tilde{q}}$. These points have zero cross sections, which are set to $10^{-32}$~fb in the calculation to avoid divergences. In Fig.~\ref{Fig:: evaluating cross : sigma w outliers} they have different values because the cross sections have been divided by the gluino mass.
+As discussed in Sec.~\ref{Sec:: phys back : Squarks}, the masses of same-generation left-handed squarks are connected. BLABLABLA FYLL UT
+
+Calculations in \verb|Prospino 2.1| set some NLO terms to zero as discussed in Sec.~\ref{Sec:: susy hadron : Prospino}. These points become outliers in the dataset. The outliers can be seen as a cluster of points well below the others for large masses in Fig.~\ref{Fig:: evaluating cross : sigma w outliers}, where $\sigma_{m_{\widetilde{g}}}$ is plotted as a function of $m_{\widetilde{q}}$. These points have zero cross sections, which are set to $10^{-32}$~fb in the calculation to avoid divergences. In Fig.~\ref{Fig:: evaluating cross : sigma w outliers} they have different values because the cross sections have been divided by the gluino mass.
 
 \begin{figure}
 \centering
@@ -1913,7 +1919,7 @@ The noise term predicted by the Gaussian process estimator should therefore have
 
 \section{Dataset Transformations}
 
-The plot in Fig.~\ref{Fig:: evaluating cross : Data quality mgdl decades} indicates that cross sections, in particular of the order $\mathcal{O}(1 \text{ fb})$ and lower, are very spread as a function of $m_{\widetilde{g}}$. The spread is also evident in the upper left panel of Fig.~\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}, where the logarithm of the cross section for the production of $\widetilde{d}_L \widetilde{d}_L$ is plotted as a function of the gluino mass. Spread function values are problematic because they make it difficult for the Gaussian process regressor to recognize the shape of the function. The upper left panel shows $\sigma$ as a function of the squark mass $m_{\widetilde{q}}$, which is also quite spread. In addition, for small cross sections the cross section is a very steep function of $m_{\widetilde{q}}$, while it is relatively flat for large $\sigma$. High derivatives in the function means that training points need to be close to estimate the actual shape of the function, which presents another difficulty. Some of the steepness and spread is remedied by using $\log_{10} \sigma$ instead of $\sigma$. This section will be devoted to reducing the spread caused by the gluino mass dependency.
+The plot in Fig.~\ref{Fig:: evaluating cross : Data quality} indicates that cross sections, in particular of the order $\mathcal{O}(1 \text{ fb})$ and lower, are very spread as a function of $m_{\widetilde{g}}$. The spread is also evident in the upper left panel of Fig.~\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}, where the logarithm of the cross section for the production of $\widetilde{d}_L \widetilde{d}_L$ is plotted as a function of the gluino mass. Spread function values are problematic because they make it difficult for the Gaussian process regressor to recognize the shape of the function. The upper left panel shows $\sigma$ as a function of the squark mass $m_{\widetilde{q}}$, which is also quite spread. In addition, for small cross sections the cross section is a very steep function of $m_{\widetilde{q}}$, while it is relatively flat for large $\sigma$. High derivatives in the function means that training points need to be close to estimate the actual shape of the function, which presents another difficulty. Some of the steepness and spread is remedied by using $\log_{10} \sigma$ instead of $\sigma$. This section will be devoted to reducing the spread caused by the gluino mass dependency.
 
 \subsubsection{Scaling Functions}\label{Sec:: evaluating cross : Scaling Functions}
 
@@ -1956,7 +1962,7 @@ In the threshold region the partonic version of $\sigma_{m_{\widetilde{g}}}$ is 
 
 \section{Learning the Gaussian Process}
 
-In this section a Gaussian process estimator is trained with benchmark settings, and a selected set of modifications to the benchmark are introduced. The quality of estimators are quantified in plots of the relative deviance distributions defined in Sec.~\ref{Sec:: gaussian process : Relative Deviance}. Note that in many cases the parameter $\sigma_f$ is at its upper limit, ${\sigma_f^2}_{\mathrm{max}} = 1000$. Increasing the upper limit on $\sigma_f$ alters the optimized length scale parameters, but does not change the prediction. The upper limit of $\sigma_f$ has therefore been kept at ${\sigma_f^2}_{\mathrm{max}} = 1000$.
+In this section a Gaussian process estimator is trained with benchmark settings, and a selected set of modifications to the benchmark are introduced. The quality of estimators are quantified in plots of the relative deviance distributions defined in Sec.~\ref{Sec:: gaussian process : Relative Deviance}. Note that in many cases the parameter $\sigma_f^2$ is at its upper limit, ${\sigma_f^2}_{\mathrm{max}} = 1000$. Increasing the upper limit on $\sigma_f^2$ alters the optimized length scale parameters, but does not change the prediction. The upper limit of $\sigma_f^2$ has therefore been kept at ${\sigma_f^2}_{\mathrm{max}} = 1000$.
 
 \subsection{The Benchmark}\label{Sec:: evaluating cross : The Benchmark}
 
@@ -1977,7 +1983,7 @@ kernel_BM =  ConstantKernel(constant_value=10, constant_value_bounds=(1e-3, 1e4)
 \end{lstlisting} 
 Note that the length scale of the RBF is given as a vector of the same dimension as the feature vector $\textbf{x},\vec{\ell} \in \mathbb{R}^D$. This is to allow different features to have different characteristic length scales, as they appear to have from the lower panels in Fig.~\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}. The target values are $\log_{10} \sigma_{m_{\widetilde{g}}}$, where $\sigma_{m_{\widetilde{g}}}$ was defined in Sec.~\ref{Sec:: evaluating cross : Scaling Functions}.
 
-The means and standard deviations $m(\varepsilon_i)$ and $\text{std}(\varepsilon_i)$, as defined in Eqs.~(\ref{Eq:: gaussian process : rel deviance mean})~--~(\ref{Eq:: gaussian process : rel deviance variance}), are calculated  and plotted for the BM settings in Fig.~\ref{Fig:: evaluating cross : BM dLdL error plot} for $\widetilde{d}_L \widetilde{d}_L$. For $\widetilde{d}_L \widetilde{u}_R$  the results are very similar, and therefore not shown here. The optimized kernel parameters found by the GP are listed in Tables~\ref{Tab:: evaluating cross : optimal kernels dLdL}~-~\ref{Tab:: evaluating cross : optimal kernels dLuR}, while computation times on a standard laptop with 4 cores are found in Table~\ref{Tab:: evaluating cross : computation times BM}. The predicted noise level variances, $\sigma_n^2$, are very high for both processes, at $\sigma_n^2=0.47$ for $\widetilde{d}_L \widetilde{d}_L$ and $\sigma_n^2=0.65$ for $\widetilde{d}_L \widetilde{u}_R$, which is far from the value $\sigma_{\varepsilon}^2 \sim 7.5 \cdot 10^{-7}$ predicted in Sec.~\ref{Sec:: evaluating cross : Noise in dataset}. In addition the estimator is very unstable, predicting values that are too small for small cross sections, as can be seen in Fig.~\ref{Fig:: evaluating cross : BM dLdL error plot}.
+The means and standard deviations $m(\varepsilon_i)$ and $\text{std}(\varepsilon_i)$, as defined in Eqs.~(\ref{Eq:: gaussian process : rel deviance mean})~--~(\ref{Eq:: gaussian process : rel deviance variance}), are calculated  and plotted for the BM settings in Fig.~\ref{Fig:: evaluating cross : BM dLdL error plot} for $\widetilde{d}_L \widetilde{d}_L$. For $\widetilde{d}_L \widetilde{u}_R$  the results are very similar, and therefore not shown here. The optimized kernel parameters found by the GP are listed in Tables~\ref{Tab:: evaluating cross : optimal kernels dLdL}~--~\ref{Tab:: evaluating cross : optimal kernels dLuR}, while computation times on a standard laptop with 4 cores are found in Table~\ref{Tab:: evaluating cross : computation times BM}. The predicted noise level variances, $\sigma_n^2$, are very high for both processes, at $\sigma_n^2=0.47$ for $\widetilde{d}_L \widetilde{d}_L$ and $\sigma_n^2=0.65$ for $\widetilde{d}_L \widetilde{u}_R$, which is far from the value $\sigma_{\varepsilon}^2 \sim 7.5 \cdot 10^{-7}$ predicted in Sec.~\ref{Sec:: evaluating cross : Noise in dataset}. In addition the estimator is very unstable, predicting values that are too small for small cross sections, as can be seen in Fig.~\ref{Fig:: evaluating cross : BM dLdL error plot}.
 
 \begin{table}
 \centering
@@ -2046,8 +2052,6 @@ Mat\'{e}rn & 00:07:28 & 00:13:05\\ \bottomrule
 As discussed in Sec.~\ref{Sec:: evaluating cross : Data Quality} the data contains outliers. To see the effect of the outlier points in the GP prediction, a GP estimator with the BM settings is trained on a dataset where outliers have been removed. Removing outliers improves the prediction for small cross sections, but also stabilizes the prediction for larger values. This can be seen in Fig.~\ref{Fig:: evaluating cross : RD compare panels dLdL}a where BM estimators with and without outliers are compared. The predicted noise levels are significantly reduced with the removal of outliers for both processes, from $\sigma_n^2 = 0.47$ to $\sigma_n^2 = 0.00372$ for $\widetilde{d}_L \widetilde{d}_L$ and from $\sigma_n^2 = 0.65$ to $\alpha= 0.00316$ for $\widetilde{d}_L \widetilde{u}_R$. This implies that including the outliers leads the GP to underfit, which means that much of the signal is considered noise.   
 
 
-
-
 \subsection{Cuts on Cross Sections}
 
 Smooth functions are easier to fit with Gaussian processes, and the target values are very steep functions of large squark masses. This can be seen from the righthand panels in Fig.~\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}. In addition, small target values comprise the regions with the most spread as a function of the gluino mass. Since the limit for $0.02$ events at the LHC with 20 fb$^{-1}$ of integrated luminosity is at $\sigma = 10^{-3}$~fb\footnote{Cross sections with lower values than this predict less than 0.02 events, and are therefore less interesting in this project.}, a lower cut is set at $\sigma_{cut} = 10^{-16}$ fb. The cut excludes all cross sections lower than $\sigma_{cut}$ from both training and testing. 
@@ -2091,7 +2095,7 @@ The predictions are somewhat more stable for high cross sections than with the R
 
 \subsection{Cummulative Settings}\label{Sec:: evaluating cross : Optimal Settings}
 
-A combination of the improved settings from the foregoing sections is used in this section. To sum up, the cummulative settings from the preceding sections are as follows
+A combination of the improved settings from the foregoing sections is used in this section. To sum up, the cummulative settings are as follows
 \begin{itemize}
 \item A GP estimator with 2000 training points.
 \item 20 000 test points.
@@ -2362,13 +2366,13 @@ Find mean $m$ and std of $R^2_{\text{test}}$-values and $R^2_{\text{train}}$-val
 
 \chapter{Results}
 
-In this chapter Gaussian processes trained on the MSSM-24 dataset are used to predict cross sections for MSSM-24 and CMSSM. The estimator settings are the cummulative settings from the previous chapter, and distributed Gaussian processes are used to include more training data. Learning curves as a function of number of experts are plotted for the cummulative settings. Plots of the relative deviances from the \verb|Prospino| data are shown, and the resulting predictions are compared to data from \verb|Prospino| and \verb|NLL-fast|. Finally, the optimal model with respect to predictive capabilities, model size and computation times is discussed.
+In this chapter distributed Gaussian processes trained on the MSSM-24 dataset are used to predict cross sections for MSSM-24 and CMSSM. The DGP estimators use the cummulative settings from the previous chapter. Learning curves as a function of number of experts are plotted for example processes for experts of different sizes. Furter, plots of the relative deviances from the \verb|Prospino| data are shown, and the resulting predictions are compared to cross sections from \verb|Prospino| and \verb|NLL-fast|. Finally, optimizing the model with respect to predictive capabilities, model size and computation times is discussed.
 
 \section{Learning Curves}
 
-Learning curves for the cummulative settings from Sec.~\ref{Sec:: evaluating cross : Optimal Settings} are shown in Fig.~\ref{Fig:: results : Learning curves} for $\widetilde{d}_L \widetilde{u}_L$ and $\widetilde{d}_L \widetilde{d}_L$. The experts are trained with $500$, $1000$ and $2000$ points per expert, and learning curves are calculated according to the method described in Sec.~\ref{Sec:: gaussian process : Cross Validation}.
+Learning curves as a function of number of experts for the cummulative settings from Sec.~\ref{Sec:: evaluating cross : Optimal Settings} are shown in Fig.~\ref{Fig:: results : Learning curves} for $\widetilde{d}_L \widetilde{d}_L$ and $\widetilde{d}_L \widetilde{u}_R$. The experts are trained with $500$, $1000$ and $2000$ points each, and learning curves are calculated according to the cross validation method in Sec.~\ref{Sec:: gaussian process : Cross Validation}.
 
-The training scores for the estimators of $\widetilde{d}_L \widetilde{d}_L$ and $\widetilde{d}_L \widetilde{u}_L$ are 1, indicating that neither model is underfitting. The validation curves for both processes converge towards $1$, albeit faster and for less training points per expert for $\widetilde{d}_L \widetilde{d}_L$ than for $\widetilde{d}_L \widetilde{u}_L$. In both cases the training and validation scores are very high, even for few experts. Adding more data, both in the form of more experts and more points per expert, give higher validation scores. Although it appears that including a 'bad' expert can affect the validation score negatively and increase the uncertainty in the score, \textit{e.g.} from 9 to 10 experts with 1000 training points for $\widetilde{d}_L \widetilde{d}_L$, the addition of data generally improves the score. Predictions in this chapter therefore use the largest reasonable\footnote{Taking into account computation times, matrix sizes and model sizes} models, of 10 experts with 5000 and 8000 training points each, depending on whether or not the models need to be stored.
+The training scores for the estimators of $\widetilde{d}_L \widetilde{d}_L$ and $\widetilde{d}_L \widetilde{u}_R$ are 1, indicating that neither model is underfitting. The validation curves for both processes converge towards $1$, albeit faster and for less training points per expert for $\widetilde{d}_L \widetilde{d}_L$ than for $\widetilde{d}_L \widetilde{u}_R$. In both cases the training and validation scores are very high, even for few experts. Adding more data, both in the form of more experts and more points per expert, gives higher validation scores. Including a `bad'\footnote{Bad in the sense that the $R^2$-score is low} expert affects the validation score negatively and increases the uncertainty in the score, \textit{e.g.} from nine to ten experts with 1000 training points for $\widetilde{d}_L \widetilde{d}_L$. Nevertheless, the addition of data generally improves the score. Predictions in this chapter therefore use the largest reasonable\footnote{Taking into account computation times, matrix sizes and model sizes} models, of ten experts with 5000 and 8000 training points each, depending on whether or not the models need to be stored.
 
 
 
@@ -2384,43 +2388,21 @@ The training scores for the estimators of $\widetilde{d}_L \widetilde{d}_L$ and 
         \caption{The process $\widetilde{d}_L \widetilde{u}_R$}
         \label{Fig :: results : Learning curves dLuL}
     \end{subfigure}
-    \caption{Learning curves as a function of number of experts, with 500, 1000 and 2000 training points per expert for the processes \textbf{(a)} $\widetilde{d}_L \widetilde{d}_L$ and \textbf{(b)} $\widetilde{d}_L\widetilde{u}_R$. The validation curve for $\widetilde{d}_L \widetilde{u}_R$ with 500 training points per expert is omitted because the uncertainties in the validation scores are very large. The $k$-fold cross validation uses $R^2$-score as desribed in Sec.~\ref{Sec:: gaussian process : Cross Validation}, and here $R^2-1$ is plotted.}
+    \caption{Learning curves as a function of number of experts, with 500, 1000 and 2000 training points per expert for the processes \textbf{(a)} $\widetilde{d}_L \widetilde{d}_L$ and \textbf{(b)} $\widetilde{d}_L\widetilde{u}_R$. The validation curve for $\widetilde{d}_L \widetilde{u}_R$ with 500 training points per expert is omitted because the uncertainties in the validation scores are very large. The $k$-fold cross validation uses $R^2$-score as desribed in Sec.~\ref{Sec:: gaussian process : Cross Validation}, and here $R^2-1$ is plotted. Note that the units on the $y$-axes are different for \textbf{(a)} and \textbf{(b)}.}
 \label{Fig:: results : Learning curves}
 \end{figure}
 
 
 \section{Comparison with Prospino and NLL-fast}
 
-In this section plots of the relative deviance distributions defined in Sec.~\ref{Sec:: gaussian process : Relative Deviance} are shown for the squark pair-production cross sections from the MSSM-24 and CMSSM datasets. Cross sections predicted by the DGP are compared to cross sections calculated using \verb|Prospino|, and \verb|NLL-fast| where this is possible.
+In this section plots of the relative deviance distributions defined in Sec.~\ref{Sec:: gaussian process : Relative Deviance} are shown for the squark pair-production cross sections from the MSSM-24 and CMSSM datasets. Cross sections predicted by the DGP are compared to cross sections calculated using \verb|Prospino|, and \verb|NLL-fast| where this is possible. 
 
-The settings used in this chapter are
-\begin{itemize}
-\item 10 GP experts with 8000 or 5000 training points each
-\item Features $m_{\widetilde{g}}, m_{\widetilde{q}_i}, \bar{m}$ ($m_{\widetilde{g}}, m_{\widetilde{q}_i}, m_{\widetilde{q}_j}, \bar{m}$) for $\widetilde{q}_i \widetilde{q}_j$ where $i=j$ ($i \neq j$)\footnote{Same flavour quarks with different chiralities, \textit{e.g.} $\widetilde{d}_L \widetilde{d}_R$, are regarded as different $i \neq j$, because $m_{\widetilde{d}_{R}} \neq m_{\widetilde{d}_L}$.}
-\item The Mat\'{e}rn kernel with $\nu=1.5$ and a white noise term
-\begin{align}
-k (\textbf{x}_i, \textbf{x}_j) =& \sigma_f^2 \exp \Big( 1 + \sqrt{3} \big[ (\textbf{x}_i - \textbf{x}_j)^T M (\textbf{x}_i - \textbf{x}_j) \big]^{1/2} \Big) \nonumber \\ & \times  \exp \Big( \sqrt{3} \big[ (\textbf{x}_i - \textbf{x}_j)^T M (\textbf{x}_i - \textbf{x}_j) \big]^{1/2} \Big) + \sigma_n^2 \delta_{ij},
-\end{align}
-where $M = \text{diag}(\vec{\ell})^{-2}$.
-\item A lower cut on the cross sections $\sigma > \sigma_{cut} = 10^{-16}$ fb
-\end{itemize}
-
-All first- and second generation squarks are considered; $m_{\widetilde{u}_L}$, $m_{\widetilde{d}_L}$, $m_{\widetilde{s}_L}$, $m_{\widetilde{c}_L}$, $m_{\widetilde{u}_R}$, $m_{\widetilde{d}_R}$, $m_{\widetilde{s}_R}$ and $m_{\widetilde{c}_R}$. These make up 36 different processes for squark pair production. A separate distributed Gaussian processes estimator is trained for each squark process, resulting in $36 \times
-10 = 360$ trained experts. The optimized kernel parameters from a single GP with 8000 training points for $\widetilde{d}_L\widetilde{d}_L$ and $\widetilde{d}_L \widetilde{u}_L$ are shown in Tab.~().
-
-
-\begin{table}
-\centering
-\begin{tabular}{@{}ccccccc@{}} \toprule
-Process & $\sigma_f$ & $\ell_{m_{\widetilde{g}}}$ & $\ell_{m_{\widetilde{d}_L}}$ & $\ell_{m_{\widetilde{u}_L}}$ & $\ell_{\bar{m}}$ & $\sigma_n^2$\\ \midrule
-$\widetilde{d}_L \widetilde{d}_L$ \\
-$\widetilde{d}_L \widetilde{u}_L$ \\
-\bottomrule
-\end{tabular}
-\end{table}
+All first and second generation squarks are considered; $m_{\widetilde{u}_L}$, $m_{\widetilde{d}_L}$, $m_{\widetilde{s}_L}$, $m_{\widetilde{c}_L}$, $m_{\widetilde{u}_R}$, $m_{\widetilde{d}_R}$, $m_{\widetilde{s}_R}$ and $m_{\widetilde{c}_R}$. These make up 36 different processes for squark pair production. A separate distributed Gaussian processes estimator (DGP) is trained for each squark process, resulting in $36 \times 10 = 360$ trained experts. 
 
 
 \subsection{Relative Deviance}\label{Sec:: results : Relative Deviance}
+
+The relative deviance distributions for the MSSM-24 datasets are from DGPs consisting of ten experts with 8000 trainings points per expert. For CMSSM each expert uses 5000 training points, as the models had to be stored between training and prediction. Model size is discussed in Sec.~\ref{Sec:: results : The Optimal Model}.
 
 \subsubsection{MSSM-24}
 
@@ -2440,21 +2422,19 @@ $\widetilde{d}_L \widetilde{u}_L$ \\
 \label{Fig:: results : RD MSSM-24}
 \end{figure}
 
-Relative deviance distributions for 20 000 test points from the MSSM-24 data set are shown in Fig.~\ref{Fig:: results : RD CMSSM}, for selected squark processes. In Fig.~\ref{Fig:: results : Learning curves dLdL} the relative deviance distributions are shown for all processes with equal-flavour left-handed squarks. These processes have only 3 features, as opposed to 4, which appear to make them easier to learn for the DGP. The DGP estimators for the corresponding right-handed processes are almost identical as functions of $m_{\widetilde{q}_R}$. This is because \verb|Prospino| calculates cross sections for strong interactions, and the NLO terms only contain QCD corrections, as discussed in Sec.~\ref{Sec:: susy hadron : Next-to-leading Order Corrections}. Since there is no electroweak correction, there is no distinction between left- and right-handed squarks in the calculation. They also share the same underlying pdf from the quark, \textit{e.g.} the pdf's used for calculating $\widetilde{d}_R \widetilde{d}_R$ and $\widetilde{d}_L \widetilde{d}_L$ is the one for the $d$-flavour squark.
+Relative deviance distributions of DGP predictions from the true values for 20 000 test points from the MSSM-24 data set are shown in Fig.~\ref{Fig:: results : RD MSSM-24} for selected squark processes. I
 
+The relative deviance distributions for the DGP prediction of left-handed squarks of equal chirality are shown in Fig.~\ref{Fig:: results : RD MSSM-24 uLuL}. All distributions have a mean of approximately zero, and a standard deviation well within the desired value of $10 \%$. The largest cross sections have been excluded from the plots, as the small number of training and test points leave distributions with large uncertainties. These squark processes have only three features, as opposed to four, which appear to make them easier to learn for the DGP. The corresponding right-handed processes show similar results, and plots of relative deviance distributions are shown in Appendix~\ref{App:: Relative Deviance Distributions}.
 
+In Fig.~\ref{Fig :: results : RD MSSM-24 uLdL}  relative deviance distributions are shown for the process $\widetilde{u} \widetilde{d}$ for different chirality combinations, which yield different expressions for the cross section as shown in Sec.~\ref{Sec:: susy hadron : Matrix Elements}. The DGPs for $\widetilde{d}_L \widetilde{u}_L$ are superior to the other chirality combinations, presumably because the strong correlation between $m_{\widetilde{d}_L}$ and $m_{\widetilde{u}_L}$ --- discussed in Sec.~\ref{Sec:: evaluating cross : Data Quality} --- means the DGPs effectively train on three features. The DGPs for $\widetilde{d}_R \widetilde{u}_R$ perform better than for different chiralities, but worse than for $\widetilde{u}_L\widetilde{d}_L$. 
 
-
-
-The prediction for equal-flavour equal-chirality squarks in Fig.~\ref{Fig:: results : RD MSSM-24 uLuL} is very stable and close to the true values. All relative deviance distributions have a mean of approximately zero, and a standard deviation well within the desired value of $10 \%$. The largest cross sections have been excluded from the plots, as there are few training and test points there, and so the prediction has a very large uncertainty.
-
-In Fig.~\ref{Fig :: results : RD MSSM-24 uLdL} the relative deviance distributions are shown for the process $\widetilde{u} \widetilde{d}$ for different chirality combinations. The expression for the cross section depends on the chirality combinations, as discussed in Sec.~\ref{Sec:: susy hadron : Matrix Elements}. The prediction for $\widetilde{d}_L \widetilde{u}_L$ is superior to the other chirality combinations, possibly because of the previous argument of the masses $m_{\widetilde{d}_L}$ and $m_{\widetilde{u}_L}$ being very strongly correlated, as discussed in Sec.~\ref{Sec:: results : Data Quality}. The prediction for $\widetilde{d}_R \widetilde{u}_R$ is also better than the processes with different chiralities, but not as good as $\widetilde{u}_L\widetilde{d}_L$. All processes in Fig.~\ref{Fig :: results : RD MSSM-24 uLdL} have 4 features, which seems to make the function more difficult to predict. The mean values of the relative deviance distributions are still close to zero, particularly for cross sections above the $0.02$ event limit. Standard deviations are larger than for equal squark processes, but well within $5\%$ for all cross sections larger than $> 10^{-8}$ fb.
+All squark processes in Fig.~\ref{Fig :: results : RD MSSM-24 uLdL} have four features, which appears to make prediction more difficult for the DGPs. Nevertheless, mean relative deviances are close to zero, particularly for cross sections above the $0.02$ event limit. Standard deviations are larger than for left-handed equal-flavour chirality processes, but within $2.5\%$ for most cross sections larger than $> 10^{-8}$ fb.
 
 \subsubsection{CMSSM}
 
-The DGPs trained on MSSM-24 data are also tested on an CMSSM data set and compared to cross sections calculated by \verb|NLL-fast| for the same parameter points. The true values are the sums of cross sections for all 36 processes for each parameter point, calculated by \verb|Prospino|. The DGPs estimate the cross sections for each of the 36 processes as well, and these ase summed for each parameter point. 
+The DGPs trained on MSSM-24 data are also tested on an CMSSM dataset and compared to cross sections calculated by \verb|NLL-fast 2.1| for the same parameter points. The true values are the sums of cross sections calculated by \verb|Prospino 2.1| for all 36 processes for each parameter point. These are compared to sums over the corresponding 36 cross sections estimated using the DGPs. \verb|NLL-fast| calculates the total cross section for each parameter point, which is also compared to the \verb|Prospino 2.1| calculations.
 
-The resulting relative deviance distributions are shown in Fig.~\ref{Fig:: results : RD CMSSM}. The cross sections calculated by \verb|NLL-fast| are quite close to the true values for the CMSSM data. This is because the squark masses in CMSSM have much smaller splittings than in MSSM-24, as discussed in Sec.~\ref{Sec:: physics back : CMSSM}, and \verb|NLL-fast| assumes degenerate squark masses. For large cross sections, however, \verb|NLL-fast| predicts values that are too large, while the DGPs predict cross sections very close to the true value.
+The resulting relative deviance distributions are shown in Fig.~\ref{Fig:: results : RD CMSSM}. The cross sections calculated by \verb|NLL-fast| are close to the true values for the CMSSM data. This is because the squark masses in CMSSM have much smaller splittings than in MSSM-24, as discussed in Sec.~\ref{Sec:: physics back : CMSSM}, and \verb|NLL-fast| assumes degenerate squark masses. For large cross sections, however, \verb|NLL-fast| predicts values that are too large, while the DGPs predict cross sections very close to the true value.
 
 \begin{figure}
 \centering
@@ -2465,17 +2445,24 @@ The resulting relative deviance distributions are shown in Fig.~\ref{Fig:: resul
 
 \subsection{Cross Sections}\label{Sec:: results : Cross Sections}
 
-Cross sections estimated by the distributed Gaussian processes are  compared to cross sections from \verb|Prospino| and \verb|NLL-fast|. The estimators consist of 10 experts with 5000 training points each. Note that these experts are smaller than those used in Sec.~\ref{Sec:: results : Relative Deviance}, where each expert used 8000 training points. This is due to the size of saved models, which will be discussed in Sec.~\ref{Sec:: results : The Optimal Model}. In Fig.~\ref{Fig:: results : dLuL uLuL prospino dgp} the cross sections for the processes $\widetilde{d}_L \widetilde{d}_L$ and $\widetilde{d}_L \widetilde{u}_L$ are shown as a function of $m_{\widetilde{d}_L}$ for $m_{\widetilde{d}_L}, m_{\widetilde{u}_L}\in[200, 2500]$ GeV, with the approximate mass splitting
+In this section the distributed Gaussian processes trained on the MSSM-24 dataset are used to predict cross sections as a function of a single mass, either squark or gluino mass, with the remaining masses held fixed. Cross sections for individual processes, such as $\widetilde{d}_L \widetilde{d}_L$, are plotted as a function of the squark mass. The total cross section for squark pair production is plotted both as a function of the squark mass and the gluino mass. The predictions are then compared to cross sections calculated by \verb|Prospino 2.1| and \verb|NLL-fast| for the same squark and gluino masses.
+
+Cross sections from the distributed Gaussian processes and \verb|Prospino 2.1|, and from \verb|NLL-fast| where these are included, are plotted with uncertainties: \verb|Prospino 2.1| gets uncertainties from the scale dependence described in Sec.~\ref{Sec:: susy hadron : Prospino}, Gaussian process uncertainties are the predictive variances in Eq.~\ref{Eq:: gaussian process : DGP sigma}, and \verb|NLL-fast| gets uncertainties from scale dependence, PDFs and $\alpha_s$.
+
+\subsubsection{Cross Sections for Two Processes}
+Figure~\ref{Fig:: results : dLuL uLuL prospino dgp} shows the cross sections for $\widetilde{d}_L \widetilde{d}_L$ and $\widetilde{d}_L \widetilde{u}_R$ plotted as functions of the squark mass $m_{\widetilde{d}_L}$ for $m_{\widetilde{d}_L}\in[200, 2500]$ GeV. The mass splitting with $\widetilde{u}_L$ is given by
 \begin{align}
 m_{\widetilde{d}_L}^2 - m_{\widetilde{u}_L}^2 \approx m_W^2,
 \end{align}
-for $m_W = 80$ GeV. All other squark masses are held at $1000$ GeV, and the gluino mass is $m_{\widetilde{g}} = 500$ GeV. The DGP prediction is very close to the cross sections from \verb|Prospino|, with a sligthly lower prediction for large $m_{\widetilde{d}_L}$. In addition, the uncertainty in the DGP prediction is very small, with the plots in Fig.~\ref{Fig:: results : dLuL uLuL prospino dgp} showing $50 \sigma$ uncertainty bands.
+for $m_W = 80$ GeV. All other squark masses are held at $1000$ GeV, and the gluino mass is held at $m_{\widetilde{g}} = 500$ GeV. The cross sections predicted by the distributed Gaussian processes have small variances, as can be seen from the $50 \sigma_{\mathrm{std}}$ uncertainty bands plotted in Fig.~\ref{Fig:: results : dLuL uLuL prospino dgp}. The predictions overlap with \verb|Prospino 2.1| calculations for small $m_{\widetilde{d}_L}$, and are slightly --- but systematically --- underestimated for large $m_{\widetilde{d}_L}$. 
 
-The uncertainty in the \verb|Prospino| calculation comes from the renormalization scale dependence. Cross sections are calculated for twice the renormalization scale, and half the renormalization scale, to see how scale dependent the cross sections are. As discussed in Sec.~\ref{Sec:: susy hadron : Prospino}, the scale dependence is reduced with the addition of higher order terms to the cross section, as a consequence this is also a way of estimating the order of magnitude of higher order terms (in this case, next-to-next-to-leading order).
+\subsubsection{Total Cross Section Varying the Squark Mass}
 
-The cross sections calculated by \verb|NLL-fast| for the MSSM-24 are very far from the true values, and only coincide with \verb|Prospino| for $m_{\widetilde{d}_L}=1000$ GeV, where the squark masses are in fact degenerate. The uncertainty from \verb|NLL-fast| includes the uncertainty from scale dependence, from the pdf's and from $\alpha_s$.
+Figure~\ref{Fig:: results : Total cross sections dgp prospino nll} shows the total cross section for squark pair production as a function of $m_{\widetilde{d}_L}$, for the same mass values as in Fig.~\ref{Fig:: results : dLuL uLuL prospino dgp}. The cross sections predicted by the Gaussian processes again coincide with the true values for small $m_{\widetilde{d}_L}$, and the underestimation for large masses from Fig.~\ref{Fig:: results : dLuL uLuL prospino dgp} is repeated here. In comparison, the \verb|NLL-fast 2.1| cross sections are far from the values calculated by \verb|Prospino 2.1| for all values of $m_{\widetilde{d}_L}$, save one. For $m_{\widetilde{d}_L}=1000$ GeV, where the squark masses are in fact degenerate, the calculations from \verb|NLL-fast 2.1| and \verb|Prospino 2.1| coincide.  
 
-Cross sections are also calculated as a function of the gluino mass, $m_{\widetilde{g}}$, and shown in Fig.~\ref{Fig:: results : Total cross sections varymg dgp prospino nll}. All squark masses are here held at $1000$ GeV for gluino mass $m_{\widetilde{g}} \in [200, 2400]$ GeV. The uncertainty from \verb|Prospino| is not shown here. The DGP predicted cross sections and cross sections from \verb|Prospino| and \verb|NLL-fast| all coincide, and the DGP gives an uncertainty that is fairly small, but increases with increasing gluino mass. 
+\subsubsection{Total Cross Section Varying the Gluino Mass}
+
+Figure~\ref{Fig:: results : Total cross sections varymg dgp prospino nll} shows the total cross section for squark pair production as a function of the gluino mass, for $m_{\widetilde{g}} \in [200, 2400]$~GeV. All squark masses are held at $1000$ GeV. The uncertainty from \verb|Prospino 2.1| is not shown here. Cross sections predicted by the DGPs and calculated using \verb|Prospino 2.1| and \verb|NLL-fast 2.1| coincide for all values of the gluino mass, which can be expected as the squark masses are degenerate in all points. The uncertainties in the predictions from the distributed Gaussian processes are fairly small, but increase with the gluino mass. 
 
 
 \begin{figure}
@@ -2546,12 +2533,12 @@ Comparisons of the relative deviance distributions with 3000, 5000 and 8000 trai
     \begin{subfigure}[b]{0.9\textwidth}
         \includegraphics[width=\textwidth]{figures_results/compare_dLdL_3000_5000_8000.pdf}
         \caption{The process $\widetilde{d}_L \widetilde{d}_L$.}
-        \label{Fig:: results : RD MSSM-24 uLuL}
+        \label{Fig:: results : RD MSSM-24 uLuL experts}
     \end{subfigure}
     \begin{subfigure}[b]{0.9\textwidth}
         \includegraphics[width=\textwidth]{figures_results/compare_dLuR_3000_5000_8000.pdf}
         \caption{The process $\widetilde{d}_L\widetilde{u}_R$.}
-        \label{Fig :: results : RD MSSM-24 uLdL}
+        \label{Fig :: results : RD MSSM-24 uLdL experts}
     \end{subfigure}
     \caption{Relative deviance distributions as a function of the logarithm of the normalized cross sections $\log_{10} \sigma / \sigma_0$. Ten experts with 3000 (green), 5000 (violet) and 8000 (orange) training points from the MSSM-24 dataset each were combined on 20 000 test points from the MSSM-24 dataset for processes \textbf{(a)}  $\widetilde{d}_L \widetilde{d}_L$ and \textbf{(b)} $\widetilde{d}_L\widetilde{u}_R$. }
 \label{Fig:: results : RD 3000 vs 5000}
@@ -2559,12 +2546,38 @@ Comparisons of the relative deviance distributions with 3000, 5000 and 8000 trai
 
 \subsubsection{Number of Models}
 
-In this project 36 Gaussian process models were trained with 10 experts each, resulting in 360 experts. The effective number of models may be reduced, however, as equal-flavour equal-chirality (EFEC) processes are identical as functions of the squark mass, as shown in Sec.~\ref{Sec:: susy hadron : Matrix Elements}. The numer of models can therefore be reduced from 36 to 32.
+In this project 36 Gaussian process models were trained with ten experts each, resulting in 360 experts. The effective number of models may be reduced, however, as many of the models are almost equivalent. 
 
+Equal-flavour equal-chirality (EFEC) processes are, to leading order, identical as functions of the squark mass, as shown in Sec.~\ref{Sec:: susy hadron : Matrix Elements}.  This is because \verb|Prospino| calculates cross sections for strong interactions, and the NLO terms only contain QCD corrections, as discussed in Sec.~\ref{Sec:: susy hadron : Next-to-leading Order Corrections}. Since there is no electroweak correction, there is no distinction between left- and right-handed squarks in the calculation. They also share the same underlying pdf from the quark, \textit{e.g.} the pdf's used for calculating $\widetilde{d}_R \widetilde{d}_R$ and $\widetilde{d}_L \widetilde{d}_L$ is the one for the $d$-flavour squark. The numer of models can therefore be reduced from 36 to 32.
+
+Further, the masses of different generation left-handed squarks are also independent, meaning that the process $\widetilde{u}_L \widetilde{s}_L$ is, to leading order, identical to $\widetilde{u}_R \widetilde{s}_R$ as a function of $m_{\widetilde{u}_L}$ and $m_{\widetilde{s}_L}$, and $m_{\widetilde{u}_R}$ and $m_{\widetilde{s}_R}$, respectively. The number of models is therefore further reduced from 32 to 28.
+
+Processes with different flavours and different chiralities are also identical to leading order, such as $\widetilde{d}_L \widetilde{u}_R$ and $\widetilde{u}_L \widetilde{d}_R$ as functions of $m_{\widetilde{d}_L}$ and $m_{\widetilde{d}_R}$, respectively. In Fig.~\ref{Fig:: results : dLuR uLdR comparison} the models trained on $\widetilde{d}_L \widetilde{u}_R$ and $\widetilde{u}_L \widetilde{d}_R$ are used to predict cross sections as a function of $m_{\widetilde{d}_L}$ and $m_{\widetilde{d}_R}$, respectively. The relevant $\widetilde{d}$-mass was varied in the interval $[200, 2400]$ GeV, while the remaining seven squark masses were held at $1000$~GeV. The cross sections overlap almost completely, with differences in the variances seen first when $100 \sigma_{\mathrm{std}}$ is plotted. As there are 12 such processes, six can be removed. The number of models is then reduced from 28 to 22.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{figures_results/dLuR_uLdR_comparison.pdf}
+\caption{The predicted cross sections for $\widetilde{d}_L \widetilde{u}_R$ as a function of $m_{\widetilde{d}_L}$ (blue) and $\widetilde{u}_L \widetilde{d}_R$ as a function of $m_{\widetilde{d}_R}$ (red), with $100 \sigma_{\mathrm{std}}$ uncertainty bands. The cross sections were estimated for $m_{\widetilde{d}_L} = [200, 2400]$ GeV and $m_{\widetilde{d}_R} = [200, 2400]$ GeV, respectively, and all other squark masses were held at $1000$ GeV. The gluino mass is $m_{\widetilde{g}}=500$ GeV. The cross sections completely overlap.}
+\label{Fig:: results : dLuR uLdR comparison}
+\end{figure}
+
+
+It is worth stressing that the processes are \textit{not identical} --- the leading order cross sections are indeed identical, but the next-to-leading order cross sections depend on the mean mass. The mean mass is different for \textit{e.g.} $\widetilde{d}_L \widetilde{d}_L$ and $\widetilde{d}_R \widetilde{d}_R$ if the relevant mass is very different from the other squark masses, as $\widetilde{d}_L \widetilde{d}_L$ is trained on points where $m_{\widetilde{d}_L}$ and $m_{\widetilde{u}_L}$ are close in value, and $\widetilde{d}_R \widetilde{d}_R$ is trained on points where $m_{\widetilde{d}_R}$ is independent of $m_{\widetilde{u}_R}$. This is, however, a relatively small effect, so the effective number of models described above can be used to a good approximation.
+ 
 In addition, the models for EFEC processes, and $\widetilde{d}_L \widetilde{u}_L$ and $\widetilde{c}_L \widetilde{s}_L$ perform better than the other processes for fewer training points. It may therefore not be necessary to use 10 experts for each of these processes. In Fig.~\ref{Fig:: results : Learning curves dLdL} the learning curve for $\widetilde{d}_L \widetilde{d}_L$ with 2000 training points per expert shows little difference in validation score for more than seven experts. For larger experts it could therefore be sufficient with \textit{e.g.} 4 experts. Reducing the number of experts for all EFEC processes, and $\widetilde{d}_L \widetilde{u}_L$ and $\widetilde{c}_L \widetilde{s}_L$, and using the equal-flavour left-handed models on equal-flavour right-handed processes reduces the number of experts to
 \begin{align}
 4 \times 4~\mathrm{experts} + 2 \times 4~\mathrm{experts} +  26 \times 10~\mathrm{experts} = 280~\mathrm{experts}. \nonumber
 \end{align}
+
+The minimal set of models needed is therefore
+\begin{align*}
+& \widetilde{u}_L \widetilde{u}_L && \widetilde{u}_L \widetilde{u}_R && \widetilde{u}_L \widetilde{d}_L && \widetilde{u}_L \widetilde{s}_L && \widetilde{u}_L \widetilde{d}_R\\ 
+& \widetilde{d}_L \widetilde{d}_L && \widetilde{d}_L \widetilde{d}_R && \widetilde{u}_R \widetilde{d}_R && \widetilde{u}_L \widetilde{c}_L && \widetilde{u}_L \widetilde{s}_R\\ 
+& \widetilde{s}_L \widetilde{s}_L && \widetilde{s}_L \widetilde{s}_R && \widetilde{s}_L \widetilde{c}_L && \widetilde{d}_L \widetilde{s}_L && \widetilde{u}_L \widetilde{c}_R\\ 
+& \widetilde{c}_L \widetilde{c}_L && \widetilde{c}_L \widetilde{c}_R && \widetilde{s}_R \widetilde{c}_R && \widetilde{d}_L \widetilde{c}_L && \widetilde{d}_L \widetilde{s}_R\\
+&  &&  &&  && && \widetilde{d}_L \widetilde{c}_R\\
+&  &&  &&  && && \widetilde{s}_L \widetilde{c}_R.
+\end{align*}
 
 
 
@@ -2708,7 +2721,7 @@ Histograms of the relative deviances for Gaussian processes (GP) and Distributed
 \label{Fig:: gaussian process : DGP BM error histogram}
 \end{figure}
 
-\chapter{Relative Deviance Distributions}
+\chapter{Relative Deviance Distributions}\label{App:: Relative Deviance Distributions}
 
 
 \begin{figure}
