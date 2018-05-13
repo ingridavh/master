@@ -14,8 +14,12 @@
 % For identity matrix
 %\usepackage{dsfont}
 
+\usepackage{mathrsfs}
+
 % To show code
 \usepackage{listings}
+
+\usepackage{cite}
 
 % Feynman diagrams
 \usepackage[compat=1.1.0]{tikz-feynman}
@@ -92,7 +96,17 @@ The recent proposition of distributing Gaussian processes between individual est
 
 
 \chapter*{\centering Takk}
-Først og fremst
+F{\o}rst og fremst tusen takk til Are Raklev, som har v{\ae}rt en fantastisk veileder og som ga meg en oppgave jeg virkelig har kost meg med. Jeg har satt veldig stor pris p{\aa} at d{\o}ren din alltid har vært {\aa}pen, og at du har forklart meg ting gang på gang, uten at jeg har følt meg dum. En takk til Anders og Jeriek ogs{\aa}, som svarte p{\aa} sp{\o}rsm{\aa}l om uforst{\aa}elig statistikk til alle mulige tider, og Jon Vegard som banet veien for min oppgave. 
+
+Takk til hele teorigruppa for at det har v{\ae}rt en s{\aa} hyggelig gruppe {\aa} v{\ae}re en del av. Enten det har vært til lunsj eller kake, eller eldgammel Bailey's funnet under ryddig av kontorer, har jeg alltid kost meg og følt meg hjemme i deres selskap. S{\ae}rlig takk til August, min gode venn og kontorkamerat, som jeg nok ikke hadde kommet meg gjennom masteren uten (det hadde i hvertfall v{\ae}rt mye kjedeligere).
+
+Tusen takk til mamma, pappa, Georg, farmor og Aba, for at dere er min evige heiagjeng og glede her i livet, og minner meg p{\aa} at jeg nok overlever masteren ogs{\aa}. 
+
+De som fortjener mest av {\ae}ren for min fine tid p{\aa} Blindern er faministene. Tusen takk Vilde, Pernille, Mari, Elisabeth og Helene. Takk for at dere alltid f{\aa}r meg til {\aa} le, for alle merkelige og morsomme ting vi har funnet p{\aa}, for de s{\aa}rt trengte Spania-turene v{\aa}re, og for at dere alltid er der n{\aa}r jeg trenger dere. 
+
+
+
+
 
 \tableofcontents
 
@@ -739,83 +753,93 @@ The mass parameters are then run down to the electroweak scale, \textit{e.g.} in
 
 \chapter{Supersymmetry at Hadron Colliders}\label{Chapter:Supersymmetry at Hadron Colliders}
 
-%\begin{chapquote}{Carl Sagan}
-%``Extraordinary claims require extraordinary evidence."
-%\end{chapquote}
 
 
-The Large Hadron Collider (LHC) at CERN is one of the largest and most important particle physics experiments in the world. In this chapter, some of the advantages and challenges of using hadron colliders are discussed, along with techniques for moving from theory to observable signals. A short description of supersymmetric phenomenology follows, and current bounds on the squark and gluino masses are given. Finally, the cross section for squark pair production is calculated to leading order, and next-to-leading order terms are investigated.
+The Large Hadron Collider (LHC) at CERN is currently the largest, and one of the most important particle physics experiments in the world. In this chapter, some of the advantages and challenges of using hadron colliders are discussed, along with techniques for moving from theory to observable signals. A short description of supersymmetric phenomenology at hadron colliders is followed by the discussion of some current bounds on the squark and gluino masses. Finally, the cross section for squark pair production is calculated to leading order, and next-to-leading order contributions are investigated.
 
 \section{Hadron Colliders}\label{Sec:: susy hadron : Hadron Colliders}
 
-Colliding hadrons makes it possible to reach very high center-of-mass energies, as they allow for the use of circular accelerators. While most linear colliders collide leptons, such as $e^- e^+$, leptons are not advantageous for circular accelerators because of \textit{synchrotron radiation}. Synchrotron radiation is the radiation of energy from a particle being accelerated. The power radiated by a relativistic charged particle forced to move in circular motion with radius $R$ is given by the Schwinger's formula \cite{Balerna2015}
-\begin{align}
-P_e = \frac{2}{3} \frac{e^2c }{R^2} \Bigg( \frac{E}{mc^2} \Bigg)^4,
-\end{align}
-where $E$ is the particle energy, $m$ is the mass of the particle and $c$ is the speed of light in vacuum. For light particles, such as leptons, a lot of energy is therefore wasted in circular accelerators. Because the proton mass is much larger than the electron mass, this effect is relatively small, allowing the LHC to operate at energies currently as high as 13 TeV. The circular form means the accelerating structures can be reused as many times as one desires, thus putting ``no limits" on the energies obtained. There are, of course, limits. At energies of around $5-7$~TeV per particle, synchrotron radiation becomes an important effect also for protons. The photons emitted from synchrotron radiation hit the walls of the vacuum chamber walls, where they can interact with electrons and cause \textit{electron clouds}. Electron clouds occur when electrons are ejected from the walls of the vacuum chamber and accelerated towards a passing beam bunch. When the electrons reach the center of the chamber, however, the beam bunch has passed, and the now-energetic electrons hit the other side of the chamber, producing more free electrons. This becomes a `cloud' of electrons that can in turn affect the particle beam. 
+Hadron colliders are discovery machines. Because the quarks and gluons that constitute hadrons can have a wide range of energies --- as will be discussed in Sec.~\ref{Sec:: susy hadron : Parton Distribution Functions} --- and the maximum energies reached by circular accelerators are very high, hadron colliders are a potential source of discovery and surprises. Lepton colliders, on the other hand, have clean collision kinematics and are therefore precision machines. Lepton colliders can be used for precision measurements, \textit{e.g.} of the electroweak interaction. Since supersymmetry has not been discovered yet, hadron colliders are used to look for the wide range of possible supersymmetry productions. This section commences by discussing synchrotron radiation, and why it makes hadrons more suitable than leptons for circular accelerators at high energies. Then the hadron momentum, more specifically how momentum is distributed between the constituent quarks and gluons, is given as a motivation to use parton distribution functions. Luminosity is briefly discussed, before the LHC is given as an example hadron collider.  
 
-A challenge more specific to hadron collisions is the internal distribution of momentum in a hadron. Hadrons are made up of valence and sea quarks, which make the kinematics of collisions very difficult to calculate. Valence quarks are the quarks used to classify a hadron, such as $uud$ for the proton and $udd$ for the neutron. In addition to these, hadrons contain a sea of virtual quarks and gluons. The quarks and gluons, called \textit{partons}, distribute the hadron momentum somewhat randomly amongst themselves. Since the distribution of energy and momentum is unknown, so is the momenta of the ingoing parton in the collision. The \textit{transverse} momentum and energy, not to mention the \textit{missing} transverse energy, are therefore central when analysing data from hadron colliders. There is, however, some experimental knowledge of the distribution of longitudinal momentum contained in \textit{parton distribution functions}.
+
+Colliding hadrons makes it possible to reach very high center-of-mass energies, as they allow for the use of circular accelerators. While most linear colliders collide leptons, such as $e^- e^+$, leptons are not well-suited for circular accelerators at high energies because of \textit{synchrotron radiation}. Synchrotron radiation is the radiation of energy from a charged particle being accelerated. The power radiated by a relativistic charged particle forced to move in circular motion with radius $R$ is given in natural units by the Larmor formula \cite{larmor1897lxiii} multiplied by the 4th power of the Lorentz factor
+\begin{align}
+P = \frac{q^2 \beta^4 \gamma^4}{6 \pi R^2},
+\end{align}
+where $\beta = v/c$ and $\gamma \approx E/mc^2$, and $E$, $m$ and $v$ are the energy, mass and velocity of the particle, respectively. The radiated power goes as $P \sim \frac{E^4}{m^4 R^2}$. Light particles, such as leptons, therefore lose a lot of energy in circular accelerators unless the radius, $R$, of the accelerator is made very large. Because the proton is much heavier than the electron this effect becomes relatively small, allowing the LHC to operate at energies currently as high as $13~\mathrm{TeV}$. The circular form means the accelerating structures can be reused as many times as one desires, thus putting `no limits' on the energies obtained. 
+
+There are, of course, limits. At energies of around $5-7~\mathrm{TeV}$ per particle, synchrotron radiation becomes an important effect also for protons. The photons emitted from synchrotron radiation hit the walls of the vacuum chamber walls, where they can interact with electrons and cause \textit{electron clouds}. Electron clouds occur when electrons are ejected from the walls of the vacuum chamber and accelerated towards a passing beam bunch. When the electrons reach the center of the chamber, however, the beam bunch has passed, and the now-energetic electrons hit the other side of the chamber, producing more free electrons. This becomes a `cloud' of electrons that can in turn affect the particle beam. 
+
+The very high energies at the LHC also require strong magnets to bend the beam trajectories. The \textit{Large Hadron Collider} (LHC) is a circular particle accelerator that collides protons. It has a circumference of 27 kilometres, and uses magnets to bend the particle beams in circular motion. The two particle beams travel in opposite directions in separate beam pipes, before they are made to collide at the collision experiments, such as ATLAS and CMS. The beams are guided through the pipes by \textit{superconducting magnets}, that are used to bend and focus the beams. To bend the beam, dipole magnets are used, while quadrupole magnets focus the beams in the transverse directions. For the magnets to be superconducting, which means that electricity flows almost without resistance or loss of energy, the magnets must be held at a very low temperature. A distribution system of liquid helium connected to most of the accelerator keeps a temperature of $-271.3~ ^{\circ}\mathrm{C}$. 
 
 \subsection{Parton Distribution Functions}\label{Sec:: susy hadron : Parton Distribution Functions}
 
-Partonic cross sections are calculated for colliding partons in ingoing protons, such as two quarks $q_1 q_2$. The cross section is a function of the center-of-mass energy, $s$, which can be written as a fraction of the center of mass energy of the colliding protons
+Unlinke synchrotron radiation, which is an issue for leptons and hadrons alike at differing energy scales, \textit{uncertainty in longitudinal momentum} is a challenge specific to hadron collisions. Hadrons are made up of valence and sea quarks, which make the kinematics of collisions very difficult to determine. Valence quarks are the quarks used to classify a hadron, such as $uud$ for the proton and $udd$ for the neutron. In addition to these, hadrons contain a sea of virtual quarks and gluons from the strong interaction. The quarks and gluons, called \textit{partons}, distribute the hadron momentum somewhat stochastically amongst themselves. Since the distribution of energy and momentum is \textit{a priori} unknown, so is the momentum of the ingoing parton, and thus the center of mass energy of the partonic collision. There is, however, some experimental knowledge of the statistical distribution of longitudinal momentum contained in \textit{parton distribution functions}.
+
+\textit{Partonic cross sections} are calculated for the collision of \textit{partons}. The partonic cross section is a function of the squared center-of-mass energy of the partons, $s$, which can be written as a fraction of the total squared center-of-mass energy of the colliding hadrons
 \begin{align}
-s = S x_1 x_2,
+s = x_1 x_2 S,
 \end{align}
-where $S$ is the center of mass energy of the colliding protons, and $x_i$ is the momentum fraction of the quark $q_i$. The fractions of momenta are then integrated over, using \textit{parton distribution functions} (PDFs) $f(x_i)$, which are specified for the different partons in different hadrons. For example, the fraction $x_u$ for an up-flavour quark in a proton would be much larger than that for a top-flavour quark. Integrating over parton distribution functions yields the \textit{total cross section}
+where $S$ is the center of mass energy of the colliding hadrons, and $x_i$ is the momentum fraction of the parton $p_i$. To obtain the total cross section, the partonic cross section is integrated over all possible fractions $x_1$ and $x_2$ using \textit{parton distribution functions} (PDFs) $f_i^{h_k}(x_i)$. The PDFs determine the distribution over the fraction of total momenta for a parton $p_i$ in the hadron $h_k$. For example, the fraction for an up-flavour quark in a proton would be much larger than that for a top-flavour quark at LHC energies. Examples of parton distributions for $u$, $\bar{u}$, $d$, $\bar{d}$, $s=\bar{s}$ and $g$ are shown in Fig.~\ref{Fig:: susy hadron : PDFs} for two different values of the factorisation scale $Q$. Integrating over parton distribution functions and summing over partonic cross sections yields the \textit{total hadronic cross section}
 \begin{align}
-\sigma_{q_1q_2} = \int f(x_1) f(x_2) \hat{\sigma}_{q_1q_2}(s) dx_1 dx_2,
+\sigma(S, Q^2) = \sum_{i,j=g, q, \bar{q}} \int_{\tau}^1dx_1 \int_{\tau/x_1}^1 dx_2 f_i^{h_1} (x_1, Q^2) f_j^{h_2}(x_2, Q^2) \hat{\sigma}_{ij} (x_1x_2S, Q^2)\Big|_{\tau=4m^2/S}.
 \end{align}
-where $\hat{\sigma}_{q_1q_2}$ is the partonic cross section. In this thesis the CTEQ6 parton distribution functions from the LHAPDF Fortran library \cite{PhysRevD.78.013004} are used. The total number of events can be found by multiplying the total cross section by the \textit{luminosity} of the collider.
+where $\hat{\sigma}_{ij}$ are the partonic cross sections, $m$ is the mean mass of final state particles, $Q$ is the factorisation scale, and initial state partons $i,j=g,q, \bar{q}$ are summed over.  In this thesis the CTEQ6 parton distribution functions from the LHAPDF Fortran library \cite{PhysRevD.78.013004} are used. 
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.33]{figures_susy_at_hadron_colliders/pdf_new_analysis.png}
+\caption{The CT14 parton distribution functions of the proton at factorisation scales $Q=2~\mathrm{TeV}$ and $Q=100~\mathrm{GeV}$ for $u$, $\bar{u}$, $d$, $\bar{d}$, $s=\bar{s}$ and $g$.  Figure from \cite{dulat2016new}.}
+\label{Fig:: susy hadron : PDFs}
+\end{figure}
+
+
+
 
 \subsection{Luminosity}
 
-The \textit{instantaneous luminosity} $\mathcal{L}$ is a measure of the number of collisions in a collider per unit time. The integrated luminosity, $\mathcal{L}_{\mathrm{int}}$, is the luminosity integrated with respect to time, and is given in inverse femto-barn $1~\mathrm{fb}^{-1} = 10^{43} \text{ m}^{-2}$. The luminosity of the data can be used to set limits on the size of cross sections, by considering the following relation for a process where a particle $A$ is produced
-\begin{align}
-n_{A} = \mathcal{L}_{\mathrm{int}} \sigma_{A} ,
+The total number of expected events at the LHC, $N_{\mathrm{exp}}$, is the product of the cross section $\sigma_{\mathrm{exp}}$ and the time integral over the \textit{instantaneous luminosity}
+\begin{align}\label{Eq:: susy hadron : Luminosity}
+N_{\mathrm{exp}} = \sigma_{\mathrm{exp}} \times \int \mathrm{d}t~ \mathscr{L}(t).
 \end{align}
-where $\mathcal{L}_{\mathrm{int}}$ is the integrated luminosity, $\sigma_{A}$ is the cross section for the production of $A$, and $n_A$ is the number of produced particles. Setting $n=1$ for a single produced particle, and using the integrated luminosity $\mathcal{L}_{\mathrm{int}} = 20.3 \text{ fb}^{-1}$ for the 8~TeV dataset considered in this thesis, the lower limit on cross sections is
+The \textit{instantaneous luminosity} $\mathscr{L}$ is a measure of the number of collisions in a collider per unit time. For two bunches containing $n_1$ and $n_2$ particles colliding with a frequency $f$, the instantaneous luminosity can be written in simple terms as
+\begin{align}
+\mathscr{L} = f \frac{n_1 n_2}{4 \pi \sigma_x \sigma_y},
+\end{align}
+where $\sigma_x$ and $\sigma_y$ characterise the transverse beam sizes in the horisontal and vertical directions. The \textit{integrated luminosity}, $\mathscr{L}_{\mathrm{int}}$, is the time integral over the instantaneous luminosity. The integrated luminosity is often given in units of inverse cross sections, \textit{e.g.} inverse femtobarn $1~\mathrm{fb}^{-1} = 10^{43}~\mathrm{m}^{-2}$. 
+
+The integrated luminosity of a dataset can be used to set limits on the size of interesting cross sections, by using the relationship between number of particles and integrated luminosity in Eq.~(\ref{Eq:: susy hadron : Luminosity}). Setting $N_{\mathrm{exp}}=1$ for a single produced particle, and using the integrated luminosity $\mathscr{L}_{\mathrm{int}} = 20.3 \text{ fb}^{-1}$ for the 8~TeV LHC dataset considered in this thesis, the lower limit on interesting cross sections is
 \begin{align}
 \sigma  = \frac{1}{20.3 \text{ fb}^{-1}} \approx 0.05 \text{ fb}.
 \end{align}
-Cross sections below $\sigma \sim \mathcal{O}(10^{-3} \text{ fb}^{-1})$ correspond to less than $0.02$ produced particles in the 8~TeV dataset, and will therefore be considered less important in this thesis. The cross sections describe the probability of producing particles, which are searched for in the collision data using \textit{phenomenology}. 
+Cross sections below $\sigma \sim \mathcal{O}(10^{-3} \text{ fb})$ correspond to less than $0.02$ produced particles in the 8~TeV dataset, and will therefore be considered less important in this thesis. 
 
 
-\section{Phenomenology}
 
-Phenomenology is the application of theory to high energy experiments such as the Large Hadron Collider described in Sec.~\ref{Sec:: susy hadron : Hadron Colliders}. This section deals with searches for supersymmetry at hadron colliders using missing transverse energy and quark jets. Some current bounds on sparticles are discussed as well.
 
-%In order to know what to look for at the LHC it is necessary to consider the phenomenology of supersymmetry. This is done by first revisiting the soft supersymmetry breaking, in order to consider models with more constraints than the 124 parameters of the MSSM. \textit{Hidden sector} (HS) scalar superfields $X$ have very small or no interactions with the MSSM fields. Their couplings are usually supressed by some mass scale so that $\mathcal{L} \sim M^{-1}$. They have an effective (non-renormalizable) interaction  with the scalar superfields of the form
-%\begin{align}
-%\mathcal{L}_{HS} &= - \frac{1}{M} (\bar{\theta} \bar{\theta}) X \Phi_i \Phi_j \Phi_k.
-%\end{align}
-%If these sectors develope a vacuum expectation value $\braket{X} = \theta \theta\braket{F_X}$ for the auxilliary field $F$ (auxilliary meaning that it can be removed using the Euler-Lagrange equations),  supersymmetry is broken. The two most commonly known hidden sectors are Planck-scale mediated supersymmetry breaking (PMSB) and Gauge mediated supersymmetry breaking (GMSB), the first of which is obtained by blaming some gravity mechanism for mediating the breaking of SUSY from the hidden sector. The breaking scale is then the Plank scale, $M = M_P = 2.4 \cdot 10^{18}$ GeV. The vev is restricted to $\sqrt{\braket{F}} \sim 10^{10} - 10^{11}$ GeV in order not to reintroduce the hierarchy problem.  The complete soft terms can be shown to be \cite{batzing2017lecture}
-%\begin{align*}
-%\mathcal{L}_{soft} =& - \frac{\braket{F_X}}{M_P} \Big( \frac{1}{2} f_a \lambda^a \lambda^a + \frac{1}{6} y_{ijk}'A_i A_j A_k + \frac{1}{2} \mu_{ij}' A_i A_j + \frac{\braket{F_X}^*}{M_P^2}  x_{ijk} A_i^* A_j A_k + c.c.\Big)\\
-%&- \frac{|\braket{F_X}|^2}{M_P} k_{ij}A_i A_j^*.
-%\end{align*}
-%By simplifying as much as possible, all soft terms are fixed by just four parameters. This model is called minimal supergravity (mSUGRA) or the constrained minimal supersymmetric Standard Model (CMSSM). The CMSSM parameters are
-%\begin{align}
-%&m_{1/2} = f \frac{\braket{F_X}}{M_P}, & m_0^2 = k \frac{|\braket{F_X}|}{M_P^2}, 
-%&& A_0 = \alpha \frac{\braket{F_X}}{M_P}, &&B_0 = \beta \frac{\braket{F_X}}{M_P},
-%\end{align}
-%or $m_{1/2}$, $m_0$, $A_0$, $\tan \beta$ and $\text{sgn} \mu$.
-%
-%The second hidden sector is the aforementioned Gauge mediated supersymmetry breaking. In this case the soft terms come from loop diagrams with \textit{messenger superfields} that get their own mass from coupling to the HS SUSY breaking vev, and have SM interactions. This model is parameterized by 
-%\begin{align}
-%\Lambda = \frac{\braket{F}}{M_{messenger}} \text{ , } M_{messenger} \text{ , } N_5 \text{ , } \tan \beta,
-%\end{align}
-%where $M_{messenger}$ is the mass scale and $N_5$ (FYLL INN HER).
+\section{Supersymmetry Phenomenology at the LHC}
 
-\subsection{Searches For Supersymmetry}
+Phenomenology is the application of theory to predict the properties of physics models at experiments such as the Large Hadron Collider discussed in Sec.~\ref{Sec:: susy hadron : Hadron Colliders}. This section deals with the possibility of searches for supersymmetry at hadron colliders using missing transverse energy and quark jets. Some current bounds on sparticles are discussed as well.
 
-Supersymmetry at hadron colliders will likely be in the form of QCD processes, as the colliding particles are quarks and gluons. The traces left in detectors by such processes will be closely related to the conservation of $R$-parity, in that all sparticles are produced in pairs and eventually decay to the LSP, as mentioned in Sec.~\ref{Sec:: phys back : R-parity}. 
+\subsection{Jets and Transverse Kinematics}\label{Sec:: susy hadron : Jets and transverse kinematics}
 
-If the LSP is indeed only weakly interacting, this makes it very difficult to detect. An indirect manner of detection is to look for \textit{missing transverse energy} $\slashed{E}_T$. The energy is then only considered in the transverse plane, as the longitudinal momentum is difficult to predict in the hadronic case, see the discussion of hadron colliders in Sec.~\ref{Sec:: susy hadron : Hadron Colliders}. To look for $\slashed{E}_T$, the \textit{effective mass} is defined as
-\begin{align}
-M_{eff} &= \sum p_T^{jet} + \slashed{E}_T,
+The longitudinal momentum in hadron collisions is difficult to estimate --- as discussed in Sec.~\ref{Sec:: susy hadron : Parton Distribution Functions} --- so the kinematics are considered mainly in the \textit{transverse plane}.\footnote{The plane that is transverse to the direction of the beam.} Since the particle beams are collided in the longitudinal direction the total momentum in the transverse directions is zero before the collision. Conservation of momentum then states that the total transverse momentum must remain zero \textit{after} the collision. This balance in momentum can be combined with the signals left by particles in the detectors to determine the \textit{missing transverse energy} of an interaction.
+
+The \textit{missing transverse energy} is used to search for weakly interacting particles that do not leave traces in the detectors, and is defined as
+\begin{align}\label{Eq:: susy hadron : Missing energy}
+\slashed{E}_T &= \Big| \sum \vec{p}_T \Big| ,
 \end{align} 
-and used to search for deviations from SM expectations. The momentum $p_T^{jet}$ is the transverse momentum of \textit{jets}. Jets are collimated\footnote{A collimated beam is parallel and does not disperse with distance.} bunches of final-state partons and hadrons that appear in hard interactions\footnote{Hard interactions have very energetic ingoing particles.}. They can be thought of as energetic partons that undergo showering and then hadronization. Jets are common traces in hadron collision detectors. Because of color confinement partons do not remain unbound for long and form the jet hadrons. In supersymmetric processes from hadron collisions the production of jets should also be common, as the LSP is assumed colour neutral and the colour charge of gluinos and squarks must end up in coloured SM particles. An example of squark pair production with the subsequent decay into jets is shown in Fig.~\ref{Fig:: susy hadron : decay at ATLAS}. The hadronic jets produced from supersymmetric processes can be complicated and difficult to identify. The significant background from SM processes offers another difficulty in searching for supersymmetry. 
+where the sum runs over the transverse momenta of all visible final state particles.  Any excess of momentum in one direction indicates that there is missing momentum in the opposite direction. This is the missing transverse energy, which is attributed to weakly interacting particles, such as neutrinos $\nu$.  
+
+%Particles produced at hadron colliders that have colour or electromagnetic charge can leave signals in \textit{calorimeters}. Calorimeters are detectors that measure the energy of a particle that passes through. Particles that enter the calorimeter can initiate a shower of particles, whose energies are deposited in the calorimeter, collected and measured. The calorimeters used at the LHC are \textit{electromagnetic calorimeters} and \textit{hadronic calorimeters}. When a charged particle passes through an electromagnetic calorimeter it can produce an \textit{electromagnetic shower}, which is initiated by an energetic electron or photon. The latter entails that the photon splits into a pair of $e^+e^-$, a process called \textit{pair production}. Each of the leptons emits a new photon through \textit{bremsstrahlung}, which subsequently splits into more pairs of $e^+e^-$. This process is repeated until the particles reach the critial energy, where the energy is too low to generate more shower particles. Similarly, a hadronic calorimeter measures the energy of hadrons that initiate hadronic showers. Hadronic calorimeters can be used to measure \textit{jets}.
+
+Particles that \textit{do} leave traces in detectors are hadrons. Partons produced in proton collisions made up \textit{hadronic jets}. Jets are collimated bunches of final-state partons that appear in hard interactions. The partons produced in a proton-proton collision cannot remain isolated because of \textit{colour confinement}, which prevents coloured particles from being in unbound states at LHC energies. Quarks and gluons therefore bunch together and form hadrons --- a process called \textit{hadronisation}. The hadronisation leads to a collimated spray of hadrons, which are the jets. Jets can leave traces in both calorimeters, and the signals are combined to form reconstructed jets. These are in turned used to investigate the transverse kinematics of the collision, \textit{e.g.} by determining the aforementioned missing energy. 
+
+
+
+
+
+\subsection{Searches for Supersymmetry}
 
 \begin{figure}[H]
 \centering
@@ -855,26 +879,29 @@ and used to search for deviations from SM expectations. The momentum $p_T^{jet}$
 \end{figure}
 
 
+Supersymmetry production at hadron colliders will likely be in the form of QCD processes, as the colliding particles are quarks and gluons. The traces left in detectors by such processes will be closely tied to the conservation of $R$-parity, in that all sparticles in the MSSM are produced in pairs and eventually decay to the LSP, as mentioned in Sec.~\ref{Sec:: phys back : R-parity}. If the LSP is indeed only weakly interacting it is difficult to detect, and therefore searched for at the LHC using missing transverse energy as described in Sec.~\ref{Sec:: susy hadron : Jets and transverse kinematics}. The momentum in Eq.~(\ref{Eq:: susy hadron : Missing energy}) can be from jets, as these should be common in supersymmetry processes at the LHC. Since the LSP is assumed colour neutral, the colour charge of gluinos and squarks must end up in coloured SM particles in the form of jets. An example of squark pair production with subsequent jet initiators is shown in Fig.~\ref{Fig:: susy hadron : decay at ATLAS}. The hadronic jets produced from supersymmetric processes have significant background from SM processes. Allowing for $R$-parity violation opens up for more final-state possibilities. The LSP can then decay, and sparticles can be produced one at a time. 
 
-Allowing for $R$-parity violation opens up for more final-state possibilities. The LSP can then decay, and sparticles can be produced one at a time. The violation of $R$-parity allows for \textit{massive metastable charged particles} (MMCPs), typical for scenarios with a gravitino LSP \cite{batzing2017lecture}.
 
 
 
 \subsection{Current Bounds on Sparticles}
 
-Searches and limits are available from the data recorded in 2015 by the ATLAS experiment in $\sqrt{s}=13$~TeV proton-proton collisions at the LHC, with an integrated luminosity of $2.3 \text{ fb}^{-1}$. The analysis included searches for jets and missing transverse energy. Simplified models were assumed, with $R$-parity conservation and the lighest neutralino as the lightest supersymmetric particle. At $95 \%$ confidence level, exclusion limits of the gluino and squark masses are set at $1.51$~TeV and $1.03$~TeV, respectively \cite{aaboud2016search}, assuming a \textit{massless lightest neutralino}. A plot of exclusion limits is shown in Fig.\ \ref{Fig:: susy hadron : ATLAS exclusion limits}. Note that for a massive lightest neutralino the bounds on the gluino and squark masses are significantly reduced, down to $400$ GeV for the squark mass and around $650$ GeV for the gluino mass. Values below these mean that the lightest neutralino is no longer the lightest particle $m_{\widetilde{q}} < m_{\widetilde{\chi}^0_1}$, $m_{\widetilde{g}} < m_{\widetilde{\chi}^0_1}$, and sparticles must decay to another particle. In this thesis squark and gluino masses in the interval $[0,4000]$ GeV are explored, as the neutralino is assumed to be massive.
+
+
+Searches and corresponding limits are available from the data recorded in 2015 by the ATLAS experiment in $\sqrt{s}=13$~TeV proton-proton collisions at the LHC, with an integrated luminosity of $3.2 \text{ fb}^{-1}$. The analysis in \cite{aaboud2016search} included searches for jets and missing transverse energy. Simplified models were assumed, considering only gluinos and the first two generations of squarks with $R$-parity conservation and the lighest neutralino as the lightest supersymmetric particle. At $95 \%$ confidence level, exclusion limits of the gluino and squark masses are set at $1.51$~TeV and $1.03$~TeV, respectively \cite{aaboud2016search}, assuming a \textit{massless lightest neutralino}. A plot of exclusion limits in the squark -- neutralino and gluino -- neutralino mass planes is shown in Fig.\ \ref{Fig:: susy hadron : ATLAS exclusion limits}. In this thesis squark and gluino masses in the interval $[0,4000]$ GeV are explored, as the neutralino is assumed to be massive.
+
 
 \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.85\textwidth}
         \includegraphics[width=\textwidth]{figures_susy_at_hadron_colliders/ATLAS_excl_mq.png}
-        \caption{Squark mass}
+        \caption{Squark production}
     \end{subfigure}
     \begin{subfigure}[b]{0.85\textwidth}
         \includegraphics[width=\textwidth]{figures_susy_at_hadron_colliders/ATLAS_excl_mg.png}
-        \caption{Gluino mass}
+        \caption{Gluino production}
     \end{subfigure}
-    \caption{Exclusion limits from the ATLAS experiment in $\sqrt{s} = 13$ TeV proton-proton collisions, for \textbf{(a)} light-flavour squark pairs with decoupled gluinos, and \textbf{(b)} gluino pairs with decoupled squarks. The blue dashed lines show the exclusion limits at $95\%$ CL, with the yellow bands indicating the $1\sigma$ excursions due to experimental and background-only theoretical uncertainties. Obsverved limits are indicated by maroon lines, with the nominal limit (solid) and varying the renormalization scale and PDFs (dotted). The analysis assumes conservation of $R$-parity and a lightest neutralino LSP. The exclusion limits also assume a massless lightest neutralino. The dashed straight lines indicate the limit where $m_{\widetilde{q}/\widetilde{g}} < m_{\widetilde{\chi}^0_1}$, so the squarks and gluinos cannot decay to the lightest neutralino above this limit. Figures from \cite{aaboud2016search}.}\label{Fig:: susy hadron : ATLAS exclusion limits}
+    \caption{Exclusion limits from the ATLAS experiment in $\sqrt{s} = 13$ TeV proton-proton collisions, for \textbf{(a)} light-flavour squark pairs with decoupled gluinos, and \textbf{(b)} gluino pairs with decoupled squarks. The blue dashed lines show the exclusion limits at $95\%$ CL, with the yellow bands indicating the $1\sigma$ excursions due to experimental and background-only theoretical uncertainties. Obsverved limits are indicated by maroon lines, with the nominal limit (solid) and varying the renormalization scale and PDFs (dotted). The analysis assumes conservation of $R$-parity and a lightest neutralino LSP. The dashed straight lines indicate the limit where $m_{\widetilde{q}/\widetilde{g}} < m_{\widetilde{\chi}^0_1}$, so the squarks and gluinos cannot decay to the lightest neutralino above this line. Figures from \cite{aaboud2016search}.}\label{Fig:: susy hadron : ATLAS exclusion limits}
 \end{figure}
 
 %\subsection{Precision Observables}
@@ -895,7 +922,7 @@ Searches and limits are available from the data recorded in 2015 by the ATLAS ex
 
 
 \section{Squark-Squark Cross Section}
-In this thesis the relevant QCD process will be the production of squark pairs in quark-quark collisions,
+The process investigated in this thesis is the production of squark pairs in quark-quark collisions,
 \begin{align}
 q_i q_j \rightarrow \widetilde{q}_i \widetilde{q}_j,
 \end{align}
@@ -934,7 +961,7 @@ s &= (k_1 + k_2)^2 = 2 k_1 \cdot k_2, &t_1 = (k_2-p_2)^2 - m_{\widetilde{q}}^2, 
 t &= (k_2-p_2)^2 = m_{\widetilde{q}}^2 - 2 (k_2 \cdot p_2), &u_1 = (k_1-p_2)^2 - m_{\widetilde{q}}^2, &&u_g = (k_1-p_2)^2 - m_{\widetilde{g}}^2,\\
 u &= (k_1 - p_2)^2 = m_{\widetilde{q}}^2 - 2 (k_1 \cdot p_2),
 \end{align*}
-where the Mandelstam variables are related by $t + u+ s = p_1^2 + p_2^2$. The expressions for the different chiralitites are considered later, until then the chiral projection operators in the matrix element are denoted as $P$ and $P'$. The Feynman gauge is used, and the $n_f = 5$ light flavour quarks are treated as massless. The total matrix element is
+where the Mandelstam variables are related by $t + u+ s = p_1^2 + p_2^2$. The expressions for the different chiralitites are considered later, until then the chiral projection operators in the matrix element are denoted as $P$ and $P'$. The Feynman gauge is used, and the $n_f = 4$ light flavour quarks are treated as massless. The total matrix element is
 \begin{align}\label{Eq:: susy hadron : matrix element}
 i\mathcal{M} = i\mathcal{M}_t + i\mathcal{M}_u,
 \end{align}
@@ -956,7 +983,7 @@ where the colour factor has been factored out. The matrix element squared is the
 \big( \bar{v} (k_1)  P (\slashed{p} + m_{\widetilde{g}}) P' u(k_2) \big)
 \\ \times &\big( \bar{u} (k_2)  P (\slashed{p} + m_{\widetilde{g}}) P' v(k_1) \big).
 \end{align*}
-To sum over colours, the following relation is used \cite{ellis2003qcd}
+To sum over colours, the following relation is used for an $SU(N)$ gauge group \cite{ellis2003qcd}
 \begin{align}\label{Eq:: susy hadron : color factor identity}
 \sum_a (t^a)_{ij} (t_a)_{lk} = \frac{1}{2} (\delta_{ik} \delta_{lj} - \frac{1}{N} \delta_{ij} \delta_{lk}),
 \end{align}
@@ -971,7 +998,7 @@ where $C_F = (N^2 - 1)/(2N)$. Averaging over spin gives
 \sum |\mathcal{M}_t|^2 &= \frac{1}{2} NC_F \times \frac{4 g^4}{t_g^2} \text{tr} \big[ 
 \slashed{k}_1 P (\slashed{p} + m_{\widetilde{g}}) P' \slashed{k}_2 P (\slashed{p} + m_{\widetilde{g}}) P' \big],
 \end{align*}
-where, as previously mentioned, the quarks are considered massless. The final state squarks can have equal or different chiralities, and both combinations contribute to the total cross section. 
+where, as previously mentioned, the quarks are considered massless. The final state squarks can right- og left-handed, and all four combinations contribute to the total cross section. Recall that the squarks are not, in fact, right- or left-handed, but are scalar partners of the right- and left-handed parts of the quarks. 
 
 \subsubsection{Different chiralities $P=P_{R/L}$, $P'=P_{L/R}$}
 For squarks of different chiralities the trace becomes
@@ -994,13 +1021,13 @@ For squarks of equal chiralities the trace becomes
 \end{align*}
 For equal flavour quarks $qq$ there are now two possibilities for equal chirality squarks, namely $\widetilde{q}_R \widetilde{q}_R$ and $ \widetilde{q}_L \widetilde{q}_L$. For different flavour quarks $qq'$ the two possibilities for equal chiralities are $ \widetilde{q}_L \widetilde{q}'_L$ and $\widetilde{q}_R \widetilde{q}_R'$. 
 
-Note that the contribution from $\widetilde{q}_R \widetilde{q}_R$ is identical to $\widetilde{q}_L \widetilde{q}_L$ in QCD processes. If no electroweak corrections are included in the higher order term, the NLO cross section should also be identical as a function of $m_{\widetilde{q}}$, because only the electroweak interaction couples to right- and left-handed states differently. 
+Note that the contribution to $\widetilde{q}_R \widetilde{q}_R$ is identical to $\widetilde{q}_L \widetilde{q}_L$ in QCD processes. If no electroweak corrections are included in the higher order term, the NLO cross section should also be identical as a function of $m_{\widetilde{q}}$, because only the electroweak interaction couples to right- and left-handed states differently. This will become important later in Sec.~\ref{Sec:: results : The Optimal Model}.
 
 \subsubsection{Sum over Chiralities}
 
 For incoming quarks $q_iq_j$ the sum over chiralities  yields
 \begin{align*}
-\sum |\mathcal{M}_t|^2 =  NC_F  \times\frac{4 g^4}{t_g^2} \Big[\delta_{ij} \big(\frac{1}{2}(t_1u_1 -sm_{\widetilde{q}}^2)+  sm_{\widetilde{g}}^2 \big) + (1-\delta_{ij})\big(t_1u_1 -s(m_{\widetilde{q}}^2- m_{\widetilde{g}}^2) \big)\Big],
+\sum |\mathcal{M}_t|^2 =  NC_F  \times\frac{4 g^4}{t_g^2} \Big[&\delta_{ij} \big(\frac{1}{2}(t_1u_1 -sm_{\widetilde{q}}^2)+  sm_{\widetilde{g}}^2 \big)\\& + (1-\delta_{ij})\big(t_1u_1 -s(m_{\widetilde{q}}^2- m_{\widetilde{g}}^2) \big)\Big],
 \end{align*}
 where the terms proportional to $\delta_{ij}$ only contribute for same flavour quarks, and the terms proportional to $1 - \delta_{ij}$ contribute for different flavour quarks.
 
@@ -1049,14 +1076,14 @@ Adding the cross terms gives the expression for the total cross term in Eq.~(\re
 
 \subsubsection{Matrix Elements}\label{Sec:: susy hadron : Matrix Elements}
 
-The matrix elements can be divided into contributions from $\widetilde{q}_{iR} \widetilde{q}_{iR}$, $\widetilde{q}_{iR} \widetilde{q}_{iL}$, $\widetilde{q}_{iR} \widetilde{q}_{jR}$ and $\widetilde{q}_{iR} \widetilde{q}_{jL}$, and equivalently for $R \leftrightarrow L$. The matrix elements of the different contributions are
+The matrix elements can be divided into contributions to $\widetilde{q}_{iR} \widetilde{q}_{iR}$, $\widetilde{q}_{iR} \widetilde{q}_{iL}$, $\widetilde{q}_{iR} \widetilde{q}_{jR}$ and $\widetilde{q}_{iR} \widetilde{q}_{jL}$ production, and equivalently for $R \leftrightarrow L$. The matrix elements of the different processes are
 \begin{align}
 &\widetilde{q}_{iR} \widetilde{q}_{iR}, \widetilde{q}_{iL} \widetilde{q}_{iL}: && \sum |\mathcal{M}|_{iRiR} = 4g^4 s m_{\widetilde{g}}^2 \Big[ \frac{1}{2} NC_F\Big( \frac{1}{t_g^2} + \frac{1}{u_g^2} \Big) - C_F \frac{1}{t_gu_g} \Big],\\
 &\widetilde{q}_{iR} \widetilde{q}_{iL}: &&\sum |\mathcal{M}|_{iRiL}=  4 g^4 (u_1t_1 - sm_{\widetilde{q}}^2) \Big[ \frac{1}{2}NC_F \Big( \frac{1}{t_g^2} + \frac{1}{u_g^2} \Big) \Big],\\
 & \widetilde{q}_{iR} \widetilde{q}_{jR}, \widetilde{q}_{iL} \widetilde{q}_{jL}: && \sum |\mathcal{M}|_{iRjR} = 4 g^4 sm_{\widetilde{g}}^2 \Big[\frac{1}{2} NC_F \frac{1}{t_g^2}  \Big],\\
 & \widetilde{q}_{iR} \widetilde{q}_{jL}, \widetilde{q}_{iL} \widetilde{q}_{jR}: && \sum |\mathcal{M}|_{iRjL} = 4 g^4 (t_1u_1 - sm_{\widetilde{q}}^2) \Big[\frac{1}{2} NC_F \frac{1}{t_g^2}  \Big].
 \end{align}
-Note that, as mentioned, the contributions from $\widetilde{q}_R\widetilde{q}_R$ and $\widetilde{q}_L\widetilde{q}_L$ are identical as functions of $m_{\widetilde{q}}$.
+Note that, as mentioned above, the contributions to $\widetilde{q}_R\widetilde{q}_R$ and $\widetilde{q}_L\widetilde{q}_L$ are identical as functions of $m_{\widetilde{q}}$.
 
 Summing over the terms from different chirality combinations gives  for the total sum over matrix element squared 
 \begin{align}
@@ -1066,28 +1093,24 @@ Summing over the terms from different chirality combinations gives  for the tota
 where, again, the terms proportional to $\delta_{ij}$ contribute for same flavour quarks, and terms proportional to $1-\delta_{ij}$ contribute for different flavour quarks.
 
 
-\subsection*{Partonic Cross Section}
+\subsubsection{Partonic Cross Section}
 
-The $SU(3)$ colour factors are given by $N=3$, which gives $C_F = 4/3$. To find the total, lowest order partonic cross section an $n$-dimensional phase space integral is performed, and spin and colour averaging are taken into account \cite{beenakker1997squark}. The lowest order double-differential distributions are then given by
+The $SU(3)$ colour factors are given by $N=3$, which gives $C_F = 4/3$. The cross section for a two-body reaction may be written as
 \begin{align}
-s^2 \frac{d^2 \sigma^B}{dt du} =&  K_{ij} \frac{\pi S_{\varepsilon}}{\Gamma(1 - \varepsilon)} \Bigg[ \frac{(t-p_2^2)(u-p_2^2) - p_2^2s}{\mu^2s} \Bigg]^{- \varepsilon} \Theta ([t-p_2^2][u- p_2^2]-p_2^2s) \nonumber \\
-& \times \Theta (s -4m^2) \delta (s+t+u-p_1^2 -p_2^2) \sum |\mathcal{M}_B|^2,
+\frac{d \sigma}{d t} = \frac{1}{64 \pi s} \frac{1}{|\textbf{p}_{1\mathrm{cm}}|^2} |\mathcal{M}|^2,
 \end{align} 
-where the averaging over initial state colours and spins is given by the factor $K_{ij}$, which for squark and antisquark prodution is \cite{beenakker1997squark}
-\begin{align}
-K_{qq} = K_{\bar{q}q} = \frac{1}{4 N^2}.
-\end{align}
-Integration over the remaining parameters gives the Born level\footnote{Tree-level} partonic cross section for squark pair production $q_iq_j \rightarrow \widetilde{q}_i \widetilde{q}_j$ \cite{beenakker1997squark}
+where $\textbf{p}_{1 \mathrm{cm}}$ is the three-momenta of one ingoing particle in the center of mass frame. Integration over $t$ gives the Born level\footnote{Tree-level.} partonic cross section for squark pair production $q_iq_j \rightarrow \widetilde{q}_i \widetilde{q}_j$ 
 \begin{align}\label{Eq:: susy hadron : Born term sigma}
 \hat{\sigma}^B =& \frac{\pi \alpha_s^2}{s} \Bigg[\beta_{\widetilde{q}} \Big(-\frac{4}{9} - \frac{4m_-^4}{9(m_{\widetilde{g}}^2s+m_-^4)} \Big) + \Big(-\frac{4}{9}- \frac{8m_-^2}{9s} \Big) L_1 \Bigg] \nonumber \\
 &+ \delta_{ij} \frac{\pi \alpha_s^2}{s} \Bigg[ \frac{8m_{\widetilde{g}}^2}{27(s+2m_-^2)} L_1 \Bigg],
 \end{align}
 where
 \begin{align*}
-&L_1 = \ln \Big( \frac{s+2m_-^2-s \beta_{\widetilde{q}}}{s+ 2m_-^2+s \beta_{\widetilde{q}}} \Big), &\beta_{\widetilde{q}} = \sqrt{1-\frac{4m_{\widetilde{q}}^2}{s}}, &&m_-^2 = m_{\widetilde{g}}^2 - m_{\widetilde{q}}^2, &&\alpha_s = \frac{g_s^2}{4 \pi}.
+&L_1 = \ln \Big( \frac{s+2m_-^2-s \beta_{\widetilde{q}}}{s+ 2m_-^2+s \beta_{\widetilde{q}}} \Big), &\beta_{\widetilde{q}} = \sqrt{1-\frac{4m_{\widetilde{q}}^2}{s}}, &&m_-^2 = m_{\widetilde{g}}^2 - m_{\widetilde{q}}^2, &&\alpha_s = \frac{g_s^2}{4 \pi},
 \end{align*}
+which is identical to the one found in \cite{beenakker1997squark}.
 
-The calculations from \cite{beenakker1997squark} assume degenerate squark masses $m_{\widetilde{q}}$, set the five lightest quark masses to zero as they are much lighter than the squarks, and the top quark mass to $m_t =175$ GeV. The two free parameters left in the cross sections are then $m_{\widetilde{g}}$ and $m_{\widetilde{q}}$, as seen in Eq.~(\ref{Eq:: susy hadron : Born term sigma}). The renormalization scheme used is the $\overline{MS}$ scheme. Masses and couplings are renormalised, and the resulting parameters can be found in \cite{beenakker1997squark}.
+
 
 
 \section{Next-to-leading Order Corrections}\label{Sec:: susy hadron : Next-to-leading Order Corrections}
@@ -1217,34 +1240,34 @@ There are three main categories of divergences, namely ultraviolet, infrared and
 
 In order to include the corrections and still get physical cross sections, it is necessary to integrate out the divergences using dimensional regularization and renormalise parameters. Renormalising a parameter means giving it a scale dependence, and baking the infinities into this expression. Physically, this can be interpreted as giving the coupling constant a length scale (energy scale$^{-1}$) dependence. For example, the electromagnetic coupling becomes stronger the closer to a charged particle you get. These calulations are often complicated and tedious. Some of the diagrams for virtual corrections to $q_iq_j \rightarrow \widetilde{q}_i \widetilde{q}_j$ are shown in Fig.~\ref{Fig:: hadron susy : virtual correction Feynman diagrams}.
 
-There are several reasons for calculating these cumbersome NLO terms. Firstly, the leading order terms are highly dependent on the \textit{a priori} unknown renormalization scale, leading to a large uncertainty in theoretical predictions (up to a factor of two). Adding higher order terms reduces this scale dependency. An example is shown in Fig.~\ref{Fig:: hadron susy : LO vs NLO beenakker}, where the LO and NLO cross sections for $qq \rightarrow \widetilde{q} \widetilde{q}$ are plotted as a function of the renormalization/factorization scale at the LHC for $\sqrt{s}=14~\mathrm{TeV}$ \cite{beenakker1997squark}. The NLO terms are clearly less dependent on the scale than the LO terms.  Secondly, the NLO contributions are expected to be large and positive, thereby raising the cross sections significantly and allowing for stronger bounds on the gluino and squark masses \cite{beenakker1997squark}.
+There are several reasons for calculating these cumbersome NLO terms. Firstly, the leading order terms are highly dependent on the \textit{a priori} unknown renormalization scale because of missing higher order contributions to the cross section, leading to a large uncertainty in theoretical predictions (up to a factor of two). Adding higher order terms reduces this scale dependency. An example is shown in Fig.~\ref{Fig:: hadron susy : LO vs NLO beenakker}, where the LO and NLO cross sections for $qq \rightarrow \widetilde{q} \widetilde{q}$ are plotted as a function of the renormalization scale at the LHC for $\sqrt{s}=14~\mathrm{TeV}$ \cite{beenakker1997squark}. The NLO terms are clearly less dependent on the scale than the LO terms.  Secondly, the NLO contributions are expected to be large and positive, thereby raising the cross sections significantly and allowing for stronger bounds on the gluino and squark masses \cite{beenakker1997squark}.
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.4]{figures_susy_at_hadron_colliders/squark_gluino_LO_NLO.png}
-\caption{The dependence on the renormalization/factorization scale $Q$ for the LO and NLO cross sections for squark-squark production at the LHC ($\sqrt{s}=14$ TeV). Parton densities are GRV94 (solid), CTEQ3 (dashed) and MRS(A') (dotted). Mass parameters are $m_{\widetilde{q}}=600$ GeV, $m_{\widetilde{g}}=500$ GeV and $m_t=175$ GeV. Figure from \cite{beenakker1997squark}.}
+\caption{The dependence on the renormalization scale $Q$ for the LO and NLO cross sections for squark-squark production at the LHC ($\sqrt{s}=14$ TeV). Parton densities are GRV94 (solid), CTEQ3 (dashed) and MRS(A') (dotted). Mass parameters are $m_{\widetilde{q}}=600$ GeV, $m_{\widetilde{g}}=500$ GeV and $m_t=175$ GeV. Figure from \cite{beenakker1997squark}.}
 \label{Fig:: hadron susy : LO vs NLO beenakker}
 \end{figure}
 
+The next-to-leading order cross sections are calculated in \cite{beenakker1997squark}, assuming degenerate squark masses $m_{\widetilde{q}}$, with the five lightest quark masses set to zero, and the top quark mass to $m_t =175$ GeV. The two free parameters left in the cross sections are then $m_{\widetilde{g}}$ and $m_{\widetilde{q}}$, as seen in Eq.~(\ref{Eq:: susy hadron : Born term sigma}). The renormalization scheme used is the $\overline{MS}$ scheme. 
 
 
 
 \subsubsection{Next-to-leading Order Partonic Cross-Section}
 
-As discussed in Sec.~\ref{Sec:: susy hadron : Hadron Colliders}, cross sections for hadron colliders require first finding the partonic cross sections. In order to analyze these, scaling functions are introduced \cite{beenakker1997squark} giving the LO+NLO result as
+As discussed in Sec.~\ref{Sec:: susy hadron : Hadron Colliders}, cross sections for hadron colliders require first finding the partonic cross sections. In order to analyze these, scaling functions are introduced \cite{beenakker1997squark} giving the general LO+NLO result for all strong production processes as
 \begin{align}\label{Eq:: susy hadron : Partonic cross section LO+NLO}
 \hat{\sigma}_{ij} = \frac{\alpha_s^2(Q^2)}{m^2} \Big\{ &f^B_{ij}(\eta, r) + 4 \pi \alpha_s (Q^2) \Bigg[ f_{ij}^{V+S}(\eta, r, r_t) \nonumber \\ & + f_{ij}^H (\eta, r) + \bar{f}_{ij} (\eta, r) \log \Bigg( \frac{Q^2}{m^2}\Bigg) \Bigg] \Big\},
 \end{align}
-where $Q^2$ is the renormalization scale discussed previously, often set to $Q^2 = m^2$, and $m = (\sqrt{p_1^2}~+~\sqrt{p_2^2})/2$ is the average mass of the produced particles. The partonic cross section is written as a function of the parameters
+where $Q^2$ is the renormalization scale discussed previously, often set to $Q^2 = m^2$, when $m = (\sqrt{p_1^2}~+~\sqrt{p_2^2})/2$ is the average mass of the produced particles. The partonic cross section is written as a function of the parameters
 \begin{align}
 &\eta = \frac{s}{4m^2} -1, &r= \frac{m_{\widetilde{g}}^2}{m_{\widetilde{q}}^2}, &&r_t = \frac{m_t^2}{m^2}.
 \end{align} 
 
-The scaling functions $f$ are as follows: the Born term $f^B$ from Eq.~(\ref{Eq:: susy hadron : Born term sigma}), the hard gluon corrections $f^H$, the scale-dependent contributions $\bar{f}$ and the sum of virtual and soft-gluon corrections $f^{V+S}$. The real gluon corrections come from adding a final state gluon to the partonic reaction
+The scaling functions $f$ are as follows: the Born term $f^B$ from Eq.~(\ref{Eq:: susy hadron : Born term sigma}), the hard gluon corrections $f^H$, the scale-dependent contributions $\bar{f}$ and the sum of virtual and soft-gluon corrections $f^{V+S}$. The gluon corrections come from adding a final state gluon to the partonic reaction
 \begin{align}
 q_i q_j \rightarrow \widetilde{q}_i  \widetilde{q}_j g.
 \end{align}
-The phase space for gluon radiation is then divided into soft and hard gluon radiation. In the regime of soft-gluon radiation collinear and mass singularities coincide, while in the hard-gluon radiation regime only collinear singularities occur. This occurs when the real gluon is collinear with one on the initial state particles. 
 
 The energy near the threshold is the base for an important part of the contributions to the cross section \cite{beenakker1997squark}. In this region the scaling functions can be expanded in the low velocity of produced particles $\beta$, leading to the following expressions \cite{beenakker1997squark}
 \begin{align}
@@ -1253,16 +1276,9 @@ The energy near the threshold is the base for an important part of the contribut
 &f_{qq}^H = f_{qq}^B \Big[\frac{2}{3 \pi^2} \log^2(8 \beta^2) - \frac{7}{2 \pi^2} \log (8 \beta^2) \Big] &&f_{q'q}^H = f_{q'q}^B \Big[\frac{2}{3 \pi^2} \log^2(8 \beta^2) - \frac{19}{6 \pi^2} \log (8 \beta^2) \Big] \nonumber \\
 & \bar{f}_{qq} = - f_{qq}^B \frac{2}{3 \pi^2} \log (8 \beta^2) &&\bar{f}_{q'q} = - f_{q'q}^B \frac{2}{3 \pi^2} \log (8 \beta^2).\label{Eq:: susy hadron : Scaling functions near threshold}
 \end{align}
-The main contributions to the partonic cross section come from this region.
 
-\subsubsection{Hadronic Cross-Section}
+To find the total cross section partonic cross section is then integrated over, as discussed in Sec.~{\ref{Sec:: susy hadron : Parton Distribution Functions}. In \cite{beenakker1997squark} the integrals are calculated numerically using the VEGAS integration routine \cite{PETERLEPAGE1978192}.
 
-As per the discussion in Sec.~\ref{Sec:: susy hadron : Parton Distribution Functions}, the total cross section is obtained by integrating over the partonic cross-sections. A convolution integral over the parton distribution functions yields the expression 
-\begin{align}
-\sigma(S, Q^2) = \sum_{i,j=q, q, \bar{q}} \int_{\tau}^1dx_1 \int_{\tau/x_1}^1 dx_2 f_i^{h_1} (x_1, Q^2) f_j^{h_2}(x_2, Q^2) \hat{\sigma}_{ij} (x_1x_2S, Q^2)\Big|_{\tau=4m^2/S}.
-\end{align}
-In \cite{beenakker1997squark} the integrals are calculated numerically using the VEGAS integration routine \cite{PETERLEPAGE1978192}. 
-The uncertainty due to different parameterizations of the parton densities for the LHC calculations of the NLO terms amount to $\lesssim 13 \%$ at the central scale.
 
 \subsubsection{K-Factor}
 
@@ -1282,30 +1298,30 @@ The $K$-factor for squark production for varying mass ratios $m_{\widetilde{q}}/
 
 \subsection{State-of-the-art Tools}
 
-There are two numerical tools for the calculation of NLO supersymmetric cross sections, namely \verb|Prospino 2.1| \cite{beenakker1996prospino} and \verb|NLL-fast 2.1| \cite{beenakker2016nlo+}.
+There are two current numerical tools for the calculation of NLO supersymmetric cross sections, namely \verb|Prospino 2.1| \cite{beenakker1996prospino} and \verb|NLL-fast 2.1| \cite{beenakker2016nlo+}.
 
 \subsubsection{Prospino}\label{Sec:: susy hadron : Prospino}
 \verb|Prospino 2.1| \cite{beenakker1996prospino} is a numerical tool that calculates supersymmetric cross sections to next-to-leading order for non-degenerate squark masses. First the LO cross sections are calculated for the five or four lightest squark flavours. The LO and NLO cross sections are then calculated for the mean value of the squark masses, and the corresponding $K$-factor is calculated. The LO cross sections for the individual squark processes are multiplied by the $K$-factor, giving an approximation to the NLO terms for non-degenerate masses. The calculation of NLO cross sections for squark production is outlined in the section above, and described in more detail in \cite{beenakker1996prospino}. 
 
-\verb|Prospino 2.1| uses a renormalization scale to calculate cross sections, which leads to uncertainties. The uncertainty from the scale dependence is estimated by calculating cross sections for twice and half the chosen renormalization scale, and seeing how the cross sections change. As demonstrated in Fig.~\ref{Fig:: hadron susy : LO vs NLO beenakker} the scale dependence of cross sections is reduced by adding higher order terms. As a consequence, the scale dependence is also a way of estimating the order of magnitude of higher order terms. 
+\verb|Prospino 2.1| assumes a particular renormalization scale to calculate cross sections. The uncertainty from the scale dependence is estimated in \verb|Prospino 2.1| by calculating cross sections for twice and half the chosen renormalization scale, and seeing how the cross sections change. As demonstrated in Fig.~\ref{Fig:: hadron susy : LO vs NLO beenakker} the scale dependence of cross sections is reduced by adding higher order terms. As a consequence, the scale dependence is also a way of estimating the size of the contribution of higher order terms. 
 
 
-As was discovered during the project, \verb|Prospino 2.1| has a weakness in the heavy squark mass space. \verb|Prospino 2.1| sets the next-to-leading order cross sections to zero when the mean squark mass is above threshold ($m^2 > s$). For individual masses \textit{below} the threshold, with nonzero leading order cross sections, this means setting next-to-leading order cross sections to zero. This creates illogigal points --- or outliers --- in the dataset.
+As was discovered during the project, \verb|Prospino 2.1| has a technical weakness in the heavy squark mass space. \verb|Prospino 2.1| sets the next-to-leading order cross sections to zero when the mean squark mass is above threshold ($m^2 > s$). For individual masses \textit{below} the threshold, with nonzero leading order cross sections, this means inconsistently setting next-to-leading order cross sections to zero. This creates illogical points --- or outliers --- in the dataset.
 
-Evaluating cross sections with \verb|Prospino 2.1| is also highly time-consuming. Evaluating the strong process cross sections for a single CMSSM benchmark point takes about 15 minutes of CPU time on a modern processor \cite{balazs2017colliderbit}. 
+Evaluating cross sections with \verb|Prospino 2.1| is also highly time-consuming. Evaluating all the strong process cross sections for a single CMSSM benchmark point takes about 15 minutes of CPU time on a modern processor \cite{balazs2017colliderbit}. 
 
 
 \subsubsection{NLL-fast}
 
-\verb|NLL-fast 2.1| \cite{beenakker1997squark, kulesza2009threshold, kulesza2009soft, beenakker2009soft, beenakker2011squark} computes the hadronic cross sections of gluino and squark pair production including NLO supersymmetric QCD corrections, and the resummation of soft gluon emission at next-to-leading-logarithmic (NLL) accuracy. It also provides an error estimation, based on the errors from renormalization scale dependence and the parton distribution functions. The calculation is done by reading in tables of LO and NLO+NLL results, the scale uncertainty and the PDF and $\alpha_s$ error, and uses fast interpolation to calculate cross sections for any squark and gluino mass in the range $[200, 2500]$ GeV for $\sqrt{s}=8~\mathrm{TeV}$. 
+\verb|NLL-fast 2.1| \cite{beenakker1997squark, kulesza2009threshold, kulesza2009soft, beenakker2009soft, beenakker2011squark} computes the hadronic cross sections of gluino and squark pair production including NLO QCD corrections, and the resummation of soft gluon emission at next-to-leading-logarithmic (NLL) accuracy. It also provides an error estimation, based on the errors from renormalization scale dependence and the parton distribution functions. The calculation is done by reading in tables of pre-calculated LO and NLO+NLL results, the scale uncertainty and the PDF and $\alpha_s$ error, and uses fast grid interpolation to calculate cross sections for any squark and gluino mass in the range $[200, 2500]$ GeV for $\sqrt{s}=8~\mathrm{TeV}$. 
 
-\verb|NLL-fast 2.1| is limited in that it only calculates cross sections for mass-degenerate squarks. Since the total cross section for squark pair production consists of 36 different cross sections for combinations of the four lightest quarks, the estimate from \verb|NLL-fast 2.1| is very simplified and unfit for \textit{e.g.} MSSM-24, as will be demonstrated in Sec.~\ref{Sec:: results : Cross Sections}.
+\verb|NLL-fast 2.1| is limited in that it only calculates cross sections for mass-degenerate squarks. Since the total cross section for squark pair production consists of 36 different cross sections for combinations of the four lightest quarks, the estimate from \verb|NLL-fast 2.1| is very simplified and unfit, \textit{e.g.} for the MSSM-24 as will be demonstrated in Sec.~\ref{Sec:: results : Cross Sections}.
 
 \subsubsection{Accuracy}
 
-Including the NLO+NLL cross sections has reduced the theoretical error to $10 \%$ for a wide range of processes and masses, see the discussion in \cite{balazs2017colliderbit}. There are other uncertainties, from the parton distribution functions (PDFs) and $\alpha_s$. These must also be included in the total error estimate. PDFs are based on experimental data, so the uncertainty increases with the sparticle masses because the PDFs are most poorly constrained at large scales and at large partons $x$. However, with new data from the LHC errors from PDFs and $\alpha_s$ will be reduced over time.
+Including the NLO+NLL partonic contributions has reduced the theoretical error to below $10 \%$ for a wide range of processes and masses, see the discussion in \cite{balazs2017colliderbit}. There are other uncertainties, from the parton distribution functions (PDFs) and $\alpha_s$. These must also be included in the total error estimate. PDFs are based on experimental data, so the uncertainty increases with the sparticle masses because the PDFs are most poorly constrained at large scales $Q$ and at large parton $x$. However, with new data from the LHC errors from PDFs and $\alpha_s$ will be reduced over time.
 
-In order to keep the regression errors subdominent the relative regression errors obtained in this thesis should not exceed $10 \%$.
+On the basis of this, in order to keep the regression errors subdominant, the goal is that the relative regression errors obtained in this thesis should not exceed $10 \%$.
 
 
 
@@ -1342,29 +1358,44 @@ P(X | I) + P(\bar{X} | I) = 1,
  \label{Eq:: gaussian process : Product rule}
 P(X, Y | I) = P(X | Y, I)  P(Y | I),
 \end{align} 
-commonly known as the \textit{sum rule} and \textit{product rule}, respectively. The probability $P(X|I)$ is the probability of outcome $X$ given the information $I$, and $P(X|Y,I)$ is the probability of outcome $X$ given the information $I$ \textit{and} outcome $Y$. The bar over $\bar{X}$ means that the outcome $X$ does \textit{not} happen. The sum rule states that the total probability of the outcomes $X$ and $\bar{X}$ is equal to 1. This is rather intuitive, considering that an event either takes place or not. The product rule concerns the probability of both outcomes $X$ and $Y$. This is equal to the probability of $Y$ times the probability of $X$ given that $Y$ has already occurred. The product rule can be used to derive Bayes' theorem, first formulated by the reverend Thomas Bayes in 1763,
+commonly known as the \textit{sum rule} and \textit{product rule}, respectively. The probability $P(X|I)$ is the probability of outcome $X$ given the information $I$, and $P(X|Y,I)$ is the probability of outcome $X$ given the information $I$ \textit{and} outcome $Y$. The bar over $\bar{X}$ means that the outcome $X$ does \textit{not} happen. The sum rule states that the total probability of the outcomes $X$ and $\bar{X}$ is equal to 1. This is rather intuitive, considering that an event either takes place or not. The product rule concerns the probability of both outcomes $X$ and $Y$. This is equal to the probability of $Y$ times the probability of $X$ given that $Y$ has already occurred. 
+
+The product rule can be used to derive Bayes' theorem, first formulated by Thomas Bayes,
 \begin{align}\label{Eq:: gaussian process : Bayes theorem}
 P(Y | X, I) = \frac{P(X | Y, I)  P(Y | I)}{P(X | I)}.
 \end{align}
-Bayes' theorem states that the probability of $Y$ given $X$ is proportional to the probability of $X$ given $Y$, times the probability of $Y$. The proportionality factor is one over the probability of $X$. Surprisingly, there is nothing Bayesian --- in the modern statistical sense ---  about Bayes' theorem. It is merely a reformulation of the rules of logical consistent reasoning by Richard Cox in 1946 \cite{sivia2006data}. Laplace was the one to make Bayes' theorem Bayesian, when he used the theorem to perform inference about probability distributions \cite{laplace1820theorie}. Probability distributions are functions that describe how the probability of a random variable $X$ is distributed, and are denoted $P(X| \Theta, I)$. The \textit{parameters}, $\Theta$, of these functions determine the shape of the distribution, and are \textit{not} random variables. Examples of probability distribution parameters are the mean and variance of a Gaussian distribution. Bayes' theorem can be used to find the probability of the \textit{parameters} $\Theta$ given a set of random variables  $X$ drawn from the distribution, and the resulting expression is the \textit{posterior probability distribution}
+Bayes' theorem states that the probability of $Y$ given $X$ is proportional to the probability of $X$ given $Y$, times the probability of $Y$. The proportionality factor is one over the probability of $X$. Surprisingly, there is nothing Bayesian --- in the modern statistical sense ---  about Bayes' theorem.  
+
+In Bayesian statistics the theorem is used to perform inference about probability distributions. Probability distributions are functions that describe how the probability of a random variable $X$ is distributed, and are here denoted $P(X| \Theta, I)$. The \textit{parameters}, $\Theta$, of these functions determine the shape of the distribution, and are \textit{not} random variables. In physics, measurements are often used to find out more about the model. For example, data from the LHC is used to find the top mass $m_t$. The LHC data are then the variables $X$, and $m_t$ is the parameter $\Theta$. 
+
+Bayes' theorem can be used to find the probability of the \textit{parameters} $\Theta$ given a set of random variables  $X$ drawn from the distribution. The resulting expression is the \textit{posterior probability distribution}
 \begin{align}\label{Eq:: gaussian process : Bayesian inference}
 P(\Theta | X , I) = \frac{P(X|\Theta, I) P(\Theta| I)}{P(X | I)},
 \end{align}
-where $P(X|\Theta, I)$  and $P(\Theta |I)$ are the \textit{likelihood} and \textit{prior}, respectively, and $P(X|I)$ is a normalization constant called the \textit{marginal likelihood}. The marginal likelihood is independent of the parameters
+where $P(\Theta | I)$  and $P(X |\Theta, I)$ are the \textit{prior} and \textit{likelihood}, respectively, and $P(X|I)$ is a normalization constant called the \textit{marginal likelihood}. 
+
+The prior probability, $P(\Theta | I)$, represents the state of knowledge about the parameters given the background information $I$, before data has been analysed. In the example above, the prior would be the assumed top mass based on theoretical calculations in the SM. The prior is modified by the data through the likelihood, $P(X |\Theta, I)$, which is the probability of the data given the parameters.  The marginal likelihood is the probability of the data independently of the parameters, and can by Eq.~(\ref{Eq:: gaussian process : Product rule}) be written
 \begin{align}
 P(X|I) = \int P(X| \Theta, I) P(\Theta | I)~ \text{d} \Theta.
 \end{align}
+The marginal likelihood is revisited in Sec.~\ref{Sec:: gaussian process : Log Marginal Likelihood}.
+
 In other words, Eq.~(\ref{Eq:: gaussian process : Bayesian inference}) states the probability of parameters $\Theta$ given the knowledge of outcomes $X$. The parameters $\Theta$ are sometimes called the \textit{hypothesis}, and the variables $X$ are called the \textit{evidence}. Bayes' theorem is then used to modify the hypothesis using the evidence. 
 
-A crucial parting of Bayesian statistics from frequentist statistics is the introduction of the \textit{prior}, which expresses a probability distribution on the \textit{parameters} of the probability distribution before data. The prior and likelihood are discussed in the next section, while the marginal likelihood is revisited in Sec.~1.4.
 
-\subsection{Priors and Likelihood}\label{Sec:: gaussian process : Priors and Likelihood}
 
-The likelihood $P(X |\Theta, I)$ is the probability of the observations $X$ given the parameters of the probability distribution $\Theta$, and is revisited in Sec.~\ref{Sec:: gaussian process : Log Marginal Likelihood}. Conversely, the prior expresses a \textit{prior} belief or assumption of the parameters, and has to be determined beforehand. As mentioned previously, the measure $P(\Theta | X , I)$ from Eq.~(\ref{Eq:: gaussian process : Bayesian inference}) is called the posterior distribution. This can be thought of as the prior belief, modified by how well this belief fits the data,
+\subsection{Update of Belief}\label{Sec:: gaussian process : Priors and Likelihood}
+
+The crucial parting of Bayesian statistics from frequentist statistics is the introduction of the \textit{prior}, which expresses a probability distribution on the \textit{parameters} of the probability distribution before data, and the ability to update the probability distribution using data. The prior expresses a \textit{prior} belief or assumption of the parameters given the background information, and has to be decided on beforehand. Conversely, the likelihood is the probability of getting the observations $X$ given the particular values of the parameters $\Theta$. 
+
+As mentioned previously, the measure $P(\Theta | X , I)$ from Eq.~(\ref{Eq:: gaussian process : Bayesian inference}) is called the posterior distribution. This can be thought of as the prior belief, modified by how well this belief fits the data,
 \begin{align*}
 \text{posterior} = \frac{\text{prior} \times \text{likelihood}}{\text{marginal likelihood}}.
 \end{align*}
-Consider an example. The statistician mentioned before now sets about tossing a coin. Before tossing he assumes the probability of heads as uniformly distributed, and so adopts a flat, or uniform, prior probability distribution. The uniform distribution is illustrated in the first panel in Fig.~\ref{Fig:: gaussian process : Dice throw }. After one toss he gets heads, and the posterior changes to a function with high probability for heads, and low for tails, illustrated in the second panel. After four tosses, of which two gave heads and two gave tails, the posterior in the third panel shows an equal probabilty for heads and tails, with a wide distribution centered at 0.5. After several tosses the distribution converges to a narrow peak around $0.25$, illustrated in the fourth panel. This indicates an unfair coin that is biased towards tails.
+
+Consider an example. The statistician mentioned before now sets about tossing a coin. Before tossing he assumes the probability of heads as uniformly distributed, because is of the suspicious kind of statisticians. He therefore adopts a flat, or uniform, prior probability distribution. The uniform distribution is illustrated in the first panel in Fig.~\ref{Fig:: gaussian process : Dice throw }. After one toss he gets heads, and the posterior changes to a function with high probability for heads, and low for tails, illustrated in the second panel. After four tosses, of which two gave heads and two gave tails, the posterior in the third panel shows an equal probabilty for heads and tails, with a wide distribution centered at 0.5. After several tosses the distribution converges to a narrow peak around $0.25$, illustrated in the fourth panel. This indicates an unfair coin that is biased towards tails.
+
+As seen from the example, Bayes' theorem can be used to iteratively update the posterior probability. After one coin toss, the distribution in the second panel of in Fig.~\ref{Fig:: gaussian process : Dice throw } can be thought of as the new prior, which is in turn modified by more tosses.
 
 \begin{figure}
 \includegraphics[scale=0.77]{figures_gaussian_processes/coin_toss_xd.pdf}
@@ -1375,7 +1406,21 @@ Consider an example. The statistician mentioned before now sets about tossing a 
 
 \subsection{Best Estimate and Reliability}\label{Sec:: gaussian process : Best estimate}
 
-The quantity of interest, such as the parameters of a distribution, will now be denoted $X$. Given a posterior distribution $P(X| \mathcal{D}, I)$ over $X$, where the prior has been modified by some data $\mathcal{D}$, it is important to decide how well the posterior fits the data. As will be shown, the posterior can be approximated by a Gaussian distribution with a mean and variance, where the mean and variance are given by the \textit{best estimate} and the \textit{reliability} of the posterior, respectively. The best estimate $X_0$  is the outcome with the highest probability. In other words, it maximises the posterior distribution
+The quantity of interest, such as the parameters of a distribution, will from now on be denoted $X$. Given a posterior distribution $P(X| \mathcal{D}, I)$ over $X$, where the prior given some information $I$ has been modified by some data $\mathcal{D}$, the posterior can be approximated by a Gaussian distribution with a \textit{mean} and \textit{variance}. 
+
+The formal definition of the \textit{mean value} of $X$, denoted $m[X]$, is given by the \textit{expectation value} $\mathbb{E}[X]$. The mean value of a variable $X$ following a probability distribution $P(X |  I)$ is then defined as
+\begin{align}\label{Eq:: gaussian process : Expectation value}
+m[X] = \mathbb{E}[X] = \int X P(X | I) ~\text{d}X .
+\end{align}
+
+The variance $\mathbb{V} [X]$ is defined as the expectation value of the square of deviations from the mean. For $X$ following a probability distribution $P(X | I)$, the variance is then given by 
+\begin{align}\label{Eq:: gaussian process : variance X 1dim}
+\mathbb{V}[X] = \mathbb{E} \big[ (X - X_0)^2 \big] = \int  (X - X_0)^2 P (X| I) ~\text{d}X.
+\end{align}
+
+The variance in $X$ is often denoted $\sigma_X^2 = \mathbb{V}[X]$, and its square root is the \textit{standard deviation} $\sqrt{\sigma^2_X} = \sigma_X$. The variance can be generalised to distributions over several variables. The variance of one quantity can then affect the variance of another. This correlation is called \textit{covariance}, and is discussed in Sec.~\ref{Sec:: gaussian process : Covariance}.
+
+Returning to the posterior distribution $P(X | \mathcal{D}, I)$, the mean and variance of the approximated Gaussian distribution are given by the \textit{best estimate} and \textit{reliability}, respectively. The best estimate $X_0$  is the outcome with the highest probability. In other words, it maximises the posterior distribution
 \begin{align}\label{Eq:: gaussian process : max of posterior}
 &\frac{dP}{dX}\Big|_{X_0} = 0, &\frac{d^2P}{dX^2}\Big|_{X_0} < 0,
 \end{align}
@@ -1383,54 +1428,20 @@ where $P$ is the posterior $P(X| \mathcal{D}, I)$. The second derivative must be
 
 Once a best estimate is found, it is important to know how reliable it is. Reliability, or uncertainty, is related to the width of the distribution. The width of the distribution indicates how much the posterior distribution is smeared out around the best estimate $X_0$. A narrow distribution has low uncertainty, while a wide distribution has large uncertainty. As an example, the third panel in Fig.~\ref{Fig:: gaussian process : Dice throw } shows a distribution with a mean value of $0.5$ with large uncertainty, while the fourth panel shows a distribution with mean $0.25$ with small uncertainty. 
 
-The width is found by taking the logarithm\footnote{$L$ is a monotonic function of $P$, so the maximum of $L$ is at the maximum of $P$.} and Taylor expanding the posterior distribution $P(X| \mathcal{D}, I)$
+The width is found by taking the logarithm\footnote{$L$ is a monotonic function of $P$, so the maximum of $L$ is at the maximum of $P$.} and Taylor expanding the posterior distribution $P(X| \mathcal{D}, I)$ around $X_0$. From Eq.~(\ref{Eq:: gaussian process : max of posterior}) the condition of the best estimate is that $dL/dX|_{X_0} =0$, so the expansion is given by
 \begin{align}
 &L = L(X_0) + \frac{1}{2} \frac{d^2L}{dX^2}\Big|_{X_0} (X-X_0)^2 +... ,&L = \log_e \Big[P(X | \mathcal{D}, I ) \Big]\label{Eq:: gaussian process : Taylor expansion L}
 \end{align}
-The first term, $L(X_0)$, is just a constant. From Eq.~(\ref{Eq:: gaussian process : max of posterior}) the condition of the best estimate is that $dL/dX|_{X_0} =0$. The dominant term in determining the width is therefore the quadratic term in Eq.~(\ref{Eq:: gaussian process : Taylor expansion L}).
+The first term, $L(X_0)$, is just a constant and can be absorbed in the normalisation. The dominant term in determining the width is therefore the quadratic term in Eq.~(\ref{Eq:: gaussian process : Taylor expansion L}).
 
-Taking the exponential of Eq.~(\ref{Eq:: gaussian process : Taylor expansion L}) and ignoring higher order terms, the posterior can then be approximated as
+Taking the exponential of Eq.~(\ref{Eq:: gaussian process : Taylor expansion L}) and ignoring higher order terms, the posterior can be approximated as
 \begin{align}\label{Eq:: gaussian process : approximate Gaussian}
 P(X | \mathcal{D}, I) \approx A \exp \Bigg[ \frac{1}{2} \frac{d^2L}{dX^2}\Big|_{X_0} (X-X_0)^2 \Bigg], 
 \end{align} 
 where $A = \exp \big[L(X_0) \big]$ is a constant. Equation~(\ref{Eq:: gaussian process : approximate Gaussian}) is now in the shape of a \textit{Gaussian distribution}.
 
+
 \subsubsection{The Gaussian Distribution}\label{Sec:: gaussian process : The Gaussian Distribution}
-
-
-The \textit{Gaussian distribution} is given by
-\begin{align}
-P(X| \mu, \sigma^2) = \frac{1}{\sigma \sqrt{2 \pi}} \exp \Bigg[ - \frac{(X- \mu)^2}{2 \sigma^2} \Bigg],
-\end{align}
-where $\mu$ and $\sigma^2$ are the two parameters of the Gaussian distribution mentioned above. An example of a Gaussian distribution is shown in Fig.~\ref{Fig:: gaussian process : Gaussian distribution}. The parameter $\mu$ is the \textit{mean value} of $X$, which will be denoted $ m[X]$, and $\sigma^2$ is the \textit{variance} of the distribution around the mean $m[X]$, denoted $\mathbb{V}[X]$. The variance is discussed further below. The mean and variance for the approximated Gaussian distribution of $P(X|\mathcal{D}, I)$ are then given by
-\begin{align}
-m[X] = X_0\text{, }~ \mathbb{V}[X] = \Big( - \frac{d^2L}{dX^2} \Big)^{-1/2}.
-\end{align}
-
-The Gaussian distribution is also referred to as the \textit{normal distribution}, and a Gaussian distribution with mean $m[X]= \mu$ and variance $\mathbb{V}[X]=\sigma^2$ is therefore denoted $\mathcal{N}(\mu, \sigma^2)$. The notation $Y \sim \mathcal{N}(\mu, \sigma^2)$ means a \textit{random variable $Y$ drawn from a Gaussian distribution with mean $\mu$ and variance $\sigma^2$}. The Gaussian distribution is symmetric with respect to the maximum at the mean $\mu$, and has a full width at half maximum (FWHM) at around $2.35 \sigma$, as seen in Fig.~\ref{Fig:: gaussian process : Gaussian distribution} where $\sigma = \sqrt{\sigma^2}$ is the standard deviation.  
-
-%Since the basic idea in Gaussian process regression is to predict a Gaussian distribution over function values $f(\textbf{x})$ for each input vector $\textbf{x}$, the Gaussian distribution is central to Gaussian processes. Gaussian processes are discussed in Sec.~\ref{Sec: gaussian process : Gaussian Process Regression}, so for now it will suffice to sum up that the quality of a posterior distribution, $P(X| \mathcal{D}, I)$, can be described by two measures: the best estimate and the reliability. These can be seen as the mean and variance of a Gaussian distribution $\mathcal{N}(m(X), \mathbb{V}(X))$, where
-%\begin{align}
-%m(X)~&:~ \text{Mean of }X,\\
-%\mathbb{V}(X)~&:~ \text{Variance of }X.
-%\end{align}
-
-
-\subsubsection{Variance}
-
-The variance $\mathbb{V} [X]$ is defined as the expectation value of the square of deviations from the mean. The expectation value of $X$ following a probability distribution $P(X | \mathcal{D}, I)$ is denoted $\mathbb{E}[X]$, and defined as
-\begin{align}
-\mathbb{E}[X] = \int X P(X | \mathcal{D}, I) ~\text{d}X .
-\end{align}
- For the posterior probability distribution $P(X| \mathcal{D}, I)$ the variance of $X$ is then given by \cite{sivia2006data}
-\begin{align}\label{Eq:: gaussian process : variance X 1dim}
-\mathbb{V}[X] = \mathbb{E} \big[ (X - X_0)^2 \big] = \int  (X - X_0)^2 P (X| \mathcal{D}, I) ~\text{d}X.
-\end{align}
-The variance in $X$ is often denoted $\sigma_X^2 = \mathbb{V}[X]$, and its square root is the \textit{standard deviation} $\sqrt{\sigma^2_X} = \sigma_X$. 
-
-There is another type of variance, that exists for distributions over several quantities of interest. The variance of one quantity can then affect the variance of another. This correlation of variances is called \textit{covariance.}
-
-
 
 \begin{figure}
 \centering
@@ -1439,20 +1450,56 @@ There is another type of variance, that exists for distributions over several qu
 \label{Fig:: gaussian process : Gaussian distribution}
 \end{figure}
 
+The general \textit{Gaussian distribution} is given by
+\begin{align}
+P(X| \mu, \sigma^2) = \frac{1}{\sigma \sqrt{2 \pi}} \exp \Bigg[ - \frac{(X- \mu)^2}{2 \sigma^2} \Bigg],
+\end{align}
+where $\mu$ and $\sigma^2$ are the two parameters of the Gaussian distribution mentioned above. An example of a Gaussian distribution is shown in Fig.~\ref{Fig:: gaussian process : Gaussian distribution}. The parameter $\mu$ is the mean value of $X$ defined in Eq.~(\ref{Eq:: gaussian process : Expectation value}), $ m[X]$, and $\sigma^2$ is the variance of the distribution around the mean defined in Eq.~(\ref{Eq:: gaussian process : variance X 1dim}), $\mathbb{V}[X]$.  
+
+The mean and variance for the approximated Gaussian distribution of the posterior $P(X|\mathcal{D}, I)$ are then given by
+\begin{align}
+m[X] = X_0\text{, }~ \mathbb{V}[X] = \Big( - \frac{d^2L}{dX^2} \Big)^{-1/2}.
+\end{align}
+
+The Gaussian distribution is also referred to as the \textit{normal distribution}, and a Gaussian distribution with mean $\mu$ and variance $\sigma^2$ is therefore denoted $\mathcal{N}(\mu, \sigma^2)$. The notation $Y \sim \mathcal{N}(\mu, \sigma^2)$ means a \textit{random variable $Y$ drawn from a Gaussian distribution with mean $\mu$ and variance $\sigma^2$}. The Gaussian distribution is symmetric with respect to the maximum at the mean $\mu$, and has a full width at half maximum (FWHM) at around $2.35 \sigma$, as seen in Fig.~\ref{Fig:: gaussian process : Gaussian distribution}.  
+
+%Since the basic idea in Gaussian process regression is to predict a Gaussian distribution over function values $f(\textbf{x})$ for each input vector $\textbf{x}$, the Gaussian distribution is central to Gaussian processes. Gaussian processes are discussed in Sec.~\ref{Sec: gaussian process : Gaussian Process Regression}, so for now it will suffice to sum up that the quality of a posterior distribution, $P(X| \mathcal{D}, I)$, can be described by two measures: the best estimate and the reliability. These can be seen as the mean and variance of a Gaussian distribution $\mathcal{N}(m(X), \mathbb{V}(X))$, where
+%\begin{align}
+%m(X)~&:~ \text{Mean of }X,\\
+%\mathbb{V}(X)~&:~ \text{Variance of }X.
+%\end{align}
+
+
+
+
 \subsubsection{Covariance}\label{Sec:: gaussian process : Covariance}
 
-In distributions over several quantities of interest $X_i$, called \textit{multivariate distributions} and denoted $P(X_i| \mathcal{D}, I)$, the \textit{covariance} denotes how much the variance of one quantity $X_p$ affects the variance of another quantity $X_q$. The covariance between $X_p$ and $X_q$ is denoted $\mathrm{cov}(X_p, X_q)$, and given by the integral over deviations from the means, over all quantities of interest $X_i$ 
+
+
+
+In distributions over several quantities of interest $X_i,~i=1,...,N$, called \textit{multivariate distributions} and denoted $P(X_i| \mathcal{D}, I)$, the \textit{covariance} denotes how much the variance of one quantity $X_p$ affects the variance of another quantity $X_q$. The covariance between $X_p$ and $X_q$ is denoted $\mathrm{cov}(X_p, X_q)$, and given by the expectation value of the product of deviations from the means for all quantities of interest $X_i$ 
 \begin{align}\label{Eq:: gaussian process : Covariance definition}
 \mathrm{cov}(X_p, X_q) &= \mathbb{E} \big[(X_p - {X_p}_0) (X_q - {X_q}_0) \big] \nonumber \\&=\int (X_p - {X_p}_0) (X_q - {X_q}_0) P (X_i | \mathcal{D}, I) ~\text{d}X_i.
 \end{align}
-The covariance indicates how an over- or underestimation of one quantity affects another quantity. If, for example, an overestimation of $X_p$ leads to an overestimation of $X_q$, the covariance is positive. An example of positive covariance is shown in the third panel of Fig.~\ref{Fig:: gaussian process : Covariance illustrated}. If the overestimation of $X_p$ has little or no effect on the estimation of $X_q$, the covariance is negligible or zero $|\sigma_{X_pX_q}| \ll \sqrt{\sigma_{X_p}^2 \sigma_{X_q}^2}$, as seen in the first panel of Fig.~\ref{Fig:: gaussian process : Covariance illustrated}. The second panel shows negative covariance.
+Note that the covariance of $X_p$ with itself is the variance, $\mathrm{cov}(X_p, X_p) = \sigma_p^2$, so $\sigma_p^2$ is on the diagonal.
+
+The covariance indicates how the variance of one quantity affects another quantity. If, for example, a high value for the variable $X_p$ leads to a high value of $X_q$, the covariance is positive. An example of positive covariance is shown in the third panel of Fig.~\ref{Fig:: gaussian process : Covariance illustrated}. The covariance is also positive if a low value for $X_q$ leads to a low value for $X_q$. If the value for $X_p$ has little or no effect on $X_q$, the covariance is negligible or zero $|\sigma_{X_pX_q}| \ll \sqrt{\sigma_{X_p}^2 \sigma_{X_q}^2}$, as seen in the first panel of Fig.~\ref{Fig:: gaussian process : Covariance illustrated}. The second panel shows negative covariance, where a high value for $X_p$ leads to a low value for $X_q$.
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=1.0]{figures_gaussian_processes/covariance_xd.pdf}
+\caption{A schematic illustration of covariance and correlation. The contours of equiprobability of a posterior with zero covariance (left), where the inferred values of $X$ and $Y$ are uncorrelated. The corresponding plot when the covariance is large and negative (middle), and large and positive (right).}
+\label{Fig:: gaussian process : Covariance illustrated}
+\end{figure}
 
 \subsubsection{Multivariate Best Estimate}
 
 For multivariate distributions the best estimate is not as simple to solve for as in Eq.~(\ref{Eq:: gaussian process : Taylor expansion L}). A set of \textit{simultaneous equations} must be solved to get the best estimate
 \begin{align}\label{Eq:: gaussian process : Best estimate X_i}
-&\frac{dP}{dX_i} \Big|_{X_{0j}} =0, &&\frac{d^2P}{dX_i^2} \Big|_{X_{0j}} < 0.
+&\frac{dP}{dX_i} \Big|_{X_{j0}} =0, &&\frac{d^2P}{dX_i^2} \Big|_{X_{j0}} < 0,
 \end{align}
+for all $i=1,...,N$.
 
 For simplicity the multivariate distribution is considered in two dimensions, where $\{ X_i \}=(X, Y)$. As in Eq.~(\ref{Eq:: gaussian process : Taylor expansion L}), the Taylor expansion of the logarithm of the posterior, $L = \log_e \Big[ P(X, Y |\mathcal{D}, I) \Big]$, is used to determine the reliabilities of the best estimates
 \begin{align}\label{Eq:: gaussian process : Taylor expansion L_i}
@@ -1483,7 +1530,7 @@ The widths, or reliabilities, can now be placed in the \textit{covariance matrix
 
 \subsubsection{Covariance Matrix}
 
-The variances and covariances are the elements of the \textit{covariance matrix}. For $N$ quantities of interest $X_1, ...,X_N$ the covariance matrix is an $N \times N$-matrix. The covariance matrix for $X$ and $Y$ is denoted $\text{cov}(X,Y)$, and it can be shown that \cite{sivia2006data}
+The variances and covariances are the elements of the \textit{covariance matrix}. For $N$ quantities of interest $X_1, ...,X_N$ the covariance matrix is an $N \times N$-matrix. The covariance matrix for $X$ and $Y$ is denoted $\text{cov}(X,Y)$, and it can easily be shown by exponentiation and comparison with the two-dimensional Gaussian that \cite{sivia2006data}
 \begin{align}
 \text{cov}(X,Y) = 
 \begin{pmatrix}
@@ -1495,34 +1542,19 @@ A & C\\
 C & B
 \end{pmatrix}^{-1},
 \end{align}
-where $A$, $B$ and $C$ are the matrix elements defined in Eq.~(\ref{Eq:: gaussian process : covariance matrix ABC}),  $\sigma_X^2$ and $\sigma_Y^2$ are the variances of $X$ and $Y$, respectively, and $\sigma_{XY}^2$ is the covariance of $X$ and $Y$.
+where $A$, $B$ and $C$ are the matrix elements of $Q$ defined in Eq.~(\ref{Eq:: gaussian process : covariance matrix ABC}),  $\sigma_X^2$ and $\sigma_Y^2$ are the variances of $X$ and $Y$, respectively, and $\sigma_{XY}^2$ is the covariance of $X$ and $Y$.
 
-In short, the posterior probability distribution over $X$, $P(X | \mathcal{D}, I)$, can be approximated as a Gaussian distribution $\mathcal{N}(m[X], \mathbb{V}[X])$, where the mean is the best estimate and the variance is the associated reliability. The Gaussian distribution is defined by the mean value $m[X]$ and the variance $\mathbb{V}[X]$. For multivariate distributions, the covariance $\sigma_{X_i X_j}^2$ can also be calculated for the variables $X_i$, and all variances and covariances are contained in the covariance matrix $\text{cov}(X_i)$. When the probability distribution is not known, the elements of a covariance matrix can also be calculated using \textit{covariance functions}.
+In short, the posterior probability distribution over $X$, $P(X | \mathcal{D}, I)$, can be approximated as a Gaussian distribution $\mathcal{N}(m[X], \mathbb{V}[X])$, where the mean is the best estimate and the variance is the associated reliability. The Gaussian distribution is defined by the mean value $m[X]$ and the variance $\mathbb{V}[X]$. For multivariate distributions, the covariance $\sigma_{X_i X_j}^2$ can also be calculated for the variables $X_i$, and all variances and covariances are contained in the covariance matrix $\text{cov}(X_i, X_j)$. When the exact form of the probability distribution is not known, the elements of a covariance matrix can also be calculated using assumed \textit{covariance functions}, which lies at the heart of Gaussian processes.
 
-\begin{figure}
-\centering
-\includegraphics[scale=1.0]{figures_gaussian_processes/covariance_xd.pdf}
-\caption{A schematic illustration of covariance and correlation. The contours of a posterior with zero covariance (left), where the inferred values of $X$ and $Y$ are uncorrelated. The corresponding plot when the covariance is large and negative (middle), and large and positive (right).}
-\label{Fig:: gaussian process : Covariance illustrated}
-\end{figure}
 
 
 \section{Covariance Functions}\label{Sec:: gaussian processes : Covariance functions}
 
 
-The elements of a covariance matrix can be determined by \textit{covariance functions}, or \textit{kernels}. A function that maps two arguments $\textbf{x},\textbf{x}' \in \mathcal{X}$ into $\mathbb{R}$, where $\mathcal{X}$ is the input space, is generally called a kernel $k$. Covariance functions are symmetric kernels, meaning that $k(\textbf{x}, \textbf{x}') = k(\textbf{x}', \textbf{x})$. In this thesis both terms, kernel and covariance function, refer to the covariance function. 
+The elements of a covariance matrix can be given by \textit{covariance functions}, or \textit{kernels}. In Gaussian processes these are used to calculate the covariance between function values, as will be shown in Eq.~(\ref{Eq:: gaussian process : cov(y) gaussian process}). Since functions can have vectors as inputs, $\textbf{x}$, the covariance functions are also functions of input vectors $\textbf{x}$. A function that maps two arguments $\textbf{x},\textbf{x}' \in \mathcal{X}$ into $\mathbb{R}$, where $\mathcal{X}$ is the input space, is generally called a kernel $k$. Covariance functions are symmetric kernels, meaning that $k(\textbf{x}, \textbf{x}') = k(\textbf{x}', \textbf{x})$. In this thesis both terms, kernel and covariance function, refer to the covariance function. 
 
-%In Gaussian processes, which are discussed in Sec.~\ref{Sec:: gaussian process : Gaussian Processes}., the covariance between two function values $f(\textbf{x})$ and $f(\textbf{x}')$, where $\textbf{x}$ and $\textbf{x}'$ are input vectors, is given by the covariance of the input vectors. Further, the covariance of the input vectors is given by a kernel, 
-%\begin{align}
-%\text{cov}(f(\textbf{x}), f(\textbf{x}')) = k(\textbf{x}, \textbf{x}').
-%\end{align}
-%The matrix containing all the covariances of an input vector, $\textbf{x}_i$, is, as mentioned, called the \textit{covariance matrix} $K$, whose elements are given by
-%\begin{align}\label{Eq:: covariance matrix}
-%K_{ij} = k(\textbf{x}_i, \textbf{x}_j).
-%\end{align}
-%This matrix is also called the \textit{Gram matrix}. Note that a covariance matrix calculated using a covariance function $k$ is denoted by a capital $K$.
 
-A kernel function that only depends on the difference between two points, $\textbf{x}-\textbf{x}'$, is called \textit{stationary}, \textit{i.e.} invariant to translations in input space. If, in addition, it only depends on the length $r=|\textbf{x}-\textbf{x}'|$, the function is \textit{isotropic}\footnote{Invariant to rigid rotations in input space.}.  Isotropic functions are commonly referred to as \textit{radial basis functions}, as they are only functions of $r$. 
+A kernel function that only depends on the difference between two points, $\textbf{x}-\textbf{x}'$, is called \textit{stationary}, \textit{i.e.} invariant to translations in input space. If, in addition, it only depends on the length $r=|\textbf{x}-\textbf{x}'|$, the function is \textit{isotropic}\footnote{Invariant to rigid rotations in input space.}.  
 
 The covariance function can also depend on the dot product, $\textbf{x} \cdot \textbf{x}'$, and is then called a \textit{dot product} covariance function. The most important covariance functions for this thesis are the \textit{squared exponential covariance function} and the \textit{Mat\'{e}rn class of covariance functions}.
 
@@ -1540,7 +1572,7 @@ where $\ell$ is the \textit{characteristic length scale}. Equation~(\ref{Eq:: ga
 \begin{figure}
 \centering
 \includegraphics[scale=1.5]{figures_gaussian_processes/length_scales_xd.pdf}
-\caption{The effect of varying the length scale $\ell$. A long length scale (blue) gives a smooth, slowly varying function, while a short length scale (red) gives a more staccato, quickly varying function.}
+\caption{The effect of varying the length scale $\ell$. A long length scale (blue) gives a slowly varying function, while a short length scale (red) gives a more staccato, quickly varying function.}
 \label{Fig:: gaussian process : ell variation example}
 \end{figure}
 
@@ -1560,7 +1592,7 @@ where $\nu, \ell > 0$, $K_{\nu}$ is a modified Bessel function \cite{abramowitz1
 \begin{align}
 k_{\nu=p+\frac{1}{2}} = \exp \Big(- \frac{\sqrt{2 \nu} r	}{\ell} \Big) \frac{\Gamma(p+1)}{\Gamma(2p + 1)} \sum^p_{i=0} \frac{(p+i)!}{i!(p-i)!} \Big( \frac{\sqrt{8 \nu} r	}{\ell} \Big)^{p-i}.
 \end{align}
-In statistical learning the two most common cases are for $\nu = 3/2$ and $\nu = 5/2$
+In statistical learning the two most commonly used cases are for $\nu = 3/2$ and $\nu = 5/2$
 \begin{align}
 k_{\nu = 3/2}(r) &=  \Big(1 + \frac{\sqrt{3}r}{\ell} \Big) \exp \Big( -\frac{\sqrt{3}r}{\ell} \Big),\\
 k_{\nu = 5/2}(r) &=  \Big(1 + \frac{\sqrt{5}r}{\ell}  + \frac{5r^2}{3 \ell^2}\Big) \exp \Big( -\frac{\sqrt{5}r}{\ell} \Big).
@@ -1576,11 +1608,11 @@ k_{\nu = 5/2}(r) &=  \Big(1 + \frac{\sqrt{5}r}{\ell}  + \frac{5r^2}{3 \ell^2}\Bi
 \subsection{Noise}\label{Sec:: gaussian process : Noise Covariance Function}
 
 
-The covariance function can also contain information about noise in the data. If the noise follows a Gaussian distribution $\varepsilon \sim \mathcal{N}(0, \sigma_n^2)$, the noise is represented by adding the variance, $\sigma_n^2$, to the diagonal of the covariance matrix
+The covariance function can also contain information about noise in the data. If the noise $\varepsilon$ follows a Gaussian distribution $\varepsilon \sim \mathcal{N}(0, \sigma_n^2)$, the noise can be represented by adding the variance, $\sigma_n^2$, to the diagonal of the covariance matrix
 \begin{align}
-k(\textbf{x}_i, \textbf{x}_j)_{noise} = \sigma^2_n \delta_{ij},
+k(\textbf{x}_p, \textbf{x}_q)_{noise} = \sigma^2_n \delta_{pq},
 \end{align}
-where $\delta_{ij}$ is the Kronecker delta. The model where the noise is assumed to follow a Gaussian distribution is called the \textit{Gaussian noise model}, and is discussed in Sec.~\ref{Sec: gaussian process : Gaussian Noise Model}. %In \verb|scikit-learn| this can be implemented either by giving a fixed noise level \verb|alpha| to the regressor function, or by using the \verb|WhiteKernel|, which estimates the noise level from the data. %This kernel is implemented in \verb|scikit-learn| in the following way for noise level $0.001$ with bounds $[10^{-10}, 1]$
+where $\delta_{ij}$ is the Kronecker delta. The model where the noise is assumed to follow a Gaussian distribution is called the \textit{Gaussian noise model}, and is discussed further in Sec.~\ref{Sec: gaussian process : Gaussian Noise Model}. %In \verb|scikit-learn| this can be implemented either by giving a fixed noise level \verb|alpha| to the regressor function, or by using the \verb|WhiteKernel|, which estimates the noise level from the data. %This kernel is implemented in \verb|scikit-learn| in the following way for noise level $0.001$ with bounds $[10^{-10}, 1]$
 %\begin{lstlisting}
 %from sklearn.gaussian_processes.kernels import %WhiteKernel
 %whitenoise = WhiteKernel(noise_level=0.001, noise_level_bounds=(1e-10,1))
@@ -1592,15 +1624,15 @@ The RBF kernel in Eq.~(\ref{Eq:: gaussian process : Squared Exponential Kernel})
 \begin{align}
 r^2(\textbf{x}, \textbf{x}') = (\textbf{x} - \textbf{x}')^T M(\textbf{x} - \textbf{x}'),
 \end{align}
-where $M$ is some positive definite matrix. The matrix $M$ can take multiple forms, such as 
+where $M$ is some positive-definite matrix. An $n \times n$ matrix is said to be positive-definite if the scalar $zMz^T$ is strictly positive for every non-zero column vector $z$ of $n$ real numbers. The matrix $M$ can take multiple forms, such as 
 \begin{align}
-&M_1 = \ell^{-2} \mathbb{I} , &M_2 = \text{diag}(\vec{\ell})^{-2},
+M_1 = \ell^{-2} \mathbb{I} \quad \mathrm{or} \quad M_2 = \text{diag}(\vec{\ell})^{-2},
 \end{align}
-where $\ell^2$ is a scalar, and $\vec{\ell}$ is a vector of the same dimension as the input vectors $\textbf{x}$ and $\textbf{x}'$. Choosing $\vec{\ell}$ to be a vector instead of a scalar is in many cases useful, especially if the input vector $\textbf{x}$ contains values of different scales.
+where $\ell^2$ is a scalar, and $\vec{\ell}$ is a vector of the same dimension as the input vector $\textbf{x}$. Choosing $\vec{\ell}$ to be a vector instead of a scalar is in many cases useful, especially if the input vector $\textbf{x}$ contains values of different scales.
 
 The matrix $M$ is now part of the \textit{hyperparameters} of the kernel. Each kernel has a vector of hyperparameters, denoted $\vec{\theta}$. An example is the following generalisation of the RBF kernel, 
 \begin{align}
-k(\textbf{x}_i, \textbf{x}_j) = \sigma_f^2 \exp \big(- \frac{1}{2} (\textbf{x}_i - \textbf{x}_j)^T M (\textbf{x}_i - \textbf{x}_j) \big) + \sigma_n^2 \delta_{ij},
+k(\textbf{x}_p, \textbf{x}_q) = \sigma_f^2 \exp \big(- \frac{1}{2} (\textbf{x}_p - \textbf{x}_q)^T M (\textbf{x}_p - \textbf{x}_q) \big) + \sigma_n^2 \delta_{pq},
 \end{align}
 where $\sigma_f^2$ is a scaling factor and $\sigma_n^2$ is the Gaussian noise parameter, discussed in Sec.~\ref{Sec:: gaussian process : Noise Covariance Function}. The hyperparameters of this kernel are $\vec{\theta} = (\{M\}, \sigma^2_f, \sigma_n^2)^T$, where $\{M\}$ denotes the parameters in the symmetric matrix $M$. 
 %The length scale can be set to a vector in \verb|scikit-learn| by giving the \verb|length_scale| parameter as a \verb|numpy| array of the same dimension as the input vector $\textbf{x}$.
@@ -1614,13 +1646,17 @@ There are several other types of covariance functions that are not discussed her
 
 \section{Gaussian Process Regression}\label{Sec: gaussian process : Gaussian Process Regression}
 
-Gaussian processes (GP) is a supervised statistical learning method, designed to solve regression and probabilistic classification problems. Only regression is explored in this thesis. This section begins by introducing Gaussian processes and important notation, first in a general sense, and then in the function space view. Then distributions over functions are considered, followed by a short discussion on how functions can be drawn from these distributions. Finally, a quick overview of the noise-free model and the Gaussian noise model, and their covariance matrices, are given.
+Gaussian processes (GP) is a supervised statistical learning method, designed to solve regression and probabilistic classification problems. Only regression is explored in this thesis. This section begins by introducing Gaussian processes and important notation. Then the prior and posterior distributions in Gaussian processes are considered, followed by a short discussion on how functions can be drawn from these distributions. Finally, a quick overview of the noise-free model and the Gaussian noise model are given.
+
+\subsection{Basics and Notation}\label{Sec:: gaussian process : Basics and Notation}
 
 \subsubsection{Gaussian Processes}\label{Sec:: gaussian process : Gaussian Processes}
 
 Consider a set of points $\mathcal{D} = \{\textbf{x}_i, y_i\}$, where $y$ is some (possibly noisy) function of $\textbf{x}$, $y(\textbf{x}) = f(\textbf{x}) + \varepsilon$. Here, $\varepsilon$ is the noise and $f(\textbf{x})$ is the true value of the function. These points are illustrated by the black dots in Fig.~\ref{Fig:: gaussian process : GP illustration}. In statistical learning $\mathcal{D}$ is the \textit{training data}, as it is used to train the model. It consists of \textit{features}, which are the components of the input vectors $\textbf{x}_i$, and \textit{targets}, which are the function values $y_i$. The set of points is discrete, so there is some $\textbf{x}^*$ for which the target $y^*$ is unknown. The test point $\textbf{x}^*$ is marked on the $x$-axis in Fig.~\ref{Fig:: gaussian process : GP illustration}.
 
-Gaussian processes (GP) predict a Gaussian distribution \textit{over function values} at this point $\textbf{x}^*$. The distribution for a single test point $\textbf{x}^*$ has a corresponding mean $m(\textbf{x}^*)$ and variance $\mathbb{V}(\textbf{x}^*)$. Note that the mean $m(\textbf{x}^*)$ \textit{is not the mean of the input vector} $\textbf{x}^*$, but rather \textit{the mean of function values} $f(\textbf{x})$ \textit{evaluated at} $\textbf{x}^*$. The GP prediction for the target value $y^*=f(\textbf{x}^*)$ is the mean $m(\textbf{x}^*)$. Similarly, the variance, $\mathbb{V}(\textbf{x}^*)$, is in fact the variance in function values $f(\textbf{x}^*)$, or the width of the Gaussian distribution (red line) in the $y$-direction in Fig.~\ref{Fig:: gaussian process : GP illustration}. The mean value $y^*$ is drawn as a blue cross in Fig.~\ref{Fig:: gaussian process : GP illustration}. As will be shown, the predicted target $y^*$ is a linear combination of the known targets $y_i$, where the weights are controlled by the covariances between training points $\textbf{x}_i$ and the test point $\textbf{x}^*$.  
+Gaussian processes (GP) predict a Gaussian distribution \textit{over function values} at this point $\textbf{x}^*$. The distribution for a single test point $\textbf{x}^*$ has a corresponding mean $m(\textbf{x}^*)$ and variance $\mathbb{V}(\textbf{x}^*)$. Note that the mean $m(\textbf{x}^*)$ \textit{is not the mean of the input vector} $\textbf{x}^*$, but rather \textit{the mean of function values} $f(\textbf{x})$ \textit{evaluated at} $\textbf{x}^*$. 
+
+The GP prediction for the target value $y^*=f(\textbf{x}^*)$ is the mean $m(\textbf{x}^*)$. Similarly, the variance, $\mathbb{V}(\textbf{x}^*)$, is in fact the variance in function values $f(\textbf{x}^*)$, or the width of the Gaussian distribution (red line) in the $y$-direction in Fig.~\ref{Fig:: gaussian process : GP illustration}. The mean value $y^*$ is drawn as a blue cross in Fig.~\ref{Fig:: gaussian process : GP illustration}. As will be shown, the predicted target $y^*$ is a linear combination of the known targets $y_i$, where the weights are controlled by the covariances between training points $\textbf{x}_i$ and the test point $\textbf{x}^*$.  
 
 
 \begin{figure}
@@ -1634,23 +1670,23 @@ Gaussian processes (GP) predict a Gaussian distribution \textit{over function va
 
 As Gaussian process regression is notoriously confusing, it is helpful to begin with some notation. 
 
-As discussed in Sec.~\ref{Sec: gaussian process : Gaussian Process Regression}, the Gaussian distribution with a mean $\mu$ and variance $\sigma^2$ is denoted $\mathcal{N}(\mu, \sigma^2)$. The distribution can be over a single random variable, \textit{e.g.} $f$, or a finite set of random variables, $f_i$. A Gaussian distribution over several random variables is called a \textit{multivariate Gaussian distribution}. The $n$ random variables $f_i, ~i=1,...,n$ drawn from a multivariate Gaussian distribution make up the $n$-dimensional vector $\textbf{f}$. The mean values, $\mu_i$, are then contained in the $n$-dimensional \textit{mean vector} $m[\textbf{f}]$. The variance, $\sigma^2$, is replaced by an $n \times n$-dimensional covariance matrix, $\text{cov}(\textbf{f})$. The multivariate Gaussian distribution over $\textbf{f}$ is written as
+As introduced in Sec.~\ref{Sec: gaussian process : Gaussian Process Regression}, the Gaussian distribution with a mean $\mu$ and variance $\sigma^2$ is denoted $\mathcal{N}(\mu, \sigma^2)$. The distribution can be over a single random variable, $f$, or a finite set of random variables, $f_i$. A Gaussian distribution over several random variables is called a \textit{multivariate Gaussian distribution}. The $n$ random variables $f_i, ~i=1,...,n$ drawn from a multivariate Gaussian distribution make up the $n$-dimensional vector $\textbf{f}$. The mean values, $\mu_i$, are then contained in the $n$-dimensional \textit{mean vector} $m[\textbf{f}]$. The variance, $\sigma^2$, is replaced by an $n \times n$-dimensional covariance matrix, $\text{cov}(\textbf{f})$. The multivariate Gaussian distribution over $\textbf{f}$ is written as
 \begin{align}
 \textbf{f} \sim \mathcal{N} \big(m[\textbf{f}], ~\text{cov}(\textbf{f})  \big).
 \end{align}  
 
-For $n$ points $\{\textbf{x}_i , y_i\}$, where $\textbf{x}_i$ is an $m$-dimensional feature vector and $y_i$ is the target, the features comprise the $n \times m$-matrix $X$. The targets make up the corresponding $n$-dimensional vector $\textbf{y}$. A central assumption in Gaussian processes is that the covariance between targets $y_i$, $y_j$ is given by the covariance of their features $\textbf{x}_i$, $\textbf{x}_j$
-\begin{align}
+For $n$ points $\{\textbf{x}_i , y_i\}$, where $\textbf{x}_i$ is an $m$-dimensional feature vector and $y_i$ is the target, the features comprise the $n \times m$-matrix $X$. The targets make up the corresponding $n$-dimensional vector $\textbf{y}$. The vector containing the latent function values, \textit{i.e.} $f_i = f(\textbf{x}_i)$, is denoted $\textbf{f}$. A central assumption in Gaussian process regression is that the covariance between targets $y_i$, $y_j$ is given by the kernel of their features $\textbf{x}_i$, $\textbf{x}_j$
+\begin{align}\label{Eq:: gaussian process : cov(y) gaussian process}
 \text{cov}(y_i, y_j) = k(\textbf{x}_i, \textbf{x}_j),
 \end{align}
 where $k(\textbf{x}_i, \textbf{x}_j)$ is a covariance function, as described in Sec.~\ref{Sec:: gaussian processes : Covariance functions}. In Gaussian processes the distribution over target values $\textbf{y}$ with feature matrix $X$ will therefore be written
 \begin{align}\label{Eq:: gaussian process : Normal distribution GP}
 \textbf{y} \sim \mathcal{N} \big(~m[ \textbf{y} ], K(X, X) ~\big),
 \end{align}
-where $K(X,X)$ is the covariance matrix containing the covariances of the features in $X$, calculated using the covariance function $k(\textbf{x}, \textbf{x}')$.
+where $K(X,X)$ is the covariance matrix containing the covariances of the features in $X$, calculated using the covariance function $k(\textbf{x}_i, \textbf{x}_j)$.
 
 Finally, a Gaussian process will be denoted $\mathcal{GP}$. It may be difficult to distinguish between a Gaussian \textit{distribution}, $\mathcal{N}$, and a Gaussian \textit{process}, $\mathcal{GP}$. The difference can be thought of as the difference between a finite collection of function values $f_i = f(\textbf{x}_i)$, and the continuous function, $f(\textbf{x})$. The former can be viewed as a vector $\textbf{f}$, and can be drawn from a distribution such as the one in Eq.~(\ref{Eq:: gaussian process : Normal distribution GP}), $\textbf{f} \sim \mathcal{N}(~m[\textbf{f} ], K(X, X)~)$. The latter is a \textit{function}, drawn from a distribution \textit{over functions}, where the mean $m(\textbf{x})$\footnote{Note that the mean \textit{function} of $\textbf{x}$ uses round brackets, $m(\textbf{x})$, while the mean \textit{value} of $\textbf{x}$ uses square brackets $m[\textbf{x}]$.} and covariances $k(\textbf{x}, \textbf{x}')$ are functions as well. A function $f(\textbf{x})$ drawn from a Gaussian process is written as 
-\begin{align}
+\begin{align}\label{Eq:: gaussian process : draw function from GP}
 f(\textbf{x}) \sim \mathcal{GP} (m(\textbf{x}), k(\textbf{x}, \textbf{x}')).
 \end{align}
 
@@ -1661,15 +1697,12 @@ Gaussian processes are distributions over functions. It is therefore useful to c
 m(\textbf{x}) &= \mathbb{E}[f(\textbf{x})],\\
 k(\textbf{x}, \textbf{x}') &= \mathbb{E} [(f(\textbf{x}) - m(\textbf{x}))(f(\textbf{x}') - m(\textbf{x}'))].
 \end{align}
-In other words, the mean $m(\textbf{x})$ is the expected value of the function $f(\textbf{x})$ at $\textbf{x}$, and the covariance function is the expected value of the simultaneous deviations of $f(\textbf{x})$ from the mean $m(\textbf{x})$ at $\textbf{x}$, and $f(\textbf{x}')$ from the mean $m(\textbf{x}')$ at $\textbf{x}'$. As mentioned, the mean and covariance are now \textit{functions} of the input vector $\textbf{x}$. This means that for every input vector $\textbf{x}$, there is a Gaussian distribution over function values with a mean $m(\textbf{x})$ and covariance with the function value at $\textbf{x}$ given by $k(\textbf{x}, \textbf{x}')$. This is a generalization of the single test point in Fig.~\ref{Fig:: gaussian process : GP illustration}, where every point $\textbf{x}^*$ gets a similar distribution.
 
-The collection of Gaussian distributions over functions that are now a function of the input vector $\textbf{x}$ are the Gaussian processes, $\mathcal{GP}$. In the same way that a random variable is drawn from a distribution, random functions can be drawn from the $\mathcal{GP}$,
-\begin{align}
-f(\textbf{x}) \sim \mathcal{GP}(m(\textbf{x}), k(\textbf{x}, \textbf{x}')).
-\end{align}
-How functions are drawn from distributions is discussed in more detail in a later section.
+In other words, the mean $m(\textbf{x})$ is the expected value of the function $f(\textbf{x})$ at $\textbf{x}$, and the covariance function is the expected value of the simultaneous deviations of $f(\textbf{x})$ from the mean $m(\textbf{x})$ at $\textbf{x}$, and $f(\textbf{x}')$ from the mean $m(\textbf{x}')$ at $\textbf{x}'$. As mentioned, the mean and covariance are now \textit{functions} of the input vector $\textbf{x}$. This means that for every input vector $\textbf{x}$, there is a Gaussian distribution over function values with a mean $m(\textbf{x})$ and covariance with the function value at $\textbf{x}'$ given by $k(\textbf{x}, \textbf{x}')$. This is a generalization of the single test point in Fig.~\ref{Fig:: gaussian process : GP illustration}, where every point $\textbf{x}^*$ gets a similar distribution.
 
-The covariance between two points $f(\textbf{x})$ and $f(\textbf{x}')$ is determined by the covariance function $k(\textbf{x}, \textbf{x}')$, as discussed in Sec.~\ref{Sec:: gaussian processes : Covariance functions}. As mentioned, the covariance function calculates the covariance between the \textit{function values}, $f(\textbf{x}_i)$ and $f(\textbf{x}_j)$, and \textit{not} the input vectors, $\textbf{x}_i$ and $\textbf{x}_j$. Rather, the covariance between two function values is a function of the input vectors. Consider again the illustration in Fig.~\ref{Fig:: gaussian process : ell variation example}. The variation in function values $f(\textbf{x}_i)$ and $f(\textbf{x}_j)$ depends on the distance between the points $\textbf{x}_i$ and $\textbf{x}_j$, and the characteristic length scale of the process. If the length scale is large, the two input vectors $\textbf{x}_i$ and $\textbf{x}_j$ can be far away, and still have similar function values $f(\textbf{x}_i)$ and $f(\textbf{x}_j)$. For short length scales, however, nearby points can have very different function values, because the function varies rapidly.
+The collection of Gaussian distributions over functions that are now a function of the input vector $\textbf{x}$ are the Gaussian processes, $\mathcal{GP}$. In the same way that a random variable is drawn from a distribution, random functions can be drawn from the $\mathcal{GP}$, as shown in Eq.~(\ref{Eq:: gaussian process : draw function from GP}). How functions are drawn from the $\mathcal{GP}$ is discussed in more detail in Sec.~\ref{Sec:: gaussian process : the prior and posterior distribution}.
+
+The covariance between $f(\textbf{x})$ and $f(\textbf{x}')$ is determined by a covariance function $k(\textbf{x}, \textbf{x}')$. As mentioned, the covariance function calculates the covariance between the \textit{function values}, $f(\textbf{x})$ and $f(\textbf{x}')$, and \textit{not} the input vectors, $\textbf{x}$ and $\textbf{x}$. Rather, the covariance between two function values is a function of the input vectors. Consider again the illustration in Fig.~\ref{Fig:: gaussian process : ell variation example}. The variation in function values $f(\textbf{x})$ and $f(\textbf{x}')$ depends on the distance between the points $\textbf{x}$ and $\textbf{x}'$, and the characteristic length scale of the process. If the length scale is large, the two input vectors $\textbf{x}$ and $\textbf{x}'$ can be far away, and still have similar function values $f(\textbf{x})$ and $f(\textbf{x}')$. For short length scales, however, nearby points can have very different function values, because the function varies rapidly.
 
 \subsection{The Prior and Posterior Distribution}\label{Sec:: gaussian process : the prior and posterior distribution}
 
@@ -1683,7 +1716,7 @@ This distribution contains the prior assumptions about the function values $f(\t
 
 \subsubsection{Noise-Free Model}
 
-Now consider the addition of training data to the prior distribution in Eq.~\ref{Eq:: gaussian process : Prior GP}, in the form of a noise-free set of $n$ training points $\{\textbf{x}_i, y_i\}$, so that $y = f(\textbf{x})$. The input vectors $\textbf{x}_i$ form the $n \times m$-matrix $X$, where the rows are the input vectors. The training targets $y_i$ form the corresponding $n$-dimensional vector $\textbf{f}$. The test points are still contained in the $n^* \times m$ matrix $X^*$. The goal is to predict an $n^*$-dimensional vector $\textbf{f}^*$ containing the predictions of the function values at the points $\textbf{x}^*_i$, which is conditioned on the known function values $\textbf{f}$. 
+Now consider the addition of training data to the prior distribution in Eq.~(\ref{Eq:: gaussian process : Prior GP}), in the form of a noise-free set of $n$ training points $\{\textbf{x}_i, y_i\}$, so that $y = f(\textbf{x})$. The input vectors $\textbf{x}_i$ form the $n \times m$-matrix $X$, where the rows are the input vectors. The training targets $y_i$ form a corresponding $n$-dimensional vector $\vec{y}$, which in the noise free case is equal to the latent function value vector $\textbf{f}$. The test points are still contained in the $n^* \times m$ matrix $X^*$. The goal is to predict an $n^*$-dimensional vector $\textbf{f}^*$ containing the predictions of the function values at the points $\textbf{x}^*_i$, which is conditioned on the known function values $\textbf{f}$. 
 
 The joint distribution of training outputs, $\textbf{f}$, and test outputs, $\textbf{f}^*$, according to the prior in Eq.~(\ref{Eq:: gaussian process : Prior GP}) is
 \begin{align}
@@ -1702,32 +1735,39 @@ K(X, X^*) & K(X^*, X^*)
 \end{align}
 where, as before, $K(X_i, X'_j)$ is the covariance matrix between the sets of points $\{ \textbf{x}_i \}$ and $\{\textbf{x}'_j \}$ calculated using the covariance function $k(\textbf{x}_i, \textbf{x}'_j)$. By conditioning the distribution of $\textbf{f}^*$ on the observations $\textbf{f}$,  the posterior distribution over $\textbf{f}^*$ is obtained\footnote{For more details, see Appendix A.2 in \cite{rasmussen2006gaussian}.}  \cite{rasmussen2006gaussian} 
 \begin{align}\label{Eq:: gaussian process : Posterior GP noise-free}
-\textbf{f}^* \big| X^*, X, \textbf{f} \sim \mathcal{N}&(K(X^*, X)K(X, X)^{-1} \textbf{f},\\ &K(X^*, X^*) - K(X^*, X)K(X, X)^{-1}K(X, X^*)),
+\textbf{f}^* \big| X^*, X, \textbf{f} \sim \mathcal{N}&(K(X^*, X)K(X, X)^{-1} \textbf{f}, \nonumber \\ &K(X^*, X^*) - K(X^*, X)K(X, X)^{-1}K(X, X^*)),
 \end{align}
-where $\textbf{f}^* | X^*, X, \textbf{f}$ means the target values $\textbf{f}^*$ for the features $X^*$, given the known features $X$ and targets $\textbf{f}$. The prior in Eq.~(\ref{Eq:: gaussian process : Prior GP}) has been modified by the data, $X$ and $\textbf{f}$, to give the posterior in Eq.~(\ref{Eq:: gaussian process : Posterior GP noise-free}), leaving two distributions from which function values can be drawn.
+where $\textbf{f}^* | X^*, X, \textbf{f}$ means the target values $\textbf{f}^*$ for the features $X^*$, given the known features $X$ and targets $\textbf{f}$. The prior in Eq.~(\ref{Eq:: gaussian process : Prior GP}) has been modified by the data, $X$ and $\textbf{f}$, to give the posterior in Eq.~(\ref{Eq:: gaussian process : Posterior GP noise-free}), leaving two different distributions from which function values can be drawn before and after the data.
 
 
 \subsubsection{Drawing Samples}
-All functions $f(\textbf{x})$ that are drawn from the Gaussian process $\mathcal{GP}$ must have a covariance between function values $f(\textbf{x})$ and $f(\textbf{x}')$ determined by the covariance function $k(\textbf{x}, \textbf{x}')$. If, for example, the covariance function has a large length scale, quickly varying functions are not allowed. The mean of the distribution, $m(\textbf{x})$, is \textit{not} the mean value of each function $f(\textbf{x})$ drawn from $\mathcal{GP}$, but rather the mean function value you would get in $\textbf{x}$ if you drew enough functions from the $\mathcal{GP}$. Drawing functions from a distribution in this way will be referred to as \textit{drawing samples}. The samples drawn here will in fact be function vectors $\vec{f}$ drawn from a normal distribution $\mathcal{N}(m[\textbf{f}], K(X, X))$, and not functions $f(\textbf{x})$ from a Gaussian process $\mathcal{GP}(m(\textbf{x}), k(\textbf{x}, \textbf{x}'))$, because the training data and input vectors are sparse, $X$, $\textbf{f}$, $X^*$.
 
-To generate samples $\textbf{f} \sim \mathcal{N}(\textbf{m}, K)$ with a mean vector $\textbf{m}$ and covariance matrix $K$ using a scalar Gaussian generator\footnote{A scalar Gaussian generator generates random numbers from a Gaussian distributions, and can be found in most programming enviroments, such as the \verb|random| environment in \verb|Python|.}, one proceeds as follows: first the Cholesky decomposition $L$ --- also known as the matrix square root ---  of the covariance matrix is found using $K = LL^T$, where $L$ is a lower triangular matrix. A vector $\textbf{u}$ is then generated by multiple calls to the scalar Gaussian generator $\textbf{u} \sim \mathcal{N}(0, I)$. Then $\textbf{f} = \textbf{m} + L \textbf{u}$ has the desired distribution with mean $\textbf{m}$ and covariance $L \mathbb{E} [\textbf{u} \textbf{u}^T]L^T = LL^T = K$, as described in \cite{rasmussen2006gaussian}.
+All functions $f(\textbf{x})$ that are drawn from the Gaussian process $\mathcal{GP}$ must have a covariance between function values $f(\textbf{x})$ and $f(\textbf{x}')$ determined by the covariance function $k(\textbf{x}, \textbf{x}')$.  The mean of the distribution, $m(\textbf{x})$, is \textit{not} the mean value of each function $f(\textbf{x})$ drawn from $\mathcal{GP}$, but rather the mean function value you would get at $\textbf{x}$ if you drew enough functions from the $\mathcal{GP}$. Drawing functions from a distribution in this way will be referred to as \textit{drawing samples}. The samples drawn here will in fact be function vectors $\vec{f}$ drawn from the normal distributions in Eq.~(\ref{Eq:: gaussian process : Prior GP}) and Eq.~(\ref{Eq:: gaussian process : Posterior GP noise-free}), and not functions $f(\textbf{x})$ from a Gaussian process $\mathcal{GP}(m(\textbf{x}), k(\textbf{x}, \textbf{x}'))$.
 
-Using the method described above, random function vectors are drawn from the prior and posterior in Eq.~(\ref{Eq:: gaussian process : Prior GP}) and Eq.~(\ref{Eq:: gaussian process : Posterior GP noise-free}), respectively, and shown in Fig.~\ref{Fig:: gaussian process : prior posterior drawn samples}. As discussed, the samples drawn from the prior have mean equal to zero $m[\textbf{x}]=\vec{0}$, and constant covariance, $K(X^*, X^*)$, meaning that if you drew enough function vectors the mean of all function values at every $\textbf{x}$ would be zero. The prior is shown in the upper panel of Fig.~\ref{Fig:: gaussian process : prior posterior drawn samples}, where the mean of the distribution is represented by the thick, black line, and the covariance is the light blue band around the mean. In the posterior distribution the mean values and covariances have been modified by the training data, represented by red dots in the lower panel of Fig.~\ref{Fig:: gaussian process : prior posterior drawn samples}. In a point where there is training data the uncertainty is zero\footnote{Assuming there is no noise in the data.}, and so all samples drawn from the posterior distribution must pass through this point. Far away from training points the covariance is large. The mean has also been modified to pass through the training points, as seen by the thick black line in the lower panel.
+To generate samples $\textbf{f} \sim \mathcal{N}(\textbf{m}, K)$ with a mean vector $\textbf{m}$ and covariance matrix $K$ using a scalar Gaussian generator\footnote{A scalar Gaussian generator generates random numbers from a Gaussian distributions, and can be found in most programming enviroments, such as the \verb|random| environment in \verb|Python|.}, one proceeds as follows \cite{rasmussen2006gaussian}: first the Cholesky decomposition $L$ --- also known as the matrix square root ---  of the covariance matrix is found using $K = LL^T$, where $L$ is a lower triangular matrix. The Cholesky decomposition requires that the matrix $K$ be Hermitian and positive-definite.  A vector $\textbf{u}$ is then generated by multiple calls to the scalar Gaussian generator $\textbf{u} \sim \mathcal{N}(0, \mathbb{I})$. Then $\textbf{f} = \textbf{m} + L \textbf{u}$ has the desired distribution with mean $\textbf{m}$ and covariance
+\begin{align}
+\mathrm{cov}(\textbf{f}) = \mathbb{E}[(\textbf{f} - \textbf{m})(\textbf{f} - \textbf{m})^T] = \mathbb{E}[(L \vec{u})(L \vec{u})^T] = L \mathbb{E} [\textbf{u} \textbf{u}^T]L^T = LL^T = K
+\end{align}
+by the independence of the elements of $\vec{u}$.
+
+Using the method described above, random function vectors have been drawn from the prior and posterior in Eq.~(\ref{Eq:: gaussian process : Prior GP}) and Eq.~(\ref{Eq:: gaussian process : Posterior GP noise-free}), respectively, and shown in Fig.~\ref{Fig:: gaussian process : prior posterior drawn samples}. As discussed, the samples drawn from the prior have mean equal to zero $m[\textbf{x}]=\vec{0}$, and constant covariance, $K(X^*, X^*)$, meaning that if you drew enough function vectors the mean of all function values at every $\textbf{x}$ would be zero. The prior is shown in the upper panel of Fig.~\ref{Fig:: gaussian process : prior posterior drawn samples}, where the mean of the distribution is represented by the thick, black line, and the covariance is the light blue band around the mean. In the posterior distribution the mean values and covariances have been modified by the training data, represented by red dots in the lower panel of Fig.~\ref{Fig:: gaussian process : prior posterior drawn samples}. In a point where there is training data the uncertainty is zero\footnote{Assuming there is no noise in the data.}, and so all samples drawn from the posterior distribution must pass through this point. Far away from training points the covariance is large. The mean has also been modified to pass through the training points, as seen by the thick black line in the lower panel.
 
 \begin{figure}
 \centering
 \includegraphics[scale=0.7]{figures_gaussian_processes/draw_samples_benchmark_ingrid.pdf}
-\caption{Drawing functions from the prior (top) and posterior (bottom) distributions as per the method described in Sec.~\ref{Sec:: gaussian process : the prior and posterior distribution}. The thick, black line represents the mean $m[\textbf{f}^*]$, while the shaded, blue area is the variance $K(X^*, X^*)$. The multiple coloured lines are functions drawn randomly from the prior and posterior distributions, whose correlation are dictated by the covariance function. The prior has mean $\vec{0}$ and covariance given by the RBF kernel $k(r) = \sigma_f^2 \exp(-r^2/\ell^2)$. The posterior (bottom panel) has been modified by training points (red dots), giving rise to zero uncertainty at the points where training data exists, and an altered mean value for the distribution. The kernel has hyperparameters $\sigma_f = 1$ and $\ell = 1$ for the prior, and $\sigma_f = 0.594$ and $\ell = 0.279$ for the posterior. Figure generated using {\tt scikit-learn}.}
+\caption{Drawing functions from the prior (top) and posterior (bottom) distributions as per the method described in Sec.~\ref{Sec:: gaussian process : the prior and posterior distribution}. The thick, black line represents the mean $m[\textbf{f}^*]$, while the shaded, blue area is the variance $K(X^*, X^*)$. The multiple coloured lines are functions drawn randomly from the prior and posterior distributions, whose correlation are dictated by the covariance function. Covariances are given by the RBF kernel $k(r) = \sigma_f^2 \exp(-r^2/\ell^2)$, and the prior has mean $\vec{0}$. The posterior (bottom panel) has been modified by training points (red dots), giving rise to zero uncertainty at the points where training data exists, and an altered mean value for the distribution. The kernel has hyperparameters $\sigma_f = 1$ and $\ell = 1$ for the prior, and $\sigma_f = 0.594$ and $\ell = 0.279$ for the posterior. Figure generated using {\tt scikit-learn}.}
 \label{Fig:: gaussian process : prior posterior drawn samples}
 \end{figure}
 
 \subsubsection{Gaussian Noise Model}\label{Sec: gaussian process : Gaussian Noise Model}
 
-Noise-free observations are rare. In most cases targets will contain some noise $y = f(\textbf{x}) + \varepsilon$, where the noise $\varepsilon$ is assumed to follow a Gaussian distribution $\varepsilon \sim \mathcal{N}(0, \sigma_n^2)$. This is the \textit{Gaussian noise model}. As discussed in Sec.~\ref{Sec:: gaussian processes : Covariance functions} the covariance of a function with Gaussian noise can be expressed as
+Noise-free observations are rare. In most cases targets will contain some noise $y = f(\textbf{x}) + \varepsilon$, where the noise $\varepsilon$ is here assumed to follow a Gaussian distribution $\varepsilon \sim \mathcal{N}(0, \sigma_n^2)$. This is the \textit{Gaussian noise model}. As discussed in Sec.~\ref{Sec:: gaussian processes : Covariance functions} the covariance of a function with Gaussian noise can be expressed as
 \begin{align}
 &\text{cov}(y_i, y_j) = k(\textbf{x}_i, \textbf{x}_j) + \sigma_n^2 \delta_{ij}.
 \end{align}
-Training targets are now contained in the $n$-dimensional vector $\textbf{y}$, while training features are contained in the $n \times m$-matrix $X$, test features in the $n^* \times m$-matrix $X^*$ and predicted targets in the $n^*$-dimensional vector $\textbf{f}^*$, as before. With the addition of noise the prior distribution becomes
+Training targets are contained in the $n$-dimensional vector $\textbf{y}$, which is now different from the latent function vector $\vec{f}$, while training features are contained in the $n \times m$-matrix $X$, test features in the $n^* \times m$-matrix $X^*$ and predicted targets in the $n^*$-dimensional vector $\textbf{f}^*$, as before. Note that the goal is to predict the function values $\vec{f}^*$ and \textit{not} the noisy values $\vec{y}^*$. 
+
+With the addition of noise the prior distribution becomes
 \begin{align}
 \begin{bmatrix}
 \textbf{y}\\
@@ -1749,24 +1789,26 @@ The conditioned distribution is then
 where
 \begin{align}
 m[\textbf{f}^*] &= K(X^*, X) [K(X, X) + \sigma_n^2 \mathbb{I}]^{-1} \textbf{y},\label{Eq:: gaussian process : predicted mean}\\ 
-\text{cov} (\textbf{f}^*) &= K(X^*, X^*) - K(X^*, X)[K(X, X) + \sigma_n^2 \mathbb{I}]^{-1} K(X, X^*). \label{Eq:: gaussian process : predicted variance}
+\text{cov} (\textbf{f}^*) &= K(X^*, X^*) - K(X^*, X)[K(X, X) + \sigma_n^2 \mathbb{I}]^{-1} K(X, X^*), \label{Eq:: gaussian process : predicted variance}
 \end{align}
-Equations~(\ref{Eq:: gaussian process : predicted mean})~--~(\ref{Eq:: gaussian process : predicted variance}) are the key predictive equations for Gaussian process regression. The calculation requires the inverting the $n \times n$-matrix $[K(X,X) + \sigma_n^2 \mathbb{I}]$, which for large $n$ becomes computationally unviable. This is discussed further in Sec.~\ref{Sec:: gaussian process : Distributed Gaussian Processes}, where distributed Gaussian processes are proposed as a way of scaling Gaussian processes to larger training sets.
+which are similar to the mean and covariance in Eq.~(\ref{Eq:: gaussian process : Posterior GP noise-free}), but include noise in the covariance matrix. 
 
-To tidy up the expression in Eqs.~(\ref{Eq:: gaussian process : predicted mean})~--~(\ref{Eq:: gaussian process : predicted variance}) the matrices $K \equiv K(X, X)$ and $K^* \equiv K(X, X^*)$ are defined. For a single test point $\textbf{x}^*$ the matrix $K^*$ is written as a vector $\textbf{k}(X, \textbf{x}^*) = \textbf{k}^*$ to denote the covariances between the $n$ training points and the test point $\textbf{x}^*$. Using this compact notation the GP prediction of $f^*=f(\textbf{x}^*)$ for a single test point $\textbf{x}^*$ is
+Equations~(\ref{Eq:: gaussian process : predicted mean}) and (\ref{Eq:: gaussian process : predicted variance}) are the key predictive equations for Gaussian process regression. The calculation requires inverting the $n \times n$-matrix containing the covariance $[K(X,X)~+~\sigma_n^2 \mathbb{I}]$, which for large $n$ becomes computationally unviable. This is discussed further in Sec.~\ref{Sec:: gaussian process : Distributed Gaussian Processes}, where distributed Gaussian processes are proposed as a way of scaling Gaussian processes to larger training sets.
+
+To tidy up the expressions in Eqs.~(\ref{Eq:: gaussian process : predicted mean}) and (\ref{Eq:: gaussian process : predicted variance}) the covariance matrices $K\equiv K(X, X)$ and $K^* \equiv K(X, X^*)$ are defined. For a single test point $\textbf{x}^*$ the covariance matrix $K^*$ is written as a vector $\textbf{k}(X, \textbf{x}^*) = \textbf{k}^*$ to denote the covariances between the $n$ training points and the test point $\textbf{x}^*$. Using this compact notation the GP prediction of $f^*=f(\textbf{x}^*)$ for a single test point $\textbf{x}^*$ is
 \begin{align}
 m[f^*] &= \textbf{k}^{*T}(K + \sigma_n^2\mathbb{I})^{-1} \textbf{y},\label{Eq:: gaussian process : GP prediction mean}\\
 \mathbb{V}[f^*] &= k(\textbf{x}^*, \textbf{x}^*) - \textbf{k}^{*T}(K + \sigma_n^2 \mathbb{I})^{-1} \textbf{k}^*\label{Eq:: gaussian process : GP prediction variance}.
 \end{align}
-Note that, as mentioned in the beginning of Sec.~\ref{Sec:: gaussian process : Gaussian Processes}, the predicted mean value $m[f^*]$ can be viewed as a linear combination of $y_i$ of the form $\alpha \textbf{y}$, where $\alpha = \textbf{k}^{*T}(K + \sigma_n^2\mathbb{I})^{-1}$. The vector $\alpha$ then only contains the covariance between features.
+Note that, as intimated in Sec.~\ref{Sec:: gaussian process : Basics and Notation}, the predicted mean value $m[f^*]$ can be viewed as a linear combination of $y_i$ of the form $\alpha \textbf{y}$, where $\alpha = \textbf{k}^{*T}(K + \sigma_n^2\mathbb{I})^{-1}$. The vector $\alpha$ then only contains the covariance between features.
 
-Equations (\ref{Eq:: gaussian process : GP prediction mean})~--~(\ref{Eq:: gaussian process : GP prediction variance}) form the basis for GP prediction in \verb|scikit-learn|  \cite{scikit-learn}. The algorithm for Gaussian process regression on a single test point $\textbf{x}^*$, with training data $X$, $\textbf{y}$ is outlined in Algorithm \ref{Alg:: gaussian process : GP}. The algorithm uses the Cholesky decomposition, $L$, of the covariance matrix to find the weights $\vec{\alpha}$ used to calculate the predictive mean $f^*$. The variance $\mathbb{V}[\textbf{x}^*]$ is calculated using $L$ and the covariance of the test point with the training points, $\textbf{k}^* = k(X, \textbf{x}^*)$.
+Equations (\ref{Eq:: gaussian process : GP prediction mean}) and (\ref{Eq:: gaussian process : GP prediction variance}) form the basis for GP prediction in \verb|scikit-learn|  \cite{scikit-learn}. The algorithm for Gaussian process regression on a single test point $\textbf{x}^*$, with training data $X$, $\textbf{y}$ is outlined in Algorithm \ref{Alg:: gaussian process : GP}. The algorithm uses the Cholesky decomposition, $L$, of the covariance matrix to find the weights $\vec{\alpha}$ used to calculate the predictive mean $f^*$. The variance $\mathbb{V}[\textbf{x}^*]$ is calculated using $L$ and the covariance of the test point with the training points, $\textbf{k}^* = k(X, \textbf{x}^*)$.
 
 \begin{algorithm}
-\KwData{$X$ (inputs), \textbf{y} (targets), $k$ (covariance function/kernel), $\sigma_n^2$ (noise level), $\textbf{x}_*$ (test input).}
+\KwData{$X$ (training features), \textbf{y} (targets), $k$ (covariance function/kernel), $\sigma_n^2$ (noise level), $\textbf{x}_*$ (test feature).}
 L = Cholesky decomposition ($K + \sigma_n^2 I$) \;
 $\boldsymbol{\alpha} = (L^T)^{-1}(L^{-1} \textbf{y})$ \;
-$\bar{f}_* = \textbf{k}_*^T \boldsymbol{\alpha}$ \;
+$f_* = \textbf{k}_*^T \boldsymbol{\alpha}$ \;
 $\textbf{v} = L^{-1} \textbf{k}_*$ \;
 $\mathbb{V}[f_*] = k(\textbf{x}_*, \textbf{x}_*) - \textbf{v}^T \textbf{v}$ \;
 $\log p(\textbf{y}|X) = - \frac{1}{2} \textbf{y}^T \boldsymbol{\alpha} - \sum_i \log L_{ii} - \frac{n}{2} \log 2 \pi$ \;
@@ -1780,7 +1822,7 @@ $\log p(\textbf{y}|X) = - \frac{1}{2} \textbf{y}^T \boldsymbol{\alpha} - \sum_i 
 
 \section{Model Selection}
 
-Choosing the right kernel and hyperparameters, introduced in Sec.~\ref{Sec:: gaussian processes : Covariance functions}, is an important part of Gaussian process regression. Finding the  kernel and corresponding hyperparameters that best fit the data is often called \textit{model selection}. Model selection is also referred to as \textit{training} in statistical learning. In this section Bayesian model selection for the marginal likelihood is quickly overviewed, and the log marginal likelihood and cross validation are introduced as tools to optimise Gaussian process estimators.
+Choosing the right kernel and hyperparameters is an important part of Gaussian process regression. Finding the  kernel and corresponding hyperparameters that best fit the data is often called \textit{model selection}. Model selection is also referred to as \textit{training} in statistical learning. In this section Bayesian model selection for the marginal likelihood is quickly overviewed, and the log marginal likelihood and cross validation are introduced as tools to optimise Gaussian process estimators.
 
 \subsection{Log Marginal Likelihood}\label{Sec:: gaussian process : Log Marginal Likelihood}
 
@@ -1790,14 +1832,14 @@ P(\textbf{y} | X, \boldsymbol{\theta}) = \int P(\textbf{y}| \textbf{f}, X, \bold
 \end{align}
 where $P(\textbf{f}|X, \boldsymbol{\theta})$ is the prior and $P(\textbf{y}|\textbf{f},X, \boldsymbol{\theta})$ is the likelihood. Under the Gaussian process model the prior is a Gaussian, $\textbf{y} \sim \mathcal{N}(\textbf{0}, K + \sigma^2_n \mathbb{I})$, so the logarithm of the marginal likelihood in Eq.~(\ref{Eq:: gaussian process : Marginal likelihood}) gives for the \textit{log marginal likelihood} (LML) \cite{rasmussen2006gaussian} 
 \begin{align}\label{Eq:: gaussian process : LML gaussian process}
-\log P(\textbf{y}|X, \boldsymbol{\theta}) = - \frac{1}{2} \textbf{y}^T (K + \sigma_n^2 \mathbb{I})^{-1} \textbf{y} - \frac{1}{2} \log \big|K + \sigma_n^2 \mathbb{I}\big| - \frac{n}{2} \log 2 \pi,
+\log P(\textbf{y}|X, \boldsymbol{\theta}) = - \frac{1}{2} \textbf{y}^T K_y^{-1} \textbf{y} - \frac{1}{2} \log \big|K_y| - \frac{n}{2} \log 2 \pi,
 \end{align}
-where $n$ is the number of training points. Each term in Eq.~(\ref{Eq:: gaussian process : LML gaussian process}) has an interpretation: $- \frac{1}{2} \textbf{y}^T (K + \sigma_n^2 \mathbb{I})^{-1} \textbf{y}$ is the only term involving the data, and is therefore the data-fit; $-\frac{1}{2} \log \big| K + \sigma_n^2 \mathbb{I} \big|$ is the complexity penalty depending only on the covariance function and the inputs; and $- \frac{n}{2} \log 2 \pi$ is a normalization term. 
+where $n$ is the number of training points, $K_y = K_f + \sigma_n^2 \mathbb{I}$ is the covariance matrix for the noisy targets $\vec{y}$, and $K_f$ is the covariance matrix for the latent function values $\vec{f}$.. Each term in Eq.~(\ref{Eq:: gaussian process : LML gaussian process}) has an interpretation: $- \frac{1}{2} \textbf{y}^T (K + \sigma_n^2 \mathbb{I})^{-1} \textbf{y}$ is the only term involving the data, and is therefore the data-fit; $-\frac{1}{2} \log \big| K + \sigma_n^2 \mathbb{I} \big|$ is the complexity penalty depending only on the covariance function and the inputs; and $- \frac{n}{2} \log 2 \pi$ is a normalization term. 
 
 As mentioned, the goal is to use the marginal likelihood to determine the optimal hyperparameters of the covariance function, $\boldsymbol{\theta}$. Note that the marginal likelihood in Eq.~(\ref{Eq:: gaussian process : Marginal likelihood}) is the probability of the training outputs, $\textbf{y}$, given the training inputs $X$ and the hyperparameters $\boldsymbol{\theta}$. Maximizing the log marginal likelihood for the hyperparameters will therefore give the best estimate for the data $\vec{y}$ with respect to the hyperparameters $\boldsymbol{\theta}$, as per the discussion in Sec.~\ref{Sec:: gaussian process : Best estimate}. Maximizing the LML requires finding the partial derivatives 
 \begin{align}
 \frac{\partial}{\partial \theta_j}
- \log p(\textbf{y}|X, \boldsymbol{\theta}) = \frac{1}{2} \textbf{y}^T K^{-1} \frac{\partial K}{\partial \theta_j} K^{-1} \textbf{y} - \frac{1}{2} \text{tr} (K^{-1} \frac{\partial K}{\partial \theta_j}).
+ \log p(\textbf{y}|X, \boldsymbol{\theta}) = \frac{1}{2} \textbf{y}^T K_y^{-1} \frac{\partial K_y}{\partial \theta_j} K_y^{-1} \textbf{y} - \frac{1}{2} \text{tr} (K_y^{-1} \frac{\partial K_y}{\partial \theta_j}),
 \end{align}
 Using partial derivatives, or the gradients, to find the optimal hyperparameters is called a \textit{gradient based optimiser}. Computing the inverse of a matrix, $K^{-1}$, is computationally complex, and for $n$ training points goes as $\mathcal{O}(n^3)$. Once this is done, however, finding the partial derivatives only requires complexity $\mathcal{O}(n^2)$, and so gradient based optimisers are advantageous.
 
