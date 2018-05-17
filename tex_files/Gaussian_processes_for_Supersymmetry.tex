@@ -119,8 +119,8 @@
 \maketitle
 
 \begin{abstract}
-This thesis explores the fast evaluation of supersymmetric cross sections using Gaussian processes --- a statistical learning method for regression.  
-The time consuming nature of accurate evaluation of higher order cross sections has been a limiting factor in searches for supersymmetry at the LHC and elsewhere.
+This thesis explores the fast evaluation of supersymmetric cross sections using Gaussian processes --- a machine learning method for regression.  
+The time-consuming nature of accurate evaluation of higher order cross sections has been a limiting factor in searches for supersymmetry at the LHC and elsewhere.
 The recent proposition of distributing Gaussian processes between individual estimators, in the form of a robust Bayesian Comittee Machine, allows for the use of larger datasets than before, thus putting the desired accuracy for regression within reach. The distributed Gaussian processes also allow for parallelisation to make evaluation even  faster. A distributed Gaussian model for squark pair production in proton-proton collisions was built and tested, predicting cross sections within $10 \%$ of next-to-leading order cross sections calculated by \verb|Prospino 2.1| in a fraction of the time.
 \end{abstract}
 
@@ -132,11 +132,12 @@ The recent proposition of distributing Gaussian processes between individual est
 
 
 \chapter*{\centering Takk}
-F{\o}rst og fremst tusen takk til Are Raklev, som har v{\ae}rt en fantastisk veileder og som ga meg en oppgave jeg virkelig har kost meg med. Jeg har satt veldig stor pris p{\aa} at d{\o}ren din alltid har vært {\aa}pen, og at du har forklart meg ting gang på gang, uten at jeg har følt meg dum. En takk til Anders og Jeriek ogs{\aa}, som svarte p{\aa} sp{\o}rsm{\aa}l om uforst{\aa}elig statistikk til alle mulige tider, og Jon Vegard som banet veien for min oppgave. 
+F{\o}rst og fremst tusen takk til Are Raklev, som har v{\ae}rt en fantastisk veileder og som ga meg en oppgave jeg virkelig har kost meg med. Jeg har satt veldig stor pris p{\aa} at d{\o}ren din alltid har v{\ae}rt {\aa}pen, og at du har forklart meg ting gang p{\aa} gang, uten at jeg har f{\o}lt meg dum. En takk til Anders Kvellestad og Jeriek Vda ogs{\aa}, som svarte p{\aa} sp{\o}rsm{\aa}l om uforst{\aa}elig statistikk til alle mulige tider, og Jon Vegard Sparre som banet veien for min oppgave. Tusen takk til Eli Rye som, helt fra du l{\aa}nte meg Griffiths under en desperat eksamenstid, har v{\ae}rt en moralsk st{\o}tte og et forbilde.
 
-Takk til hele teorigruppa for at det har v{\ae}rt en s{\aa} hyggelig gruppe {\aa} v{\ae}re en del av. Enten det har v{\ae}rt til lunsj eller kake, eller eldgammel Bailey's funnet under ryddig av kontorer, har jeg alltid kost meg og følt meg hjemme i deres selskap. S{\ae}rlig takk til August, min gode venn og kontorkamerat, som jeg nok ikke hadde kommet meg gjennom masteren uten (det hadde i hvertfall v{\ae}rt mye kjedeligere).
+Takk til hele teorigruppa for at det har v{\ae}rt en s{\aa} hyggelig gruppe {\aa} v{\ae}re en del av. Enten det har v{\ae}rt til lunsj eller kake, eller eldgammel Bailey's funnet under ryddig av kontorer, har jeg alltid kost meg og f{\o}lt meg hjemme i deres selskap. S{\ae}rlig takk til August, min gode venn og kontorkamerat, som jeg nok ikke hadde kommet meg gjennom masteren uten (det hadde i hvertfall v{\ae}rt mye kjedeligere).
 
-Tusen takk til mamma, pappa, Georg, farmor og Aba, for at dere er min evige heiagjeng og glede her i livet, og minner meg p{\aa} at jeg nok overlever masteren ogs{\aa}. Og Markus, takk for at du alltid tar telefonen n{\aa}r jeg trenger {\aa} bable eller klage, og for at du alltid er den som f{\aa}r meg i godt hum{\o}r igjen.
+Tusen takk til mamma, pappa, Georg, farmor og Aba, for at dere er min fine familie og evige heiagjeng. Og Markus, dette {\aa}ret som jeg trodde skulle bli t{\o}ft, langt og slitsomt, har blitt et av de beste, og det er nok p{\aa} grunn av deg.
+
 
 De som fortjener mest av {\ae}ren for min fine tid p{\aa} Blindern er faministene. Tusen takk Vilde, Pernille, Mari, Elisabeth og Helene. Takk for at dere alltid f{\aa}r meg til {\aa} le, for alle merkelige og morsomme ting vi har funnet p{\aa}, for de s{\aa}rt trengte Spania-turene v{\aa}re, og for at dere alltid er der n{\aa}r jeg trenger dere. 
 
@@ -155,13 +156,13 @@ The CPU intensive part of this work was performed on the Abel Cluster, owned by 
 
 The recent discovery of the Higgs boson \cite{Aad:2012tfa, Chatrchyan:2012xdj} and its precisely measured mass has validated the Standard Model of particle physics at the electroweak energy scale. Between the electroweak scale and the Planck scale, there is a large hierarchy which cannot be explained in the Standard Model without enormous fine-tuning of its parameters. Fine-tuning parameters in order to explain experimental results makes a model theoretically unsatisfactory. If the parameters of the Standard Model are \textit{not} fine tuned, however, large discrepancies arise between the measured and predicted Higgs boson mass. This is called the \textit{hierarchy problem}. The hierarchy problem can be solved by a theoretical extension of the Standard Model called \textit{supersymmetry}. In supersymmetry every Standard Model particle has a supersymmetric partner, whose spin differs by $1/2$ from the spin of the Standard Model particle. 
 
-Supersymmetry is yet to be observed. One of the experiments searching for supersymmetry is the \textit{Large Hadron Collider} (LHC)\nomenclature[P]{LHC}{Large Hadron Collider} at CERN. Collision data from the Large Hadron Collider is available for $7$ TeV, $8$ TeV and $13$ TeV center of mass energy collisions, and is used to search for supersymmetric signals. In the absence of a signal, global fits are used to find exclusion limits on supersymmetric models, \textit{e.g.} which masses the supersymmetric particles \textit{cannot} have. If a signal is found in the future, global fits will be used to find the parameters of the model. To this end, supersymmetric cross sections need to be calculated with the highest possible accuracy.
+Supersymmetry is yet to be observed. One of the experiments searching for supersymmetry is the \textit{Large Hadron Collider} (LHC)\nomenclature[P]{LHC}{Large Hadron Collider} at CERN. Collision data from the LHC is available for $7$ TeV, $8$ TeV and $13$ TeV center-of-mass energy collisions, and is used to search for supersymmetric signals. In the absence of a signal, global fits are used to find exclusion limits on supersymmetric models, \textit{e.g.} which masses the supersymmetric particles \textit{cannot} have. If a signal is found in the future, global fits will be used to find the parameters of the model. To this end, supersymmetric cross sections need to be calculated with the highest possible accuracy.
 
 Cross sections in quantum field theory become more accurate the more terms are included in the perturbative coupling expansion, such as the next-to-leading and next-to-next-to-leading order terms. In particular, proton-proton cross sections in the \textit{Minimal Supersymmetric Standard Model} --- which is the model investigated in this thesis --- are highly sensitive to higher order QCD\nomenclature[P]{QCD}{Quantum chromodynamics} terms.
 
-In \cite{Beenakker:1996ch} the next-to-leading order (NLO)\nomenclature[P]{NLO}{Next-to-leading order} cross sections for supersymmetric strong processes are calculated. The NLO terms, although important, are time-consuming to evaluate because of the numerical integrals. Today, supersymmetric NLO cross sections can be calculated numerically using tools such as \verb|Prospino 2.1| \cite{Beenakker:1996ed} and \verb|NLL-fast 2.1| \cite{Beenakker:2015rna}. While the former requires long computation times, the latter has a more limited parameter space. 
+In \cite{Beenakker:1996ch} the next-to-leading order (NLO)\nomenclature[P]{NLO}{Next-to-leading order} cross sections for supersymmetric strong processes are calculated. The NLO terms, although important, are time-consuming to evaluate because of complicated numerical integrals. Today, supersymmetric NLO cross sections can be calculated numerically using tools such as \verb|Prospino 2.1| \cite{Beenakker:1996ed} and \verb|NLL-fast 2.1| \cite{Beenakker:2015rna}. While the former requires long computation times, the latter has a more limited parameter space. 
 
-In this thesis a statistical learning method, called \textit{Gaussian processes} (GP)\nomenclature[S]{GP}{Gaussian processes}, is proposed as a new tool for fast estimation of NLO supersymmetric cross sections. Gaussian process regression is an algorithm that predicts a Gaussian distributions over function values, and uses Bayesian principles to supplement training data with prior knowledge. Seeing as GP scale poorly with the size of training data, the \textit{distributed Gaussian processes} (DGP)\nomenclature[S]{DGP}{Distributed Gaussian processes} proposed in \cite{deisenroth2015distributed} are here used for the larger datasets needed for the desired accuracy of regression. DGP are also a way of parallelising computations, to make evaluation even faster. The goal for the GP estimator is to have relative errors below $10\%$, to keep regression errors subdominant. The cross sections investigated in this thesis are for the pair production of squarks in proton-proton collisions.
+In this thesis a machine learning method, called \textit{Gaussian processes} (GP)\nomenclature[S]{GP}{Gaussian processes}, is proposed as a new tool for fast estimation of NLO supersymmetric cross sections. Gaussian process regression is an algorithm that predicts Gaussian distributions over function values, and uses Bayesian principles to supplement training data with prior knowledge. Seeing as GP scale poorly with the size of training data, the \textit{distributed Gaussian processes} (DGP)\nomenclature[S]{DGP}{Distributed Gaussian processes} proposed in \cite{deisenroth2015distributed} are here used for the larger datasets needed for the desired accuracy of regression. DGP are also a way of parallelising computations, to make evaluation even faster. The goal for the GP estimator is to have relative errors below $10\%$, in order to keep regression errors subdominant. The cross sections investigated in this thesis are for the pair production of squarks in proton-proton collisions.
 
 A basic review of the hierarchy problem and supersymmetry is given in \autoref{Chapter:Physics Background}. In \autoref{Chapter:Supersymmetry at Hadron Colliders} the possibility of supersymmetric production at hadron colliders is discussed, and the cross section for squark pair production is calculated to leading order and NLO terms are discussed. Basics of Bayesian statistics and Gaussian processes are introduced in \autoref{Chapter:Gaussian Processes}, along with the model selection techniques of Bayesian model selection and cross validation. The performance of Gaussian processes evaluating squark pair production cross sections are investigated in \autoref{Chapter:Evaluating Cross Sections using Gaussian Processes}, in addition to the use of distributed Gaussian processes, and the results for the best distributed Gaussian process estimators are shown in \autoref{Chapter:Results}, before conclusions and possibilities for further work are presented.
 
@@ -184,7 +185,7 @@ The \textit{Standard Model of particle physics} (SM)\nomenclature[P]{SM}{The Sta
 
 \subsubsection{The Higgs Mechanism}\label{Sec:: phys back : The Higgs Mechanism}
 
-The Standard Model is a gauge theory based on the internal symmetry group $SU(3)_C \times SU(2)_L \times U(1)_Y$. The $SU(3)_C$ \nomenclature[P]{$SU(3)_C$}{Symmetry group for strong interaction} group is the symmetry group for strong interactions, or quantum chromodynamics, and $SU(2)_L \times U(1)_Y$ \nomenclature[P]{$SU(2)_L \times U(1)_Y$}{Symmetry group for electroweak interaction} is the electroweak symmetry group. In order for the particles to obtain masses the electroweak symmetry must be spontaneously broken, and to keep charge conservation it is broken down to $U(1)_{\mathrm{em}}$ \nomenclature[P]{$U(1)_{\mathrm{em}}$}{Symmetry group for electromagnetic interaction}. The symmetry is broken when the Higgs field obtains a non-zero \textit{vacuum expectation value} (\textit{vev})\nomenclature[P]{\textit{vev}}{Vacuum expectation value} --- meaning that it has some field value when the governing potential is at its minimum. The Higgs field $\Phi$ is a self-interacting complex $SU(2)_L$ doublet whose Lagrangian is given by
+The Standard Model is a gauge theory based on the internal symmetry group $SU(3)_C \times SU(2)_L \times U(1)_Y$. The $SU(3)_C$ \nomenclature[P]{$SU(3)_C$}{Symmetry group for strong interaction} group is the symmetry group for strong interactions, or quantum chromodynamics, and $SU(2)_L \times U(1)_Y$ \nomenclature[P]{$SU(2)_L \times U(1)_Y$}{Symmetry group for electroweak interaction} is the electroweak symmetry group. In order for the particles to obtain masses the electroweak symmetry must be spontaneously broken, and to keep charge conservation it is broken down to $U(1)_{\mathrm{em}}$\nomenclature[P]{$U(1)_{\mathrm{em}}$}{Symmetry group for electromagnetic interaction}. The symmetry is broken when the Higgs field obtains a non-zero \textit{vacuum expectation value} (\textit{vev})\nomenclature[P]{\textit{vev}}{Vacuum expectation value} --- meaning that it has some field value when the governing potential is at its minimum. The Higgs field $\Phi$ is a self-interacting complex $SU(2)_L$ doublet whose Lagrangian is given by
 \begin{align}
 \mathcal{L}_{\Phi} = \partial_{\mu} \Phi^{\dagger} \partial^{\mu} \Phi + V(\Phi),
 \end{align}
@@ -206,11 +207,11 @@ Another argument for the introduction of supersymmetry is gauge coupling unifica
 
 \section{The Hierarchy Problem}
 
-The Higgs boson was discovered at the Large Hadron Collider (LHC) in 2012, and its mass was measured to be around $m_H \sim 125~\mathrm{GeV}$\nomenclature[P]{$m_H$}{The Higgs boson mass} \cite{Aad:2012tfa}. The Higgs mass in the Standard Model receives fermionic and bosonic loop-contributions to its mass, such as those shown in Fig.~\ref{Fig:: Phys. bac.: Higgs mass contributions}. The expression for the mass can then be written in terms of the bare parameter $m_{H0}$ and the corrections $\Delta m_H$
+The Higgs boson was discovered at the Large Hadron Collider (LHC) in 2012, and its mass was measured to be around $m_H \sim 125~\mathrm{GeV}$\nomenclature[P]{$m_H$}{The Higgs boson mass} \cite{Aad:2012tfa}. In the Standard Model the Higgs mass receives fermionic and bosonic loop-contributions, such as those shown in Fig.~\ref{Fig:: Phys. bac.: Higgs mass contributions}. The expression for the mass can then be written in terms of the bare parameter $m_{H0}$ and the corrections $\Delta m_H$
 \begin{align*}
 m_H^2 = m_{H0}^2 + \Delta m_H^2.
 \end{align*}
-Loop diagrams contain divergences, because of integrals over all possible momenta for the virtual particles in the loops. A way to get rid of these divergences is to regularise the expressions. One way to do regularisation is dimensional regularisation. There is also a neat trick that introduces a \textit{cut-off scale}, which sets an upper limit for the integral over momentum. A common choice for the cut-off scale $\Lambda$ is the Planck scale, as this is where new physics is needed to explain gravity in the Standard Model. The Planck scale is of the order of $\Lambda_P \sim 10^{18}$ GeV. After regularization, the generic mass correction terms are
+Loop diagrams contain divergences, because of integrals over all possible momenta for the virtual particles in the loops. A way to get rid of these divergences is to regularise the expressions, \textit{e.g.} by using dimensional regularisation. There is also a neat trick that introduces a \textit{cut-off scale}, which sets an upper limit for the integral over momentum. A common choice for the cut-off scale, $\Lambda$, is the Planck scale, as this is where new physics is needed to explain gravity in the Standard Model. The Planck scale is of the order of $\Lambda_P \sim 10^{18}$ GeV. After regularization, the generic mass correction terms are
 \begin{align}
 \Delta m_H^2 = - \frac{|\lambda_f|^2}{8\pi^2} \Lambda_P^2 + \frac{\lambda_s}{16\pi^2} \Lambda_P^2 +...,
 \end{align}
@@ -273,14 +274,14 @@ P^{\mu} P_{\mu} Q_A \ket{m, j_3} = Q_A P^{\mu} P_{\mu} \ket{m, j_3} = m^2 Q_A \k
 
 \subsubsection{Superpartners}\label{Sec:: phys back : Superpartners}
 
-States that transform into each other via $Q_A$ and $\bar{Q}_{\dot{A}}$ are called \textit{superpartners}. From Eq.~(\ref{Eq:: phys back : PPQ}) it can be seen that, in unbroken supersymmetry, the partnering fermions and bosons have the same mass. Superpartners fall into irreducible representations of the superalgebra called \textit{supermultiplets}. The superpartners are the fermionic and bosonic states of the supermultiplets. The supersymmetry generators commute with the gauge generators as well, so superpartners that are part of the same supermultiplet must also have the same electric charges, weak isospin and colour degrees of freedom \cite{Martin:1997ns}. The number of bosonic and fermionic degrees of freedom in each supermultiplet is equal, since $\{Q, \bar{Q}\} \sim P$ and $P$ is a one-to-one mapping 
+States that transform into each other via $Q_A$ and $\bar{Q}_{\dot{A}}$ are called \textit{superpartners}. From Eq.~(\ref{Eq:: phys back : PPQ}) it can be seen that, in unbroken supersymmetry, the partnering fermions and bosons have the same mass. Superpartners fall into irreducible representations of the superalgebra called \textit{supermultiplets}. The superpartners are the fermionic and bosonic states of the supermultiplets. The supersymmetry generators commute with the gauge generators as well, so superpartners that are part of the same supermultiplet must also have the same electric charges, weak isospin and colour degrees of freedom \cite{Martin:1997ns}. The number of bosonic and fermionic degrees of freedom in each supermultiplet is equal, since $\{Q, \bar{Q}\} \sim P$ and $P$ is a one-to-one mapping,
 \begin{align}\label{Eq:: pysh back : nB=nF}
 n_B = n_F.
 \end{align}
 
 The simplest possibility (smallest irreducible representation) for a supermultiplet that obeys Eq.~(\ref{Eq:: pysh back : nB=nF}) has a single Weyl fermion, with $n_F =2$, and two real scalars, each with $n_B=1$, assembled to a complex scalar field. This is called a \textit{chiral} multiplet. Chiral multiplets are the only supermultiplets that can contain fermions whose left-handed partners transform differently under the gauge-group than their right-handed partners \cite{Martin:1997ns}. Since this is the case for the SM fermions, these must be members of chiral supermultiplets. The superpartners of the quarks and leptons must therefore be spin-0 bosons. The scalar partners of the fermions are denoted by the prefix `s' for scalar, such as the \textit{squarks} and the \textit{sleptons}. The left- and right-handed pieces of the quarks and leptons are separate two-component Weyl spinors since the SM fermions are Dirac-fermions, so each has its own complex scalar partner. For example, the up-type quark $u$ has two scalar partners, $\widetilde{u}_R$ and $\widetilde{u}_L$, where superpartners are denoted by a tilde $\sim$. The squarks are not right- or lefthanded, the names simply indicate which component of the Dirac fermion they are the superpartners of.
 
-The next-to-simplest supermultiplet has a spin-1 vector boson, with $n_B=2$, and a massless spin-$1/2$ Weyl spinor, also with $n_F=2$. The vector bosons here are the gauge bosons, and their fermionic superpartners are called \textit{gauginos}. These multiplets are called \textit{vector}, or \textit{gauge} supermultiplets. 
+The next-to-simplest supermultiplet has a spin-1 vector boson, with $n_B=2$, and a massless spin-$1/2$ Weyl spinor, also with $n_F=2$. The vector bosons here are the gauge bosons, and their fermionic superpartners are called \textit{gauginos}. These multiplets are called \textit{vector}, or \textit{gauge}, supermultiplets. 
 
 
 
@@ -346,7 +347,9 @@ The general covariant derivatives that are invariant under supersymmetry transfo
 D_A & \equiv \partial_A + i (\sigma^{\mu} \bar{\theta})_A \partial_{\mu},\\
 \bar{D}^{\dot{A}} & \equiv -\partial^{\dot{A}} - i (\sigma^{\mu} \theta)^{\dot{A}} \partial_{\mu}.\label{Eq:: phys back : susy covariant derivative Dbar}
 \end{align}
-These covariant derivatives work on the aforementioned superfields, $\Phi$. A chiral supermutliplet is described by a \textit{chiral superfield}, which must obey the following constraints
+These covariant derivatives work on the aforementioned superfields, $\Phi$. 
+
+A chiral supermutliplet is represented by a \textit{chiral superfield}, which must obey the following constraints
 \begin{align}
 \bar{D}_{\dot{A}} \Phi (x, \theta, \bar{\theta}) &= 0 &\text{(left-handed chiral superfield)},\\
 D^A \Phi^{\dagger} (x, \theta, \bar{\theta}) &= 0 &\text{(right-handed chiral superfield)}.
@@ -447,9 +450,9 @@ where $T(R)$ is the Dynkin index for correct normalization of the field strength
 
 \subsection{Soft Supersymmetry Breaking}\label{Sec:: phys back : Soft Supersymmetry Breaking}
 
-As previously mentioned, particles and their corresponding sparticles have identical masses in unbroken supersymmetry. Since sparticles have not yet been observed, supersymmetry must be a broken symmetry. In this section soft supersymmetry breaking is considered as a way of providing extra masses to sparticles, without compromising the solution to the hierarchy problem.
+As previously mentioned, SM particles and their corresponding sparticles have identical masses in unbroken supersymmetry. Since sparticles have not yet been observed, supersymmetry must be a broken symmetry. In this section soft supersymmetry breaking is considered as a way of providing extra masses to sparticles, without compromising the solution to the hierarchy problem.
 
-The Standard Model particles obtain mass through spontaneous symmetry breaking of the electroweak symmetry, as described in Sec.~\ref{Sec:: phys back : The Higgs Mechanism}. Supersymmetry is also assumed to be spontaneously broken, but at a high, inaccessible scale. This is often called a \textit{hidden sector}, where supersymmetry is broken, and mediated down to the visible sector through some mechanism. Supersymmetry can be spontaneously broken via \textit{soft breaking}. Soft breaking entails adding terms to the Lagrangian that break supersymmetry explicitly, while preserving the cancellations of divergences that fixes the hierarchy problem. These are called \textit{soft terms}, and there are several restrictions on them. That a term is \textit{soft} means that the coupling has mass dimension one or higher, to avoid divergences from loop contributions to scalar masses. The possible soft terms can be written in terms of their component fields
+The SM particles obtain mass through spontaneous symmetry breaking of the electroweak symmetry, as described in Sec.~\ref{Sec:: phys back : The Higgs Mechanism}. Supersymmetry is also assumed to be spontaneously broken, but at a high, inaccessible scale. This is often called a \textit{hidden sector}, where supersymmetry is broken, and mediated down to the visible sector through some mechanism. Supersymmetry can be spontaneously broken via \textit{soft breaking}. Soft breaking entails adding terms to the Lagrangian that break supersymmetry explicitly, while preserving the cancellations of divergences that fixes the hierarchy problem. These are called \textit{soft terms}, and there are several restrictions on them. That a term is \textit{soft} means that the coupling has mass dimension one or higher, to avoid divergences from loop contributions to scalar masses. The possible soft terms can be written in terms of their component fields
 \begin{align}\label{Eq:: phys back : Soft breaking terms}
 \mathcal{L}_{soft} =& - \frac{1}{2} M \lambda^A \lambda_A - \Big(\frac{1}{6} a_{ijk} A_i A_j A_k + \frac{1}{2} b_{ij} A_i A_j + t_i A_i  + \text{ c.c.} \Big) \nonumber \\& - m_{ij}^2 A_i^*A_j,
 \end{align}
@@ -481,7 +484,7 @@ l_i
 ~\text{ and } ~
 \bar{E}_i,
 \end{align}
-where $i=1,2,3$ is the generation index. The superfields $l_i$ and $\bar{E}_i$ combine to give charged leptons and sleptons, and $\nu_i$ give the (left-handed) neutrinos and sneutrinos. Note that there is no right-handed $\bar{N}_i$. This is a convention, as MSSM is older than the discovery of massive neutrinos. 
+where $i=1,2,3$ is the generation index. The superfields $l_i$ and $\bar{E}_i$ combine to give charged leptons and sleptons, and $\nu_i$ give the (left-handed) neutrinos and sneutrinos. Note that there is no right-handed $\bar{N}_i$. This is a convention, as the MSSM is older than the discovery of massive neutrinos. 
 
 \subsubsection{Quarks}
 
@@ -505,7 +508,7 @@ The spin-1 bosons constructed from these superfields are the SM gauge bosons $g$
 
 \subsubsection{Higgs Boson}
 
-Finally, supermultiplets are needed for the Higgs. The Higgs is a scalar particle, so it must reside in a chiral supermultiplet, as discussed in Sec.~\ref{Sec:: phys back : Superpartners}. The supersymmetry version of the SM Higgs $SU(2)_L$ doublet would mix left- and right-handed superfields in order to give masses to all the fermions, and therefore cannot appear in the superpotential. The minimal allowed Higgs content are two $SU(2)_L$ Higgs doublets $H_u$ and $H_d$\nomenclature[P]{$H_u,~H_d$}{The Higgs superfields}, indexed according to the quarks they give mass to. The superfield doublets are
+Finally, supermultiplets are needed for the Higgs. The Higgs is a scalar particle, so it must reside in a chiral supermultiplet, as discussed in Sec.~\ref{Sec:: phys back : Superpartners}. The supersymmetry version of the SM Higgs $SU(2)_L$ doublet would mix left- and right-handed superfields in order to give masses to all the fermions, and therefore cannot appear in the superpotential. The minimal allowed Higgs content are two $SU(2)_L$ Higgs doublets $H_u$ and $H_d$\nomenclature[P]{$H_u,~H_d$}{The Higgs superfields}, indexed according to the quarks they give masses to. The superfield doublets are
 \begin{align}
 &H_u = \begin{pmatrix}
 H_u^+\\
@@ -538,7 +541,7 @@ $g$ & & $\widetilde{g}$ & $g$ & 8 & 1 & 0\\
 $W$ && $\widetilde{W}^{1,2,3}$ & $W^{1,2,3}$ & 1 & 3 & 0 \\
 $B$ && $\widetilde{B}$ & $B$ & 1 & 1 & 0 \\ \bottomrule
 \end{tabular}
-\caption{Gauge and chiral supermultiplets in the Minimal Supersymmetric Standard Model with SM gauge group representations. The index $i=1,2,3$ runs over the three generations of quarks and lepton. Table from \cite{Kvellestad:2015cpa}.}
+\caption{Gauge and chiral supermultiplets in the Minimal Supersymmetric Standard Model with SM gauge group representations. The index $i=1,2,3$ runs over the three generations of quarks and leptons. Table from \cite{Kvellestad:2015cpa}.}
 \label{Tab:: Phys. back. : MSSM multiplets}
 \end{table}
 
@@ -582,7 +585,7 @@ The most general supersymmetric Lagrangian with the fields in Sec.~\ref{Sec:: ph
 \begin{align}\label{Eq:: R-parity}
 P_R \equiv (-1)^{3(B-L) +2s},
 \end{align}
-where $s$ is spin, $B$ is baryon number and $L$ is lepton number. This quantity is $+1$ for SM particles and scalar Higgs fields, and $-1$ for sparticles. If $R$-parity is to be conserved sparticles must therefore always be produced and annihilated in pairs. A further consequence is that there must exist a stable, \textit{lightest supersymmetric particle} (LSP) \nomenclature[P]{LSP}{Lightest supersymmetric particle}, to which all other supersymmetric particles eventually decay. For this particle to have gone undetected it should have zero eletric and colour charge. These properties make the LSP a good candidate for dark matter \cite{Weinberg:1995mt}.
+where $s$ is spin, $B$ is baryon number and $L$ is lepton number. This quantity is $+1$ for SM particles and scalar Higgs fields, and $-1$ for sparticles. If $R$-parity is to be conserved, sparticles must therefore always be produced and annihilated in pairs. A further consequence is that there must exist a stable, \textit{lightest supersymmetric particle} (LSP) \nomenclature[P]{LSP}{Lightest supersymmetric particle}, to which all other supersymmetric particles eventually decay. For this particle to have gone undetected it should have zero eletric and colour charge. These properties make the LSP a good candidate for dark matter \cite{Weinberg:1995mt}.
 
 \subsection{Soft Breaking terms}\label{Sec:: phys back : Soft breaking terms}
 
@@ -639,7 +642,7 @@ where $0< \beta < \frac{\pi}{2}$. Using the condition for the existence of an ex
 \begin{align}
 \frac{\partial V}{\partial H_u^0} = \frac{\partial V}{\partial H_d^0} = 0,
 \end{align}
-parameters can be eliminated. Either the Higgs masses $m_{H_d}^2$ and $m_{H_u}^2$ can be eliminated, or the parameters $|\mu|$ and $b$. The sign of $\mu$, however, cannot be eliminated, because only the magnitude of $mu$, $|\mu|$, appears in the potential. The Higgs sector parameters can then either be
+parameters can be eliminated. Either the Higgs masses $m_{H_d}^2$ and $m_{H_u}^2$ can be eliminated, or the parameters $|\mu|$ and $b$. The sign of $\mu$, however, cannot be eliminated, because only the magnitude of $\mu$, $|\mu|$, appears in the potential. The Higgs sector parameters can then either be
 \begin{align}
 \tan \beta, \quad \mu, \quad b,
 \end{align}
@@ -721,7 +724,7 @@ with the mass splittings between the same generation left-handed squarks given b
 \begin{align}\label{Eq:: phys back : mass splitting dL uL}
 m_{\widetilde{d}_L}^2 - m_{\widetilde{u}_L}^2 = - \frac{1}{2} g^2(v_d - v_u) = - \cos 2 \beta ~ m_W^2.
 \end{align}
-The second generation has a corresponding structure.
+The second generation squarks have a corresponding structure.
 
 
 \subsubsection{Neutralinos and Charginos}
@@ -730,7 +733,7 @@ Electroweak symmetry breaking allows the gauge fields to mix. The only requireme
 \begin{align}
 \widetilde{\chi}_i^0 &= N_{i1} \widetilde{B}^0 + N_{i2} \widetilde{W}^0 + N_{i3} \widetilde{H}_d^0 + N_{i4} \widetilde{H}_u^0,
 \end{align}
-for $i=1,2,3,4$, where $N_{ij}$ indicates how much of each component field is mixed in the neutralino. There are also charged particles, known as \textit{charginos}, which are similar to the neutralinos but mixes $\widetilde{W}^+$, $\widetilde{H}_u^+$, $\widetilde{W}^-$ and $\widetilde{H}_d^-$.
+for $i=1,2,3,4$, where $N_{ij}$ indicates how much of each component field is mixed in the neutralino. There are also charged particles, known as \textit{charginos}, which are similar to the neutralinos but are mixes of $\widetilde{W}^+$, $\widetilde{H}_u^+$, $\widetilde{W}^-$ and $\widetilde{H}_d^-$.
 
 \subsection{MSSM-24}\label{Sec:: phys back : MSSM-24}
 
@@ -738,13 +741,13 @@ As noted in Sec.~\ref{Sec:: phys back : Soft breaking terms}, the MSSM introduce
 
 Off-diagonal terms in the slepton and squark mass matrices $(m_f^2)_{ij},~i\neq j$, could induce flavour-changing neutral current processes, such as $\mu \rightarrow e \gamma$. Since these processes have strong experimental bounds, the squark and lepton mass matrices are assumed to be diagonal,
 \begin{align}
-(m_f^2)_{ij} = \text{diag}(m_{\widetilde{f}1}^2, m_{\widetilde{f}2}^2, m_{\widetilde{f}3}^2), ~f = u, d, e, Q, L.
+(m_f^2)_{ij} = \text{diag}(m_{\widetilde{f}1}^2, m_{\widetilde{f}2}^2, m_{\widetilde{f}3}^2), ~f = U, D, E, Q, L.
 \end{align}
 Another restriction comes from CP-violation. To avoid inducing large CP-violating phases, the gaugino masses and trilinear couplings are assumed to be real
 \begin{align}
 \text{Im}(M_1) = \text{Im}(M_2) = \text{Im} (M_3) = \text{Im} (A_0^u) = \text{Im} (A_0^d) = \text{Im} (A_0^e) = 0.
 \end{align}
-Finally, as there is a one-to-one correspondence between the trilinear terms in the SM $y_{ij}^f$ and in the MSSM $a^f_{ij}$, these are taken to be related through proportionality constants
+Finally, as there is a one-to-one correspondence between the trilinear terms in the SM, $y_{ij}^f$, and in the MSSM, $a^f_{ij}$, these are taken to be related through proportionality constants
 \begin{align}
 a^u_{ij} = A_0^uy_{ij}^u, ~a^d_{ij} = A_0^dy_{ij}^d, ~a^e_{ij} = A_0^ey_{ij}^e.
 \end{align}
@@ -765,7 +768,7 @@ In addition, a scale must be given where these parameters are defined, because t
 
 Another version of the MSSM with (much) fewer parameters is the \textit{Constrained MSSM} (CMSSM)\nomenclature[P]{CMSSM}{Constrained Minimal Supersymmetric Standard Model}, also called \textit{minimal supergravity} (mSUGRA). As mentioned in Sec.~\ref{Sec:: phys back : Soft Supersymmetry Breaking} supersymmetry is assumed to be broken in a \textit{hidden sector}, which is some non-accessible high energy scale where the fields of the sector have very small or no direct couplings to the fields in the visible sector. These fields aquire a nonzero vacuum expectation value that is mediated down to the visible sector, via an interaction that is common for both sectors. 
 
-In the CMSSM the breaking mechanism used is the \textit{Planck-Mediated Symmetry Breaking} (PMSB)\nomenclature[P]{PMSB}{Planck-Mediated Symmetry Breaking}. In PMSB some gravity mechanism  mediates the breaking of supersymmetry at the Planck energy scale $\Lambda_P~\sim~10^{18}~\mathrm{GeV}$, which explains the name minimal super\textit{gravity}. In this scheme it is assumed that soft terms only provide the following four (and a half) parameters
+In the CMSSM the breaking mechanism used is the \textit{Planck-Mediated Symmetry Breaking} (PMSB)\nomenclature[P]{PMSB}{Planck-Mediated Symmetry Breaking}. In PMSB some gravity mechanism  mediates the breaking of supersymmetry at the Planck energy scale, $\Lambda_P~\sim~10^{18}~\mathrm{GeV}$, which explains the name minimal super\textit{gravity}. In this scheme it is assumed that soft terms only provide the following four (and a half) parameters
 \begin{align}
 &m_{1/2}, &&m_0^2, &&A_0, &&\tan \beta, &&\mathrm{sgn}~ \mu,
 \end{align}
@@ -807,7 +810,7 @@ The very high energies at the LHC require strong magnets to bend the beam trajec
 
 \subsection{Parton Distribution Functions}\label{Sec:: susy hadron : Parton Distribution Functions}
 
-Unlike synchrotron radiation, which is an issue for leptons and hadrons alike at differing energy scales, \textit{uncertainty in longitudinal momentum} is a challenge specific to hadron collisions. Hadrons are made up of valence and sea quarks as well as gluons, which make the kinematics of collisions very difficult to determine. Valence quarks are the quarks used to classify a hadron, such as $uud$ for the proton and $udd$ for the neutron. In addition to these, hadrons contain a sea of virtual quarks and gluons from the strong interaction. The quarks and gluons, called \textit{partons}, distribute the hadron momentum somewhat stochastically amongst themselves. Since the distribution of energy and momentum is \textit{a priori} unknown, so is the momentum of the ingoing parton, and thus the center of mass energy of the partonic collision. There is, however, some experimental knowledge of the statistical distribution of longitudinal momentum contained in \textit{parton distribution functions}.
+Unlike synchrotron radiation, which is an issue for leptons and hadrons alike at differing energy scales, \textit{uncertainty in longitudinal momentum} is a challenge specific to hadron collisions. Hadrons are made up of valence and sea quarks as well as gluons, which make the kinematics of collisions very difficult to determine. Valence quarks are the quarks used to classify a hadron, such as $uud$ for the proton and $udd$ for the neutron. In addition to these, hadrons contain a sea of virtual quarks and gluons from the strong interaction. The quarks and gluons, called \textit{partons}, distribute the hadron momentum somewhat stochastically amongst themselves. Since the distribution of energy and momentum is \textit{a priori} unknown, so is the momentum of the ingoing parton, and thus the center-of-mass energy of the partonic collision. There is, however, some experimental knowledge of the statistical distribution of longitudinal momentum contained in \textit{parton distribution functions}.
 
 \textit{Partonic cross sections} are calculated for the collision of \textit{partons}. The partonic cross section is a function of the squared center-of-mass energy of the partons, $s$, which can be written as a fraction of the total squared center-of-mass energy of the colliding hadrons, $S$, as
 \begin{align}
@@ -941,12 +944,12 @@ Allowing for $R$-parity violation opens up for more final-state possibilities. T
 \end{figure}
 
 
-Searches and corresponding limits are available from the data recorded in 2015 by the ATLAS experiment in $\sqrt{s}=13$~TeV proton-proton collisions at the LHC, with an integrated luminosity of $3.2 \text{ fb}^{-1}$. The analysis in \cite{Aaboud:2016zdn} included searches for jets and missing transverse energy. Simplified models were assumed, considering only gluinos and the first two generations of squarks with $R$-parity conservation and the lightest neutralino as the lightest supersymmetric particle. At $95 \%$ confidence level, exclusion limits of the gluino and squark masses are set at $1.51$~TeV and $1.03$~TeV, respectively \cite{Aaboud:2016zdn}, assuming a \textit{massless lightest neutralino}. A plot of exclusion limits in the squark -- neutralino and gluino -- neutralino mass planes is shown in Fig.\ \ref{Fig:: susy hadron : ATLAS exclusion limits}. In this thesis squark and gluino masses in the interval $[0,4000]~\mathrm{GeV}$ are explored, as the neutralino is assumed to be massive.
+Searches and corresponding limits are available from the data recorded in 2015 by the ATLAS experiment in $\sqrt{s}=13$~TeV proton-proton collisions at the LHC, with an integrated luminosity of $3.2 \text{ fb}^{-1}$. The analysis in \cite{Aaboud:2016zdn} included searches for jets and missing transverse energy. Simplified models were assumed, considering only gluinos and the first two generations of squarks with $R$-parity conservation and the lightest neutralino as the lightest supersymmetric particle. At $95 \%$ confidence level, exclusion limits of the gluino and squark masses are set at $1.51$~TeV and $1.03$~TeV, respectively \cite{Aaboud:2016zdn}, assuming a \textit{massless lightest neutralino}. Plots of exclusion limits in the squark -- neutralino and gluino -- neutralino mass planes is shown in Fig.\ \ref{Fig:: susy hadron : ATLAS exclusion limits}. In this thesis squark and gluino masses in the interval $[0,4000]~\mathrm{GeV}$ are explored, as the neutralino is assumed to be massive.
 
 
 
 \section{Squark-Squark Cross Section}
-The process investigated in this thesis is the production of squark pairs in quark-quark collisions,
+The supersymmetric process investigated in this thesis is the production of squark pairs in quark-quark collisions,
 \begin{align}
 q_i q_j \rightarrow \widetilde{q}_i \widetilde{q}_j,
 \end{align}
@@ -1022,7 +1025,7 @@ where $C_F = (N^2 - 1)/(2N)$. Averaging over spin gives
 \sum |\mathcal{M}_t|^2 &= \frac{1}{2} NC_F \times \frac{4 g^4}{t_g^2} \text{tr} \big[ 
 \slashed{k}_1 P (\slashed{p} + m_{\widetilde{g}}) P' \slashed{k}_2 P (\slashed{p} + m_{\widetilde{g}}) P' \big],
 \end{align*}
-where, as previously mentioned, the quarks are considered massless. The final state squarks can right- og left-handed, and all four combinations contribute to the total cross section. Recall that the squarks are not, in fact, right- or left-handed, but are scalar partners of the right- and left-handed components of the quarks. 
+where, as previously mentioned, the quarks are considered massless. The final state squarks can be the right- og left-handed versions of the squarks, and all four combinations contribute to the total cross section. Recall that the squarks are not, in fact, right- or left-handed, but are scalar partners of the right- and left-handed components of the quarks. 
 
 \subsubsection{Different chiralities $P=P_{R/L}$, $P'=P_{L/R}$}
 For squarks of different chiralities the trace becomes
@@ -1043,7 +1046,7 @@ For squarks of equal chiralities the trace becomes
 \text{tr} \big[ 
 \slashed{k}_1 P_{R/L} (\slashed{p} + m_{\widetilde{g}}) P_{R/L} \slashed{k}_2 P_{R/L} (\slashed{p} + m_{\widetilde{g}}) P_{R/L} \big]&= 2  m_{\widetilde{g}}^2 (k_1 \cdot k_2)= m_{\widetilde{g}}^2 s.
 \end{align*}
-For equal flavour quarks $qq$ there are now two possibilities for equal chirality squarks, namely $\widetilde{q}_R \widetilde{q}_R$ and $ \widetilde{q}_L \widetilde{q}_L$. For different flavour quarks $qq'$ the two possibilities for equal chiralities are $ \widetilde{q}_L \widetilde{q}'_L$ and $\widetilde{q}_R \widetilde{q}_R'$. 
+For same flavour quarks $qq$ there are now two possibilities for equal chirality squarks, namely $\widetilde{q}_R \widetilde{q}_R$ and $ \widetilde{q}_L \widetilde{q}_L$. For different flavour quarks $qq'$ the two possibilities for equal chiralities are $ \widetilde{q}_L \widetilde{q}'_L$ and $\widetilde{q}_R \widetilde{q}_R'$. 
 
 Note that the contribution to $\widetilde{q}_R \widetilde{q}_R$ is identical to $\widetilde{q}_L \widetilde{q}_L$ in QCD processes. If no electroweak corrections are included in the higher order term, the NLO cross section should also be identical as a function of $m_{\widetilde{q}}$, because only the electroweak interaction couples to right- and left-handed states differently. This will become important later in Sec.~\ref{Sec:: results : The Optimal Model}.
 
@@ -1057,7 +1060,7 @@ where the terms proportional to $\delta_{ij}$ only contribute for same flavour q
 
 \subsubsection{Pure $u$-channel}
 
-The expression for the $u$-channel matrix element in Eq.~(\ref{Eq:: susy hadron : matrix element}) is identical to the $t$-channel matrix element, but for the exchange $t_g^2 \rightarrow u_g^2$. The $u$-channel only contributes for same flavour quarks, $i =j$, so the matrix element squared is
+The expression for the $u$-channel matrix element in Eq.~(\ref{Eq:: susy hadron : matrix element}) is similar to the $t$-channel matrix element, with the exchange $t_g^2 \rightarrow u_g^2$. The $u$-channel only contributes for same flavour quarks, $i =j$, so the matrix element squared is
 \begin{align*}
 \sum |\mathcal{M}_u|^2 &=  NC_F \frac{4g^4}{u_g^2} \delta_{ij} \Big[  \frac{1}{2}(t_1u_1-sm_{\widetilde{q}}^2) + sm_{\widetilde{g}}^2 \Big]. 
 \end{align*}
@@ -1103,13 +1106,13 @@ Adding the cross terms gives the expression for the total cross term in Eq.~(\re
 The matrix elements can be divided into contributions to $\widetilde{q}_{iR} \widetilde{q}_{iR}$, $\widetilde{q}_{iR} \widetilde{q}_{iL}$, $\widetilde{q}_{iR} \widetilde{q}_{jR}$ and $\widetilde{q}_{iR} \widetilde{q}_{jL}$ production, and equivalently for $R \leftrightarrow L$. The matrix elements of the different processes are
 \begin{align}
 &\widetilde{q}_{iR} \widetilde{q}_{iR}, \widetilde{q}_{iL} \widetilde{q}_{iL}: && \sum |\mathcal{M}|_{iRiR} = 4g^4 s m_{\widetilde{g}}^2 \Big[ \frac{1}{2} NC_F\Big( \frac{1}{t_g^2} + \frac{1}{u_g^2} \Big) - C_F \frac{1}{t_gu_g} \Big],\\
-&\widetilde{q}_{iR} \widetilde{q}_{iL}: &&\sum |\mathcal{M}|_{iRiL}=  4 g^4 (u_1t_1 - sm_{\widetilde{q}}^2) \Big[ \frac{1}{2}NC_F \Big( \frac{1}{t_g^2} + \frac{1}{u_g^2} \Big) \Big],\\
+&\widetilde{q}_{iR} \widetilde{q}_{iL}: &&\sum |\mathcal{M}|_{iRiL}=  4 g^4 (t_1u_1 - sm_{\widetilde{q}}^2) \Big[ \frac{1}{2}NC_F \Big( \frac{1}{t_g^2} + \frac{1}{u_g^2} \Big) \Big],\\
 & \widetilde{q}_{iR} \widetilde{q}_{jR}, \widetilde{q}_{iL} \widetilde{q}_{jL}: && \sum |\mathcal{M}|_{iRjR} = 4 g^4 sm_{\widetilde{g}}^2 \Big[\frac{1}{2} NC_F \frac{1}{t_g^2}  \Big],\\
 & \widetilde{q}_{iR} \widetilde{q}_{jL}, \widetilde{q}_{iL} \widetilde{q}_{jR}: && \sum |\mathcal{M}|_{iRjL} = 4 g^4 (t_1u_1 - sm_{\widetilde{q}}^2) \Big[\frac{1}{2} NC_F \frac{1}{t_g^2}  \Big].
 \end{align}
 Note that, as mentioned above, the contributions to $\widetilde{q}_R\widetilde{q}_R$ and $\widetilde{q}_L\widetilde{q}_L$ are identical as functions of $m_{\widetilde{q}}$.
 
-Summing over the terms from different chirality combinations gives  for the total sum over matrix element squared 
+Summing over the terms from different chirality combinations gives for the total matrix element squared 
 \begin{align}
 \sum |\mathcal{M}|^2 = \delta_{ij} & \Bigg[2 g^4NC_F(u_1t_1-sm_{\widetilde{q}}^2) \Big( \frac{1}{t_g^2} + \frac{1}{u_g^2} \Big) \nonumber \\& + 4 g^4 sm_{\widetilde{g}}^2 \Big( NC_F \Big(\frac{1}{t_g^2} + \frac{1}{u_g^2}\Big) -2C_F\frac{1}{u_gt_g} \Big) \Bigg] \nonumber \\
 +& (1-\delta_{ij})\Bigg[4g^4NC_F  \frac{u_1t_1-s(m_{\widetilde{g}}^2-m_{\widetilde{g}}^2)}{t_g^2} \Bigg],
@@ -1129,10 +1132,10 @@ where $\textbf{p}_{1 \mathrm{cm}}$ is the three-momenta of one ingoing particle 
 &+ \delta_{ij} \frac{\pi \alpha_s^2}{s} \Bigg[ \frac{8m_{\widetilde{g}}^2}{27(s+2m_-^2)} L_1 \Bigg],
 \end{align}
 where
-\begin{align*}
+\begin{align}\label{Eq:: susy hadron : LO partonic cross section expressions}
 &L_1 = \ln \Big( \frac{s+2m_-^2-s \beta_{\widetilde{q}}}{s+ 2m_-^2+s \beta_{\widetilde{q}}} \Big), &\beta_{\widetilde{q}} = \sqrt{1-\frac{4m_{\widetilde{q}}^2}{s}}, &&m_-^2 = m_{\widetilde{g}}^2 - m_{\widetilde{q}}^2, &&\alpha_s = \frac{g_s^2}{4 \pi},
-\end{align*}
-which is identical to the one found in \cite{Beenakker:1996ch}.
+\end{align}
+which is identical to the squark production cross section found in \cite{Beenakker:1996ch}.
 
 
 
@@ -1276,7 +1279,7 @@ There are several reasons for calculating these cumbersome NLO terms. Firstly, t
 \label{Fig:: hadron susy : LO vs NLO beenakker}
 \end{figure}
 
-The next-to-leading order cross sections are calculated in \cite{Beenakker:1996ch}, assuming degenerate squark masses $m_{\widetilde{q}}$, with the five lightest quark masses set to zero, and the top quark mass to $m_t =175$ GeV. The two free parameters left in the cross sections are then $m_{\widetilde{g}}$ and $m_{\widetilde{q}}$, as seen in Eq.~(\ref{Eq:: susy hadron : Born term sigma}). The renormalization scheme used is the $\overline{MS}$ scheme. 
+The NLO cross sections are calculated in \cite{Beenakker:1996ch}, assuming degenerate squark masses $m_{\widetilde{q}}$, with the five lightest quark masses set to zero, and the top quark mass to $m_t =175$ GeV. The two free parameters left in the cross sections are then $m_{\widetilde{g}}$ and $m_{\widetilde{q}}$, as seen in Eq.~(\ref{Eq:: susy hadron : Born term sigma}). The renormalization scheme used is the $\overline{MS}$ scheme. 
 
 
 
@@ -1296,7 +1299,7 @@ The scaling functions $f$ are as follows: the Born term $f^B$ from Eq.~(\ref{Eq:
 q_i q_j \rightarrow \widetilde{q}_i  \widetilde{q}_j g.
 \end{align}
 
-The energy near the threshold is the base for an important part of the contributions to the total cross section \cite{Beenakker:1996ch}. In this region the scaling functions can be expanded in the low velocity of produced particles $\beta$, leading to the following expressions \cite{Beenakker:1996ch}
+The energy near the threshold is the base for an important part of the contributions to the total cross section \cite{Beenakker:1996ch}. In this region the scaling functions can be expanded in the low velocity of produced particles $\beta$, leading to the following expressions for squark pair production \cite{Beenakker:1996ch}
 \begin{align}
 &f_{qq}^B = \frac{8 \pi \beta m_{\widetilde{q}}^2 m_{\widetilde{g}}^2}{27(m_{\widetilde{q}}^2 + m_{\widetilde{g}}^2)^2}, &&f_{q'q}^B = \frac{8 \pi \beta m_{\widetilde{q}}^2 m_{\widetilde{g}}^2}{9(m_{\widetilde{q}}^2 + m_{\widetilde{g}}^2)^2} \nonumber \\
 & f_{qq}^{V+S} = f_{qq}^B \frac{1}{24 \beta} && f_{q'q}^{V+S} = f_{q'q}^B \frac{1}{24 \beta} \nonumber \\
@@ -1304,7 +1307,7 @@ The energy near the threshold is the base for an important part of the contribut
 & \bar{f}_{qq} = - f_{qq}^B \frac{2}{3 \pi^2} \log (8 \beta^2) &&\bar{f}_{q'q} = - f_{q'q}^B \frac{2}{3 \pi^2} \log (8 \beta^2).\label{Eq:: susy hadron : Scaling functions near threshold}
 \end{align}
 
-To find the total cross section partonic cross section is then integrated over, as discussed in Sec.~{\ref{Sec:: susy hadron : Parton Distribution Functions}. In \cite{Beenakker:1996ch} the integrals are calculated numerically using the VEGAS integration routine \cite{PETERLEPAGE1978192}.
+To find the total cross section, the partonic cross section is then integrated over, as discussed in Sec.~{\ref{Sec:: susy hadron : Parton Distribution Functions}. In \cite{Beenakker:1996ch} the integrals are calculated numerically using the VEGAS integration routine \cite{PETERLEPAGE1978192}.
 
 
 \subsubsection{K-Factor}
@@ -1330,17 +1333,17 @@ There are two current numerical tools for the calculation of NLO supersymmetric 
 \subsubsection{Prospino}\label{Sec:: susy hadron : Prospino}
 \verb|Prospino 2.1| \cite{Beenakker:1996ed} is a numerical tool that calculates supersymmetric cross sections to next-to-leading order for non-degenerate squark masses. First the LO cross sections are calculated for the five or four lightest squark flavours. The LO and NLO cross sections are then calculated for the mean value of the squark masses, and the corresponding $K$-factor is calculated. The LO cross sections for the individual squark processes are multiplied by the $K$-factor, giving an approximation to the NLO terms for non-degenerate masses. The calculation of NLO cross sections for squark production is outlined in the section above, and described in more detail in \cite{Beenakker:1996ed}. 
 
-\verb|Prospino 2.1| assumes a particular renormalization scale to calculate cross sections. The uncertainty from the scale dependence is estimated in \verb|Prospino 2.1| by calculating cross sections for twice and half the chosen renormalization scale, and seeing how the cross sections change. As demonstrated in Fig.~\ref{Fig:: hadron susy : LO vs NLO beenakker} the scale dependence of cross sections is reduced by adding higher order terms. As a consequence, the scale dependence is also a way of estimating the size of the contribution of higher order terms. 
+\verb|Prospino 2.1| assumes a particular renormalization scale to calculate cross sections. The uncertainty from the scale dependence is estimated in \verb|Prospino 2.1| by calculating cross sections for twice and half the chosen renormalization scale, and seeing how the cross sections change. As demonstrated in Fig.~\ref{Fig:: hadron susy : LO vs NLO beenakker}, the scale dependence of cross sections is reduced by adding higher order terms. As a consequence, the scale dependence is also a way of estimating the size of the contribution of higher order terms. 
 
 
-As was discovered during the project, \verb|Prospino 2.1| has a technical weakness in the heavy squark mass space. \verb|Prospino 2.1| sets the next-to-leading order cross sections to zero when the mean squark mass is above threshold ($m^2 > s$). For individual masses \textit{below} the threshold, with nonzero leading order cross sections, this means inconsistently setting next-to-leading order cross sections to zero. This creates illogical points --- or outliers --- in the dataset.
+As was discovered during the project, \verb|Prospino 2.1| has a technical weakness in the heavy squark mass space. \verb|Prospino 2.1| sets the NLO cross sections to zero when the mean squark mass is above threshold ($m^2 > s$). For individual masses \textit{below} the threshold, with nonzero leading order cross sections, this means inconsistently setting NLO cross sections to zero. This creates unphysical points --- or outliers --- in the dataset.
 
 Evaluating cross sections with \verb|Prospino 2.1| is also highly time-consuming. Evaluating all the strong process cross sections for a single CMSSM benchmark point takes about 15 minutes of CPU time on a modern processor \cite{Balazs:2017moi}. 
 
 
 \subsubsection{NLL-fast}
 
-\verb|NLL-fast 2.1| \cite{Beenakker:1996ch, Kulesza:2008jb, Kulesza:2009kq, Beenakker:2009ha, Beenakker:2011fu} computes the hadronic cross sections of gluino and squark pair production including NLO QCD corrections, and the resummation of soft gluon emission at next-to-leading-logarithmic (NLL)\nomenclature[P]{NLL}{Next-to-leading-logarithmic order} accuracy. It also provides an error estimation, based on the errors from renormalization scale dependence and the parton distribution functions. The calculation is done by reading in tables of pre-calculated LO and NLO+NLL results, the scale uncertainty and the PDF and $\alpha_s$ error, and uses fast grid interpolation to calculate cross sections for any squark and gluino mass in the range $[200, 2500]$ GeV for $\sqrt{s}=8~\mathrm{TeV}$. 
+\verb|NLL-fast 2.1| \cite{Beenakker:1996ch, Kulesza:2008jb, Kulesza:2009kq, Beenakker:2009ha, Beenakker:2011fu} computes the hadronic cross sections of gluino and squark pair production including NLO QCD corrections, and the resummation of soft gluon emission at next-to-leading-logarithmic (NLL)\nomenclature[P]{NLL}{Next-to-leading-logarithmic order} accuracy. It also provides an error estimation, based on the errors from renormalization scale dependence and the parton distribution functions. The calculation is done by reading in tables of pre-calculated LO and NLO+NLL results, the scale uncertainty and the PDF and $\alpha_s$ error, and using fast grid interpolation to calculate cross sections for any squark and gluino mass in the range $[200, 2500]$ GeV for $\sqrt{s}=8~\mathrm{TeV}$. 
 
 \verb|NLL-fast 2.1| is limited in that it only calculates cross sections for mass-degenerate squarks. Since the total cross section for squark pair production consists of 36 different cross sections for combinations of the four lightest quarks, the estimate from \verb|NLL-fast 2.1| is very simplified and unfit, \textit{e.g.} for the MSSM-24 as will be demonstrated in Sec.~\ref{Sec:: results : Cross Sections}.
 
@@ -1440,7 +1443,7 @@ The formal definition of the \textit{mean value} of $X$, denoted $m[X]$\nomencla
 m[X] = \mathbb{E}[X] = \int X P(X | I) ~\text{d}X .
 \end{align}
 
-The variance $\mathbb{V} [X]$\nomenclature[S]{$\mathbb{V}[X]$}{The variance in the variable $X$} is defined as the expectation value of the square of deviations from the mean. For $X$ following a probability distribution $P(X | I)$, the variance is then given by 
+The variance $\mathbb{V} [X]$\nomenclature[S]{$\mathbb{V}[X]$}{The variance in the variable $X$} is defined as the expectation value of the square of deviations from the mean. If the mean value is $X_0$, the variance of $X$ following a probability distribution $P(X | I)$ is then given by 
 \begin{align}\label{Eq:: gaussian process : variance X 1dim}
 \mathbb{V}[X] = \mathbb{E} \big[ (X - X_0)^2 \big] = \int  (X - X_0)^2 P (X| I) ~\text{d}X.
 \end{align}
@@ -1608,11 +1611,11 @@ The \textit{Mat\'{e}rn class of covariance functions} is given by
 \begin{align}\label{Eq:: gaussian process : Matern class of covariance functions}
 k_{\mathrm{Mat\acute{e}rn}} (r) = \frac{2^{1- \nu}}{\Gamma (\nu)} \Big( \frac{\sqrt{2 \nu} r	}{\ell} \Big)^{\nu} K_{\nu} \Big( \frac{\sqrt{2 \nu}r}{\ell} \Big),
 \end{align}
-where $\nu, \ell > 0$, $K_{\nu}$ is a modified Bessel function \cite{abramowitz1964handbook}, and $\Gamma(\nu)$ is the gamma function. The hyperparameter $\nu$ controls the smoothness of the function. For $\nu \rightarrow \infty$ this becomes the RBF, and for $\nu = 1/2$ it becomes the very rough absolute exponential kernel $k(r)= \exp (-r/\ell)$. In the case of half integer $\nu$, $\nu = p + \frac{1}{2}$ for $p \in \mathbb{N}$, the covariance function is simply the product of an exponential and a polynomial
+where $\nu, \ell > 0$, $K_{\nu}$ is a modified Bessel function \cite{abramowitz1964handbook}, and $\Gamma(\nu)$ is the gamma function. The hyperparameter $\nu$ controls the smoothness of the function. For $\nu \rightarrow \infty$ this becomes the RBF, and for $\nu = 1/2$ it becomes the very rough exponential kernel $k(r)= \exp (-r/\ell)$. In the case of half integer $\nu$, $\nu = p + \frac{1}{2}$ for $p \in \mathbb{N}$, the covariance function is simply the product of an exponential and a polynomial
 \begin{align}
 k_{\nu=p+\frac{1}{2}} = \exp \Big(- \frac{\sqrt{2 \nu} r	}{\ell} \Big) \frac{\Gamma(p+1)}{\Gamma(2p + 1)} \sum^p_{i=0} \frac{(p+i)!}{i!(p-i)!} \Big( \frac{\sqrt{8 \nu} r	}{\ell} \Big)^{p-i}.
 \end{align}
-In statistical learning the two most commonly used cases are for $\nu = 3/2$ and $\nu = 5/2$
+In machine learning the two most commonly used cases are for $\nu = 3/2$ and $\nu = 5/2$
 \begin{align}
 k_{\nu = 3/2}(r) &=  \Big(1 + \frac{\sqrt{3}r}{\ell} \Big) \exp \Big( -\frac{\sqrt{3}r}{\ell} \Big),\\
 k_{\nu = 5/2}(r) &=  \Big(1 + \frac{\sqrt{5}r}{\ell}  + \frac{5r^2}{3 \ell^2}\Big) \exp \Big( -\frac{\sqrt{5}r}{\ell} \Big).
@@ -1666,13 +1669,13 @@ There are several other types of covariance functions that are not discussed her
 
 \section{Gaussian Process Regression}\label{Sec: gaussian process : Gaussian Process Regression}
 
-Gaussian processes (GP) is a supervised statistical learning method, designed to solve regression and probabilistic classification problems. Only regression is explored in this thesis. This section begins by introducing Gaussian processes and important notation. Then the prior and posterior distributions in Gaussian processes are considered, followed by a short discussion on how functions can be drawn from these distributions. Finally, a quick overview of the noise-free model and the Gaussian noise model are given.
+Gaussian processes (GP) is a supervised machine learning method, designed to solve regression and probabilistic classification problems. Only regression is explored in this thesis. This section begins by introducing Gaussian processes and important notation. Then the prior and posterior distributions in Gaussian processes are considered, followed by a short discussion on how functions can be drawn from these distributions. Finally, a quick overview of the noise-free model and the Gaussian noise model are given.
 
 \subsection{Basics and Notation}\label{Sec:: gaussian process : Basics and Notation}
 
 %\subsubsection{Gaussian Processes}\label{Sec:: gaussian process : Gaussian Processes}
 
-Consider a set of points $\mathcal{D} = \{\textbf{x}_i, y_i\}$\nomenclature[S]{$\mathcal{D} = \{\textbf{x}_i, y_i\}$}{Training dataset}, where $y$ is some (possibly noisy) function of $\textbf{x}$, $y(\textbf{x}) = f(\textbf{x}) + \varepsilon$. Here, $\varepsilon$ is the noise and $f(\textbf{x})$ is the true value of the function. These points are illustrated by the black dots in Fig.~\ref{Fig:: gaussian process : GP illustration}. In statistical learning $\mathcal{D}$ is the \textit{training data}, as it is used to train the model. It consists of \textit{features}, which are the components of the input vectors $\textbf{x}_i$, and \textit{targets}, which are the function values $y_i$. The set of points is discrete, so there is some $\textbf{x}^*$\nomenclature[S]{$\textbf{x}^*$}{A test feature} for which the target $y^*$ is unknown. The test point $\textbf{x}^*$ is marked on the $x$-axis in Fig.~\ref{Fig:: gaussian process : GP illustration}.
+Consider a set of points $\mathcal{D} = \{\textbf{x}_i, y_i\}$\nomenclature[S]{$\mathcal{D} = \{\textbf{x}_i, y_i\}$}{Training dataset}, where $y$ is some (possibly noisy) function of $\textbf{x}$, $y(\textbf{x}) = f(\textbf{x}) + \varepsilon$. Here, $\varepsilon$ is the noise and $f(\textbf{x})$ is the true value of the function. These points are illustrated by the black dots in Fig.~\ref{Fig:: gaussian process : GP illustration}. In machine learning $\mathcal{D}$ is the \textit{training data}, as it is used to train the model. It consists of \textit{features}, which are the components of the input vectors $\textbf{x}_i$, and \textit{targets}, which are the function values $y_i$. The set of points is discrete, so there is some $\textbf{x}^*$\nomenclature[S]{$\textbf{x}^*$}{A test feature} for which the target $y^*$ is unknown. The test point $\textbf{x}^*$ is marked on the $x$-axis in Fig.~\ref{Fig:: gaussian process : GP illustration}.
 
 Gaussian processes (GP) predict a Gaussian distribution \textit{over function values} at this point $\textbf{x}^*$. The distribution for a single test point $\textbf{x}^*$ has a corresponding mean $m(\textbf{x}^*)$ and variance $\mathbb{V}(\textbf{x}^*)$. Note that the mean $m(\textbf{x}^*)$ \textit{is not the mean of the input vector} $\textbf{x}^*$, but rather \textit{the mean of function values} $f(\textbf{x})$ \textit{evaluated at} $\textbf{x}^*$. 
 
@@ -1705,7 +1708,7 @@ where $k(\textbf{x}_i, \textbf{x}_j)$ is a covariance function, as described in 
 \end{align}
 where $K(X,X)$ is the covariance matrix containing the covariances of the features in $X$, calculated using the covariance function $k(\textbf{x}_i, \textbf{x}_j)$.
 
-Finally, a Gaussian process will be denoted $\mathcal{GP}$. It may be difficult to distinguish between a Gaussian \textit{distribution}, $\mathcal{N}$, and a Gaussian \textit{process}, $\mathcal{GP}$. The difference can be thought of as the difference between a finite collection of function values $f_i = f(\textbf{x}_i)$, and the continuous function, $f(\textbf{x})$. The former can be viewed as a vector $\textbf{f}$, and can be drawn from a distribution such as the one in Eq.~(\ref{Eq:: gaussian process : Normal distribution GP}), $\textbf{f} \sim \mathcal{N}(~m[\textbf{f} ], K(X, X)~)$. The latter is a \textit{function}, drawn from a distribution \textit{over functions}, where the mean $m(\textbf{x})$\nomenclature[S]{$m(\textbf{x})$}{Mean function for Gaussian processes}\footnote{Note that the mean \textit{function} of $\textbf{x}$ uses round brackets, $m(\textbf{x})$, while the mean \textit{value} of $\textbf{x}$ uses square brackets $m[\textbf{x}]$.} and covariances $k(\textbf{x}, \textbf{x}')$\nomenclature[S]{$k(\textbf{x}, \textbf{x}')$}{Covariance function for Gaussian processes} are functions as well. A function $f(\textbf{x})$ drawn from a Gaussian process is written as\nomenclature[S]{$\mathcal{GP}$}{Gaussian processes} 
+Finally, a Gaussian process will be denoted $\mathcal{GP}$. It may be difficult to distinguish between a Gaussian \textit{distribution}, $\mathcal{N}$, and a Gaussian \textit{process}, $\mathcal{GP}$. The difference can be thought of as the difference between a finite collection of function values $f_i = f(\textbf{x}_i)$, and the continuous function, $f(\textbf{x})$. The former can be viewed as a vector $\textbf{f}$, and can be drawn from a distribution such as the one in Eq.~(\ref{Eq:: gaussian process : Normal distribution GP}), $\textbf{f} \sim \mathcal{N}(~m[\textbf{f} ], K(X, X)~)$. The latter is a \textit{function}, drawn from a distribution \textit{over functions}, where the mean $m(\textbf{x})$\nomenclature[S]{$m(\textbf{x})$}{Mean function for Gaussian processes}\footnote{Note that the mean \textit{function} of $\textbf{x}$ uses round brackets, $m(\textbf{x})$, while the mean \textit{value} of $\textbf{x}$ uses square brackets $m[\textbf{x}]$.} and covariances $k(\textbf{x}, \textbf{x}')$ are functions as well. A function $f(\textbf{x})$ drawn from a Gaussian process is written as\nomenclature[S]{$\mathcal{GP}$}{Gaussian processes} 
 \begin{align}\label{Eq:: gaussian process : draw function from GP}
 f(\textbf{x}) \sim \mathcal{GP} (m(\textbf{x}), k(\textbf{x}, \textbf{x}')).
 \end{align}
@@ -1770,7 +1773,7 @@ To generate samples $\textbf{f} \sim \mathcal{N}(\textbf{m}, K)$ with a mean vec
 \end{align}
 by the independence of the elements of $\vec{u}$.
 
-Using the method described above, random function vectors have been drawn from the prior and posterior in Eq.~(\ref{Eq:: gaussian process : Prior GP}) and Eq.~(\ref{Eq:: gaussian process : Posterior GP noise-free}), respectively, and shown in Fig.~\ref{Fig:: gaussian process : prior posterior drawn samples}. As discussed, the samples drawn from the prior have mean equal to zero $m[\textbf{x}]=\vec{0}$, and constant covariance, $K(X^*, X^*)$, meaning that if you drew enough function vectors the mean of all function values at every $\textbf{x}$ would be zero. The prior is shown in the upper panel of Fig.~\ref{Fig:: gaussian process : prior posterior drawn samples}, where the mean of the distribution is represented by the thick, black line, and the covariance is the light blue band around the mean. In the posterior distribution the mean values and covariances have been modified by the training data, represented by red dots in the lower panel of Fig.~\ref{Fig:: gaussian process : prior posterior drawn samples}. In a point where there is training data the uncertainty is zero\footnote{Assuming there is no noise in the data.}, and so all samples drawn from the posterior distribution must pass through this point. Far away from training points the covariance is large. The mean has also been modified to pass through the training points, as seen by the thick black line in the lower panel.
+Using the method described above, random function vectors have been drawn from the prior and posterior in Eq.~(\ref{Eq:: gaussian process : Prior GP}) and Eq.~(\ref{Eq:: gaussian process : Posterior GP noise-free}), respectively, and shown in Fig.~\ref{Fig:: gaussian process : prior posterior drawn samples}. As discussed, the samples drawn from the prior have mean equal to zero $m(\textbf{x})=\vec{0}$, and constant covariance, $K(X^*, X^*)$, meaning that if you drew enough function vectors the mean of all function values at every $\textbf{x}$ would be zero. The prior is shown in the upper panel of Fig.~\ref{Fig:: gaussian process : prior posterior drawn samples}, where the mean of the distribution is represented by the thick, black line, and the covariance is the light blue band around the mean. In the posterior distribution the mean values and covariances have been modified by the training data, represented by red dots in the lower panel of Fig.~\ref{Fig:: gaussian process : prior posterior drawn samples}. In a point where there is training data the uncertainty is zero\footnote{Assuming there is no noise in the data.}, and so all samples drawn from the posterior distribution must pass through this point. Far away from training points the covariance is large. The mean has also been modified to pass through the training points, as seen by the thick black line in the lower panel.
 
 \begin{figure}
 \centering
@@ -1815,7 +1818,7 @@ which are similar to the mean and covariance in Eq.~(\ref{Eq:: gaussian process 
 
 Equations~(\ref{Eq:: gaussian process : predicted mean}) and (\ref{Eq:: gaussian process : predicted variance}) are the key predictive equations for Gaussian process regression. The calculation requires inverting the $n \times n$-matrix containing the covariance $[K(X,X)~+~\sigma_n^2 \mathbb{I}]$, which for large $n$ becomes computationally unviable. This is discussed further in Sec.~\ref{Sec:: gaussian process : Distributed Gaussian Processes}, where distributed Gaussian processes are proposed as a way of scaling Gaussian processes to larger training sets.
 
-To tidy up the expressions in Eqs.~(\ref{Eq:: gaussian process : predicted mean}) and (\ref{Eq:: gaussian process : predicted variance}) the covariance matrices $K\equiv K(X, X)$ and $K^* \equiv K(X, X^*)$ are defined. For a single test point $\textbf{x}^*$ the covariance matrix $K^*$ is written as a vector $\textbf{k}(X, \textbf{x}^*) = \textbf{k}^*$ to denote the covariances between the $n$ training points and the test point $\textbf{x}^*$. Using this compact notation the GP prediction of $f^*=f(\textbf{x}^*)$ for a single test point $\textbf{x}^*$ is
+To tidy up the expressions in Eqs.~(\ref{Eq:: gaussian process : predicted mean}) and (\ref{Eq:: gaussian process : predicted variance}) the covariance matrices $K\equiv K(X, X)$ and $K^* \equiv K(X, X^*)$ are defined. For a single test point $\textbf{x}^*$ the covariance matrix $K^*$ is written as a vector $\textbf{k}^* \equiv \textbf{k}(X, \textbf{x}^*) $ to denote the covariances between the $n$ training points and the test point $\textbf{x}^*$. Using this compact notation the GP prediction of $f^*=f(\textbf{x}^*)$ for a single test point $\textbf{x}^*$ is
 \begin{align}
 m[f^*] &= \textbf{k}^{*T}(K + \sigma_n^2\mathbb{I})^{-1} \textbf{y},\label{Eq:: gaussian process : GP prediction mean}\\
 \mathbb{V}[f^*] &= k(\textbf{x}^*, \textbf{x}^*) - \textbf{k}^{*T}(K + \sigma_n^2 \mathbb{I})^{-1} \textbf{k}^*\label{Eq:: gaussian process : GP prediction variance}.
@@ -1842,7 +1845,7 @@ $\log p(\textbf{y}|X) = - \frac{1}{2} \textbf{y}^T \boldsymbol{\alpha} - \sum_i 
 
 \section{Model Selection}
 
-Choosing the right kernel and hyperparameters is an important part of Gaussian process regression. Finding the  kernel and corresponding hyperparameters that best fit the data is often called \textit{model selection}. Model selection is also referred to as \textit{training} in statistical learning. In this section Bayesian model selection for the marginal likelihood is quickly overviewed, and the log marginal likelihood and cross validation are introduced as tools to optimise Gaussian process estimators.
+Choosing the right kernel and hyperparameters is an important part of Gaussian process regression. Finding the  kernel and corresponding hyperparameters that best fit the data is often called \textit{model selection}. Model selection is also referred to as \textit{training} in machine learning. In this section Bayesian model selection for the marginal likelihood is quickly overviewed, and the log marginal likelihood and cross validation are introduced as tools to optimise Gaussian process estimators.
 
 
 
@@ -1889,17 +1892,17 @@ The LML can have several local optima, as seen in the contour plot of the log ma
 \subsection{Cross Validation}\label{Sec:: gaussian process : Cross Validation}
 
 
-Cross validation is a means of monitoring the performance of a model. In $k$-fold validation this is done by dividing the data into $k$ subsets, or \textit{folds}, and using $k-1$ folds to train the model, and a single fold to validate it. This is repeated $k$ times, one for each possible validation set. Cross-validation requires a scoring function, such as the $R^2$ score. The $R^2$-score is defined by 
+Cross validation is a means of monitoring the performance of a model. In $k$-fold validation this is done by dividing the data into $k$ subsets, or \textit{folds}, and using $k-1$ folds to train the model, and a single fold to validate it. This is repeated $k$ times, one for each possible validation set. Cross-validation requires a scoring function, such as the $R^2$-score. The $R^2$-score is defined by 
 \begin{align}\label{Eq:: gaussian process : R2-score}
 R^2 = 1 - \frac{\sum_{i=0}^{N-1} (y_i - \hat{y}_i)^2}{\sum_{i=0}^{N-1} (y_i - \bar{y})^2},
 \end{align}
 where $\hat{y}_i$ is the predicted value of the $i$th sample, $y_i$ is the true value and $\bar{y}~=~\frac{1}{N} \sum_{i = 0}^{N-1} y_i$ for $N$ samples. This is the score used for cross validation in this thesis.
 
-Cross-validation can be used to plot \textit{learning curves}, which are used to find whether the estimator benefits from adding more data. The learning curve plots the \textit{training score} and \textit{validation score}. The training score is the mean $R^2$-score for the $k$ predictions of the training points, \textit{i.e.} where the $k-1$ folds used for training are also used as test points. The validation score is the mean $R^2$ score for the $k$ predictions of validation points, \textit{i.e.} the one fold that is not a part of the training data. The variances of the $R^2$-scores are used for error bands.
+Cross-validation can be used to plot \textit{learning curves}, which are used to find whether the estimator benefits from adding more data. The learning curve shows the \textit{training score} and \textit{validation score}. The training score is the mean $R^2$-score for the $k$ predictions of the training points, \textit{i.e.} where the $k-1$ folds used for training are also used as test points. The validation score is the mean $R^2$ score for the $k$ predictions of validation points, \textit{i.e.} the one fold that is not a part of the training data. The variances of the $R^2$-scores are used for error bands.
 
 These test- and validation scores are used to find out if the model is \textit{overfitting} or \textit{underfitting}. \textit{Overfitting} means that the model is a perfect fit to the training data, but predicts poorly for test data because it is not general. \textit{Underfitting} occurs when the model is not able to capture the underlying structure of the data. Ideally, the training score should be 1, and the validation score should approach 1 with the addition of data.
 
-Examples of learning curves are shown in Fig.~\ref{Fig:: gaussian process : learning curves} as a function of the number of training points, for two statistical learning techniques called Naive Bayes and Support Vector Machine on an example problem. In \textbf{(a)} both the training score and cross-validation score tend to a value below 1, which indicates underfitting. This model will not benefit from more data. The example in \textbf{(b)} shows a training score of approximately 1, and a cross validation score that converges towards 1. This model could benefit from more data.
+Examples of learning curves are shown in Fig.~\ref{Fig:: gaussian process : learning curves} as a function of the number of training points, for two machine learning techniques called Naive Bayes and Support Vector Machine on an example problem. In \textbf{(a)} both the training score and cross-validation score tend to a value below 1, which indicates underfitting. This model will not benefit from more data. The example in \textbf{(b)} shows a training score of approximately 1, and a cross validation score that converges towards 1. This model could benefit from more data.
 
 \begin{figure}
     \centering
@@ -2144,12 +2147,12 @@ In this section a benchmark Gaussian process estimator is trained for sample pro
 \label{Fig:: evaluating cross : BM dLdL error plot}
 \end{figure}
 
-The sample processes in this section are the pair production of $\widetilde{d}_L \widetilde{d}_L$ and $\widetilde{d}_L \widetilde{u}_R$. The benchmark settings (BM) for the Gaussian process (GP) estimator are 
+The sample processes in this section are the pair production of $\widetilde{d}_L \widetilde{d}_L$ and $\widetilde{d}_L \widetilde{u}_R$. The benchmark settings (BM) for the GP estimator are 
 \begin{itemize}
 \item A GP estimator with 2000 training points.
 \item 20 000 test points.
 \item Features $m_{\widetilde{g}}, m_{\widetilde{d}_L}$ ($m_{\widetilde{g}}, m_{\widetilde{d}_L}, m_{\widetilde{u}_R}$) for $\widetilde{d}_L \widetilde{d}_L$ ($\widetilde{d}_L \widetilde{u}_R$) production.
-\item The exponential squared kernel (RBF) with a white noise term, 
+\item The RBF kernel with a white noise term, 
 \begin{align}\label{Eq:: results : Optimal DGPs kernel}
 k(\textbf{x}_i, \textbf{x}_j)~=~\sigma_f^2 \exp \big(-\frac{1}{2} (\textbf{x}_i-\textbf{x}_j)^TM(\textbf{x} - \textbf{x}') \big) + \sigma_n^2 \delta_{ij},
 \end{align}
@@ -2203,38 +2206,6 @@ Mat\'{e}rn & 119 & 3220  &1700 & 6950 && 0.402\\ \bottomrule
 \caption{Optimised kernel hyperparameters of different estimators for the production of \textbf{(a)} $\widetilde{d}_L \widetilde{d}_L$ and \textbf{(b)} $\widetilde{d}_L \widetilde{u}_R$.}
 \end{table}
 
-%\begin{table}
-%\centering
-%\begin{tabular}{@{}ccrrrl@{}} \toprule
-% & $\sigma_f^2$ & $\ell_{m_{\widetilde{g}}}$ & $\ell_{m_{\widetilde{d}_L}}$ & $\ell_{\bar{m}}$ & $\sigma_n^2$\\ \midrule
-%BM & $1000$ & $4600 $& $ 1880$ & & $0.47$\\
-%No outliers & $1000$ & $3920$ & $182$ & & $0.00372$\\
-%$\sigma > 10^{-16}$~fb & $516$ & $1170$&  $998$ && $0.00336$\\
-%$\bar{m}$ & $1000$ & $1180$ & $199$ & $893$ & $0.0000119$\\
-%Matern & $1000$ & $30200$ & $8600$ && $0.462$\\ \bottomrule
-%\end{tabular}
-%\caption{Optimised kernel hyperparameters of different estimators for the $\widetilde{d}_L \widetilde{d}_L$ cross section.}
-%\label{Tab:: evaluating cross : optimal kernels dLdL}
-%\end{table}
-
-%\begin{table}
-%\centering
-%\begin{tabular}{@{}ccrrrrl@{}} \toprule
-% & $\sigma_f^2$ & $\ell_{m_{\widetilde{g}}}$ & $\ell_{m_{\widetilde{d}_L}}$ & $\ell_{m_{\widetilde{u}_R}}$ & $\ell_{\bar{m}}$ &$\sigma_n^2$\\ \midrule
-%BM & 516 & 3070 & 2700 & 3770 && 0.65 \\
-%No outliers &  1000 & 1010 & 3030 & 3240&& 0.00316\\ 
-%$\sigma > 10^{-16}$~fb & 1000 &1150  & 3230& 3310&& 0.00276 \\
-%$\bar{m}$ & $27\,556$ & 795&5010 &3910 & 742 & $0.0000697$\\
-%Mat\'{e}rn & 119 & 3220  &1700 & 6950 && 0.402\\ \bottomrule
-%\end{tabular}
-%\caption{Optimised kernel hyperparameters of different estimators for the $\widetilde{d}_L \widetilde{u}_R$ cross section.}
-%\label{Tab:: evaluating cross : optimal kernels dLuR}
-%\end{table}
-
-
-
-
-
 
 
 
@@ -2252,7 +2223,7 @@ The estimated noise levels are reduced significantly with the removal of outlier
 
 \subsection{Cuts on Cross Sections}
 
-Smooth and slowly varying functions are easier to fit with Gaussian processes. For small cross sections the target values are very steep functions of the squark mass, as can be seen from the righthand panels in Fig.~\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}. In addition, small target values comprise the regions with the most spread as a function of the gluino mass. Since the limit for $0.02$ events at the LHC with 20 fb$^{-1}$ of integrated luminosity is at $\sigma = 10^{-3}$~fb,\footnote{Cross sections with lower values than this predict less than 0.02 events, and are therefore less interesting in this thesis.} a lower cut is introduced for the cross sections $\sigma_{cut} = 10^{-16}~\mathrm{fb}$, well below the 0.02 event limit. The cut excludes all cross sections lower than $\sigma_{cut}$ from both training and testing. 
+Smooth and slowly varying functions are easier to fit with GP. For small cross sections the target values are very steep functions of the squark mass, as can be seen from the righthand panels in Fig.~\ref{Fig:: evaluating cross : Comparison sigma and sigma/m}. In addition, small target values comprise the regions with the most spread as a function of the gluino mass. Since the limit for $0.02$ events at the LHC with 20 fb$^{-1}$ of integrated luminosity is at $\sigma = 10^{-3}$~fb,\footnote{Cross sections with lower values than this predict less than 0.02 events, and are therefore less interesting in this thesis.} a lower cut is introduced for the cross sections $\sigma_{cut} = 10^{-16}~\mathrm{fb}$, well below the 0.02 event limit. The cut excludes all cross sections lower than $\sigma_{cut}$ from both training and testing. 
 
 The resulting relative deviance distributions for $\widetilde{d}_L \widetilde{d}_L$ are shown in Fig.~\ref{Fig:: evaluating cross : RD compare panels dLdL}b, and the optimised kernel hyperparameters are listed in Tables~\ref{Tab:: evaluating cross : optimal kernels dLdL} and \ref{Tab:: evaluating cross : optimal kernels dLuR}. The estimated noise levels are lower than for the estimator in Sec.~\ref{Sec:: evaluating cross : Outliers}, going from $\sigma_n^2=0.00372$ to $\sigma_n^2 = 0.00336$ for $\widetilde{d}_L \widetilde{d}_L$ and from $\sigma_n^2=0.00316$ to $\sigma_n^2=0.00276$ for $\widetilde{d}_L \widetilde{u}_R$. The GP estimated noise levels seem to be approaching the value predicted in Sec.~\ref{Sec:: evaluating cross : Noise in dataset}, indicating that the exclusion of low cross sections improves the GP estimator. 
 
@@ -2260,7 +2231,9 @@ The relative deviance distributions of the largest cross sections are significan
 
 \subsection{Addition of Features}
 
-\verb|Prospino 2.1| calculates the $K$-factor for the mean of the squark masses, $\bar{m}$. The LO cross sections for non-degenerate squark masses are then multiplied by the $K$-factor to find the individual NLO cross sections, as discussed in Sec.~\ref{Sec:: susy hadron : Prospino}. Adding the mean squark mass as a feature could therefore improve the GP estimator. In this section a GP estimator is tested using the BM settings with the addition of $\bar{m}$ as a feature.
+The features that gave the best results are the physical masses of the final state squarks for each process, and the gluino mass. Several other features were tested, such as the Lagrangian mass parameters, \textit{e.g.} $M_3$ and $m_{\widetilde{Q}_1}$, and the expressions used in the LO partonic cross section, \textit{e.g.} $\beta_{\tilde{q}}$ and $m_-^2$ defined in Eq.~(\ref{Eq:: susy hadron : LO partonic cross section expressions}). 
+
+In addition to the final state squark masses and the gluino mass, the NLO cross sections depend on the \textit{mean squark mass}. This is because \verb|Prospino 2.1| calculates the $K$-factor for the mean of the squark masses, $\bar{m}$. The LO cross sections for non-degenerate squark masses are then multiplied by the $K$-factor to find the individual NLO cross sections, as discussed in Sec.~\ref{Sec:: susy hadron : Prospino}. Adding the mean squark mass as a feature could therefore improve the GP estimator. In this section a GP estimator is tested using the BM settings with the addition of $\bar{m}$ as a feature.
 
 The optimised kernel hyperparameters are again listed in Tables~\ref{Tab:: evaluating cross : optimal kernels dLdL} and \ref{Tab:: evaluating cross : optimal kernels dLuR}. For the GP estimator with the mean mass as a feature, raising the upper limit on $\sigma_f^2$ did have an effect on the predicted cross sections, and the upper limit was therefore raised. Adding the mean mass as a feature reduces the estimated noise level variance considerably, to $\sigma_n^2 = 1.19 \cdot 10^{-5}$ for $\widetilde{d}_L \widetilde{d}_L$, and $\sigma_n^2 = 6.97 \cdot 10^{-5}$ for $\widetilde{d}_L \widetilde{u}_R$. The noise variances are approximating the variance predicted in Sec.~\ref{Sec:: evaluating cross : Noise in dataset}, which is an indication that the GP estimator is improved. 
 
@@ -2421,10 +2394,10 @@ The Bayesian Comittee Machine can be modified to a \textit{robust Bayesian Comit
 
 The $M$ experts are assumed to be independent \cite{deisenroth2015distributed} as in Eq.~(\ref{Eq:: evaluating cross : BCM assumption}), effectively block-diagonalizing the covariance matrix. The marginal likelihood from Eq.~(\ref{Eq:: gaussian process : LML gaussian process}) is now factorised into the product of $M$ individual terms because of the independence assumption. For the training data of one dataset $\mathcal{D}^k = \{X^k, \textbf{y}^k \}$ the log marginal likelihood is given by Eq.~(\ref{Eq:: gaussian process : LML gaussian process})
 \begin{align}
-\log P(\textbf{y}^k|X^k, \boldsymbol{\theta}) = - \frac{1}{2} {\textbf{y}^k}^T (K_{\psi}^k + \sigma_{\varepsilon}^2 \mathbb{I})^{-1}\textbf{y}^k - \frac{1}{2} \log
- |K_{\psi}^k + \sigma_{\varepsilon}^2 \mathbb{I} |,
+\log P(\textbf{y}^k|X^k, \boldsymbol{\theta}) = - \frac{1}{2} {\textbf{y}^k}^T (K_{\psi}^k + {\sigma_{\varepsilon}^k}^2 \mathbb{I})^{-1}\textbf{y}^k - \frac{1}{2} \log
+ |K_{\psi}^k + {\sigma_{\varepsilon}^k}^2 \mathbb{I} |,
 \end{align}
-where $K_{\psi}^k$ is the covariance matrix of the training features $X^k$, with the kernel hyperparameters given by $\boldsymbol{\theta}^k = \{ \boldsymbol{\psi}^k, {\sigma_{\varepsilon}^k}^2 \}$. Computing the LML now entails inverting a $n_k \times n_k$ matrix with $n_k = \frac{n}{M}$, $K_{\psi}^{k} + \sigma_{\varepsilon}^2 \mathbb{I}$, which requires time $\mathcal{O}(n_k^3)$ and memory consumption $\mathcal{O}(n_k^2)$. For $n_k \ll N$, this reduces the computation time and memory use considerably, and allows for parallel computing. 
+where $K_{\psi}^k$ is the covariance matrix of the training features $X^k$, with the kernel hyperparameters given by $\boldsymbol{\theta}^k = \{ \boldsymbol{\psi}^k, {\sigma_{\varepsilon}^k}^2 \}$. Computing the LML now entails inverting a $n_k \times n_k$ matrix with $n_k = \frac{n}{M}$, $K_{\psi}^{k} + {\sigma_{\varepsilon}^k}^2 \mathbb{I}$, which requires time $\mathcal{O}(n_k^3)$ and memory consumption $\mathcal{O}(n_k^2)$. For $n_k \ll N$, this reduces the computation time and memory use considerably, and allows for parallel computing. 
 
 The rBCM predicts a function value $f^*$ at a corresponding test input $\textbf{x}^*$ according to a predictive distribution that is similar to the BCM in Eq.~(\ref{Eq:: evaluating cross : BCM predictive distribution}), with the addition of powers $\beta_k$,
 \begin{align}
@@ -2446,7 +2419,7 @@ where $m_k(\vec{x}^*)$ is the predicted value of $f^*$ from the $k$th expert.
 
 \subsubsection{Implementation}
 
-There is currently no functionality for an rBCM in the \verb|scikit-learn 0.19.0| library, or any other public implementation that could be found, so the combined predictive mean and variance in Eqs.~(\ref{Eq:: gaussian process : DGP mu}) and (\ref{Eq:: gaussian process : DGP sigma}) were implemented in a \verb|Python| routine. The \verb|scikit-learn 0.19.0| library's existing framework for regular Gaussian processes were used for the individual experts. The algorithm was parallelised, so that each expert can learn and predict in parallel, before being combined to the final prediction. The program for training models in parallel is listen in Appendix~\ref{App:Distributed Gaussian Process Training}, and the class used to combine experts is listed in Appendix~\ref{App:Distributed Gaussian Process Prediction}. The benchmark test of distributed Gaussian processes is found in Appendix~\ref{App:DGP Benchmark}.  
+There is currently no functionality for an rBCM in the \verb|scikit-learn 0.19.0| library, or any other public implementation that could be found, so the combined predictive mean and variance in Eqs.~(\ref{Eq:: gaussian process : DGP mu}) and (\ref{Eq:: gaussian process : DGP sigma}) were implemented in a \verb|Python| routine. The \verb|scikit-learn 0.19.0| library's existing framework for regular Gaussian processes were used for the individual experts. The algorithm was parallelised, so that each expert can learn and predict in parallel, before being combined to the final prediction. The program for training models in parallel is listed in Appendix~\ref{App:Distributed Gaussian Process Training}, and the class used to combine experts is listed in Appendix~\ref{App:Distributed Gaussian Process Prediction}. The benchmark test of distributed Gaussian processes is found in Appendix~\ref{App:DGP Benchmark}.  
 
 For parallelisation the \verb|scikit-learn 0.19.0| function \verb|Parallel| from \verb|joblib| was used, which runs \verb|Python| functions as pipeline jobs. It uses the \verb|Python| function \verb|multiprocessing| as a backend. An example of usage with 3 parallel jobs is as follows
 \begin{lstlisting}
@@ -2459,7 +2432,7 @@ where \verb|delayed| is a simple trick to be able to create a tuple with a funct
 
 \subsection{Evaluating Cross Sections\\ using Distributed Gaussian Processes}
 
-In this section the distributed Gaussian processes (DGP) described in the previous section are applied to estimators with the benchmark settings from Sec.~\ref{Sec:: evaluating cross : The Benchmark} to scale the problem to larger training sets. The prediction for a single expert with 8000 training points is compared to the combined prediction of four experts with 2000 training points each, both in terms of computation time and estimator quality. Larger training datasets per expert could be used, such as four experts with 8000 training points each, but comparing to a single expert with the same amount of data would be unfeasible because of the scale of the computation, as it would require an expert with $4 \times 8000 = 32 000$ training points.
+In this section the DGPs described in the previous section are applied to estimators with the benchmark settings from Sec.~\ref{Sec:: evaluating cross : The Benchmark} to scale the problem to larger training sets. The prediction for a single expert with 8000 training points is compared to the combined prediction of four experts with 2000 training points each, both in terms of computation time and estimator quality. Larger training datasets per expert could be used, such as four experts with 8000 training points each, but comparing to a single expert with the same amount of data would be unfeasible because of the scale of the computation, as it would require an expert with $4 \times 8000 = 32\,000$ training points.
 
 
 The addition of experts with 2000 training points improves the BM estimator from Sec.~\ref{Sec:: evaluating cross : The Benchmark} significantly, with very little increase in computational cost. In Fig.~\ref{Fig:: evaluating cross : compare 1 vs 4 expert dLdL} a comparison of relative deviance distributions between one expert and four experts with 2000 training points each, and one expert with 8000 training points is shown.  For comparison the settings are the benchmark settings, and outliers are included in the dataset. 
@@ -2469,7 +2442,7 @@ With the addition of data, the accuracy and stability of estimators are very muc
 \begin{figure}
 \centering
 \includegraphics[scale=0.6]{figures_evaluating_cross_sections/dLdL_compare_BM_experts.pdf}
-\caption[The relative deviance distributions for DGP]{The means (dots) and standard deviations (error bars) of the relative deviance distributions, $m(\varepsilon_i)$ and $\mathrm{std}(\varepsilon_i)$, per decade $\log_{10} \sigma / \sigma_0$ for the production of $\widetilde{d}_L \widetilde{d}_L$, using GP with the BM settings, for one (orange) and four (violet) experts with 2000 training points each, and one expert with 8000 training points (green).}
+\caption[The relative deviance distributions for DGP]{The means (dots) and standard deviations (error bars) of the relative deviance distributions, $m(\varepsilon_i)$ and $\mathrm{std}(\varepsilon_i)$, per decade $\log_{10} \sigma / \sigma_0$ for the production of $\widetilde{d}_L \widetilde{d}_L$, using GP with the BM settings, for one (orange) and four (violet) experts with 2000 training points each, and one expert with 8000 training points (green). The dashed line is the 0..02 event limit}
 \label{Fig:: evaluating cross : compare 1 vs 4 expert dLdL}
 \end{figure}  
 
@@ -2494,7 +2467,7 @@ Since there is no \verb|scikit-learn 0.19.0| functionality for distributed Gauss
 
 \chapter{Results}\label{Chapter:Results}
 
-In this chapter distributed Gaussian processes (DGP) trained on the MSSM-24 dataset are used to predict cross sections, where the individual GP estimators use the settings from Sec.~\ref{Sec:: evaluating cross : Optimal Settings}. The effect of the number of experts and points per expert are investigated using learning curves. Further, the predictive capabilities of the DGP estimators are compared to \verb|Prospino 2.1| and \verb|NLL-fast 2.1| using relative deviance distributions and plots of cross sections as functions of squark and gluino masses. To explore the flexibility of a DGP estimator, the model trained on the MSSM-24 data is also used to predict cross sections for the CMSSM, and compared to \verb|NLL-fast 2.1|. Finally, the optimization of the model with respect to predictive capabilities, model size and computation times is discussed.
+In this chapter distributed Gaussian processes trained on the MSSM-24 dataset are used to predict cross sections, where the individual GP estimators use the settings from Sec.~\ref{Sec:: evaluating cross : Optimal Settings}. The effect of the number of experts and points per expert are investigated using learning curves. Further, the predictive capabilities of the DGP estimators are compared to \verb|Prospino 2.1| and \verb|NLL-fast 2.1| using relative deviance distributions and plots of cross sections as functions of squark and gluino masses. To explore the flexibility of a DGP estimator, the model trained on the MSSM-24 data is also used to predict cross sections for the CMSSM, and compared to \verb|NLL-fast 2.1|. Finally, the optimization of the model with respect to predictive capabilities, model size and computation times is discussed.
 
 \section{Number of Training Points and Experts}
 
@@ -2530,7 +2503,7 @@ Including a `bad'\footnote{Bad in the sense that the individual $R^2$-score is l
 Cross sections predicted by the DGP estimators are here compared to cross sections calculated using \verb|Prospino 2.1| and \verb|NLL-fast 2.1|. The relative deviance between the DGPs and \verb|Prospino 2.1| is used to quantify the accuracy of the estimator, and is compared to the relative deviance between \verb|Prospino 2.1| and \verb|NLL-fast| for both the MSSM-24 and the CMSSM data sets. All three tools are used to calculate cross sections for specific mass ranges, and the cross sections are plotted with uncertainties as functions of the squark and gluino masses.
 
 
-All first and second generation squarks are considered; $\widetilde{u}_L$, $\widetilde{d}_L$, $\widetilde{s}_L$, $\widetilde{c}_L$, $\widetilde{u}_R$, $\widetilde{d}_R$, $\widetilde{s}_R$ and $\widetilde{c}_R$. These make up 36 different processes for squark pair production. A separate distributed Gaussian processes estimator (DGP) is trained for each squark process, resulting in $36 \times 10 = 360$ trained experts. 
+All first and second generation squarks are considered; $\widetilde{u}_L$, $\widetilde{d}_L$, $\widetilde{s}_L$, $\widetilde{c}_L$, $\widetilde{u}_R$, $\widetilde{d}_R$, $\widetilde{s}_R$ and $\widetilde{c}_R$. These make up 36 different processes for squark pair production. A separate DGP estimator is trained for each squark process, resulting in $36 \times 10 = 360$ trained experts. 
 
 The relative deviance distributions for the MSSM-24 datasets use cross sections predicted by DGPs consisting of ten experts with 8000 training points per expert. For the CMSSM each expert uses 5000 training points, as the models had to be stored between training and prediction. Model size is discussed in Sec.~\ref{Sec:: results : The Optimal Model}.
 
@@ -2571,7 +2544,7 @@ Since \verb|NLL-fast 2.1| can only give the total squark-squark cross section, a
 
 The relative deviance between \verb|NLL-fast 2.1| and \verb|Prospino 2.1| is not shown for the MSSM-24 points because of the former's poor ability to predict squark pair production cross sections. To illustrate, scatter plots of the total MSSM-24 squark production cross sections and mean mass, calculated by \verb|Prospino 2.1| and \verb|NLL-fast|, are shown in Fig.~\ref{Fig:: results : Scatter plot MSSM-24 prospino nll}. 
 
-The cross sections calculated by \verb|Prospino 2.1| and \verb|NLL-fast 2.1| have very different levels of dispersion. The calculation of squark production cross sections in \verb|NLL-fast 2.1| takes only two arguments: the mean squark mass and the gluino mass. The spread in cross sections as a function of the mean squark mass is therefore caused solely by the gluino mass, which gives a relatively narrow function of $\bar{m}$, as seen in Fig.~\ref{Fig:: results : Scatter plot MSSM-24 prospino nll}. \verb|Prospino 2.1| takes all eight squark masses as arguments, in addition to the gluino mass, and the total cross section is a sum of cross sections for the different squark productions, which for a particular value of $\bar{m}$ can therefore take a range of different values. For example, for small $m_{\widetilde{u}}$ and $m_{\widetilde{d}}$ the cross sections for producing $\widetilde{u}$ and $\widetilde{d}$ will be large, and the resulting total cross section will, because of the underlying PDFs, also be large. Recall from the Feynman diagrams in Fig.~\ref{Fig:: susy hadron : Feynman qq} that the squarks produced must be the same flavour as the incoming quarks, so the production of $\widetilde{u}$ depends on the PDF of the $u$, which in the proton is much larger than for $c$ or $s$. Conversely, if the masses of second generation squarks are small, thereby making the cross sections for their production large, the total cross section could still be small because of the underlying PDFs.
+The cross sections calculated by \verb|Prospino 2.1| and \verb|NLL-fast 2.1| have very different levels of dispersion. The calculation of squark production cross sections in \verb|NLL-fast 2.1| takes only two arguments: the mean squark mass and the gluino mass. The spread in cross sections as a function of the mean squark mass is therefore caused solely by the gluino mass, which gives a relatively narrow function of $\bar{m}$, as seen in Fig.~\ref{Fig:: results : Scatter plot MSSM-24 prospino nll}. \verb|Prospino 2.1| takes all eight squark masses as arguments, in addition to the gluino mass, and the total cross section is a sum of cross sections for the different squark productions, which for a particular value of $\bar{m}$ can therefore take a range of different values. For example, for small $m_{\widetilde{u}}$ and $m_{\widetilde{d}}$ the cross sections for producing $\widetilde{u}$ and $\widetilde{d}$ will be large, causing the total cross section to be large as well, because of the underlying PDFs. Recall from the Feynman diagrams in Fig.~\ref{Fig:: susy hadron : Feynman qq} that the squarks produced must be the same flavour as the incoming quarks, so the production of $\widetilde{u}$ depends on the PDF of the $u$, which in the proton is much larger than for $c$ or $s$. Conversely, if the masses of second generation squarks are small, thereby making the cross sections for their production large, the total cross section could still be small because of the underlying PDFs.
 
 Figure~\ref{Fig:: results : Scatter plot MSSM-24 prospino nll} also shows that \verb|NLL-fast 2.1| overestimates the cross sections for small $\bar{m}$. The overestimation originates in the hyperfine splitting between the masses of $\widetilde{u}$ and $\widetilde{d}$. The hyperfine splitting, given in Eq.~(\ref{Eq:: phys back : mass splitting dL uL}), pushes the mass of $\widetilde{u}$ up, and the mass of $\widetilde{d}$ down. A larger $m_{\widetilde{u}}$ results in a smaller cross section for $\widetilde{u}$ production. Following the same reasoning as in the previous paragraph, lowering the cross section for $\widetilde{u}$ means that the total cross section becomes smaller, since $u$ has a larger PDF than $d$ in the proton --- roughly twice as large, because the valence quarks of the proton are $uud$. \verb|NLL-fast 2.1|, on the other hand, uses the mean mass of these squarks. The mass, $m_{\widetilde{u}}$, is then pushed back down, which results in a larger cross section for $\widetilde{u}$, and subsequently a larger total cross section. 
 
@@ -2660,7 +2633,7 @@ Figure~\ref{Fig:: results : total prospino dgp varymg} shows the total cross sec
 
 \section{Optimizing the Model}\label{Sec:: results : The Optimal Model}
 
-The DGP predictions with ten experts using 8000 training points each are very accurate. Unfortunately, the Gaussian process models require a lot of space when stored. In addition, larger models take longer to predict values, and prediction speed is the main motivation for using DGPs. In this section a compromise   between prediction quality, model sizes and computation times are addressed.
+The DGP predictions with ten experts using 8000 training points each are very accurate. Unfortunately, the Gaussian process models require a lot of space when stored. In addition, larger models take longer to predict values, and prediction speed is the main motivation for using DGPs. In this section a compromise   between prediction quality, model sizes and computation times is addressed.
 
 \subsubsection{Number of Models}
 
@@ -2668,7 +2641,7 @@ In this thesis 36 Gaussian process models were trained with ten experts each, re
 
 %\subsubsection{Equal Flavour Equal Chirality}
 
-Cross sections for processes where the squarks have the same flavour and same chirality (SFSC) are to leading order identical to the processes with opposite chirality. For example $\widetilde{d}_L \widetilde{d}_L$ and $\widetilde{d}_R \widetilde{d}_R$ are identical as functions of the squark mass, as shown in Sec.~\ref{Sec:: susy hadron : Matrix Elements}. Furthermore, the NLO terms in \verb|Prospino 2.1| only contain QCD corrections, as discussed in Sec.~\ref{Sec:: susy hadron : Next-to-leading Order Corrections}. Since there is no electroweak correction, there is no distinction between left- and right-handed squarks in the calculation. They also share the same underlying PDF from the quark, \textit{e.g.} the PDF used for calculating $\widetilde{d}_R \widetilde{d}_R$ and $\widetilde{d}_L \widetilde{d}_L$ is the one for the $d$-flavour squark. 
+Cross sections for processes where the squarks have the same flavour and same chirality (SFSC) are to leading order identical to the processes with opposite chirality. For example, $\widetilde{d}_L \widetilde{d}_L$ and $\widetilde{d}_R \widetilde{d}_R$ are identical as functions of the squark mass, as shown in Sec.~\ref{Sec:: susy hadron : Matrix Elements}. Furthermore, the NLO terms in \verb|Prospino 2.1| only contain QCD corrections, as discussed in Sec.~\ref{Sec:: susy hadron : Next-to-leading Order Corrections}. Since there is no electroweak correction, there is no distinction between left- and right-handed squarks in the calculation. They also share the same underlying PDF from the quark, \textit{e.g.} the PDF used for calculating $\widetilde{d}_R \widetilde{d}_R$ and $\widetilde{d}_L \widetilde{d}_L$ is the one for the $d$-flavour squark. 
 
 The SFSC processes, \textit{e.g.} $\widetilde{d}_L \widetilde{d}_L$ and $\widetilde{d}_R \widetilde{d}_R$, are therefore very similar also at NLO, and one can be used to predict values for the other as a function of the pertaining squark mass, \textit{i.e.} $m_{\widetilde{d}_L}$ and $m_{\widetilde{d}_R}$. Since there are eight SFSC processes, the total number of models can be reduced from 36 to 32.
 
@@ -2691,7 +2664,7 @@ The smallest possible set of model then consists of 22 separate DGPs, one for ea
 \end{align*}
 where the models for the processes in the first, second, fourth and fifth columns can be used on the remaining processes with $R \leftrightarrow L$.
 
-It is worth stressing that the processes described in this section are \textit{not identical} --- the leading order cross sections are indeed identical, and no included corrections differ between left- and right-handed squarks, but in \verb|Prospino 2.1| the next-to-leading order cross sections depend on the mean mass. The cross sections have different mean mass dependencies, because of the correlation between same-generation left-handed squarks. For example, $\widetilde{d}_L \widetilde{d}_L$ and $\widetilde{d}_R \widetilde{d}_R$ are similar functions of $m_{\widetilde{d}_L}$ and $m_{\widetilde{d}_R}$, but for $\widetilde{d}_L \widetilde{d}_L$ the masses $m_{\widetilde{d}_L}$ and $m_{\widetilde{u}_L}$ are correlated, and the masses $m_{\widetilde{d}_R}$ and $m_{\widetilde{u}_R}$ are not. This is, however, a relatively small effect. The GP model for $\widetilde{d}_L \widetilde{u}_R$ was used to predict cross sections for $\widetilde{u}_L \widetilde{d}_R$, and the relative deviances were around or smaller than $2\%$. The effective number of models described above can therefore be used to a good approximation.
+It is worth stressing that the processes described in this section are \textit{not identical} --- the leading order cross sections are indeed identical, and no included corrections differ between left- and right-handed squarks, but in \verb|Prospino 2.1| the NLO cross sections depend on the mean mass. The cross sections have different mean mass dependencies, because of the correlation between same-generation left-handed squarks. For example, $\widetilde{d}_L \widetilde{d}_L$ and $\widetilde{d}_R \widetilde{d}_R$ are similar functions of $m_{\widetilde{d}_L}$ and $m_{\widetilde{d}_R}$, but for $\widetilde{d}_L \widetilde{d}_L$ the masses $m_{\widetilde{d}_L}$ and $m_{\widetilde{u}_L}$ are correlated, and the masses $m_{\widetilde{d}_R}$ and $m_{\widetilde{u}_R}$ are not. This is, however, a relatively small effect. The GP model for $\widetilde{d}_L \widetilde{u}_R$ was used to predict cross sections for $\widetilde{u}_L \widetilde{d}_R$, and the relative deviances were around or smaller than $2\%$. The effective number of models described above can therefore be used to a good approximation.
  
 
 \subsubsection{Model Size}
@@ -2717,7 +2690,7 @@ Points & Size (uncompressed) $[\mathrm{MB}]$ & Size (compressed) $[\mathrm{MB}]$
 \label{Tab:: results : Model sizes, uncompressed and compressed}
 \end{table}
 
-Storing the distributed Gaussian processes models require a lot of memory. The GP experts are stored using the \verb|Python 2.1| library \verb|joblib|. The functions \verb|joblib.dump()| and \verb|joblib.load()| provide a replacement for pickle to work efficiently on \verb|Python| objects containing large amounts of data. The \verb|joblib.dump()| command takes an argument \verb|compress|, which can be an integer between 0 and 9, a boolean or a 2-tuple. For the integers, 0 means no compression, and a higher value means more compression but slower read and write times. If \verb|True| is passed, the integer is set to 3, which is often a good compromise. By default \verb|joblib| uses the zlib compression method. In Table~\ref{Tab:: results : Model sizes, uncompressed and compressed} the compressed and uncompressed model sizes for a single expert are shown for various numbers of points per expert.
+Storing the distributed Gaussian processes models require a lot of memory. The GP experts are stored using the \verb|Python| library \verb|joblib|. The functions \verb|joblib.dump()| and \verb|joblib.load()| provide a replacement for pickle to work efficiently on \verb|Python| objects containing large amounts of data. The \verb|joblib.dump()| command takes an argument \verb|compress|, which can be an integer between 0 and 9, a boolean or a 2-tuple. For the integers, 0 means no compression, and a higher value means more compression but slower read and write times. If \verb|True| is passed, the integer is set to 3, which is often a good compromise. By default \verb|joblib| uses the zlib compression method. In Table~\ref{Tab:: results : Model sizes, uncompressed and compressed} the compressed and uncompressed model sizes for a single expert are shown for various numbers of points per expert.
 
 A compressed single Gaussian process model trained with 2000 training points takes up $16~\mathrm{MB}$. Seeing as one Gaussian process is needed per process, a relatively small model consisting of a single expert with 2000 training points per process will require
 \begin{align*}
@@ -2739,7 +2712,7 @@ By comparison, reducing the expert sizes to 3000 training points each would requ
 
 Comparisons of the relative deviance distributions with 3000, 5000 and 8000 training points per expert for the processes $\widetilde{d}_L \widetilde{d}_L$ and $\widetilde{d}_L \widetilde{u}_R$ are shown in Fig.~\ref{Fig:: results : RD 3000 vs 5000}. The improvement in the prediction for $\widetilde{d}_L \widetilde{u}_R$ from 3000 to 8000 training points per expert is fairly large for all $\sigma$. However, the goal of standard deviations below $10\%$ is not compromised anywhere. Processes with different squark flavours and chiralities should therefore use experts with larger number of training points, as the main contribution to the prediction error will come from these processes. 
 
-In contrast, the process $\widetilde{d}_L \widetilde{d}_L$ is modelled very accurately even for 3000 training points per expert. For cross sections larger than $10^2$ fb there is a visible improvement from 3000 to 8000 training points per expert, likely rooted in the addition of data in this sparse region, in the form of larger experts. For 3000 training points per expert this could potentially be remedied by adding more experts trained on large cross sections. In conclusion, processes with squarks of equal flavour and chirality can use smaller experts, while processes with squarks of different flavour or different chirality, or both, benefit from larger experts.
+In contrast, the process $\widetilde{d}_L \widetilde{d}_L$ is modelled very accurately even for 3000 training points per expert. For cross sections larger than $10^2$ fb there is a visible improvement from 3000 to 8000 training points per expert, likely rooted in the addition of data in this sparse region, in the form of larger experts. For 3000 training points per expert this could potentially be remedied by adding more experts trained on large cross sections. In conclusion, processes with squarks of the same flavour and chirality can use smaller experts, while processes with squarks of different flavour or different chirality, or both, benefit from larger experts.
 
 \begin{figure}
     \centering
@@ -2777,7 +2750,7 @@ Points & Prediction time (uncompressed) & Prediction time (compressed)\\ \midrul
 
 Table~\ref{Tab:: results : Computation times, uncompressed and compressed} shows the computation times for evaluating  $10\,000$ cross sections for a single process on an Intel i5 CPU, using the uncompressed and compressed models. The difference in computation times is very small between the compressed and uncompressed models, so the compressed models are used for further testing. 
 
-Figure~\ref{Fig:: results : Contours of constant time and storage size} shows lines of constant time  for the prediction of $10\,000$ cross sections for a single process in the space of number of experts versus points per expert. The prediction time increases rapidly with the number of points per expert. For example, ten experts with 1000 training points each need as much time as two experts with 3000 training points each. In theory, the prediction time scales as $\mathcal{O}(n^2)$ where $n$ is the number of training points. From Table~\ref{Tab:: results : Computation times, uncompressed and compressed}, however, the scaling appears to be lower. This could be because of the implementation of DGPs, or because loading the models takes time.
+Figure~\ref{Fig:: results : Contours of constant time and storage size} shows lines of constant time  for the prediction of $10\,000$ cross sections for a single process in the space of number of experts \textit{versus} points per expert. The prediction time increases rapidly with the number of points per expert. For example, ten experts with 1000 training points each need as much time as two experts with 3000 training points each. In theory, the prediction time scales as $\mathcal{O}(n^2)$ where $n$ is the number of training points. From Table~\ref{Tab:: results : Computation times, uncompressed and compressed}, however, the scaling appears to be lower. This could be because of the implementation of DGPs, or because loading the models takes time.
 
 The prediction times in Table~\ref{Tab:: results : Computation times, uncompressed and compressed} are reduced when the computations are done on the Abel HPC with dual Intel E5-2670 nodes. Training ten experts with 5000 training points each, in parallel, takes approximately 40 minutes for a single process on the Abel HPC cluster. The prediction time for the DGP was calculated by letting the model predict values for 2000 test points for a  single process on the Abel HPC cluster, and dividing the total computation time by 2000. The average computation time for predicting the cross section for a single process at a single parameter point is
 \begin{align*}
@@ -2823,11 +2796,11 @@ The resulting models accurately predicted cross sections for both the MSSM-24 an
 
 The stored DGP models proved very large, with the file size of a GP model trained on $n$ points scaling as $\mathcal{O}(n^2)$. The needed storage space was somewhat reduced by compressing the models, and reducing the total number of models as many of the squark production processes have similar expressions for the cross sections. 
 
-As future work the Gaussian process models could be compressed further, by exploring the compression libraries used. Furthermore, as the saved GP model is essentially an $n \times n$-matrix for $n$ training points, it would be interesting to investigate the accuracy at which the elements of the matrix need to be saved. Possibly, the DGPs could be implemented in a library other than \verb|Python|, such as \CC, to reduce storage space and evaulation time. This would require implementing not only the distributed Gaussian processes, but the Gaussian process algorithm that already exists in the popular \verb|Python| machine learning library \verb|scikit-learn|.
+As future work the Gaussian process models could be compressed further, by exploring the compression libraries used. Furthermore, as the saved GP model is essentially an $n \times n$-matrix for $n$ training points, it would be interesting to investigate the accuracy at which the elements of the matrix need to be stored. Possibly, the DGPs could be implemented in a library other than \verb|Python|, such as \CC, to reduce storage space and evaulation time. This would require implementing not only the DGPs, but the GP algorithm that already exists in the popular \verb|Python| machine learning library \verb|scikit-learn|.
 
-Multidimensional targets are also a possibility for exploration. Multidimensional targets are outside the scope of this thesis, but there is a possibility of placing all squark production cross sections in a \textit{target vector}, and train single GP with all squark masses as features, as the squark production cross sections already share the same feature space. This could potentially reduce the storage space and evaluation time, but a large feature vector might lead to difficulties for the estimator. As a step further, the target vector could be extended to all strong supersymmetric processes at the LHC. 
+Multidimensional targets are also a possibility for exploration. Multidimensional targets are outside the scope of this thesis, but there is a possibility of placing all squark production cross sections in a \textit{target vector}. A single GP could then be with all squark masses as features, as the squark production cross sections already share the same feature space. This could potentially reduce the storage space and evaluation time, but a large feature vector might lead to difficulties for the estimator. As a step further, the target vector could be extended to all strong supersymmetric processes at the LHC. 
 
-Whether it be as a multidimensional target vector or in the form of separate Gaussian processes, models should be developed for the remaining strong supersymmetric processes at the LHC, namely the production of $\tilde{q} \bar{\tilde{q}}$, $\tilde{g} \tilde{g}$ and $\tilde{g} \tilde{q}$. This is because the motivation for a fast and precise evaluation of supersymmetric cross sections is to do global fits, to look for any sign of supersymmetry at the LHC. 
+Whether it be as a multidimensional target vector or in the form of separate GPs, models should be developed for the remaining strong supersymmetric processes at the LHC, namely the production of $\tilde{q} \bar{\tilde{q}}$, $\tilde{g} \tilde{g}$ and $\tilde{g} \tilde{q}$. After all, the motivation for developing a fast and precise evaluation of supersymmetric cross sections is to increase the power of global fits, thus a comple set of strong cross sections are needed. 
 
 
 
@@ -2896,6 +2869,7 @@ The code for the implementation of cross validation for distributed Gaussian pro
  The mean and variance of the $R^2$-scores are calculated for an increasing number of experts with the same number of training points each. The code finds the validation and training scores for the production of $\widetilde{d}_L \widetilde{u}_R$, but can be generalised to other cross sections by changing the \verb|feature_list| and \verb|target_list|.
 
 The class used for DGP in this program does training and predicting in parallel with a single function from the class \verb|dgp_parallel|, that is a combination of the implementations in Appendix~\ref{App:Distributed Gaussian Process Training} and Appendix~\ref{App:Distributed Gaussian Process Prediction}, without dumping and loading the models in between.
+\pagebreak
 
 \lstinputlisting[language=Python]{code_listings/dgp_learningcurve.py}
 
